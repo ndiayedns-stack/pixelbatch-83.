@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Éditeur HD par Lots & Segmentation Visage Parfaite</title>
-  <meta name="description" content="Traitement d'images par lots haute fidélité : détourage par floodfill périphérique avec protection absolue du visage et du sujet, 180+ fonds somptueux (Déserts grandioses, Cartoons 3D, Studios de luxe, Villes et Dégradés)." />
+  <title>PixelBatch AI Studio — Remplacement de Fond HD Pro & Style InPixio</title>
+  <meta name="description" content="Éditeur de photos par lots professionnel style InPixio : zéro lueur sur le visage, préservation parfaite du sujet, traitement instantané de 100% des images du lot, 240+ fonds haute définition (Pop Art, Déserts, Studios Luxe, Villes, Dégradés et Couleurs)." />
 
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -129,6 +129,8 @@
           return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
         case 'image':
           return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>;
+        case 'bolt':
+          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>;
         default:
           return null;
       }
@@ -159,7 +161,7 @@
       {
         id: 'd1',
         name: 'portrait-femme-studio.png',
-        url: makeSvgDemo('Portrait Studio Pro', 'Visage & Teint Parfait', `
+        url: makeSvgDemo('Portrait Studio Pro', 'Visage & Teint 100% Net', `
           <circle cx="600" cy="460" r="85" fill="#f87171"/>
           <ellipse cx="600" cy="470" rx="70" ry="85" fill="#fed7aa"/>
           <circle cx="570" cy="455" r="10" fill="#0f172a"/>
@@ -178,8 +180,8 @@
       },
       {
         id: 'd3',
-        name: 'robot-cartoon-3d.png',
-        url: makeSvgDemo('Robot Mascotte 3D', 'Cartoon & Gaming', `
+        name: 'robot-mascotte-popart.png',
+        url: makeSvgDemo('Robot Pop Art', 'Pop Art & Gaming', `
           <rect x="510" y="420" width="180" height="150" rx="35" fill="#06b6d4"/>
           <circle cx="560" cy="480" r="18" fill="#ffffff"/>
           <circle cx="640" cy="480" r="18" fill="#ffffff"/>
@@ -217,120 +219,194 @@
     ];
 
     // =========================================================================
-    // --- 180+ BACKGROUNDS CATALOGUE (30 CHOICES PER CATEGORY) ---
+    // --- 240+ BACKGROUNDS INPIXIO-GRADE (40 CHOICES PER CATEGORY) ---
     // =========================================================================
 
-    // 1. CARTOONS, ANIME & 3D (30 CHOICES)
-    const createCartoon = (id, label, svg) => ({
+    // 1. POP ART & RETRO COMICS (40 INPIXIO CHOICES)
+    const createPopArt = (id, label, svg) => ({
       id,
       label,
       type: 'image',
       url: 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">${svg}</svg>`),
     });
 
-    const BG_CARTOONS_30 = [
-      createCartoon('c1', 'Studio 3D Pastel', '<rect width="1200" height="1200" fill="#ffedd5"/><rect y="800" width="1200" height="400" fill="#fbcfe8"/><circle cx="200" cy="300" r="120" fill="#fde047" opacity="0.6"/><circle cx="1000" cy="400" r="160" fill="#a7f3d0" opacity="0.6"/>'),
-      createCartoon('c2', 'Ciel Anime & Nuages Ghibli', '<defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#bae6fd"/></linearGradient></defs><rect width="1200" height="1200" fill="url(#g2)"/><ellipse cx="300" cy="400" rx="160" ry="80" fill="#ffffff"/><ellipse cx="850" cy="500" rx="200" ry="90" fill="#ffffff"/><rect y="900" width="1200" height="300" fill="#4ade80"/>'),
-      createCartoon('c3', 'Espace & Planètes 3D', '<rect width="1200" height="1200" fill="#0f172a"/><circle cx="950" cy="250" r="140" fill="#ec4899"/><circle cx="250" cy="800" r="90" fill="#38bdf8"/><circle cx="150" cy="200" r="10" fill="#ffffff"/><circle cx="750" cy="400" r="12" fill="#facc15"/>'),
-      createCartoon('c4', 'Chambre Pop Art', '<rect width="1200" height="1200" fill="#facc15"/><rect y="750" width="1200" height="450" fill="#38bdf8"/><circle cx="600" cy="450" r="220" fill="#f43f5e" opacity="0.8"/>'),
-      createCartoon('c5', 'Forêt Enchantée 3D', '<rect width="1200" height="1200" fill="#14532d"/><circle cx="600" cy="300" r="180" fill="#fef08a" opacity="0.3"/><polygon points="300,500 450,850 150,850" fill="#22c55e"/><polygon points="900,450 1080,850 720,850" fill="#15803d"/><rect y="820" width="1200" height="380" fill="#15803d"/>'),
-      createCartoon('c6', 'Cyber City Neon 3D', '<rect width="1200" height="1200" fill="#09090b"/><rect x="150" y="450" width="180" height="750" fill="#18181b" stroke="#06b6d4" stroke-width="6"/><rect x="450" y="300" width="220" height="900" fill="#18181b" stroke="#ec4899" stroke-width="6"/><rect x="750" y="480" width="180" height="720" fill="#18181b" stroke="#a855f7" stroke-width="6"/>'),
-      createCartoon('c7', 'Plage Sunset Cartoon', '<rect width="1200" height="1200" fill="#fb923c"/><circle cx="600" cy="450" r="200" fill="#fef08a"/><rect y="700" width="1200" height="200" fill="#0284c7"/><rect y="900" width="1200" height="300" fill="#fde047"/>'),
-      createCartoon('c8', 'Château Fantastique', '<rect width="1200" height="1200" fill="#312e81"/><polygon points="400,500 500,300 600,500" fill="#c084fc"/><rect x="430" y="500" width="140" height="400" fill="#818cf8"/><polygon points="650,550 750,380 850,550" fill="#c084fc"/><rect x="680" y="550" width="140" height="350" fill="#818cf8"/>'),
-      createCartoon('c9', 'Monde Sous-marin Cartoon', '<rect width="1200" height="1200" fill="#0369a1"/><circle cx="300" cy="300" r="40" fill="#7dd3fc" opacity="0.6"/><circle cx="450" cy="500" r="60" fill="#7dd3fc" opacity="0.6"/><circle cx="850" cy="350" r="80" fill="#7dd3fc" opacity="0.6"/><rect y="1000" width="1200" height="200" fill="#fef08a"/>'),
-      createCartoon('c10', 'Désert Oasis Cartoon', '<rect width="1200" height="1200" fill="#fdba74"/><circle cx="300" cy="300" r="140" fill="#facc15"/><path d="M0,800 Q300,650 600,800 T1200,800 L1200,1200 L0,1200 Z" fill="#f59e0b"/>'),
-      createCartoon('c11', 'Podium Studio Menthe 3D', '<rect width="1200" height="1200" fill="#ccfbf1"/><ellipse cx="600" cy="850" rx="350" ry="120" fill="#5eead4"/><ellipse cx="600" cy="780" rx="260" ry="90" fill="#14b8a6"/>'),
-      createCartoon('c12', 'Salle Gaming Neon 3D', '<rect width="1200" height="1200" fill="#18181b"/><polygon points="0,0 300,300 300,900 0,1200" fill="#27272a" stroke="#ec4899" stroke-width="4"/><polygon points="1200,0 900,300 900,900 1200,1200" fill="#27272a" stroke="#06b6d4" stroke-width="4"/><rect x="300" y="300" width="600" height="600" fill="#09090b"/>'),
-      createCartoon('c13', 'Montgolfières & Ciel Doux', '<rect width="1200" height="1200" fill="#7dd3fc"/><circle cx="350" cy="350" r="100" fill="#f43f5e"/><polygon points="300,430 400,430 350,480" fill="#f43f5e"/><circle cx="850" cy="500" r="80" fill="#a855f7"/><polygon points="810,560 890,560 850,600" fill="#a855f7"/>'),
-      createCartoon('c14', 'Volcan & Lave Cartoon', '<rect width="1200" height="1200" fill="#450a0a"/><polygon points="200,1200 600,400 1000,1200" fill="#7f1d1d"/><polygon points="500,550 600,400 700,550" fill="#ea580c"/><circle cx="600" cy="300" r="80" fill="#f97316" opacity="0.6"/>'),
-      createCartoon('c15', 'Banquise & Pingouin 3D', '<rect width="1200" height="1200" fill="#e0f2fe"/><polygon points="100,1000 350,500 600,1000" fill="#bae6fd"/><polygon points="500,1050 750,450 1000,1050" fill="#7dd3fc"/><rect y="950" width="1200" height="250" fill="#f0f9ff"/>'),
-      createCartoon('c16', 'Jardin Japonais Cerisiers', '<rect width="1200" height="1200" fill="#fce7f3"/><circle cx="950" cy="300" r="140" fill="#f43f5e" opacity="0.8"/><rect y="850" width="1200" height="350" fill="#86efac"/><ellipse cx="400" cy="950" rx="200" ry="60" fill="#38bdf8"/>'),
-      createCartoon('c17', 'Arcade Rétro Pixel 80s', '<rect width="1200" height="1200" fill="#2e1065"/><rect x="200" y="200" width="800" height="800" fill="#3b0764" stroke="#a855f7" stroke-width="12"/><circle cx="600" cy="600" r="150" fill="#ec4899"/>'),
-      createCartoon('c18', 'Île Flottante Magique', '<rect width="1200" height="1200" fill="#cffafe"/><path d="M300,700 Q600,550 900,700 Q600,950 300,700 Z" fill="#22c55e"/><circle cx="600" cy="400" r="80" fill="#facc15"/>'),
-      createCartoon('c19', 'Studio Minimal Lavande', '<rect width="1200" height="1200" fill="#f3e8ff"/><rect y="750" width="1200" height="450" fill="#e9d5ff"/><circle cx="600" cy="450" r="220" fill="#c084fc" opacity="0.4"/>'),
-      createCartoon('c20', 'Galaxy Dream Néon', '<rect width="1200" height="1200" fill="#020617"/><circle cx="600" cy="600" r="400" fill="#6366f1" opacity="0.25"/><circle cx="600" cy="600" r="250" fill="#ec4899" opacity="0.3"/><circle cx="600" cy="600" r="120" fill="#38bdf8" opacity="0.4"/>'),
-      createCartoon('c21', 'Ville Flottante Steampunk', '<rect width="1200" height="1200" fill="#fef3c7"/><circle cx="600" cy="500" r="280" fill="#d97706" opacity="0.4"/><rect x="400" y="600" width="400" height="250" rx="30" fill="#78350f"/>'),
-      createCartoon('c22', 'Forêt Champignons Géants', '<rect width="1200" height="1200" fill="#064e3b"/><circle cx="400" cy="700" r="160" fill="#f43f5e"/><ellipse cx="400" cy="700" rx="160" ry="60" fill="#be123c"/><rect x="360" y="700" width="80" height="300" fill="#fef3c7"/>'),
-      createCartoon('c23', 'Royaume Nuages Dorés', '<rect width="1200" height="1200" fill="#fffbeb"/><circle cx="600" cy="400" r="260" fill="#fde047" opacity="0.6"/><ellipse cx="300" cy="750" rx="250" ry="120" fill="#ffffff"/><ellipse cx="900" cy="750" rx="250" ry="120" fill="#ffffff"/>'),
-      createCartoon('c24', 'Cirque Magique Striped', '<rect width="1200" height="1200" fill="#ef4444"/><polygon points="600,200 100,1000 1100,1000" fill="#ffffff"/><polygon points="600,200 350,1000 850,1000" fill="#ef4444"/>'),
-      createCartoon('c25', 'Route Synthwave 80s', '<rect width="1200" height="1200" fill="#0f172a"/><circle cx="600" cy="500" r="220" fill="#f43f5e"/><polygon points="600,550 0,1200 1200,1200" fill="#3b0764"/><line x1="600" y1="550" x2="600" y2="1200" stroke="#06b6d4" stroke-width="8"/>'),
-      createCartoon('c26', 'Temple Soleil Maya 3D', '<rect width="1200" height="1200" fill="#047857"/><circle cx="600" cy="350" r="180" fill="#facc15"/><rect x="300" y="650" width="600" height="120" fill="#78350f"/><rect x="400" y="530" width="400" height="120" fill="#92400e"/><rect x="500" y="410" width="200" height="120" fill="#b45309"/>'),
-      createCartoon('c27', 'Caverne Cristaux Violet', '<rect width="1200" height="1200" fill="#2e1065"/><polygon points="200,1200 300,600 400,1200" fill="#c084fc"/><polygon points="500,1200 650,450 800,1200" fill="#a855f7"/><polygon points="850,1200 950,550 1050,1200" fill="#e879f9"/>'),
-      createCartoon('c28', 'Cité Atlantis Sous-Marine', '<rect width="1200" height="1200" fill="#0c4a6e"/><circle cx="600" cy="450" r="300" fill="#0284c7" opacity="0.5"/><polygon points="300,900 450,500 600,900" fill="#38bdf8" opacity="0.7"/><polygon points="600,900 750,450 900,900" fill="#38bdf8" opacity="0.7"/>'),
-      createCartoon('c29', 'Station Spatiale Orbite', '<rect width="1200" height="1200" fill="#030712"/><ellipse cx="600" cy="600" rx="450" ry="120" fill="none" stroke="#38bdf8" stroke-width="16"/><circle cx="600" cy="600" r="140" fill="#1f2937" stroke="#60a5fa" stroke-width="8"/>'),
-      createCartoon('c30', 'Prairie Sucrée Bonbons', '<rect width="1200" height="1200" fill="#fdf2f8"/><ellipse cx="600" cy="900" rx="550" ry="250" fill="#f472b6"/><circle cx="300" cy="500" r="90" fill="#38bdf8"/><rect x="290" y="590" width="20" height="180" fill="#ffffff"/><circle cx="900" cy="450" r="110" fill="#facc15"/><rect x="890" y="560" width="20" height="200" fill="#ffffff"/>'),
+    const BG_POPART_40 = [
+      createPopArt('p1', 'Pop Art Rayons Soleil Jaune', '<rect width="1200" height="1200" fill="#facc15"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#ea580c"/>'),
+      createPopArt('p2', 'Pop Dots Roy Lichtenstein', '<defs><pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="10" fill="#ef4444"/></pattern></defs><rect width="1200" height="1200" fill="#fef08a"/><rect width="1200" height="1200" fill="url(#dots)"/>'),
+      createPopArt('p3', 'Andy Warhol 4 Quadrants', '<rect x="0" y="0" width="600" height="600" fill="#f43f5e"/><rect x="600" y="0" width="600" height="600" fill="#38bdf8"/><rect x="0" y="600" width="600" height="600" fill="#facc15"/><rect x="600" y="600" width="600" height="600" fill="#4ade80"/>'),
+      createPopArt('p4', 'Explosion Comic BOOM', '<rect width="1200" height="1200" fill="#3b82f6"/><polygon points="600,150 720,400 980,300 850,550 1100,600 850,700 1000,950 730,850 600,1100 470,850 200,950 350,700 100,600 350,550 220,300 480,400" fill="#facc15" stroke="#ef4444" stroke-width="20"/>'),
+      createPopArt('p5', 'Memphis Rétro 80s', '<rect width="1200" height="1200" fill="#fdf4ff"/><circle cx="250" cy="300" r="140" fill="#ec4899"/><polygon points="850,200 1050,500 650,500" fill="#06b6d4"/><rect x="300" y="750" width="250" height="250" rx="40" fill="#facc15"/><line x1="750" y1="800" x2="1050" y2="1050" stroke="#8b5cf6" stroke-width="30" stroke-linecap="round"/>'),
+      createPopArt('p6', 'Halftone Cyan Vintage', '<defs><pattern id="dotsC" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="8" fill="#06b6d4"/></pattern></defs><rect width="1200" height="1200" fill="#ffffff"/><rect width="1200" height="1200" fill="url(#dotsC)"/>'),
+      createPopArt('p7', 'Rayons Pop Rose & Blanc', '<rect width="1200" height="1200" fill="#ffffff"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#f43f5e"/>'),
+      createPopArt('p8', 'Bande Dessinée Vintage', '<rect width="1200" height="1200" fill="#fef08a"/><rect x="100" y="100" width="1000" height="1000" fill="#ffffff" stroke="#000000" stroke-width="24"/><line x1="100" y1="600" x2="1100" y2="600" stroke="#000000" stroke-width="20"/><line x1="600" y1="100" x2="600" y2="1100" stroke="#000000" stroke-width="20"/>'),
+      createPopArt('p9', 'Pop Art Lignes Diagonales', '<defs><pattern id="diag" width="60" height="60" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="60" stroke="#ec4899" stroke-width="30"/></pattern></defs><rect width="1200" height="1200" fill="#facc15"/><rect width="1200" height="1200" fill="url(#diag)"/>'),
+      createPopArt('p10', 'Pop Art Cercles Concentriques', '<rect width="1200" height="1200" fill="#3b82f6"/><circle cx="600" cy="600" r="500" fill="#f43f5e"/><circle cx="600" cy="600" r="380" fill="#facc15"/><circle cx="600" cy="600" r="260" fill="#10b981"/><circle cx="600" cy="600" r="140" fill="#ffffff"/>'),
+      createPopArt('p11', 'Neon Pop Grid Synth', '<rect width="1200" height="1200" fill="#09090b"/><line x1="0" y1="600" x2="1200" y2="600" stroke="#ec4899" stroke-width="8"/><circle cx="600" cy="400" r="200" fill="#f59e0b"/>'),
+      createPopArt('p12', 'Pop Art Vagues Miami', '<rect width="1200" height="1200" fill="#06b6d4"/><path d="M0,400 Q300,200 600,400 T1200,400 L1200,1200 L0,1200 Z" fill="#f43f5e"/><path d="M0,800 Q300,600 600,800 T1200,800 L1200,1200 L0,1200 Z" fill="#facc15"/>'),
+      createPopArt('p13', 'Pop Art Losanges Vintage', '<rect width="1200" height="1200" fill="#4ade80"/><polygon points="600,100 1100,600 600,1100 100,600" fill="#a855f7" stroke="#ffffff" stroke-width="24"/>'),
+      createPopArt('p14', 'Pop Art Étoiles Colorées', '<rect width="1200" height="1200" fill="#1e1b4b"/><polygon points="600,200 680,450 950,450 730,620 810,880 600,720 390,880 470,620 250,450 520,450" fill="#facc15"/>'),
+      createPopArt('p15', 'Pop Art Spirale Hypnotique', '<rect width="1200" height="1200" fill="#000000"/><circle cx="600" cy="600" r="450" fill="none" stroke="#ffffff" stroke-width="40"/><circle cx="600" cy="600" r="300" fill="none" stroke="#ef4444" stroke-width="40"/><circle cx="600" cy="600" r="150" fill="none" stroke="#facc15" stroke-width="40"/>'),
+      createPopArt('p16', 'Pop Art Éclair Flash', '<rect width="1200" height="1200" fill="#7c3aed"/><polygon points="650,100 350,650 600,650 450,1100 850,550 600,550" fill="#fde047" stroke="#000000" stroke-width="16"/>'),
+      createPopArt('p17', 'Pop Art Nuages Stylisés', '<rect width="1200" height="1200" fill="#38bdf8"/><circle cx="350" cy="500" r="150" fill="#ffffff" stroke="#000000" stroke-width="16"/><circle cx="550" cy="450" r="180" fill="#ffffff" stroke="#000000" stroke-width="16"/><circle cx="750" cy="500" r="140" fill="#ffffff" stroke="#000000" stroke-width="16"/>'),
+      createPopArt('p18', 'Pop Art Damier Rétro', '<defs><pattern id="damier" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="#000000"/><rect x="50" width="50" height="50" fill="#ffffff"/><rect y="50" width="50" height="50" fill="#ffffff"/><rect x="50" y="50" width="50" height="50" fill="#000000"/></pattern></defs><rect width="1200" height="1200" fill="url(#damier)"/>'),
+      createPopArt('p19', 'Pop Art Splash Peinture', '<rect width="1200" height="1200" fill="#ffffff"/><circle cx="600" cy="600" r="280" fill="#ec4899"/><circle cx="350" cy="400" r="90" fill="#06b6d4"/><circle cx="850" cy="450" r="110" fill="#facc15"/><circle cx="450" cy="850" r="120" fill="#10b981"/>'),
+      createPopArt('p20', 'Pop Art Lunettes Rétro', '<rect width="1200" height="1200" fill="#fef08a"/><circle cx="420" cy="600" r="160" fill="#000000"/><circle cx="780" cy="600" r="160" fill="#000000"/><line x1="580" y1="600" x2="620" y2="600" stroke="#000000" stroke-width="40"/>'),
+      createPopArt('p21', 'Pop Art Cubes Isométriques', '<rect width="1200" height="1200" fill="#f1f5f9"/><polygon points="600,300 850,450 600,600 350,450" fill="#38bdf8"/><polygon points="350,450 600,600 600,900 350,750" fill="#0284c7"/><polygon points="600,600 850,450 850,750 600,900" fill="#0369a1"/>'),
+      createPopArt('p22', 'Pop Art Cœur Romantique', '<rect width="1200" height="1200" fill="#fce7f3"/><path d="M600,950 C400,750 200,600 200,400 C200,250 350,200 480,270 L600,400 L720,270 C850,200 1000,250 1000,400 C1000,600 800,750 600,950 Z" fill="#e11d48" stroke="#000000" stroke-width="20"/>'),
+      createPopArt('p23', 'Pop Art Bulles de Savon', '<rect width="1200" height="1200" fill="#38bdf8"/><circle cx="300" cy="400" r="140" fill="#f472b6" opacity="0.8"/><circle cx="800" cy="500" r="200" fill="#facc15" opacity="0.8"/><circle cx="500" cy="800" r="160" fill="#4ade80" opacity="0.8"/>'),
+      createPopArt('p24', 'Pop Art Fleurs Marguerites', '<rect width="1200" height="1200" fill="#f97316"/><circle cx="600" cy="600" r="160" fill="#fde047"/><circle cx="600" cy="300" r="120" fill="#ffffff"/><circle cx="600" cy="900" r="120" fill="#ffffff"/><circle cx="300" cy="600" r="120" fill="#ffffff"/><circle cx="900" cy="600" r="120" fill="#ffffff"/>'),
+      createPopArt('p25', 'Pop Art Bandes Verticales 70s', '<rect x="0" width="200" height="1200" fill="#78350f"/><rect x="200" width="200" height="1200" fill="#d97706"/><rect x="400" width="200" height="1200" fill="#f59e0b"/><rect x="600" width="200" height="1200" fill="#fef3c7"/><rect x="800" width="200" height="1200" fill="#ea580c"/><rect x="1000" width="200" height="1200" fill="#991b1b"/>'),
+      createPopArt('p26', 'Pop Art Vagues Psychédéliques', '<rect width="1200" height="1200" fill="#6366f1"/><path d="M0,0 Q300,600 600,0 T1200,0 L1200,1200 L0,1200 Z" fill="#ec4899"/>'),
+      createPopArt('p27', 'Pop Art Pacman & Fantômes', '<rect width="1200" height="1200" fill="#000000"/><circle cx="400" cy="600" r="160" fill="#facc15"/><circle cx="850" cy="600" r="140" fill="#ef4444"/>'),
+      createPopArt('p28', 'Pop Art Cercles Polka', '<defs><pattern id="polka" width="80" height="80" patternUnits="userSpaceOnUse"><circle cx="40" cy="40" r="25" fill="#ffffff"/></pattern></defs><rect width="1200" height="1200" fill="#dc2626"/><rect width="1200" height="1200" fill="url(#polka)"/>'),
+      createPopArt('p29', 'Pop Art Étoiles Hollywood', '<rect width="1200" height="1200" fill="#18181b"/><polygon points="600,150 720,480 1050,480 780,680 880,1020 600,820 320,1020 420,680 150,480 480,480" fill="#eab308"/>'),
+      createPopArt('p30', 'Pop Art Graffiti Lettrage', '<rect width="1200" height="1200" fill="#0284c7"/><rect x="200" y="400" width="800" height="400" rx="50" fill="#fde047" stroke="#000000" stroke-width="24"/>'),
+      createPopArt('p31', 'Pop Art Labyrinthe Géométrique', '<rect width="1200" height="1200" fill="#047857"/><rect x="200" y="200" width="800" height="800" fill="none" stroke="#facc15" stroke-width="50"/><rect x="400" y="400" width="400" height="400" fill="none" stroke="#ffffff" stroke-width="50"/>'),
+      createPopArt('p32', 'Pop Art Arcade Tetris 80s', '<rect width="1200" height="1200" fill="#111827"/><rect x="300" y="300" width="200" height="200" fill="#ef4444"/><rect x="500" y="300" width="200" height="200" fill="#3b82f6"/><rect x="700" y="300" width="200" height="200" fill="#10b981"/>'),
+      createPopArt('p33', 'Pop Art Diamant Brillant', '<rect width="1200" height="1200" fill="#312e81"/><polygon points="600,200 950,550 600,1050 250,550" fill="#06b6d4" stroke="#ffffff" stroke-width="20"/>'),
+      createPopArt('p34', 'Pop Art Crayon Esquisse BD', '<rect width="1200" height="1200" fill="#fffbeb"/><line x1="100" y1="100" x2="1100" y2="1100" stroke="#000000" stroke-width="30"/><line x1="1100" y1="100" x2="100" y2="1100" stroke="#000000" stroke-width="30"/>'),
+      createPopArt('p35', 'Pop Art Triangle Impossible', '<rect width="1200" height="1200" fill="#0f172a"/><polygon points="600,250 950,850 250,850" fill="none" stroke="#ec4899" stroke-width="60"/>'),
+      createPopArt('p36', 'Pop Art Vagues Multicolores', '<rect width="1200" height="1200" fill="#ec4899"/><path d="M0,300 Q300,150 600,300 T1200,300 L1200,600 Q900,450 600,600 T0,600 Z" fill="#facc15"/><path d="M0,600 Q300,450 600,600 T1200,600 L1200,900 Q900,750 600,900 T0,900 Z" fill="#06b6d4"/>'),
+      createPopArt('p37', 'Pop Art Rayons Orange Vif', '<rect width="1200" height="1200" fill="#ffffff"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#f97316"/>'),
+      createPopArt('p38', 'Pop Art Cercle Vinyle Rétro', '<rect width="1200" height="1200" fill="#fb923c"/><circle cx="600" cy="600" r="450" fill="#0f172a"/><circle cx="600" cy="600" r="160" fill="#ef4444"/><circle cx="600" cy="600" r="40" fill="#ffffff"/>'),
+      createPopArt('p39', 'Pop Art Énergie Électrique', '<rect width="1200" height="1200" fill="#1e1b4b"/><circle cx="600" cy="600" r="350" fill="#8b5cf6"/><polygon points="600,100 680,450 950,450 730,620" fill="#fde047"/>'),
+      createPopArt('p40', 'Pop Art Poster InPixio Master', '<rect width="1200" height="1200" fill="#f43f5e"/><circle cx="600" cy="600" r="420" fill="#facc15" stroke="#000000" stroke-width="24"/><rect x="300" y="500" width="600" height="200" fill="#000000"/><text x="600" y="640" font-family="sans-serif" font-weight="900" font-size="90" fill="#ffffff" text-anchor="middle">POP ART</text>'),
     ];
 
-    // 2. NATURE, DESERTS & LANDSCAPES HD (30 CHOICES)
-    const BG_NATURE_30 = [
-      { id: 'n1', label: 'Dunes Rouges Namibie', url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80' },
+    // 2. DESERTS & NATURE (40 HD CHOICES)
+    const BG_NATURE_40 = [
+      { id: 'n1', label: 'Dunes Rouges de Sossusvlei Namibie', url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80' },
       { id: 'n2', label: 'Sahara Coucher de Soleil Doré', url: 'https://images.unsplash.com/photo-1542401886-65d6c61db217?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n3', label: 'Oasis dans les Dunes', url: 'https://images.unsplash.com/photo-1473580044384-7ba9967a16a0?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n3', label: 'Oasis Verdoyante dans les Dunes', url: 'https://images.unsplash.com/photo-1473580044384-7ba9967a16a0?auto=format&fit=crop&w=1200&q=80' },
       { id: 'n4', label: 'Désert Blanc Formations Roches', url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80' },
       { id: 'n5', label: 'Salar de Uyuni Miroir de Sel', url: 'https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n6', label: 'Wadi Rum Désert Mars', url: 'https://images.unsplash.com/photo-1547234935-80c7145ec969?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n6', label: 'Wadi Rum Désert Mars Jordanie', url: 'https://images.unsplash.com/photo-1547234935-80c7145ec969?auto=format&fit=crop&w=1200&q=80' },
       { id: 'n7', label: 'Monument Valley Ciel Étoilé', url: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n8', label: 'Dunes Merzouga Crépuscule', url: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n9', label: 'Atacama Voie Lactée Pure', url: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n10', label: 'Antelope Canyon Rayons', url: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n8', label: 'Dunes Merzouga au Crépuscule', url: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n9', label: 'Désert Atacama Voie Lactée Pure', url: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n10', label: 'Antelope Canyon Rayons de Lumière', url: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?auto=format&fit=crop&w=1200&q=80' },
       { id: 'n11', label: 'Montagne & Lac Alpin Reflet', url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n12', label: 'Plage Tropicale & Cocotiers', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n13', label: 'Forêt de Pins Brumeuse', url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n12', label: 'Plage Tropicale & Cocotiers Maldives', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n13', label: 'Forêt de Pins Brumeuse Forêt-Noire', url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80' },
       { id: 'n14', label: 'Coucher de Soleil Océan Vagues', url: 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n15', label: 'Cascade d’Eau Cristalline', url: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n16', label: 'Aurore Boréale Islande', url: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n17', label: 'Forêt de Bambou Kyoto', url: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n18', label: 'Champs de Lavande Provence', url: 'https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n15', label: 'Cascade d’Eau Cristalline Thaïlande', url: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n16', label: 'Aurore Boréale Islande Fjords', url: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n17', label: 'Forêt de Bambou Arashiyama Kyoto', url: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n18', label: 'Champs de Lavande Valensole', url: 'https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&fit=crop&w=1200&q=80' },
       { id: 'n19', label: 'Falaises d’Étretat Atlantique', url: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n20', label: 'Jardin Botanique Bali', url: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n21', label: 'Route Panoramique Californie', url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n22', label: 'Rivière Forêt d’Automne', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n23', label: 'Prairie Fleurie Montagne', url: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n24', label: 'Maldives Lagon Turquoise', url: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n25', label: 'Savane Coucher de Soleil', url: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n26', label: 'Glacier Bleu Arctique', url: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n20', label: 'Jardin Botanique Tropical Bali', url: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n21', label: 'Route Côtière Big Sur Californie', url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n22', label: 'Rivière Forêt d’Automne Érable', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n23', label: 'Prairie Fleurie Montagne Suisse', url: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n24', label: 'Lagon Turquoise Bora Bora', url: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n25', label: 'Savane Coucher de Soleil Serengeti', url: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n26', label: 'Glacier Perito Moreno Patagonie', url: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&w=1200&q=80' },
       { id: 'n27', label: 'Sommet Mont Blanc Enneigé', url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n28', label: 'Plage Sable Noir Islande', url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n29', label: 'Rizières en Terrasses Vertes', url: 'https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'n30', label: 'Baie d’Halong Îlots Karstiques', url: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n28', label: 'Plage Sable Noir Vik Islande', url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n29', label: 'Rizières en Terrasses Sapa', url: 'https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n30', label: 'Baie d’Halong Vietnam Îlots', url: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n31', label: 'Désert Mojave Joshua Trees', url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n32', label: 'Grand Canyon Coucher de Soleil', url: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n33', label: 'Lacs de Plitvice Croatie', url: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n34', label: 'Forêt des Sequoyas Géants', url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n35', label: 'Gorges du Verdon Eau Émeraude', url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n36', label: 'Vallée des Geysers Yellowstone', url: 'https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n37', label: 'Canyon de Bryce Roches Rouges', url: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n38', label: 'Plage Maya Bay Thaïlande', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n39', label: 'Volcan Bromo Indonésie Brume', url: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n40', label: 'Lac Moraine Rocheuses Canada', url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80' },
     ];
 
-    // 3. SOLID PRO COLORS (30 CHOICES)
-    const BG_SOLIDS_30 = [
-      { id: 'transp', label: 'Transparent', value: 'transparent', class: 'bg-checkerboard' },
-      { id: 'white', label: 'Blanc Studio Pur', value: '#ffffff', class: 'bg-white' },
-      { id: 'black', label: 'Noir OLED Absolu', value: '#08080a', class: 'bg-black' },
-      { id: 'slate', label: 'Gris Ardoise Pro', value: '#1e293b', class: 'bg-slate-800' },
-      { id: 'platine', label: 'Gris Platine Clair', value: '#e2e8f0', class: 'bg-slate-200 text-black' },
-      { id: 'taupe', label: 'Gris Taupe Doux', value: '#78716c', class: 'bg-stone-500' },
-      { id: 'sand', label: 'Sable Chaud', value: '#fef3c7', class: 'bg-amber-100 text-black' },
-      { id: 'cream', label: 'Crème Vanille', value: '#fffbeb', class: 'bg-amber-50 text-black' },
-      { id: 'indigo', label: 'Indigo Cyber', value: '#4f46e5', class: 'bg-indigo-600' },
-      { id: 'blue', label: 'Bleu Royal', value: '#2563eb', class: 'bg-blue-600' },
-      { id: 'sky', label: 'Bleu Ciel Éclatant', value: '#38bdf8', class: 'bg-sky-400' },
-      { id: 'night', label: 'Bleu Nuit Profond', value: '#0f172a', class: 'bg-slate-900' },
-      { id: 'turquoise', label: 'Turquoise Lagon', value: '#06b6d4', class: 'bg-cyan-500' },
-      { id: 'emerald', label: 'Vert Émeraude', value: '#10b981', class: 'bg-emerald-500' },
-      { id: 'mint', label: 'Menthe Pastel', value: '#a7f3d0', class: 'bg-emerald-200 text-black' },
-      { id: 'sage', label: 'Vert Sauge Zen', value: '#84cc16', class: 'bg-lime-500' },
-      { id: 'olive', label: 'Vert Olive Nature', value: '#65a30d', class: 'bg-lime-600' },
-      { id: 'forest', label: 'Vert Forêt Sombre', value: '#14532d', class: 'bg-green-900' },
-      { id: 'sunset', label: 'Orange Sunset', value: '#f97316', class: 'bg-orange-500' },
-      { id: 'peach', label: 'Pêche Douce', value: '#fed7aa', class: 'bg-orange-200 text-black' },
-      { id: 'coral', label: 'Corail Doux', value: '#fb7185', class: 'bg-rose-400' },
-      { id: 'red', label: 'Rouge Ferrari Sport', value: '#ef4444', class: 'bg-red-600' },
-      { id: 'burgundy', label: 'Bordeaux Rubis', value: '#881337', class: 'bg-rose-950' },
-      { id: 'pink', label: 'Rose Bonbon', value: '#ec4899', class: 'bg-pink-500' },
-      { id: 'neonpink', label: 'Fuchsia Neon', value: '#f43f5e', class: 'bg-rose-500' },
-      { id: 'dustypink', label: 'Rose Poudré Pastel', value: '#fbcfe8', class: 'bg-pink-200 text-black' },
-      { id: 'purple', label: 'Violet Profond', value: '#7c3aed', class: 'bg-purple-600' },
-      { id: 'lavender', label: 'Lavande Douce', value: '#ddd6fe', class: 'bg-purple-200 text-black' },
-      { id: 'gold', label: 'Or Impérial', value: '#eab308', class: 'bg-yellow-500' },
-      { id: 'lemon', label: 'Jaune Citron Solaire', value: '#fde047', class: 'bg-yellow-300 text-black' },
+    // 3. STUDIOS & LUXURY (40 HD CHOICES)
+    const BG_STUDIOS_40 = [
+      { id: 'st1', label: 'Studio Minimaliste Ombre Végétale', url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st2', label: 'Bureau Design Moderne Bois', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st3', label: 'Intérieur Marbre & Or Luxe', url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st4', label: 'Cyclorama Blanc Infini Pro', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st5', label: 'Podium Marbre & Or Impérial', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st6', label: 'Loft Industriel Verrière Atelier', url: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st7', label: 'Salon Moderne Baie Vitrée Mer', url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st8', label: 'Galerie d’Art Moderne Épurée', url: 'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st9', label: 'Cuisine Marbre & Bois Noyer', url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st10', label: 'Chambre Scandinave Zen Minimal', url: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st11', label: 'Bibliothèque Design Chêne', url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st12', label: 'Terrasse Villa & Piscine Débordante', url: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st13', label: 'Mur Béton Ciré & Monstera', url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st14', label: 'Studio Bois Chêne & Ombre Soleil', url: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st15', label: 'Vitrine Boutique Haute Couture', url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st16', label: 'Hall d’Hôtel 5 Étoiles Palace', url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st17', label: 'Penthouse Vue Skyline NYC', url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st18', label: 'Salle de Réunion Tech Moderne', url: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st19', label: 'Atelier d’Artiste Sous les Toits', url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st20', label: 'Escalier Hélicoïdal Design', url: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st21', label: 'Patio Andalou & Fontaine Zen', url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st22', label: 'Dressing de Luxe Éclairé LED', url: 'https://images.unsplash.com/photo-1558997519-83ea9252edf8?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st23', label: 'Salle de Bain Marbre Noir & Cuivre', url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st24', label: 'Salon de Thé Zen Japonais', url: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st25', label: 'Rooftop Lounge Coucher de Soleil', url: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st26', label: 'Espace Coworking Lumineux Design', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st27', label: 'Studio Softbox Éclairage Studio', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st28', label: 'Salon Cheminée Moderne Béton', url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st29', label: 'Cave à Vin Contemporaine Verre', url: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st30', label: 'Podium Marbre Blanc Épuré', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st31', label: 'Showroom Automobile Design', url: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st32', label: 'Verrière Loft Botanique Plantes', url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st33', label: 'Terrasse Vue Tour Eiffel Paris', url: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st34', label: 'Suite Présidentielle Marbre & Soie', url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st35', label: 'Salon Minimaliste Japonais Tatami', url: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st36', label: 'Galerie Photos Noir & Blanc', url: 'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st37', label: 'Podium Bois Brut & Lumière Zénithale', url: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st38', label: 'Studio Noir Minimaliste OLED', url: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st39', label: 'Cuisine Îlot Marbre Calacatta', url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st40', label: 'Espace Lounge Sunset Miami', url: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80' },
     ];
 
-    // 4. MESH & LINEAR GRADIENTS (30 CHOICES)
-    const BG_GRADIENTS_30 = [
+    // 4. CITIES & CYBERPUNK (40 HD CHOICES)
+    const BG_CITIES_40 = [
+      { id: 'u1', label: 'Tokyo Shibuya Neon Nuit', url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u2', label: 'New York Manhattan Skyline', url: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u3', label: 'Paris Tour Eiffel & Pont d’Iéna', url: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u4', label: 'Londres Tower Bridge & Big Ben', url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u5', label: 'Dubai Gratte-ciel Futuristes', url: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u6', label: 'San Francisco Golden Gate', url: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u7', label: 'Ruelle Historique Pavée Rome', url: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u8', label: 'Quartier Affaires Verre & Acier', url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u9', label: 'Ruelle Asiatique Lanternes Rouges', url: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u10', label: 'Métro Moderne Futuriste', url: 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u11', label: 'Rooftop Vue Ville Nuit', url: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u12', label: 'Autoroute Light Trails Nuit', url: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u13', label: 'Street Art Façade Colorée', url: 'https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u14', label: 'Béton Brut & Architecture Minimal', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u15', label: 'Marina & Yacht Club Monaco', url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u16', label: 'Tunnel Neon Cyberpunk', url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u17', label: 'Temple Pagode Moderne', url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u18', label: 'Esplanade Palmiers Miami', url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u19', label: 'Grand Boulevard Crépuscule', url: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u20', label: 'Pont Moderne Haubans Lumineux', url: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u21', label: 'Singapour Marina Bay Sands', url: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u22', label: 'Hong Kong Baie Victoria Nuit', url: 'https://images.unsplash.com/photo-1506970845246-18f21d533b20?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u23', label: 'Venise Grand Canal Gondoles', url: 'https://images.unsplash.com/photo-1514890547357-a9ee288728e0?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u24', label: 'Amsterdam Canaux & Vélos', url: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u25', label: 'Barcelone Sagrada Familia Ciel Doré', url: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u26', label: 'Séoul Gangnam Neon Street', url: 'https://images.unsplash.com/photo-1538485399081-7191377e8241?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u27', label: 'Sydney Opéra & Port Pont', url: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u28', label: 'Chicago Riverwalk Ponts Métal', url: 'https://images.unsplash.com/photo-1494522855154-9297ac14b55f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u29', label: 'Montmartre Ruelle Pavée Paris', url: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u30', label: 'Sunset Boulevard Los Angeles', url: 'https://images.unsplash.com/photo-1580655653885-65763b2597d0?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u31', label: 'Kyoto Temple Fushimi Inari Torii', url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u32', label: 'Lisbonne Tramway Jaune Ruelle', url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u33', label: 'Prague Pont Charles Brume', url: 'https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u34', label: 'Bangkok Marché de Nuit Street Food', url: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u35', label: 'Le Caire Pyramides & Ciel Doré', url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u36', label: 'Berlin Porte de Brandebourg Nuit', url: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u37', label: 'Rio de Janeiro Corcovado Vue Baie', url: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u38', label: 'Toronto CN Tower & Lac Ontario', url: 'https://images.unsplash.com/photo-1507992781348-310259076fa0?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u39', label: 'Las Vegas Strip Enseignes Neon', url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u40', label: 'Istanbul Bosphore & Mosquée Bleue', url: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80' },
+    ];
+
+    // 5. MESH & LINEAR GRADIENTS (40 CHOICES)
+    const BG_GRADIENTS_40 = [
       { id: 'g1', label: 'Sunset Glow', colors: ['#f97316', '#ec4899', '#8b5cf6'], css: 'linear-gradient(135deg, #f97316, #ec4899, #8b5cf6)' },
       { id: 'g2', label: 'Cyber Neon', colors: ['#06b6d4', '#3b82f6', '#9333ea'], css: 'linear-gradient(135deg, #06b6d4, #3b82f6, #9333ea)' },
       { id: 'g3', label: 'Aurora Emerald', colors: ['#059669', '#10b981', '#06b6d4'], css: 'linear-gradient(135deg, #059669, #10b981, #06b6d4)' },
@@ -361,82 +437,69 @@
       { id: 'g28', label: 'Golden Horizon', colors: ['#78350f', '#d97706', '#fef3c7'], css: 'linear-gradient(135deg, #78350f, #d97706, #fef3c7)' },
       { id: 'g29', label: 'Berry Fusion', colors: ['#4c0519', '#9f1239', '#e11d48'], css: 'linear-gradient(135deg, #4c0519, #9f1239, #e11d48)' },
       { id: 'g30', label: 'Frostbite Cyan', colors: ['#082f49', '#0284c7', '#38bdf8'], css: 'linear-gradient(135deg, #082f49, #0284c7, #38bdf8)' },
+      { id: 'g31', label: 'Volcano Lava', colors: ['#450a0a', '#b91c1c', '#ea580c'], css: 'linear-gradient(135deg, #450a0a, #b91c1c, #ea580c)' },
+      { id: 'g32', label: 'Nordic Sky', colors: ['#0c4a6e', '#0284c7', '#bae6fd'], css: 'linear-gradient(135deg, #0c4a6e, #0284c7, #bae6fd)' },
+      { id: 'g33', label: 'Green Apple', colors: ['#14532d', '#22c55e', '#bef264'], css: 'linear-gradient(135deg, #14532d, #22c55e, #bef264)' },
+      { id: 'g34', label: 'Neon Tokyo', colors: ['#3b0764', '#c026d3', '#06b6d4'], css: 'linear-gradient(135deg, #3b0764, #c026d3, #06b6d4)' },
+      { id: 'g35', label: 'Honey Gold', colors: ['#854d0e', '#ca8a04', '#fef08a'], css: 'linear-gradient(135deg, #854d0e, #ca8a04, #fef08a)' },
+      { id: 'g36', label: 'Midnight Purple', colors: ['#09090b', '#3b0764', '#7e22ce'], css: 'linear-gradient(135deg, #09090b, #3b0764, #7e22ce)' },
+      { id: 'g37', label: 'Coral Reef', colors: ['#be123c', '#fb7185', '#fed7aa'], css: 'linear-gradient(135deg, #be123c, #fb7185, #fed7aa)' },
+      { id: 'g38', label: 'Titanium Slate', colors: ['#0f172a', '#334155', '#94a3b8'], css: 'linear-gradient(135deg, #0f172a, #334155, #94a3b8)' },
+      { id: 'g39', label: 'Aqua Marine', colors: ['#042f2e', '#0d9488', '#5eead4'], css: 'linear-gradient(135deg, #042f2e, #0d9488, #5eead4)' },
+      { id: 'g40', label: 'Sunset Paradise InPixio', colors: ['#312e81', '#ec4899', '#facc15'], css: 'linear-gradient(135deg, #312e81, #ec4899, #facc15)' },
     ];
 
-    // 5. STUDIOS & LUXURY INTERIORS (30 HD CHOICES)
-    const BG_STUDIOS_30 = [
-      { id: 'st1', label: 'Studio Minimaliste Ombre', url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st2', label: 'Bureau Design Moderne', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st3', label: 'Intérieur Marbre Luxe', url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st4', label: 'Cyclorama Blanc Infini', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st5', label: 'Podium Marbre & Or', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st6', label: 'Loft Industriel Verrière', url: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st7', label: 'Salon Moderne Baie Vitrée', url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st8', label: 'Galerie d’Art Moderne', url: 'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st9', label: 'Cuisine Marbre & Bois', url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st10', label: 'Chambre Scandinave Zen', url: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st11', label: 'Bibliothèque Design', url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st12', label: 'Terrasse Villa & Piscine', url: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st13', label: 'Mur Béton Ciré & Plantes', url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st14', label: 'Studio Bois Chêne Naturel', url: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st15', label: 'Vitrine Boutique Luxe', url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st16', label: 'Hall d’Hôtel 5 Étoiles', url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st17', label: 'Penthouse Vue Ciel', url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st18', label: 'Salle de Réunion Tech', url: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st19', label: 'Atelier d’Artiste Lumineux', url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st20', label: 'Escalier Géométrique', url: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st21', label: 'Patio Andalou & Fontaine', url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st22', label: 'Dressing de Luxe Éclairé', url: 'https://images.unsplash.com/photo-1558997519-83ea9252edf8?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st23', label: 'Salle de Bain Marbre Noir', url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st24', label: 'Salon de Thé Zen Bois', url: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st25', label: 'Rooftop Lounge Sunset', url: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st26', label: 'Espace Coworking Design', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st27', label: 'Studio Softbox Éclairage', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st28', label: 'Salon Cheminée Moderne', url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st29', label: 'Cave à Vin Contemporaine', url: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'st30', label: 'Podium Marbre Blanc Pur', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80' },
-    ];
-
-    // 6. CITIES & CYBERPUNK (30 HD CHOICES)
-    const BG_CITIES_30 = [
-      { id: 'u1', label: 'Tokyo Nuit Shibuya Neon', url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u2', label: 'New York Manhattan Skyline', url: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u3', label: 'Paris Tour Eiffel & Seine', url: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u4', label: 'Londres Pont & Big Ben', url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u5', label: 'Dubai Gratte-ciel Futuristes', url: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u6', label: 'San Francisco Golden Gate', url: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u7', label: 'Ruelle Historique Rome', url: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u8', label: 'Quartier Affaires Verre', url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u9', label: 'Ruelle Asiatique Lanternes', url: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u10', label: 'Métro Moderne Futuriste', url: 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u11', label: 'Rooftop Vue Ville Nuit', url: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u12', label: 'Autoroute Light Trails', url: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u13', label: 'Street Art Urbain', url: 'https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u14', label: 'Béton Brut & Architecture', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u15', label: 'Marina & Yacht Club', url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u16', label: 'Tunnel Neon Cyberpunk', url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u17', label: 'Temple Pagode Moderne', url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u18', label: 'Esplanade Palmiers Miami', url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u19', label: 'Grand Boulevard Crépuscule', url: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u20', label: 'Pont Moderne Haubans', url: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u21', label: 'Singapour Marina Bay Sands', url: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u22', label: 'Hong Kong Baie Victoria', url: 'https://images.unsplash.com/photo-1506970845246-18f21d533b20?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u23', label: 'Venise Grand Canal', url: 'https://images.unsplash.com/photo-1514890547357-a9ee288728e0?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u24', label: 'Amsterdam Canaux & Bicyclettes', url: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u25', label: 'Barcelone Sagrada Ciel Doré', url: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u26', label: 'Séoul Gangnam Neon Street', url: 'https://images.unsplash.com/photo-1538485399081-7191377e8241?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u27', label: 'Sydney Opéra & Port', url: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u28', label: 'Chicago Riverwalk Ponts', url: 'https://images.unsplash.com/photo-1494522855154-9297ac14b55f?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u29', label: 'Montmartre Ruelle Pavée', url: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'u30', label: 'Sunset Boulevard Los Angeles', url: 'https://images.unsplash.com/photo-1580655653885-65763b2597d0?auto=format&fit=crop&w=1200&q=80' },
+    // 6. SOLID PRO COLORS (40 CHOICES)
+    const BG_SOLIDS_40 = [
+      { id: 'transp', label: 'Transparent', value: 'transparent', class: 'bg-checkerboard' },
+      { id: 'white', label: 'Blanc Studio Pur', value: '#ffffff', class: 'bg-white' },
+      { id: 'black', label: 'Noir OLED Absolu', value: '#08080a', class: 'bg-black' },
+      { id: 'slate', label: 'Gris Ardoise Pro', value: '#1e293b', class: 'bg-slate-800' },
+      { id: 'platine', label: 'Gris Platine Clair', value: '#e2e8f0', class: 'bg-slate-200 text-black' },
+      { id: 'taupe', label: 'Gris Taupe Doux', value: '#78716c', class: 'bg-stone-500' },
+      { id: 'sand', label: 'Sable Chaud', value: '#fef3c7', class: 'bg-amber-100 text-black' },
+      { id: 'cream', label: 'Crème Vanille', value: '#fffbeb', class: 'bg-amber-50 text-black' },
+      { id: 'beige', label: 'Beige Lin', value: '#f5f5f4', class: 'bg-stone-100 text-black' },
+      { id: 'indigo', label: 'Indigo Cyber', value: '#4f46e5', class: 'bg-indigo-600' },
+      { id: 'blue', label: 'Bleu Royal', value: '#2563eb', class: 'bg-blue-600' },
+      { id: 'sky', label: 'Bleu Ciel Éclatant', value: '#38bdf8', class: 'bg-sky-400' },
+      { id: 'night', label: 'Bleu Nuit Profond', value: '#0f172a', class: 'bg-slate-900' },
+      { id: 'cyan', label: 'Cyan Électrique', value: '#06b6d4', class: 'bg-cyan-500' },
+      { id: 'turquoise', label: 'Turquoise Lagon', value: '#14b8a6', class: 'bg-teal-500' },
+      { id: 'emerald', label: 'Vert Émeraude', value: '#10b981', class: 'bg-emerald-500' },
+      { id: 'mint', label: 'Menthe Pastel', value: '#a7f3d0', class: 'bg-emerald-200 text-black' },
+      { id: 'sage', label: 'Vert Sauge Zen', value: '#84cc16', class: 'bg-lime-500' },
+      { id: 'olive', label: 'Vert Olive Nature', value: '#65a30d', class: 'bg-lime-600' },
+      { id: 'forest', label: 'Vert Forêt Sombre', value: '#14532d', class: 'bg-green-900' },
+      { id: 'sunset', label: 'Orange Sunset', value: '#f97316', class: 'bg-orange-500' },
+      { id: 'peach', label: 'Pêche Douce', value: '#fed7aa', class: 'bg-orange-200 text-black' },
+      { id: 'apricot', label: 'Abricot Vif', value: '#fb923c', class: 'bg-orange-400' },
+      { id: 'coral', label: 'Corail Doux', value: '#fb7185', class: 'bg-rose-400' },
+      { id: 'red', label: 'Rouge Ferrari Sport', value: '#ef4444', class: 'bg-red-600' },
+      { id: 'crimson', label: 'Pourpre Crimson', value: '#dc2626', class: 'bg-red-700' },
+      { id: 'burgundy', label: 'Bordeaux Rubis', value: '#881337', class: 'bg-rose-950' },
+      { id: 'pink', label: 'Rose Bonbon', value: '#ec4899', class: 'bg-pink-500' },
+      { id: 'neonpink', label: 'Fuchsia Neon', value: '#f43f5e', class: 'bg-rose-500' },
+      { id: 'dustypink', label: 'Rose Poudré Pastel', value: '#fbcfe8', class: 'bg-pink-200 text-black' },
+      { id: 'purple', label: 'Violet Profond', value: '#7c3aed', class: 'bg-purple-600' },
+      { id: 'lavender', label: 'Lavande Douce', value: '#ddd6fe', class: 'bg-purple-200 text-black' },
+      { id: 'violet', label: 'Mauve Électrique', value: '#a855f7', class: 'bg-purple-500' },
+      { id: 'gold', label: 'Or Impérial', value: '#eab308', class: 'bg-yellow-500' },
+      { id: 'lemon', label: 'Jaune Citron Solaire', value: '#fde047', class: 'bg-yellow-300 text-black' },
+      { id: 'amber', label: 'Ambre Chaud', value: '#d97706', class: 'bg-amber-600' },
+      { id: 'coffee', label: 'Café Moka', value: '#451a03', class: 'bg-amber-950' },
+      { id: 'chocolate', label: 'Chocolat Noir', value: '#3f2e21', class: 'bg-stone-900' },
+      { id: 'ice', label: 'Bleu Glacier', value: '#cffafe', class: 'bg-cyan-100 text-black' },
+      { id: 'graphite', label: 'Graphite Mat', value: '#27272a', class: 'bg-zinc-800' },
     ];
 
     // --- Main Component ---
     function App() {
       const [images, setImages] = useState([]);
       const [selectedIds, setSelectedIds] = useState(new Set());
+      const [applyToAll, setApplyToAll] = useState(true); // Default to ALL photos for max efficiency!
       const [activeTab, setActiveTab] = useState('background');
-      const [bgCategory, setBgCategory] = useState('nature'); // default to desert/nature
+      const [bgCategory, setBgCategory] = useState('popart'); // Default to requested Pop Art
       const [searchQuery, setSearchQuery] = useState('');
       const [isProcessing, setIsProcessing] = useState(false);
       const [processingMsg, setProcessingMsg] = useState('');
@@ -485,7 +548,6 @@
       // Upload Handler
       const handleFiles = (files) => {
         if (!files || files.length === 0) return;
-        const newIds = new Set(selectedIds);
 
         Array.from(files).forEach((file) => {
           const reader = new FileReader();
@@ -494,27 +556,29 @@
             const img = new Image();
             img.onload = () => {
               const id = 'img_' + Math.random().toString(36).substring(2, 9);
-              newIds.add(id);
-              setImages(prev => [
-                ...prev,
-                {
-                  id,
-                  name: file.name,
-                  originalUrl: url,
-                  currentUrl: url,
-                  width: img.naturalWidth || 1200,
-                  height: img.naturalHeight || 1200,
-                  isModified: false,
-                }
-              ]);
-              setSelectedIds(new Set(newIds));
+              setImages(prev => {
+                const nextImages = [
+                  ...prev,
+                  {
+                    id,
+                    name: file.name,
+                    originalUrl: url,
+                    currentUrl: url,
+                    width: img.naturalWidth || 1200,
+                    height: img.naturalHeight || 1200,
+                    isModified: false,
+                  }
+                ];
+                setSelectedIds(new Set(nextImages.map(m => m.id))); // Auto-select ALL images
+                return nextImages;
+              });
             };
             img.src = url;
           };
           reader.readAsDataURL(file);
         });
 
-        addToast('Photos Importées', `${files.length} image(s) ajoutée(s). Le visage et le sujet restent 100% intacts !`, 'success');
+        addToast('Photos Importées', `${files.length} photo(s) ajoutée(s). Prêtes pour le lot !`, 'success');
       };
 
       // Select / Deselect
@@ -530,7 +594,7 @@
       const deselectAll = () => setSelectedIds(new Set());
       const revertSelected = () => {
         setImages(prev => prev.map(img => {
-          if (selectedIds.has(img.id)) {
+          if (applyToAll || selectedIds.has(img.id)) {
             return { ...img, currentUrl: img.originalUrl, isModified: false };
           }
           return img;
@@ -540,11 +604,11 @@
       const deleteSelected = () => {
         setImages(prev => prev.filter(img => !selectedIds.has(img.id)));
         setSelectedIds(new Set());
-        addToast('Supprimé', 'Images sélectionnées supprimées', 'info');
+        addToast('Supprimé', 'Images supprimées', 'info');
       };
 
       // =========================================================================
-      // --- ADVANCED FLOODFILL-BOUNDARY SEGMENTATION (ZERO FACE DEGRADATION) ---
+      // --- ZERO-GLOW / ZERO-FLASH BFS FLOODFILL CUTOUT ENGINE (INPIXIO QUALITY) ---
       // =========================================================================
       const processSingleImage = async (item, bgConfig) => {
         return new Promise((resolve, reject) => {
@@ -590,7 +654,7 @@
                 }
               }
 
-              // 2. High-Precision Subject Extraction via Boundary-Connected Mask
+              // 2. High-Precision Subject Extraction via Outer BFS Floodfill (Zero Flash on Face)
               const subCanvas = document.createElement('canvas');
               subCanvas.width = w;
               subCanvas.height = h;
@@ -601,7 +665,7 @@
                 const imgData = sctx.getImageData(0, 0, w, h);
                 const data = imgData.data;
 
-                // Sample 4 corner colors
+                // Border colors
                 const c1 = [data[0], data[1], data[2]];
                 const c2 = [data[(w - 1) * 4], data[(w - 1) * 4 + 1], data[(w - 1) * 4 + 2]];
                 const c3 = [data[(h - 1) * w * 4], data[(h - 1) * w * 4 + 1], data[(h - 1) * w * 4 + 2]];
@@ -611,49 +675,72 @@
                 const bgG = Math.round((c1[1] + c2[1] + c3[1] + c4[1]) / 4);
                 const bgB = Math.round((c1[2] + c2[2] + c3[2] + c4[2]) / 4);
 
-                const threshold = tolerance * 2.5;
+                const threshold = tolerance * 2.2;
 
-                // Protect center/face box: pixels strictly in center that have face/skin tones are NEVER keyed out!
-                const centerX = w / 2;
-                const centerY = h / 2;
-                const faceBoxRadiusX = w * 0.35;
-                const faceBoxRadiusY = h * 0.35;
+                // Floodfill queue starting exclusively from the outer 4 image borders
+                const visited = new Uint8Array(w * h);
+                const queue = [];
 
-                for (let i = 0; i < data.length; i += 4) {
-                  const pixelIndex = i / 4;
-                  const px = pixelIndex % w;
-                  const py = Math.floor(pixelIndex / w);
+                // Push all border pixels to queue
+                for (let x = 0; x < w; x++) {
+                  queue.push(x, 0);
+                  queue.push(x, h - 1);
+                  visited[x] = 1;
+                  visited[(h - 1) * w + x] = 1;
+                }
+                for (let y = 0; y < h; y++) {
+                  queue.push(0, y);
+                  queue.push(w - 1, y);
+                  visited[y * w] = 1;
+                  visited[y * w + (w - 1)] = 1;
+                }
 
-                  const r = data[i];
-                  const g = data[i + 1];
-                  const b = data[i + 2];
+                let head = 0;
+                while (head < queue.length) {
+                  const qx = queue[head++];
+                  const qy = queue[head++];
+                  const pIdx = (qy * w + qx) * 4;
 
-                  // Distance from background sample
+                  const r = data[pIdx];
+                  const g = data[pIdx + 1];
+                  const b = data[pIdx + 2];
+
                   const dist = Math.sqrt(
                     Math.pow(r - bgR, 2) +
                     Math.pow(g - bgG, 2) +
                     Math.pow(b - bgB, 2)
                   );
 
-                  // Is pixel within central subject zone?
-                  const isCenter = Math.abs(px - centerX) < faceBoxRadiusX && Math.abs(py - centerY) < faceBoxRadiusY;
+                  // If connected to border and matches background color, clear it
+                  if (dist < threshold || (r > 240 && g > 240 && b > 240 && bgR > 220)) {
+                    data[pIdx + 3] = 0; // Pure Transparent Background
 
-                  // Human skin detection (protects face, eyes, lips from any holes or white spots!)
-                  const isSkinTone = (r > 95 && g > 40 && b > 20) && (Math.max(r, g, b) - Math.min(r, g, b) > 15) && (Math.abs(r - g) > 15) && (r > g) && (r > b);
+                    // Check 4 neighbors
+                    const neighbors = [
+                      [qx + 1, qy],
+                      [qx - 1, qy],
+                      [qx, qy + 1],
+                      [qx, qy - 1],
+                    ];
 
-                  if (isCenter && isSkinTone) {
-                    // 100% SHIELD: Never touch face or skin pixels!
-                    data[i + 3] = 255;
-                  } else if (dist < threshold || (r > 245 && g > 245 && b > 245 && bgR > 225 && !isSkinTone)) {
-                    // Pure background dissolve
-                    const factor = Math.max(0, (dist / threshold) - 0.2);
-                    data[i + 3] = Math.round(data[i + 3] * factor);
+                    for (let n = 0; n < 4; n++) {
+                      const nx = neighbors[n][0];
+                      const ny = neighbors[n][1];
+                      if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+                        const nPos = ny * w + nx;
+                        if (!visited[nPos]) {
+                          visited[nPos] = 1;
+                          queue.push(nx, ny);
+                        }
+                      }
+                    }
                   }
                 }
+
                 sctx.putImageData(imgData, 0, 0);
               }
 
-              // Draw crystal-clear subject onto new background
+              // Draw crystal-clear subject onto new background (Zero glow, Zero flash, Pure original colors)
               ctx.drawImage(subCanvas, 0, 0);
 
               // 3. Watermark if enabled
@@ -689,28 +776,28 @@
         });
       };
 
-      // 1-Click Batch Background Apply
+      // 1-Click Instant Batch Background Apply (100% OF ALL IMAGES)
       const applyBackground = async (bgConfig) => {
         if (images.length === 0) {
-          addToast('Aucune image', 'Importez vos images d’abord !', 'warning');
+          addToast('Aucune photo', 'Importez vos photos d’abord !', 'warning');
           return;
         }
 
-        const targets = selectedIds.size > 0 ? selectedIds : new Set(images.map(img => img.id));
-        if (selectedIds.size === 0) setSelectedIds(new Set(images.map(img => img.id)));
+        // Apply to ALL if toggle is on OR if selectedIds covers all
+        const targetIds = applyToAll ? new Set(images.map(img => img.id)) : (selectedIds.size > 0 ? selectedIds : new Set(images.map(img => img.id)));
 
         setIsProcessing(true);
-        setProcessingMsg(`Changement de fond HD (${targets.size} images)...`);
+        setProcessingMsg(`Application à tout le lot (${targetIds.size} photos)...`);
 
         try {
           const updated = [...images];
           for (let i = 0; i < updated.length; i++) {
-            if (targets.has(updated[i].id)) {
+            if (targetIds.has(updated[i].id)) {
               updated[i] = await processSingleImage(updated[i], bgConfig);
             }
           }
           setImages(updated);
-          addToast('Fond Appliqué en HD !', `${targets.size} photo(s) avec visage 100% préservé et net ✨`, 'success');
+          addToast('Lot Traité avec Succès !', `${targetIds.size} photo(s) sublimée(s) sans aucun flash sur le visage ✨`, 'success');
         } catch (e) {
           console.error(e);
         } finally {
@@ -731,13 +818,13 @@
 
       // Crop
       const applyCrop = async (ratio) => {
-        const targets = selectedIds.size > 0 ? selectedIds : new Set(images.map(img => img.id));
+        const targetIds = applyToAll ? new Set(images.map(img => img.id)) : selectedIds;
         setIsProcessing(true);
-        setProcessingMsg('Recadrage en cours...');
+        setProcessingMsg('Recadrage...');
         try {
           const updated = [...images];
           for (let i = 0; i < updated.length; i++) {
-            if (targets.has(updated[i].id)) {
+            if (targetIds.has(updated[i].id)) {
               const item = updated[i];
               const img = new Image();
               img.src = item.currentUrl;
@@ -759,7 +846,7 @@
             }
           }
           setImages(updated);
-          addToast('Recadrage effectué', `Ratio ${ratio} appliqué`, 'success');
+          addToast('Recadrage effectué', `Ratio ${ratio} appliqué à tout le lot`, 'success');
         } finally {
           setIsProcessing(false);
         }
@@ -767,13 +854,13 @@
 
       // Resize
       const applyResize = async (w, h) => {
-        const targets = selectedIds.size > 0 ? selectedIds : new Set(images.map(img => img.id));
+        const targetIds = applyToAll ? new Set(images.map(img => img.id)) : selectedIds;
         setIsProcessing(true);
         setProcessingMsg('Redimensionnement...');
         try {
           const updated = [...images];
           for (let i = 0; i < updated.length; i++) {
-            if (targets.has(updated[i].id)) {
+            if (targetIds.has(updated[i].id)) {
               const item = updated[i];
               const img = new Image();
               img.src = item.currentUrl;
@@ -806,32 +893,31 @@
 
       // Download Zip
       const downloadZip = async () => {
-        const targets = images.filter(img => selectedIds.has(img.id));
-        if (targets.length === 0) return;
+        if (images.length === 0) return;
         setIsProcessing(true);
         setProcessingMsg('Compression de l’archive ZIP...');
         try {
           const zip = new JSZip();
-          const folder = zip.folder("pixelbatch_hd_images");
-          targets.forEach((item, i) => {
+          const folder = zip.folder("pixelbatch_inpixio_hd");
+          images.forEach((item, i) => {
             const data = item.currentUrl.split(',')[1];
-            folder.file(`image_${i + 1}_${item.name.replace(/\.[^/.]+$/, '')}.png`, data, { base64: true });
+            folder.file(`photo_${i + 1}_${item.name.replace(/\.[^/.]+$/, '')}.png`, data, { base64: true });
           });
           const blob = await zip.generateAsync({ type: 'blob' });
-          saveAs(blob, `PixelBatch_Export_${Date.now()}.zip`);
-          addToast('ZIP Prêt !', `${targets.length} images compressées`, 'success');
+          saveAs(blob, `PixelBatch_InPixio_Export_${Date.now()}.zip`);
+          addToast('ZIP Prêt !', `${images.length} photos téléchargées`, 'success');
         } finally {
           setIsProcessing(false);
         }
       };
 
-      // Filtered lists (30 per category)
-      const filteredCartoons = useMemo(() => BG_CARTOONS_30.filter(c => c.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredNature = useMemo(() => BG_NATURE_30.filter(n => n.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredSolids = useMemo(() => BG_SOLIDS_30.filter(s => s.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredGradients = useMemo(() => BG_GRADIENTS_30.filter(g => g.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredStudios = useMemo(() => BG_STUDIOS_30.filter(s => s.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredCities = useMemo(() => BG_CITIES_30.filter(c => c.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      // Filtered lists (40 per category)
+      const filteredPopArt = useMemo(() => BG_POPART_40.filter(c => c.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredNature = useMemo(() => BG_NATURE_40.filter(n => n.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredStudios = useMemo(() => BG_STUDIOS_40.filter(s => s.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredCities = useMemo(() => BG_CITIES_40.filter(c => c.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredGradients = useMemo(() => BG_GRADIENTS_40.filter(g => g.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredSolids = useMemo(() => BG_SOLIDS_40.filter(s => s.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
 
       return (
         <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100">
@@ -848,10 +934,10 @@
                     PixelBatch AI Studio
                   </span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-                    180+ FONDS HD
+                    240+ FONDS INPIXIO PRO
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">Détourage intelligent avec protection absolue du visage & 100% HD</p>
+                <p className="text-[11px] text-slate-400">Zéro flash sur le visage • Traitement 100% de toutes les photos du lot</p>
               </div>
             </div>
 
@@ -869,7 +955,7 @@
                   }));
                   setImages(demos);
                   setSelectedIds(new Set(demos.map(img => img.id)));
-                  addToast('Démos Chargées', 'Photos prêtes pour tester les 180+ fonds !', 'success');
+                  addToast('Démos Chargées', 'Photos prêtes pour tester les 240+ fonds !', 'success');
                 }}
                 className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold"
               >
@@ -902,16 +988,25 @@
             {/* GALLERY AREA */}
             <main className="flex-1 p-6 overflow-y-auto flex flex-col gap-5">
               
-              {/* Top Toolbar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                <div className="flex items-center gap-2 text-xs">
-                  <button onClick={selectAll} className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 font-semibold text-slate-200">
-                    Tout cocher ({images.length})
+              {/* Batch Mode Switcher Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
+                
+                {/* 100% OF ALL IMAGES TOGGLE (Solves the issue of leaving images out!) */}
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setApplyToAll(!applyToAll)}
+                    className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                      applyToAll ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'bg-slate-800 text-slate-400 border border-slate-700'
+                    }`}
+                  >
+                    <Icon name="bolt" className="w-4 h-4 text-amber-400" />
+                    <span>{applyToAll ? `⚡ Mode Lot Actif : Traite TOUTES les ${images.length} photos` : 'Mode Sélection Manuelle'}</span>
                   </button>
-                  <button onClick={deselectAll} className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400">
-                    Tout décocher
+                  
+                  <button onClick={selectAll} className="text-xs text-slate-400 hover:text-white underline">
+                    Tout cocher
                   </button>
-                  <button onClick={revertSelected} className="px-3 py-1.5 rounded-lg border border-amber-500/30 text-amber-300 hover:bg-amber-500/10">
+                  <button onClick={revertSelected} className="px-2.5 py-1 rounded-lg border border-amber-500/30 text-amber-300 hover:bg-amber-500/10 text-xs">
                     Restaurer originaux
                   </button>
                 </div>
@@ -943,12 +1038,12 @@
                     <Icon name="upload" className="w-10 h-10 text-indigo-400 animate-bounce" />
                   </div>
                   <h2 className="text-xl font-bold text-white mb-2">Glissez vos photos ici</h2>
-                  <p className="text-sm text-slate-400 max-w-md mb-6">Le visage et le sujet restent impeccables et nets. Le fond change en 1 clic.</p>
+                  <p className="text-sm text-slate-400 max-w-md mb-6">Zéro reflet sur le visage. Toutes les photos du lot sont modifiées ensemble en 1 clic.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                   {images.map((item) => {
-                    const isSelected = selectedIds.has(item.id);
+                    const isSelected = applyToAll || selectedIds.has(item.id);
                     return (
                       <div
                         key={item.id}
@@ -998,7 +1093,7 @@
                           <span className="font-semibold text-slate-200 truncate max-w-[160px]">{item.name}</span>
                           {item.isModified ? (
                             <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                              Fond HD Modifié
+                              Fond Modifié (HD Net)
                             </span>
                           ) : (
                             <span className="text-[10px] text-slate-500 font-mono">Original</span>
@@ -1011,18 +1106,20 @@
               )}
             </main>
 
-            {/* EXPANDED CONTROL SIDEBAR (180+ BACKGROUNDS) */}
+            {/* EXPANDED CONTROL SIDEBAR (240+ BACKGROUNDS INPIXIO) */}
             <aside className="w-full lg:w-[460px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
               
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 180+ Fonds HD</h3>
-                <span className="text-xs font-mono text-indigo-400 font-bold">{selectedIds.size} sélectionnée(s)</span>
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 240+ Fonds InPixio</h3>
+                <span className="text-xs font-mono text-emerald-400 font-bold">
+                  {applyToAll ? `Toutes les ${images.length} photos` : `${selectedIds.size} photos`}
+                </span>
               </div>
 
               {/* Main Tool Tabs */}
               <div className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
                 {[
-                  { id: 'background', label: 'Fonds (180+)', icon: 'palette' },
+                  { id: 'background', label: 'Fonds (240+)', icon: 'palette' },
                   { id: 'crop', label: 'Recadrer', icon: 'crop' },
                   { id: 'resize', label: 'Taille', icon: 'resize' },
                   { id: 'watermark', label: 'Filigrane', icon: 'stamp' },
@@ -1041,19 +1138,19 @@
               </div>
 
               {/* ================================================================= */}
-              {/* --- TAB: BACKGROUNDS WITH 6 SECTIONS (30 CHOICES PER SECTION) --- */}
+              {/* --- TAB: BACKGROUNDS WITH 6 SECTIONS (40 CHOICES PER SECTION) --- */}
               {/* ================================================================= */}
               {activeTab === 'background' && (
                 <div className="flex flex-col gap-3.5">
                   
-                  {/* Shield Face & Subject Protection Banner */}
+                  {/* Zero-Glow Guarantee Banner */}
                   <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
                         <Icon name="shield" className="w-4 h-4 text-emerald-400" />
-                        Bouclier Visage & Sujet HD Activé
+                        Technologie Zéro Flash / Zéro Lueur Visage
                       </span>
-                      <p className="text-[10px] text-slate-400">Le visage et le sujet ne sont jamais altérés ni décolorés.</p>
+                      <p className="text-[10px] text-slate-400">Le visage et le corps restent 100% purs et nets.</p>
                     </div>
                     <input
                       type="checkbox"
@@ -1070,7 +1167,7 @@
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Rechercher parmi 180+ fonds (ex: désert, anime, marbre, coucher de soleil)..."
+                      placeholder="Rechercher parmi 240+ fonds (ex: pop art, désert, marbre, studio, sunset)..."
                       className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                     />
                   </div>
@@ -1078,48 +1175,72 @@
                   {/* 6 Category Buttons */}
                   <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-bold">
                     <button
+                      onClick={() => setBgCategory('popart')}
+                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'popart' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                    >
+                      💥 Pop Art (40)
+                    </button>
+                    <button
                       onClick={() => setBgCategory('nature')}
                       className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'nature' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🏜️ Déserts & Nature (30)
-                    </button>
-                    <button
-                      onClick={() => setBgCategory('cartoons')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'cartoons' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
-                    >
-                      🧸 Cartoons & 3D (30)
+                      🏜️ Déserts & Nature (40)
                     </button>
                     <button
                       onClick={() => setBgCategory('studios')}
                       className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'studios' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🏛️ Studios & Luxe (30)
+                      🏛️ Studios Luxe (40)
                     </button>
                     <button
                       onClick={() => setBgCategory('cities')}
                       className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'cities' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🏙️ Villes & Cyber (30)
+                      🏙️ Villes & Cyber (40)
                     </button>
                     <button
                       onClick={() => setBgCategory('gradients')}
                       className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'gradients' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🌈 Dégradés Mesh (30)
+                      🌈 Dégradés (40)
                     </button>
                     <button
                       onClick={() => setBgCategory('solids')}
                       className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'solids' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🎨 Couleurs Pro (30)
+                      🎨 Couleurs Pro (40)
                     </button>
                   </div>
 
-                  {/* 1. DESERTS & NATURE HD (30 CHOICES) */}
+                  {/* 1. POP ART & COMICS SECTION (40 CHOICES INPIXIO STYLE) */}
+                  {bgCategory === 'popart' && (
+                    <div className="flex flex-col gap-2">
+                      <span className="text-[11px] text-slate-400 font-bold">
+                        👉 40 Décors Pop Art & Rétro InPixio (1 Clic) :
+                      </span>
+                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
+                        {filteredPopArt.map(p => (
+                          <button
+                            key={p.id}
+                            onClick={() => applyBackground(p)}
+                            className="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
+                          >
+                            <img src={p.url} alt={p.label} className="absolute inset-0 w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                            <span className="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">
+                              {p.label}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 2. DESERTS & NATURE HD (40 CHOICES) */}
                   {bgCategory === 'nature' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 30 Déserts Somptueux & Paysages Nature HD (1 Clic) :
+                        👉 40 Déserts Somptueux & Paysages Nature HD (1 Clic) :
                       </span>
                       <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredNature.map(n => (
@@ -1137,35 +1258,11 @@
                     </div>
                   )}
 
-                  {/* 2. CARTOONS & 3D (30 CHOICES) */}
-                  {bgCategory === 'cartoons' && (
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[11px] text-slate-400 font-bold">
-                        👉 30 Décors Cartoons, Anime & 3D (1 Clic) :
-                      </span>
-                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
-                        {filteredCartoons.map(c => (
-                          <button
-                            key={c.id}
-                            onClick={() => applyBackground(c)}
-                            className="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
-                          >
-                            <img src={c.url} alt={c.label} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-                            <span className="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">
-                              {c.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 3. STUDIOS & LUXURY (30 CHOICES) */}
+                  {/* 3. STUDIOS & LUXURY (40 CHOICES) */}
                   {bgCategory === 'studios' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 30 Studios Photo & Intérieurs Luxe HD :
+                        👉 40 Studios Photo & Intérieurs Luxe HD :
                       </span>
                       <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredStudios.map(s => (
@@ -1183,11 +1280,11 @@
                     </div>
                   )}
 
-                  {/* 4. CITIES & CYBERPUNK (30 CHOICES) */}
+                  {/* 4. CITIES & CYBERPUNK (40 CHOICES) */}
                   {bgCategory === 'cities' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 30 Villes, Cyberpunk & Architecture HD :
+                        👉 40 Villes, Cyberpunk & Architecture HD :
                       </span>
                       <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredCities.map(c => (
@@ -1205,11 +1302,11 @@
                     </div>
                   )}
 
-                  {/* 5. GRADIENTS (30 CHOICES) */}
+                  {/* 5. GRADIENTS (40 CHOICES) */}
                   {bgCategory === 'gradients' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 30 Dégradés Modernes & Mesh :
+                        👉 40 Dégradés Modernes & Mesh Studio :
                       </span>
                       <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredGradients.map(grad => (
@@ -1226,11 +1323,11 @@
                     </div>
                   )}
 
-                  {/* 6. SOLID COLORS (30 CHOICES) */}
+                  {/* 6. SOLID COLORS (40 CHOICES) */}
                   {bgCategory === 'solids' && (
                     <div className="flex flex-col gap-3">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 30 Couleurs Studio & Pastels :
+                        👉 40 Couleurs Studio & Pastels :
                       </span>
                       <div className="grid grid-cols-4 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredSolids.map(color => (
