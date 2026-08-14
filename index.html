@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Détourage IA Intelligent Style InPixio & 240+ Fonds HD</title>
-  <meta name="description" content="Studio photo professionnel par lots avec IA MediaPipe intégrée : détourage parfait du visage et du corps, zéro transparence sur le sujet, 100% d'application fiable de tous les fonds (Pop Art, Déserts, Studios, Villes, Dégradés et Couleurs)." />
+  <title>PixelBatch AI Studio — Traitement par Lots HD de 1 à 1000 Photos & Couverture 100% Plein Écran</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos) : couverture intégrale du fond sur toute la surface de la photo (zéro coupure, zéro bande noire), IA MediaPipe pour visage et corps 100% nets, et 240+ fonds InPixio." />
 
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,7 +44,7 @@
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- Google MediaPipe Selfie Segmentation (Neural AI Cutout in Browser) -->
+  <!-- Google MediaPipe Selfie Segmentation -->
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
 
   <!-- JSZip & FileSaver -->
@@ -222,18 +222,17 @@
     ];
 
     // =========================================================================
-    // --- 100% RELIABLE EMBEDDED BACKGROUND CATALOGUE (240+ CHOICES) ---
-    // Zero CORS errors, Zero Loading Failures, Works 100% on Local and Vercel!
+    // --- FULL-CANVAS SVG BACKGROUND ENGINE (preserveAspectRatio="none") ---
+    // Guarantees 100% full coverage on ANY photo resolution with zero borders!
     // =========================================================================
-
     const makeSvgBg = (id, label, svg) => ({
       id,
       label,
       type: 'image',
-      url: 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">${svg}</svg>`),
+      url: 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1200 1200" preserveAspectRatio="none">${svg}</svg>`),
     });
 
-    // 1. POP ART & RETRO COMICS (40 INPIXIO CHOICES)
+    // 1. POP ART (40 INPIXIO CHOICES)
     const BG_POPART_40 = [
       makeSvgBg('p1', 'Pop Art Rayons Soleil Jaune', '<rect width="1200" height="1200" fill="#facc15"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#ea580c"/>'),
       makeSvgBg('p2', 'Pop Dots Roy Lichtenstein', '<defs><pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="10" fill="#ef4444"/></pattern></defs><rect width="1200" height="1200" fill="#fef08a"/><rect width="1200" height="1200" fill="url(#dots)"/>'),
@@ -277,7 +276,7 @@
       makeSvgBg('p40', 'Poster InPixio Master', '<rect width="1200" height="1200" fill="#f43f5e"/><circle cx="600" cy="600" r="420" fill="#facc15" stroke="#000000" stroke-width="24"/><rect x="300" y="500" width="600" height="200" fill="#000000"/><text x="600" y="640" font-family="sans-serif" font-weight="900" font-size="90" fill="#ffffff" text-anchor="middle">POP ART</text>'),
     ];
 
-    // 2. DESERTS & NATURE HD (40 VECTOR & EMBEDDED HD CHOICES)
+    // 2. DESERTS & NATURE (40 VECTOR HD CHOICES)
     const BG_NATURE_40 = [
       makeSvgBg('n1', 'Dunes Rouges de Sossusvlei Namibie', '<defs><linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#bae6fd"/></linearGradient><linearGradient id="dune1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></linearGradient></defs><rect width="1200" height="1200" fill="url(#sky1)"/><circle cx="950" cy="250" r="120" fill="#fef08a"/><path d="M0,700 Q400,450 800,680 T1200,600 L1200,1200 L0,1200 Z" fill="url(#dune1)"/><path d="M0,850 Q500,650 1200,850 L1200,1200 L0,1200 Z" fill="#7c2d12"/>'),
       makeSvgBg('n2', 'Sahara Coucher de Soleil Doré', '<defs><linearGradient id="saha" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f97316"/><stop offset="50%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#fed7aa"/></linearGradient></defs><rect width="1200" height="1200" fill="url(#saha)"/><circle cx="600" cy="500" r="220" fill="#ffffff" opacity="0.9"/><path d="M0,750 Q300,600 700,780 T1200,700 L1200,1200 L0,1200 Z" fill="#b45309"/><path d="M0,900 Q600,720 1200,900 L1200,1200 L0,1200 Z" fill="#78350f"/>'),
@@ -365,7 +364,7 @@
       makeSvgBg('st40', 'Lounge Sunset Miami Beach', '<rect width="1200" height="1200" fill="#ec4899"/><circle cx="600" cy="500" r="220" fill="#facc15"/><rect y="850" width="1200" height="350" fill="#09090b"/>'),
     ];
 
-    // 4. CITIES & CYBERPUNK (40 HD CHOICES)
+    // 4. CITIES & CYBERPUNK (40 VECTOR HD CHOICES)
     const BG_CITIES_40 = [
       makeSvgBg('u1', 'Tokyo Shibuya Neon Nuit', '<rect width="1200" height="1200" fill="#09090b"/><rect x="150" y="300" width="200" height="900" fill="#18181b" stroke="#ec4899" stroke-width="8"/><rect x="500" y="200" width="250" height="1000" fill="#18181b" stroke="#06b6d4" stroke-width="8"/><rect x="850" y="350" width="200" height="850" fill="#18181b" stroke="#facc15" stroke-width="8"/>'),
       makeSvgBg('u2', 'New York Manhattan Skyline', '<rect width="1200" height="1200" fill="#0f172a"/><polygon points="200,900 280,300 360,900" fill="#334155"/><rect x="400" y="200" width="180" height="700" fill="#1e293b"/><rect x="650" y="350" width="220" height="550" fill="#334155"/><rect y="900" width="1200" height="300" fill="#0284c7"/>'),
@@ -409,7 +408,7 @@
       makeSvgBg('u40', 'Istanbul Bosphore', '<rect width="1200" height="1200" fill="#fde047"/><polygon points="400,750 600,450 800,750" fill="#0284c7"/><rect y="750" width="1200" height="450" fill="#0369a1"/>'),
     ];
 
-    // 5. MESH & LINEAR GRADIENTS (40 CHOICES)
+    // 5. GRADIENTS (40 CHOICES)
     const BG_GRADIENTS_40 = [
       { id: 'g1', label: 'Sunset Glow', colors: ['#f97316', '#ec4899', '#8b5cf6'], css: 'linear-gradient(135deg, #f97316, #ec4899, #8b5cf6)' },
       { id: 'g2', label: 'Cyber Neon', colors: ['#06b6d4', '#3b82f6', '#9333ea'], css: 'linear-gradient(135deg, #06b6d4, #3b82f6, #9333ea)' },
@@ -497,7 +496,7 @@
       { id: 'graphite', label: 'Graphite Mat', value: '#27272a', class: 'bg-zinc-800' },
     ];
 
-    // --- Main Component ---
+    // --- Main Application Component ---
     function App() {
       const [images, setImages] = useState([]);
       const [selectedIds, setSelectedIds] = useState(new Set());
@@ -506,7 +505,7 @@
       const [bgCategory, setBgCategory] = useState('popart');
       const [searchQuery, setSearchQuery] = useState('');
       const [isProcessing, setIsProcessing] = useState(false);
-      const [processingMsg, setProcessingMsg] = useState('');
+      const [progress, setProgress] = useState({ current: 0, total: 0 });
       const [toasts, setToasts] = useState([]);
 
       // Compare Modal
@@ -520,7 +519,7 @@
       const [autoCutout, setAutoCutout] = useState(true);
       const [tolerance, setTolerance] = useState(25);
 
-      // MediaPipe Segmenter Instance
+      // MediaPipe Segmenter
       const segmenterRef = useRef(null);
 
       useEffect(() => {
@@ -529,13 +528,11 @@
             const segmenter = new window.SelfieSegmentation({
               locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`,
             });
-            segmenter.setOptions({
-              modelSelection: 1, // High accuracy mode
-            });
+            segmenter.setOptions({ modelSelection: 1 });
             segmenterRef.current = segmenter;
           }
         } catch (e) {
-          console.warn("MediaPipe init fallback:", e);
+          console.warn("MediaPipe fallback init:", e);
         }
       }, []);
 
@@ -560,48 +557,37 @@
           name: d.name,
           originalUrl: d.url,
           currentUrl: d.url,
-          width: 1200,
-          height: 1200,
           isModified: false,
         }));
         setImages(initial);
         setSelectedIds(new Set(initial.map(img => img.id)));
       }, []);
 
-      // Upload Handler
+      // High-Capacity Batch Upload (1 to 1000 photos via memory-efficient ObjectURLs)
       const handleFiles = (files) => {
         if (!files || files.length === 0) return;
+        const count = files.length;
+        const newItems = [];
 
         Array.from(files).forEach((file) => {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const url = e.target.result;
-            const img = new Image();
-            img.onload = () => {
-              const id = 'img_' + Math.random().toString(36).substring(2, 9);
-              setImages(prev => {
-                const nextImages = [
-                  ...prev,
-                  {
-                    id,
-                    name: file.name,
-                    originalUrl: url,
-                    currentUrl: url,
-                    width: img.naturalWidth || 1200,
-                    height: img.naturalHeight || 1200,
-                    isModified: false,
-                  }
-                ];
-                setSelectedIds(new Set(nextImages.map(m => m.id)));
-                return nextImages;
-              });
-            };
-            img.src = url;
-          };
-          reader.readAsDataURL(file);
+          const url = URL.createObjectURL(file);
+          const id = 'img_' + Math.random().toString(36).substring(2, 9);
+          newItems.push({
+            id,
+            name: file.name,
+            originalUrl: url,
+            currentUrl: url,
+            isModified: false,
+          });
         });
 
-        addToast('Photos Importées', `${files.length} photo(s) ajoutée(s). Prêtes pour le lot !`, 'success');
+        setImages(prev => {
+          const nextList = [...prev, ...newItems];
+          setSelectedIds(new Set(nextList.map(m => m.id)));
+          return nextList;
+        });
+
+        addToast('Lot Importé', `${count} photo(s) ajoutée(s). Capacité : jusqu’à 1000 photos !`, 'success');
       };
 
       // Select / Deselect
@@ -627,12 +613,11 @@
       const deleteSelected = () => {
         setImages(prev => prev.filter(img => !selectedIds.has(img.id)));
         setSelectedIds(new Set());
-        addToast('Supprimé', 'Images supprimées', 'info');
+        addToast('Supprimé', 'Photos supprimées', 'info');
       };
 
       // =========================================================================
-      // --- BULLETPROOF HYBRID SEGMENTATION ENGINE (MEDIAPIPE AI + ZERO-GLOW BFS) ---
-      // 100% Guaranteed: Face is NEVER covered, Background 100% applies!
+      // --- BULLETPROOF FULL-CANVAS RENDERING ENGINE (ZERO CROPPING / ZERO CUTS) ---
       // =========================================================================
       const processSingleImage = async (item, bgConfig) => {
         return new Promise((resolve, reject) => {
@@ -642,10 +627,10 @@
 
           img.onload = async () => {
             try {
-              const w = img.naturalWidth || item.width || 1200;
-              const h = img.naturalHeight || item.height || 1200;
+              const w = img.naturalWidth || 1200;
+              const h = img.naturalHeight || 1200;
 
-              // Step 1: Render the chosen background on bgCanvas
+              // Canvas 1: Full-Canvas Background (Covers 100% of (w, h) without cropping or letterbox)
               const bgCanvas = document.createElement('canvas');
               bgCanvas.width = w;
               bgCanvas.height = h;
@@ -671,16 +656,16 @@
                       bgImg.onerror = rej;
                       bgImg.src = bgConfig.url;
                     });
+                    // Stretch/fit full canvas area
                     bgCtx.drawImage(bgImg, 0, 0, w, h);
                   } catch (e) {
-                    // Fallback to vibrant background if image load has issue
                     bgCtx.fillStyle = '#6366f1';
                     bgCtx.fillRect(0, 0, w, h);
                   }
                 }
               }
 
-              // Step 2: Extract pure subject with zero glow/flash
+              // Canvas 2: Pure Original Subject Cutout
               const subjectCanvas = document.createElement('canvas');
               subjectCanvas.width = w;
               subjectCanvas.height = h;
@@ -690,7 +675,7 @@
               if (autoCutout) {
                 let maskFound = false;
 
-                // Try MediaPipe AI first for human portraits
+                // MediaPipe AI for human segmentation
                 if (segmenterRef.current) {
                   try {
                     await new Promise((res) => {
@@ -717,7 +702,7 @@
                   }
                 }
 
-                // If MediaPipe didn't produce mask (e.g., product or non-human image), run BFS Floodfill
+                // Fallback BFS Floodfill for products/objects
                 if (!maskFound) {
                   const imgData = sctx.getImageData(0, 0, w, h);
                   const data = imgData.data;
@@ -791,15 +776,15 @@
                 }
               }
 
-              // Step 3: Composite final image (Subject over new Background)
+              // Canvas 3: Final Composition (100% Full Canvas Coverage + Untouched Original Subject)
               const finalCanvas = document.createElement('canvas');
               finalCanvas.width = w;
               finalCanvas.height = h;
               const fctx = finalCanvas.getContext('2d');
 
-              // 1. Draw new background first
+              // 1. Draw new background covering full (w, h)
               fctx.drawImage(bgCanvas, 0, 0, w, h);
-              // 2. Draw pristine extracted subject on top (Face is 100% untouched and pure!)
+              // 2. Draw pristine subject on top
               fctx.drawImage(subjectCanvas, 0, 0, w, h);
 
               // 3. Watermark
@@ -835,7 +820,7 @@
         });
       };
 
-      // 1-Click Instant Batch Background Apply (100% OF ALL IMAGES)
+      // 1-Click Instant Batch Processor for 1 to 1000 Photos (Asynchronous Chunking)
       const applyBackground = async (bgConfig) => {
         if (images.length === 0) {
           addToast('Aucune photo', 'Importez vos photos d’abord !', 'warning');
@@ -843,19 +828,30 @@
         }
 
         const targetIds = applyToAll ? new Set(images.map(img => img.id)) : (selectedIds.size > 0 ? selectedIds : new Set(images.map(img => img.id)));
+        const targetList = images.filter(img => targetIds.has(img.id));
+        const total = targetList.length;
 
         setIsProcessing(true);
-        setProcessingMsg(`Application à tout le lot (${targetIds.size} photos)...`);
+        setProgress({ current: 0, total });
 
         try {
           const updated = [...images];
+          let done = 0;
+
+          // Process in smooth asynchronous chunks
           for (let i = 0; i < updated.length; i++) {
             if (targetIds.has(updated[i].id)) {
               updated[i] = await processSingleImage(updated[i], bgConfig);
+              done++;
+              setProgress({ current: done, total });
+              // Yield to main thread for ultra-smooth UI
+              if (done % 5 === 0) {
+                await new Promise(r => setTimeout(r, 0));
+              }
             }
           }
           setImages(updated);
-          addToast('Lot Traité avec Succès !', `${targetIds.size} photo(s) : fond appliqué sans toucher au visage ✨`, 'success');
+          addToast('Lot Traité en Plein Écran !', `${total} photo(s) : fond appliqué sur 100% de la surface sans aucune coupure ✨`, 'success');
         } catch (e) {
           console.error(e);
         } finally {
@@ -878,7 +874,7 @@
       const applyCrop = async (ratio) => {
         const targetIds = applyToAll ? new Set(images.map(img => img.id)) : selectedIds;
         setIsProcessing(true);
-        setProcessingMsg('Recadrage...');
+        setProgress({ current: 0, total: targetIds.size });
         try {
           const updated = [...images];
           for (let i = 0; i < updated.length; i++) {
@@ -900,7 +896,7 @@
               canvas.height = th;
               const ctx = canvas.getContext('2d');
               ctx.drawImage(img, (w - tw) / 2, (h - th) / 2, tw, th, 0, 0, tw, th);
-              updated[i] = { ...item, currentUrl: canvas.toDataURL('image/png'), width: tw, height: th, isModified: true };
+              updated[i] = { ...item, currentUrl: canvas.toDataURL('image/png'), isModified: true };
             }
           }
           setImages(updated);
@@ -914,7 +910,7 @@
       const applyResize = async (w, h) => {
         const targetIds = applyToAll ? new Set(images.map(img => img.id)) : selectedIds;
         setIsProcessing(true);
-        setProcessingMsg('Redimensionnement...');
+        setProgress({ current: 0, total: targetIds.size });
         try {
           const updated = [...images];
           for (let i = 0; i < updated.length; i++) {
@@ -928,7 +924,7 @@
               canvas.height = h;
               const ctx = canvas.getContext('2d');
               ctx.drawImage(img, 0, 0, w, h);
-              updated[i] = { ...item, currentUrl: canvas.toDataURL('image/png'), width: w, height: h, isModified: true };
+              updated[i] = { ...item, currentUrl: canvas.toDataURL('image/png'), isModified: true };
             }
           }
           setImages(updated);
@@ -953,16 +949,16 @@
       const downloadZip = async () => {
         if (images.length === 0) return;
         setIsProcessing(true);
-        setProcessingMsg('Compression de l’archive ZIP...');
+        setProgress({ current: 0, total: images.length });
         try {
           const zip = new JSZip();
-          const folder = zip.folder("pixelbatch_inpixio_hd");
+          const folder = zip.folder("pixelbatch_hd_export");
           images.forEach((item, i) => {
             const data = item.currentUrl.split(',')[1];
             folder.file(`photo_${i + 1}_${item.name.replace(/\.[^/.]+$/, '')}.png`, data, { base64: true });
           });
           const blob = await zip.generateAsync({ type: 'blob' });
-          saveAs(blob, `PixelBatch_InPixio_Export_${Date.now()}.zip`);
+          saveAs(blob, `PixelBatch_Export_${images.length}_photos_${Date.now()}.zip`);
           addToast('ZIP Prêt !', `${images.length} photos téléchargées`, 'success');
         } finally {
           setIsProcessing(false);
@@ -992,10 +988,10 @@
                     PixelBatch AI Studio
                   </span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-                    240+ FONDS INPIXIO PRO
+                    LOT 1 À 1000 PHOTOS
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">Détourage IA MediaPipe • Zéro fond sur le visage • Application 100% garantie</p>
+                <p className="text-[11px] text-slate-400">Fond 100% plein écran • Zéro coupure de photo • IA MediaPipe</p>
               </div>
             </div>
 
@@ -1007,8 +1003,6 @@
                     name: d.name,
                     originalUrl: d.url,
                     currentUrl: d.url,
-                    width: 1200,
-                    height: 1200,
                     isModified: false,
                   }));
                   setImages(demos);
@@ -1035,7 +1029,7 @@
                 className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-indigo-500 via-indigo-600 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 disabled:opacity-40"
               >
                 <Icon name="zip" className="w-4 h-4" />
-                <span>Télécharger tout (ZIP)</span>
+                <span>Télécharger tout ({images.length} photos)</span>
               </button>
             </div>
           </header>
@@ -1046,7 +1040,7 @@
             {/* GALLERY AREA */}
             <main className="flex-1 p-6 overflow-y-auto flex flex-col gap-5">
               
-              {/* Batch Mode Switcher Bar */}
+              {/* Batch Mode Bar */}
               <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
                 
                 <div className="flex items-center gap-3">
@@ -1071,7 +1065,7 @@
                 <div className="flex items-center gap-2">
                   <label className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 cursor-pointer hover:bg-indigo-500/30 transition-all">
                     <Icon name="upload" className="w-3.5 h-3.5" />
-                    <span>Glisser / Ajouter vos photos</span>
+                    <span>Ajouter des photos (1 à 1000)</span>
                     <input type="file" multiple accept="image/*" className="hidden" onChange={(e) => handleFiles(e.target.files)} />
                   </label>
 
@@ -1094,8 +1088,8 @@
                   <div className="w-20 h-20 rounded-3xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-6">
                     <Icon name="upload" className="w-10 h-10 text-indigo-400 animate-bounce" />
                   </div>
-                  <h2 className="text-xl font-bold text-white mb-2">Glissez vos photos ici</h2>
-                  <p className="text-sm text-slate-400 max-w-md mb-6">Le visage et le sujet restent 100% intacts. Le fond change sans aucun défaut.</p>
+                  <h2 className="text-xl font-bold text-white mb-2">Glissez de 1 à 1000 photos ici</h2>
+                  <p className="text-sm text-slate-400 max-w-md mb-6">Le fond s’étend sur 100% de la surface de chaque photo sans la couper.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -1150,7 +1144,7 @@
                           <span className="font-semibold text-slate-200 truncate max-w-[160px]">{item.name}</span>
                           {item.isModified ? (
                             <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                              Fond Appliqué (Visage Intact)
+                              Fond 100% Plein Écran
                             </span>
                           ) : (
                             <span className="text-[10px] text-slate-500 font-mono">Original</span>
@@ -1169,7 +1163,7 @@
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 240+ Fonds InPixio</h3>
                 <span className="text-xs font-mono text-emerald-400 font-bold">
-                  {applyToAll ? `Toutes les ${images.length} photos` : `${selectedIds.size} photos`}
+                  {applyToAll ? `Lot complet (${images.length} photos)` : `${selectedIds.size} photos`}
                 </span>
               </div>
 
@@ -1198,14 +1192,14 @@
               {activeTab === 'background' && (
                 <div className="flex flex-col gap-3.5">
                   
-                  {/* Zero-Glow Guarantee Banner */}
+                  {/* Full Coverage Guarantee Banner */}
                   <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
                         <Icon name="shield" className="w-4 h-4 text-emerald-400" />
-                        Détourage IA & Zéro Lueur sur le Visage
+                        Couverture 100% Plein Écran sans coupure
                       </span>
-                      <p className="text-[10px] text-slate-400">Le sujet est extrait avec netteté, le fond ne le recouvre jamais.</p>
+                      <p className="text-[10px] text-slate-400">Le fond remplit toute la photo originale sans la tronquer.</p>
                     </div>
                     <input
                       type="checkbox"
@@ -1568,12 +1562,23 @@
             </div>
           )}
 
-          {/* SPINNER OVERLAY */}
+          {/* REAL-TIME PROGRESS OVERLAY (FOR BATCHES UP TO 1000 PHOTOS) */}
           {isProcessing && (
-            <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col items-center gap-3">
-                <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-                <p className="text-xs font-semibold text-slate-200">{processingMsg}</p>
+            <div className="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 flex flex-col items-center gap-4 max-w-sm w-full shadow-2xl">
+                <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                <div className="text-center w-full">
+                  <h3 className="text-sm font-bold text-white mb-1">Traitement du lot en cours</h3>
+                  <p className="text-xs text-slate-400 mb-3">
+                    Photo {progress.current} sur {progress.total} ({Math.round((progress.current / Math.max(1, progress.total)) * 100)}%)
+                  </p>
+                  <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden border border-slate-700">
+                    <div
+                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-150"
+                      style={{ width: `${(progress.current / Math.max(1, progress.total)) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
