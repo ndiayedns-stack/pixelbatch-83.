@@ -23,26 +23,13 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            brand: {
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-            },
-            cervex: {
-              400: '#38bdf8',
-              500: '#0ea5e9',
-              600: '#0284c7',
-            }
+            brand: { 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
+            cervex: { 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7' }
           }
         }
       }
     }
   </script>
-
-  <!-- React 18 & ReactDOM -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <!-- Google MediaPipe Selfie Segmentation -->
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
@@ -68,1585 +55,913 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased font-sans min-h-screen">
-  <div id="root"></div>
+<body class="bg-slate-950 text-slate-100 antialiased font-sans min-h-screen flex flex-col">
 
-  <!-- NATIVE JAVASCRIPT DATA & LOGIC (NO BABEL COMPILATION ISSUES) -->
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/90 border-b border-slate-800 px-6 py-3.5 flex items-center justify-between shadow-xl">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-pink-500/25 font-black text-xl">
+        ⚡
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-pink-100 to-slate-400 bg-clip-text text-transparent">
+            PixelBatch AI Studio
+          </span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
+            FRESQUES MANGAS & POP ART MAÎTRES
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-400">40 Fresques & Héros Mangas • 40 Pop Art de Collection (Murakami, KAWS, Warhol) • Sortie Ultra-HD 4K</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <!-- Resolution Selector -->
+      <div class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+        <span class="px-2 text-[10px] font-bold text-slate-400">Sortie :</span>
+        <button id="btn-res-4k" onclick="setOutputQuality('4k')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 font-black shadow-md">Master 4K</button>
+        <button id="btn-res-2k" onclick="setOutputQuality('2k')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">Ultra 2K</button>
+        <button id="btn-res-1080p" onclick="setOutputQuality('1080p')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">Full HD</button>
+        <button id="btn-res-orig" onclick="setOutputQuality('original')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">Original</button>
+      </div>
+
+      <button onclick="loadDemoImages()" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold">
+        <span>✨ Charger Démos</span>
+      </button>
+
+      <button onclick="openCervexModal()" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-cervex-600/10 hover:bg-cervex-600/20 text-cervex-400 border border-cervex-500/30 text-xs font-semibold">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Connecteur Cervex</span>
+      </button>
+
+      <button id="btn-download-all" onclick="downloadAllZip()" class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:to-rose-600 text-slate-950 shadow-lg shadow-amber-500/25 font-black">
+        <span>📦 Télécharger tout en 4K (<span id="count-download">0</span> photos)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE -->
+  <div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+    
+    <!-- GALLERY VIEWPORT -->
+    <main class="flex-1 p-6 overflow-y-auto flex flex-col gap-5">
+      
+      <!-- Import Header Banner -->
+      <div class="p-3.5 rounded-2xl bg-gradient-to-r from-pink-950/40 via-purple-950/30 to-slate-900 border border-pink-500/30 flex flex-wrap items-center justify-between gap-3 shadow-lg">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-400 text-lg">
+            🪄
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-white flex items-center gap-2">
+              <span>Détourage 100% Automatique à l'importation</span>
+              <span class="text-[10px] px-2 py-0.2 rounded-full bg-pink-500/20 text-pink-300 font-mono font-bold">Ultra-HD 4K</span>
+            </h4>
+            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur une fresque de héros ou un Pop Art pour l'appliquer en 1 clic !</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <label class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:to-indigo-500 text-white shadow-lg shadow-pink-600/30 cursor-pointer transition-all">
+            <span>📁 Importer des photos (1 à 1000)</span>
+            <input type="file" id="file-input" multiple accept="image/*" class="hidden" onchange="handleFileSelect(event)" />
+          </label>
+        </div>
+      </div>
+
+      <!-- Batch Action Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
+        <div class="flex items-center gap-3">
+          <button id="btn-batch-mode" onclick="toggleBatchMode()" class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-pink-600 text-white shadow-lg shadow-pink-600/30 font-black">
+            <span>⚡ Mode Lot Actif : Applique à TOUTES les photos</span>
+          </button>
+          
+          <button onclick="selectAllImages()" class="text-xs text-slate-400 hover:text-white underline">
+            Tout cocher
+          </button>
+          <button onclick="keepTransparentBackground()" class="px-2.5 py-1 rounded-lg border border-amber-500/30 text-amber-300 hover:bg-amber-500/10 text-xs">
+            Garder fond transparent
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="deleteSelectedImages()" class="px-3 py-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/10 text-xs font-bold flex items-center gap-1">
+            <span>🗑️ Supprimer sélection</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Photo Grid Gallery -->
+      <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </main>
+
+    <!-- RIGHT CONTROL SIDEBAR -->
+    <aside class="w-full lg:w-[480px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
+      
+      <div class="flex items-center justify-between">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 280+ Fonds Ultra-HD</h3>
+        <span id="label-current-res" class="text-xs font-mono text-amber-400 font-bold">Rendu 4K (3840px)</span>
+      </div>
+
+      <!-- Tools Tabs -->
+      <div class="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
+        <button id="tab-btn-bg" onclick="switchToolTab('bg')" class="py-2 px-1 rounded-lg text-xs font-bold bg-pink-600 text-white shadow-md shadow-pink-600/30">🎨 Fonds (280+)</button>
+        <button id="tab-btn-crop" onclick="switchToolTab('crop')" class="py-2 px-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">✂️ Recadrer</button>
+        <button id="tab-btn-resize" onclick="switchToolTab('resize')" class="py-2 px-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">📐 Taille</button>
+        <button id="tab-btn-watermark" onclick="switchToolTab('watermark')" class="py-2 px-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">🛡️ Filigrane</button>
+      </div>
+
+      <!-- TAB CONTENT 1: BACKGROUNDS -->
+      <div id="tab-content-bg" class="flex flex-col gap-3.5">
+        
+        <!-- Search bar -->
+        <div class="relative">
+          <input
+            type="text"
+            id="bg-search-input"
+            oninput="handleSearch(event)"
+            placeholder="Rechercher (ex: dragon, samourai, murakami, kaws, warhol)..."
+            class="w-full pl-3 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
+          />
+        </div>
+
+        <!-- 7 Category Buttons -->
+        <div class="grid grid-cols-4 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[10px] font-bold">
+          <button id="cat-btn-manga" onclick="switchCategory('manga')" class="py-1.5 px-1 rounded-lg bg-pink-600 text-white font-black truncate">⛩️ Mangas (40)</button>
+          <button id="cat-btn-popart" onclick="switchCategory('popart')" class="py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate">💥 Pop Art (40)</button>
+          <button id="cat-btn-nature" onclick="switchCategory('nature')" class="py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Déserts (40)</button>
+          <button id="cat-btn-studios" onclick="switchCategory('studios')" class="py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Studios (40)</button>
+          <button id="cat-btn-cities" onclick="switchCategory('cities')" class="py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏙️ Villes (40)</button>
+          <button id="cat-btn-gradients" onclick="switchCategory('gradients')" class="py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate">🌈 Dégradés (40)</button>
+          <button id="cat-btn-solids" onclick="switchCategory('solids')" class="py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate">🎨 Couleurs (40)</button>
+        </div>
+
+        <!-- Background items container -->
+        <div id="bg-cards-container" class="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Custom Background Uploader -->
+        <div class="pt-2 border-t border-slate-800">
+          <label class="w-full py-2.5 px-3 rounded-xl border border-dashed border-slate-700 hover:border-pink-500 bg-slate-950/40 flex items-center justify-center gap-2 text-xs font-semibold text-slate-300 cursor-pointer transition-all">
+            <span>🖼️ Importer un fond personnalisé (depuis PC)</span>
+            <input type="file" accept="image/*" class="hidden" onchange="handleCustomBgUpload(event)" />
+          </label>
+        </div>
+      </div>
+
+      <!-- TAB CONTENT 2: CROP -->
+      <div id="tab-content-crop" class="hidden flex-col gap-4">
+        <span class="text-xs font-bold text-slate-300">Ratios Prédéfinis en 1 Clic</span>
+        <div class="grid grid-cols-3 gap-2">
+          <button onclick="applyCropRatio('1:1')" class="py-3 px-2 rounded-xl bg-slate-950 hover:bg-pink-600 border border-slate-800 hover:border-pink-500 text-xs font-bold transition-all text-center">1:1 Carré</button>
+          <button onclick="applyCropRatio('16:9')" class="py-3 px-2 rounded-xl bg-slate-950 hover:bg-pink-600 border border-slate-800 hover:border-pink-500 text-xs font-bold transition-all text-center">16:9 YouTube</button>
+          <button onclick="applyCropRatio('9:16')" class="py-3 px-2 rounded-xl bg-slate-950 hover:bg-pink-600 border border-slate-800 hover:border-pink-500 text-xs font-bold transition-all text-center">9:16 Story</button>
+        </div>
+      </div>
+
+      <!-- TAB CONTENT 3: RESIZE -->
+      <div id="tab-content-resize" class="hidden flex-col gap-4">
+        <span class="text-xs font-bold text-slate-300">Préréglages Sociaux Ultra-HD</span>
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="applyResizeDimensions(1080, 1080)" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-pink-500 text-left transition-all">
+            <p class="text-xs font-bold text-slate-200">Instagram Carré</p>
+            <p class="text-[10px] font-mono text-amber-400">1080 × 1080 px</p>
+          </button>
+          <button onclick="applyResizeDimensions(1080, 1920)" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-pink-500 text-left transition-all">
+            <p class="text-xs font-bold text-slate-200">Story / TikTok</p>
+            <p class="text-[10px] font-mono text-amber-400">1080 × 1920 px</p>
+          </button>
+          <button onclick="applyResizeDimensions(1920, 1080)" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-pink-500 text-left transition-all">
+            <p class="text-xs font-bold text-slate-200">Miniature YouTube</p>
+            <p class="text-[10px] font-mono text-amber-400">1920 × 1080 px</p>
+          </button>
+          <button onclick="applyResizeDimensions(3840, 3840)" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-pink-500 text-left transition-all">
+            <p class="text-xs font-bold text-slate-200">E-Commerce 4K</p>
+            <p class="text-[10px] font-mono text-amber-400">3840 × 3840 px</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB CONTENT 4: WATERMARK -->
+      <div id="tab-content-watermark" class="hidden flex-col gap-4">
+        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-bold text-slate-200">Activer le Filigrane</span>
+          <input type="checkbox" id="chk-watermark" onchange="toggleWatermark(event)" class="w-4 h-4 accent-pink-600 cursor-pointer" />
+        </div>
+        <div>
+          <span class="text-[11px] text-slate-400 block mb-1">Texte du Filigrane</span>
+          <input type="text" id="input-watermark-text" value="© PIXELBATCH AI" oninput="updateWatermarkText(event)" class="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white" />
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- BEFORE / AFTER MODAL -->
+  <div id="compare-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-3xl bg-slate-900 rounded-3xl border border-slate-800 p-6 flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white">Comparaison Avant / Après Ultra-HD</h3>
+        <button onclick="closeCompareModal()" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
+      </div>
+      <div class="relative w-full h-[400px] bg-checkerboard flex items-center justify-center overflow-hidden rounded-2xl">
+        <img id="compare-img-original" src="" alt="Original" class="absolute inset-0 w-full h-full object-contain" />
+        <div id="compare-overlay-div" class="absolute inset-0 w-full h-full" style="clip-path: inset(0 0 0 50%);">
+          <img id="compare-img-modified" src="" alt="Modifié" class="w-full h-full object-contain" />
+        </div>
+        <input type="range" min="0" max="100" value="50" oninput="handleCompareSlider(event)" class="absolute inset-0 opacity-0 cursor-ew-resize z-20 w-full h-full" />
+        <div id="compare-divider-line" class="absolute top-0 bottom-0 w-1 bg-white pointer-events-none" style="left: 50%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CERVEX MODAL -->
+  <div id="cervex-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-lg bg-slate-900 rounded-3xl border border-slate-800 p-6 flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>⚡ Hub de Connexion Cervex</span>
+        </h3>
+        <button onclick="closeCervexModal()" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
+      </div>
+      <div class="flex flex-col gap-3 text-xs">
+        <div>
+          <label class="text-slate-400 block mb-1">Clé API Cervex</label>
+          <input type="password" value="crvx_live_9a87bf44d8e9" class="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 font-mono" readonly />
+        </div>
+        <div>
+          <label class="text-slate-400 block mb-1">Projet ID</label>
+          <input type="text" value="project-ai-prod" class="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 font-mono" readonly />
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
+        <button onclick="testCervexSync()" class="px-4 py-2 rounded-xl bg-cervex-600 hover:bg-cervex-500 text-white font-bold text-xs">Tester la synchronisation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS OVERLAY -->
+  <div id="progress-overlay" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 flex flex-col items-center gap-4 max-w-sm w-full shadow-2xl">
+      <div class="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+      <div class="text-center w-full">
+        <h3 id="progress-status-text" class="text-sm font-bold text-white mb-1">Traitement en cours...</h3>
+        <p id="progress-count-text" class="text-xs text-slate-400 mb-3">Photo 1 sur 1</p>
+        <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden border border-slate-700">
+          <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-amber-500 transition-all duration-150" style="width: 0%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- PURE NATIVE JAVASCRIPT APP LOGIC -->
   <script>
-    // Vector Demo Image Generator
-    function makeSvgDemo(title, cat, shapeSvg, color) {
-      var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">' +
-        '<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">' +
-        '<feDropShadow dx="0" dy="25" stdDeviation="35" flood-color="#000000" flood-opacity="0.35"/>' +
-        '</filter></defs>' +
-        '<g filter="url(#shadow)">' +
-        '<rect x="200" y="200" width="800" height="800" rx="60" fill="#ffffff" />' +
-        '<circle cx="600" cy="520" r="180" fill="' + color + '" opacity="0.12" />' +
-        shapeSvg +
-        '<text x="600" y="780" font-family="\'Plus Jakarta Sans\', sans-serif" font-size="52" font-weight="800" fill="#0f172a" text-anchor="middle">' + title + '</text>' +
-        '<text x="600" y="840" font-family="\'Plus Jakarta Sans\', sans-serif" font-size="28" font-weight="600" fill="#64748b" text-anchor="middle">' + cat + '</text>' +
-        '</g></svg>';
-      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    // State
+    var images = [];
+    var selectedIds = new Set();
+    var applyToAll = true;
+    var currentBgCategory = 'manga';
+    var outputQuality = '4k';
+    var currentSearch = '';
+    var watermarkConfig = { enabled: false, text: '© PIXELBATCH AI', color: '#ffffff', opacity: 85 };
+    var selfieSegmenter = null;
+
+    // Toast
+    function showToast(title, message) {
+      var container = document.getElementById('toast-container');
+      var toast = document.createElement('div');
+      toast.className = 'pointer-events-auto px-4 py-3 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl text-xs text-white transition-all';
+      toast.innerHTML = '<span class="font-bold text-pink-400">' + title + '</span> : <span class="text-slate-300">' + message + '</span>';
+      container.appendChild(toast);
+      setTimeout(function() {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 3500);
     }
 
-    var DEMO_LIBRARY = [
-      {
-        id: 'd1',
-        name: 'portrait-femme-studio.png',
-        url: makeSvgDemo('Portrait Studio Pro', 'Visage & Teint 100% Net', '<circle cx="600" cy="460" r="85" fill="#f87171"/><ellipse cx="600" cy="470" rx="70" ry="85" fill="#fed7aa"/><circle cx="570" cy="455" r="10" fill="#0f172a"/><circle cx="630" cy="455" r="10" fill="#0f172a"/><path d="M580 505 Q600 525 620 505" fill="none" stroke="#e11d48" stroke-width="6" stroke-linecap="round"/><path d="M490 620 C490 540, 710 540, 710 620 Z" fill="#8b5cf6"/>', '#8b5cf6'),
-      },
-      {
-        id: 'd2',
-        name: 'sneaker-sport-red.png',
-        url: makeSvgDemo('Sneaker Sport Red', 'E-Commerce Produit', '<path d="M460 560 C500 480, 640 470, 740 520 C780 545, 790 595, 750 620 C690 660, 510 650, 460 560 Z" fill="#ef4444"/><path d="M440 575 L765 630 L755 655 L430 610 Z" fill="#0f172a"/>', '#ef4444'),
-      },
-      {
-        id: 'd3',
-        name: 'robot-mascotte-popart.png',
-        url: makeSvgDemo('Robot Pop Art', 'Pop Art & Gaming', '<rect x="510" y="420" width="180" height="150" rx="35" fill="#06b6d4"/><circle cx="560" cy="480" r="18" fill="#ffffff"/><circle cx="640" cy="480" r="18" fill="#ffffff"/><rect x="570" y="525" width="60" height="15" rx="7" fill="#0f172a"/><line x1="600" y1="420" x2="600" y2="370" stroke="#06b6d4" stroke-width="14" stroke-linecap="round"/><circle cx="600" cy="360" r="15" fill="#f59e0b"/>', '#06b6d4'),
-      },
-      {
-        id: 'd4',
-        name: 'casque-audio-hifi.png',
-        url: makeSvgDemo('Casque Audio Hi-Fi', 'Tech & Audio', '<path d="M470 530 C470 430, 730 430, 730 530" fill="none" stroke="#10b981" stroke-width="32" stroke-linecap="round"/><rect x="445" y="520" width="55" height="110" rx="25" fill="#0f172a"/><rect x="700" y="520" width="55" height="110" rx="25" fill="#0f172a"/>', '#10b981'),
-      },
-      {
-        id: 'd5',
-        name: 'montre-luxe-or.png',
-        url: makeSvgDemo('Montre Chronographe', 'Horlogerie de Luxe', '<circle cx="600" cy="520" r="105" fill="none" stroke="#f59e0b" stroke-width="26"/><line x1="600" y1="520" x2="600" y2="450" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/><line x1="600" y1="520" x2="650" y2="520" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>', '#f59e0b'),
-      },
-      {
-        id: 'd6',
-        name: 'cafe-expresso-gourmet.png',
-        url: makeSvgDemo('Expresso Gourmet', 'Food & Boisson', '<path d="M490 490 L515 615 C515 640, 685 640, 685 615 L710 490 Z" fill="#f97316"/><path d="M700 520 C745 520, 745 590, 695 590" fill="none" stroke="#f97316" stroke-width="16"/>', '#f97316'),
-      },
-    ];
-
-    function makeUniquePhoto(id, label, photoId) {
-      return {
-        id: id,
-        label: label,
-        type: 'photo',
-        url: 'https://images.unsplash.com/photo-' + photoId + '?auto=format&fit=crop&w=1600&q=85',
-        thumb: 'https://images.unsplash.com/photo-' + photoId + '?auto=format&fit=crop&w=350&q=60',
-      };
-    }
-
-    function makeSvgBg(id, label, innerSvg) {
-      var fullSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1200 1200" preserveAspectRatio="none">' + innerSvg + '</svg>';
-      return {
-        id: id,
-        label: label,
-        type: 'image',
-        url: 'data:image/svg+xml;utf8,' + encodeURIComponent(fullSvg),
-      };
-    }
-
-    // 1. POP ART DE MAÎTRES (40 MOTIFS TRÈS RECHERCHÉS : MURAKAMI, KAWS, WARHOL, LICHTENSTEIN, HARING, KUSAMA, STREET ART)
-    var BG_POPART_40 = [
-      makeSvgBg('p1', 'Takashi Murakami Fleurs Arc-en-Ciel', '<rect width="1200" height="1200" fill="#fde047"/><g transform="translate(600,600)"><circle r="360" fill="#f43f5e"/><circle r="300" fill="#fb923c"/><circle r="240" fill="#a855f7"/><circle r="180" fill="#38bdf8"/><circle r="120" fill="#4ade80"/><circle r="70" fill="#ffffff"/><circle cx="-25" cy="-10" r="10" fill="#000"/><circle cx="25" cy="-10" r="10" fill="#000"/><path d="M-35,15 Q0,45 35,15" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round"/></g>'),
-      makeSvgBg('p2', 'Roy Lichtenstein Crying Girl Comic', '<defs><pattern id="p2b" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="6" fill="#ef4444"/></pattern></defs><rect width="1200" height="1200" fill="#fef08a"/><rect width="1200" height="1200" fill="url(#p2b)"/><path d="M200,200 Q600,100 1000,400 L950,900 Q600,1100 250,900 Z" fill="#facc15" stroke="#000" stroke-width="26"/><path d="M400,650 Q500,800 600,650" fill="none" stroke="#38bdf8" stroke-width="24" stroke-linecap="round"/><circle cx="500" cy="750" r="25" fill="#38bdf8"/>'),
-      makeSvgBg('p3', 'Andy Warhol Marilyn Quad 1964', '<rect x="0" y="0" width="600" height="600" fill="#ec4899"/><rect x="600" y="0" width="600" height="600" fill="#06b6d4"/><rect x="0" y="600" width="600" height="600" fill="#facc15"/><rect x="600" y="600" width="600" height="600" fill="#10b981"/><circle cx="300" cy="300" r="140" fill="#fde047"/><circle cx="900" cy="300" r="140" fill="#f43f5e"/><circle cx="300" cy="900" r="140" fill="#8b5cf6"/><circle cx="900" cy="900" r="140" fill="#f97316"/>'),
-      makeSvgBg('p4', 'KAWS Companion Street Art', '<rect width="1200" height="1200" fill="#18181b"/><circle cx="600" cy="500" r="260" fill="#71717a" stroke="#ffffff" stroke-width="20"/><line x1="500" y1="460" x2="560" y2="520" stroke="#ef4444" stroke-width="24" stroke-linecap="round"/><line x1="560" y1="460" x2="500" y2="520" stroke="#ef4444" stroke-width="24" stroke-linecap="round"/><line x1="640" y1="460" x2="700" y2="520" stroke="#ef4444" stroke-width="24" stroke-linecap="round"/><line x1="700" y1="460" x2="640" y2="520" stroke="#ef4444" stroke-width="24" stroke-linecap="round"/>'),
-      makeSvgBg('p5', 'Keith Haring Danseurs Radieux', '<rect width="1200" height="1200" fill="#facc15"/><path d="M200,600 Q400,200 600,600 T1000,600" fill="none" stroke="#000000" stroke-width="45" stroke-linecap="round"/><circle cx="600" cy="300" r="120" fill="#ef4444" stroke="#000000" stroke-width="30"/><line x1="300" y1="200" x2="200" y2="100" stroke="#000000" stroke-width="25" stroke-linecap="round"/><line x1="900" y1="200" x2="1000" y2="100" stroke="#000000" stroke-width="25" stroke-linecap="round"/>'),
-      makeSvgBg('p6', 'Yayoi Kusama Infinity Polka Dots', '<defs><pattern id="p6dots" width="80" height="80" patternUnits="userSpaceOnUse"><circle cx="40" cy="40" r="28" fill="#000000"/></pattern></defs><rect width="1200" height="1200" fill="#facc15"/><rect width="1200" height="1200" fill="url(#p6dots)"/><ellipse cx="600" cy="600" rx="380" ry="480" fill="#f59e0b" stroke="#000000" stroke-width="30"/>'),
-      makeSvgBg('p7', 'Banksy Ballon Cœur Rouge Pochoir', '<rect width="1200" height="1200" fill="#334155"/><path d="M750,350 C750,200 950,200 950,350 C950,500 750,650 750,650 C750,650 550,500 550,350 C550,200 750,200 750,350 Z" fill="#ef4444"/><path d="M750,650 Q800,850 700,1050" fill="none" stroke="#ffffff" stroke-width="8"/>'),
-      makeSvgBg('p8', 'Manga Speedlines Impact Shonen', '<rect width="1200" height="1200" fill="#ffffff"/><path d="M600,600 L0,0 L60,0 Z M600,600 L180,0 L240,0 Z M600,600 L360,0 L420,0 Z M600,600 L540,0 L600,0 Z M600,600 L720,0 L780,0 Z M600,600 L900,0 L960,0 Z M600,600 L1080,0 L1140,0 Z M600,600 L1200,60 L1200,120 Z M600,600 L1200,240 L1200,300 Z M600,600 L1200,420 L1200,480 Z M600,600 L1200,600 L1200,660 Z M600,600 L1200,780 L1200,840 Z M600,600 L1200,960 L1200,1020 Z M600,600 L1140,1200 L1080,1200 Z M600,600 L960,1200 L900,1200 Z M600,600 L780,1200 L720,1200 Z M600,600 L600,1200 L540,1200 Z M600,600 L420,1200 L360,1200 Z M600,600 L240,1200 L180,1200 Z M600,600 L60,1200 L0,1200 Z M600,600 L0,1020 L0,960 Z M600,600 L0,840 L0,780 Z M600,600 L0,660 L0,600 Z M600,600 L0,480 L0,420 Z M600,600 L0,300 L0,240 Z M600,600 L0,120 L0,60 Z" fill="#000000"/>'),
-      makeSvgBg('p9', 'Dollar Sign Or & Graffiti Luxe', '<rect width="1200" height="1200" fill="#09090b"/><text x="600" y="800" font-family="sans-serif" font-weight="900" font-size="700" fill="#eab308" stroke="#ffffff" stroke-width="20" text-anchor="middle">$</text><circle cx="300" cy="300" r="80" fill="#f43f5e" opacity="0.6"/><circle cx="900" cy="400" r="110" fill="#06b6d4" opacity="0.6"/>'),
-      makeSvgBg('p10', 'Memphis Rétro Milano 1980s', '<rect width="1200" height="1200" fill="#fdf4ff"/><circle cx="280" cy="320" r="160" fill="#f43f5e"/><polygon points="880,180 1100,520 660,520" fill="#06b6d4"/><rect x="260" y="760" width="280" height="280" rx="50" fill="#facc15"/><line x1="750" y1="800" x2="1100" y2="1050" stroke="#8b5cf6" stroke-width="35" stroke-linecap="round"/>'),
-      makeSvgBg('p11', 'Vaporwave Sunset Synth 90s', '<rect width="1200" height="1200" fill="#0f0728"/><circle cx="600" cy="500" r="240" fill="#f43f5e"/><line x1="0" y1="700" x2="1200" y2="700" stroke="#06b6d4" stroke-width="8"/><line x1="0" y1="800" x2="1200" y2="800" stroke="#06b6d4" stroke-width="12"/><line x1="0" y1="950" x2="1200" y2="950" stroke="#06b6d4" stroke-width="16"/>'),
-      makeSvgBg('p12', 'Andy Warhol Soupe Campbell', '<rect width="1200" height="1200" fill="#ffffff"/><rect x="350" y="300" width="500" height="300" fill="#ef4444"/><rect x="350" y="600" width="500" height="300" fill="#f1f5f9"/><circle cx="600" cy="600" r="80" fill="#eab308"/><text x="600" y="480" font-family="sans-serif" font-weight="900" font-size="70" fill="#ffffff" text-anchor="middle">SOUP</text>'),
-      makeSvgBg('p13', 'Mona Lisa Pop Art Bubble Gum', '<rect width="1200" height="1200" fill="#4ade80"/><ellipse cx="600" cy="500" rx="280" ry="360" fill="#fed7aa"/><circle cx="600" cy="600" r="160" fill="#ec4899"/><circle cx="530" cy="460" r="20" fill="#000"/><circle cx="670" cy="460" r="20" fill="#000"/>'),
-      makeSvgBg('p14', 'Éclair Flash Électrique KABOOM', '<rect width="1200" height="1200" fill="#6d28d9"/><polygon points="700,80 320,680 620,680 440,1140 920,540 620,540" fill="#facc15" stroke="#000000" stroke-width="20"/>'),
-      makeSvgBg('p15', 'Spirale Psychédélique 1970s', '<rect width="1200" height="1200" fill="#7c3aed"/><circle cx="600" cy="600" r="500" fill="none" stroke="#facc15" stroke-width="45"/><circle cx="600" cy="600" r="380" fill="none" stroke="#ec4899" stroke-width="45"/><circle cx="600" cy="600" r="260" fill="none" stroke="#38bdf8" stroke-width="45"/>'),
-      makeSvgBg('p16', 'Bandes Sunset Rétro 70s', '<rect x="0" width="200" height="1200" fill="#78350f"/><rect x="200" width="200" height="1200" fill="#c2410c"/><rect x="400" width="200" height="1200" fill="#ea580c"/><rect x="600" width="200" height="1200" fill="#f59e0b"/><rect x="800" width="200" height="1200" fill="#fde047"/>'),
-      makeSvgBg('p17', 'Zèbre Pop Art Néon Fluorescent', '<rect width="1200" height="1200" fill="#f43f5e"/><path d="M0,100 Q400,200 1200,100 L1200,220 Q400,320 0,220 Z M0,400 Q400,500 1200,400 L1200,520 Q400,620 0,520 Z M0,700 Q400,800 1200,700 L1200,820 Q400,920 0,820 Z" fill="#000000"/>'),
-      makeSvgBg('p18', 'Damier Chessboard Pop 3D', '<defs><pattern id="p18cb" width="120" height="120" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#000000"/><rect x="60" width="60" height="60" fill="#ffffff"/><rect y="60" width="60" height="60" fill="#ffffff"/><rect x="60" y="60" width="60" height="60" fill="#000000"/></pattern></defs><rect width="1200" height="1200" fill="url(#p18cb)"/>'),
-      makeSvgBg('p19', 'Bauhaus Formes Primaires Géométrie', '<rect width="1200" height="1200" fill="#f1f5f9"/><circle cx="400" cy="400" r="220" fill="#ef4444"/><rect x="650" y="250" width="380" height="380" fill="#3b82f6"/><polygon points="350,700 800,1100 200,1100" fill="#facc15"/>'),
-      makeSvgBg('p20', 'Rayons Pop Art Soleil Orange', '<rect width="1200" height="1200" fill="#facc15"/><path d="M600,600 L0,0 L150,0 Z M600,600 L300,0 L450,0 Z M600,600 L600,0 L750,0 Z M600,600 L900,0 L1050,0 Z M600,600 L1200,0 L1200,150 Z M600,600 L1200,300 L1200,450 Z M600,600 L1200,600 L1200,750 Z M600,600 L1200,900 L1200,1050 Z M600,600 L1200,1200 L1050,1200 Z M600,600 L900,1200 L750,1200 Z M600,600 L600,1200 L450,1200 Z M600,600 L300,1200 L150,1200 Z M600,600 L0,1200 L0,1050 Z M600,600 L0,900 L0,750 Z M600,600 L0,600 L0,450 Z M600,600 L0,300 L0,150 Z" fill="#ea580c"/>'),
-      makeSvgBg('p21', 'Splash Peinture Street Graffiti Fluo', '<rect width="1200" height="1200" fill="#ffffff"/><circle cx="600" cy="600" r="300" fill="#ec4899"/><circle cx="300" cy="350" r="90" fill="#06b6d4"/><circle cx="900" cy="400" r="120" fill="#facc15"/>'),
-      makeSvgBg('p22', 'Étoile Pop Art Hollywood Or', '<rect width="1200" height="1200" fill="#18181b"/><polygon points="600,150 720,480 1050,480 780,680 880,1020 600,820 320,1020 420,680 150,480 480,480" fill="#eab308" stroke="#ffffff" stroke-width="14"/>'),
-      makeSvgBg('p23', 'Cubes 3D Illusions d’Optique', '<rect width="1200" height="1200" fill="#0f172a"/><polygon points="600,280 880,440 600,600 320,440" fill="#38bdf8"/><polygon points="320,440 600,600 600,920 320,760" fill="#0284c7"/><polygon points="600,600 880,440 880,760 600,920" fill="#0369a1"/>'),
-      makeSvgBg('p24', 'Fleurs Marguerites Rétro 70s', '<rect width="1200" height="1200" fill="#ea580c"/><circle cx="600" cy="600" r="170" fill="#fde047"/><circle cx="600" cy="280" r="130" fill="#ffffff"/><circle cx="600" cy="920" r="130" fill="#ffffff"/><circle cx="280" cy="600" r="130" fill="#ffffff"/><circle cx="920" cy="600" r="130" fill="#ffffff"/>'),
-      makeSvgBg('p25', 'Vinyle Rétro Studio 33 Tours', '<rect width="1200" height="1200" fill="#fb923c"/><circle cx="600" cy="600" r="480" fill="#09090b"/><circle cx="600" cy="600" r="180" fill="#ef4444"/><circle cx="600" cy="600" r="50" fill="#ffffff"/>'),
-      makeSvgBg('p26', 'Badge Pop Comic WOW!', '<rect width="1200" height="1200" fill="#7c3aed"/><circle cx="600" cy="600" r="400" fill="#facc15" stroke="#000000" stroke-width="26"/><text x="600" y="660" font-family="sans-serif" font-weight="900" font-size="140" fill="#000000" text-anchor="middle">WOW!</text>'),
-      makeSvgBg('p27', 'Bulles Effervescentes Pop Multicolore', '<rect width="1200" height="1200" fill="#06b6d4"/><circle cx="300" cy="400" r="150" fill="#f472b6" opacity="0.85"/><circle cx="820" cy="500" r="210" fill="#facc15" opacity="0.85"/><circle cx="500" cy="850" r="170" fill="#4ade80" opacity="0.85"/>'),
-      makeSvgBg('p28', 'Diamant Prismatique Pop Art', '<rect width="1200" height="1200" fill="#312e81"/><polygon points="600,180 1000,560 600,1080 200,560" fill="#06b6d4" stroke="#ffffff" stroke-width="22"/>'),
-      makeSvgBg('p29', 'Vagues Pastel Psychédéliques', '<rect width="1200" height="1200" fill="#f472b6"/><path d="M0,0 Q300,600 600,0 T1200,0 L1200,1200 L0,1200 Z" fill="#38bdf8"/>'),
-      makeSvgBg('p30', 'Cercles Cibles Optiques Rouges', '<rect width="1200" height="1200" fill="#000000"/><circle cx="600" cy="600" r="480" fill="#ef4444"/><circle cx="600" cy="600" r="360" fill="#ffffff"/><circle cx="600" cy="600" r="240" fill="#ef4444"/><circle cx="600" cy="600" r="120" fill="#ffffff"/>'),
-      makeSvgBg('p31', 'Trame Halftone Vintage BD Cyan', '<defs><pattern id="p31d" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="5" fill="#06b6d4"/></pattern></defs><rect width="1200" height="1200" fill="#ffffff"/><rect width="1200" height="1200" fill="url(#p31d)"/>'),
-      makeSvgBg('p32', 'Lignes Diagonales Acid Pop', '<defs><pattern id="p32d" width="60" height="60" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="60" stroke="#f43f5e" stroke-width="30"/></pattern></defs><rect width="1200" height="1200" fill="#facc15"/><rect width="1200" height="1200" fill="url(#p32d)"/>'),
-      makeSvgBg('p33', 'Rayons Pop Fuchsia & Jaune Solaire', '<rect width="1200" height="1200" fill="#fde047"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#d946ef"/>'),
-      makeSvgBg('p34', 'Tetris Rétro Pixel Art Couleurs', '<rect width="1200" height="1200" fill="#09090b"/><rect x="250" y="350" width="220" height="220" fill="#ef4444"/><rect x="490" y="350" width="220" height="220" fill="#3b82f6"/><rect x="730" y="350" width="220" height="220" fill="#10b981"/>'),
-      makeSvgBg('p35', 'Triangle Impossible Illusion 3D', '<rect width="1200" height="1200" fill="#0f172a"/><polygon points="600,220 980,880 220,880" fill="none" stroke="#f43f5e" stroke-width="65"/>'),
-      makeSvgBg('p36', 'Trame Halftone Vintage BD Noire', '<defs><pattern id="p36d" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="5" fill="#1e1b4b"/></pattern></defs><rect width="1200" height="1200" fill="#fef3c7"/><rect width="1200" height="1200" fill="url(#p36d)"/>'),
-      makeSvgBg('p37', 'Vagues Multicolores Disco 70s', '<rect width="1200" height="1200" fill="#ec4899"/><path d="M0,250 Q300,100 600,250 T1200,250 L1200,550 Q900,400 600,550 T0,550 Z" fill="#facc15"/><path d="M0,550 Q300,400 600,550 T1200,550 L1200,850 Q900,700 600,850 T0,850 Z" fill="#06b6d4"/>'),
-      makeSvgBg('p38', 'Flash Lightning Rose Bonbon Comic', '<rect width="1200" height="1200" fill="#f43f5e"/><polygon points="680,100 360,650 620,650 480,1100 880,550 620,550" fill="#ffffff" stroke="#000000" stroke-width="18"/>'),
-      makeSvgBg('p39', 'Énergie Cosmique Pop Art Nébuleuse', '<rect width="1200" height="1200" fill="#1e1b4b"/><circle cx="600" cy="600" r="380" fill="#8b5cf6"/><polygon points="600,100 690,440 960,440 740,620" fill="#fde047"/>'),
-      makeSvgBg('p40', 'Masterpiece Pop Art InPixio Supreme', '<rect width="1200" height="1200" fill="#f43f5e"/><circle cx="600" cy="600" r="440" fill="#facc15" stroke="#000000" stroke-width="26"/><rect x="250" y="490" width="700" height="220" fill="#000000"/><text x="600" y="645" font-family="sans-serif" font-weight="900" font-size="100" fill="#ffffff" text-anchor="middle">POPART</text>'),
-    ];
-
-    // 2. REAL HD MANGA FRESCOES & WARRIORS/HEROES PAINTINGS (40 FRESQUES & GUERRIERS MANGAS)
-    var BG_MANGA_40 = [
-      makeUniquePhoto('m1', 'Fresque Dragon Shenron & Éclairs Dorés', '1534447677768-be436bb09401'),
-      makeUniquePhoto('m2', 'Guerrier Samouraï Katana et Flammes', '1503899036084-c55cdd92da26'),
-      makeUniquePhoto('m3', 'Shinobi Ninja des Ombres & Lune Rouge', '1493976040374-85c8e12f0c0e'),
-      makeUniquePhoto('m4', 'Guerrier Saiyan Aura Électrique', '1492571350019-22de08371fd3'),
-      makeUniquePhoto('m5', 'Démon Slayer Katana d’Eau & Grande Vague', '1511497584788-87676104235f'),
-      makeUniquePhoto('m6', 'Fresque Chasseur d’Ombres Solo Monarque', '1519681393784-d120267933ba'),
-      makeUniquePhoto('m7', 'Fresque Esprit Renard Kitsune à 9 Queues', '1508739773434-c26b3d09e071'),
-      makeUniquePhoto('m8', 'Guerrière Cyberpunk Mecha Ailes Néon', '1528164344705-475426879c0d'),
-      makeUniquePhoto('m9', 'Titan Colossal & Murailles en Flammes', '1550745165-9bc0b252726f'),
-      makeUniquePhoto('m10', 'Héros Pirates & Navire au Crépuscule', '1507525428034-b723cf961d3e'),
-      makeUniquePhoto('m11', 'Guerrier Berserk & Éclipse de Sang', '1498931299472-f7a63a5a1cfa'),
-      makeUniquePhoto('m12', 'Alchimiste & Cercle de Transmutation', '1518709268805-4e9042af9f23'),
-      makeUniquePhoto('m13', 'Mecha Géant Gundam Bataille Spatiale', '1470071459604-3b5ec3a7fe05'),
-      makeUniquePhoto('m14', 'Exorciste Sortilèges & Sphère Violette', '1507499739999-097706ad8914'),
-      makeUniquePhoto('m15', 'Déesse Céleste aux Ailes d’Or et Plumes', '1532767153582-b1a0e5145009'),
-      makeUniquePhoto('m16', 'Seigneur Vampire Ailes de Sang', '1522383225653-ed111181a951'),
-      makeUniquePhoto('m17', 'Guerrier Viking Berserker Runes', '1513836279014-a89f7a76ae86'),
-      makeUniquePhoto('m18', 'Chaman des Esprits & Loup Fantôme', '1432405972618-c60b0225b8f9'),
-      makeUniquePhoto('m19', 'Chevalier du Zodiaque Armure d’Or', '1552611052-33e04de081de'),
-      makeUniquePhoto('m20', 'Reine des Glaces Sort de Givre Absolu', '1513002749550-c59d786b8e6c'),
-      makeUniquePhoto('m21', 'Maître du Feu Poing Ardent Dragon', '1495616811223-4d98c6e9c869'),
-      makeUniquePhoto('m22', 'Archer Elfe Flèche de Lumière Sacrée', '1486870591958-9b9d0d1dda99'),
-      makeUniquePhoto('m23', 'Cyborg Assassin Lame Holographique', '1506703719100-a0f3a48c0f86'),
-      makeUniquePhoto('m24', 'Invocateur de Démon Cercle Arcanique', '1486406146926-c627a92ad1ab'),
-      makeUniquePhoto('m25', 'Guerrier Dragon Armure d’Écailles Noires', '1501785888041-af3ef285b470'),
-      makeUniquePhoto('m26', 'Sorcière Cosmique Galaxie Tournoyante', '1451187580459-43490279c0fa'),
-      makeUniquePhoto('m27', 'Ronin Solitaire sous la Pluie et Épée', '1506973035872-a4ec16b8e8d9'),
-      makeUniquePhoto('m28', 'Maître Shaolin Déferlement de Ki Doré', '1513694203232-719a280e022f'),
-      makeUniquePhoto('m29', 'Guerrier Faucon Céleste Tempête Éclair', '1469854523086-cc02fe5d8800'),
-      makeUniquePhoto('m30', 'Chasseur de Prime Cyberpunk Moto Néon', '1509316975850-ff9c5deb0cd9'),
-      makeUniquePhoto('m31', 'Prêtresse Shinto Danse des Éventails', '1500530855697-b586d89ba3ee'),
-      makeUniquePhoto('m32', 'Seigneur des Ombres Portes de l’Abîme', '1517411032315-54ef2cb783bb'),
-      makeUniquePhoto('m33', 'Guerrier Tonnerre Marteau d’Électrons', '1544551763-46a013bb70d5'),
-      makeUniquePhoto('m34', 'Esprit Gardien Tigre Blanc Lumineux', '1448375240586-882707db888b'),
-      makeUniquePhoto('m35', 'Chevalier Noir Épée Maudite Écarlate', '1506744038136-46273834b3fb'),
-      makeUniquePhoto('m36', 'Déesse de la Lune Miroir des Rêves', '1512470876302-972faa2aa9a4'),
-      makeUniquePhoto('m37', 'Cyborg Samouraï Masque Oni Néon', '1496442226666-8d4d0e62e6e9'),
-      makeUniquePhoto('m38', 'Invocatrice de Fleurs Tempête de Pétales', '1501594907352-04cda38ebc29'),
-      makeUniquePhoto('m39', 'Guerrier Fauve Griffes Acérées et Rugissement', '1513635269975-59663e0ac1ad'),
-      makeUniquePhoto('m40', 'Dieu Suprême Éveil de l’Univers Manga', '1502602898657-3e91760cbb34'),
-    ];
-
-    // 3. REAL 4K DESERTS & NATURE (40 PHOTOGRAPHIES UNIQUES)
-    var BG_NATURE_40 = [
-      makeUniquePhoto('n1', 'Dunes Rouges de Sossusvlei Namibie', '1509316975850-ff9c5deb0cd9'),
-      makeUniquePhoto('n2', 'Sahara Coucher de Soleil Doré', '1500530855697-b586d89ba3ee'),
-      makeUniquePhoto('n3', 'Oasis Verdoyante & Palmier Eau', '1512453979798-5ea266f8880c'),
-      makeUniquePhoto('n4', 'Désert Blanc Roches Érodées', '1469854523086-cc02fe5d8800'),
-      makeUniquePhoto('n5', 'Salar de Uyuni Miroir de Sel Pur', '1506744038136-46273834b3fb'),
-      makeUniquePhoto('n6', 'Wadi Rum Désert Mars Jordanie', '1518709268805-4e9042af9f23'),
-      makeUniquePhoto('n7', 'Monument Valley Roche Rouge', '1470071459604-3b5ec3a7fe05'),
-      makeUniquePhoto('n8', 'Dunes de Merzouga Maroc Crépuscule', '1495616811223-4d98c6e9c869'),
-      makeUniquePhoto('n9', 'Désert Atacama Chili Ciel Étoilé', '1506703719100-a0f3a48c0f86'),
-      makeUniquePhoto('n10', 'Antelope Canyon Faisceau Lumineux', '1511497584788-87676104235f'),
-      makeUniquePhoto('n11', 'Montagne & Lac Alpin Reflet Pur', '1501785888041-af3ef285b470'),
-      makeUniquePhoto('n12', 'Plage Maldives Sable Blanc Lagon', '1507525428034-b723cf961d3e'),
-      makeUniquePhoto('n13', 'Forêt de Pins Brumeuse Matin', '1448375240586-882707db888b'),
-      makeUniquePhoto('n14', 'Océan Pacifique Vagues Puissantes', '1517411032315-54ef2cb783bb'),
-      makeUniquePhoto('n15', 'Cascade Cristalline Jungle', '1432405972618-c60b0225b8f9'),
-      makeUniquePhoto('n16', 'Aurore Boréale Verte Islande', '1519681393784-d120267933ba'),
-      makeUniquePhoto('n17', 'Champs de Lavande en Provence', '1522383225653-ed111181a951'),
-      makeUniquePhoto('n18', 'Falaises d’Étretat Manche', '1501594907352-04cda38ebc29'),
-      makeUniquePhoto('n19', 'Jardin Tropical Balinais Palmiers', '1544551763-46a013bb70d5'),
-      makeUniquePhoto('n20', 'Route Côtière Pacifique Big Sur', '1496442226666-8d4d0e62e6e9'),
-      makeUniquePhoto('n21', 'Forêt d’Automne Feuilles Érable', '1534447677768-be436bb09401'),
-      makeUniquePhoto('n22', 'Prairie Fleurie dans les Alpes', '1486870591958-9b9d0d1dda99'),
-      makeUniquePhoto('n23', 'Lagon Turquoise de Bora Bora', '1507499739999-097706ad8914'),
-      makeUniquePhoto('n24', 'Savane Africaine Acacia Coucher Soleil', '1516426122078-c23e76319801'),
-      makeUniquePhoto('n25', 'Glacier Arctique Banquise Bleue', '1451187580459-43490279c0fa'),
-      makeUniquePhoto('n26', 'Sommet Enneigé du Cervin', '1532767153582-b1a0e5145009'),
-      makeUniquePhoto('n27', 'Plage de Sable Noir Vik Islande', '1513635269975-59663e0ac1ad'),
-      makeUniquePhoto('n28', 'Rizières en Cascades Sapa', '1528164344705-475426879c0d'),
-      makeUniquePhoto('n29', 'Baie d’Halong Pitons Rocheux', '1503899036084-c55cdd92da26'),
-      makeUniquePhoto('n30', 'Désert des Joshua Trees Californie', '1513836279014-a89f7a76ae86'),
-      makeUniquePhoto('n31', 'Grand Canyon Ciel Pourpre', '1508739773434-c26b3d09e071'),
-      makeUniquePhoto('n32', 'Lacs de Plitvice Croatie Cascade', '1502602898657-3e91760cbb34'),
-      makeUniquePhoto('n33', 'Séquoias Géants Parc National', '1492571350019-22de08371fd3'),
-      makeUniquePhoto('n34', 'Gorges du Verdon Eau Turquoise', '1493976040374-85c8e12f0c0e'),
-      makeUniquePhoto('n35', 'Geyser Actif Sol Volcanique', '1486406146926-c627a92ad1ab'),
-      makeUniquePhoto('n36', 'Bryce Canyon Pitons Rocheux Rouges', '1514890547357-a9ee288728e0'),
-      makeUniquePhoto('n37', 'Plage Tropicale Baie de Maya', '1512470876302-972faa2aa9a4'),
-      makeUniquePhoto('n38', 'Volcan Bromo Mer de Sable Brume', '1539037116277-4db20889f2d4'),
-      makeUniquePhoto('n39', 'Lac Moraine Rocheuses Canadiennes', '1506973035872-a4ec16b8e8d9'),
-      makeUniquePhoto('n40', 'Désert de Sel Salton Sea', '1519501025264-65ba15a82390'),
-    ];
-
-    // 4. REAL STUDIOS & LUXURY (40 INTERIEURS D'ARCHITECTES)
-    var BG_STUDIOS_40 = [
-      makeUniquePhoto('st1', 'Studio Minimaliste Ombre Feuillage', '1513694203232-719a280e022f'),
-      makeUniquePhoto('st2', 'Bureau Exécutif Bois Chêne Clair', '1497366216548-37526070297c'),
-      makeUniquePhoto('st3', 'Intérieur Marbre Blanc & Finitions Or', '1600585154340-be6161a56a0c'),
-      makeUniquePhoto('st4', 'Cyclorama Studio Blanc Pur Éclairé', '1598928506311-c55ded91a20c'),
-      makeUniquePhoto('st5', 'Podium Marbre Gris Épuré Produit', '1556911220-e15b29be8c8f'),
-      makeUniquePhoto('st6', 'Loft Industriel Briques & Baie Vitrée', '1507842229458-5779ab674d73'),
-      makeUniquePhoto('st7', 'Villa Contemporaine Vue sur Mer', '1600596542815-ffad4c1539a9'),
-      makeUniquePhoto('st8', 'Galerie d’Art Murs Blancs & Parquet', '1441986300917-64674bd600d8'),
-      makeUniquePhoto('st9', 'Cuisine de Luxe Îlot Central Marbre', '1566073771259-6a8506099945'),
-      makeUniquePhoto('st10', 'Chambre Design Épurée Bois Blond', '1502672260266-1c1ef2d93688'),
-      makeUniquePhoto('st11', 'Bibliothèque Design Chêne Sombre', '1558997519-83ea9252edf8'),
-      makeUniquePhoto('st12', 'Terrasse Lounge Piscine Débordement', '1584622650111-993a426fbf0a'),
-      makeUniquePhoto('st13', 'Mur Béton Architectonique & Monstera', '1510812431401-41d2bd2722f3'),
-      makeUniquePhoto('st14', 'Studio Photo Panneau Bois Lattes', '1503376780353-7e6692767b70'),
-      makeUniquePhoto('st15', 'Showroom Haute Couture Verrière', '1525625293386-3f8f99389edd'),
-      makeUniquePhoto('st16', 'Hall de Palace Colonnes Marbre', '1552832230-c0197dd311b5'),
-      makeUniquePhoto('st17', 'Penthouse Vue Panoramique Gratte-ciel', '1519671482749-fd09be7ccebf'),
-      makeUniquePhoto('st18', 'Salle de Conférence Verre & Métal', '1486406146926-c627a92ad1ab'),
-      makeUniquePhoto('st19', 'Atelier d’Artiste Sous Verrière Toit', '1508739773434-c26b3d09e071'),
-      makeUniquePhoto('st20', 'Escalier Hélicoïdal Design Épuré', '1506744038136-46273834b3fb'),
-      makeUniquePhoto('st21', 'Patio Intérieur Végétalisé Fontaine', '1496442226666-8d4d0e62e6e9'),
-      makeUniquePhoto('st22', 'Dressing Haut de Gamme Rétroéclairé', '1502602898657-3e91760cbb34'),
-      makeUniquePhoto('st23', 'Salle de Bain Marbre Noir Robinet Or', '1513635269975-59663e0ac1ad'),
-      makeUniquePhoto('st24', 'Espace Méditation Tatami & Papier Soie', '1512453979798-5ea266f8880c'),
-      makeUniquePhoto('st25', 'Rooftop Lounge Coussins Sunset', '1501594907352-04cda38ebc29'),
-      makeUniquePhoto('st26', 'Espace Coworking Moderne Lumineux', '1528164344705-475426879c0d'),
-      makeUniquePhoto('st27', 'Studio Équipé Softbox Éclairage Pro', '1519501025264-65ba15a82390'),
-      makeUniquePhoto('st28', 'Salon Contemporain Cheminée Moderne', '1514890547357-a9ee288728e0'),
-      makeUniquePhoto('st29', 'Cave à Vin Moderne Vitrée Design', '1512470876302-972faa2aa9a4'),
-      makeUniquePhoto('st30', 'Podium Circulaire Présentation Épurée', '1539037116277-4db20889f2d4'),
-      makeUniquePhoto('st31', 'Showroom Voitures d’Exception Sol Écran', '1506973035872-a4ec16b8e8d9'),
-      makeUniquePhoto('st32', 'Serre Botanique Verre & Acier', '1507525428034-b723cf961d3e'),
-      makeUniquePhoto('st33', 'Terrasse Haussmannienne Balcon Fer Forgé', '1511497584788-87676104235f'),
-      makeUniquePhoto('st34', 'Suite de Luxe Lit King Size Soie', '1518709268805-4e9042af9f23'),
-      makeUniquePhoto('st35', 'Salon Zen Minimaliste Bois Clair', '1509316975850-ff9c5deb0cd9'),
-      makeUniquePhoto('st36', 'Galerie Photographique Noir & Blanc', '1500530855697-b586d89ba3ee'),
-      makeUniquePhoto('st37', 'Podium Bois Brut Organique Naturel', '1469854523086-cc02fe5d8800'),
-      makeUniquePhoto('st38', 'Studio Noir Sombre Effet OLED', '1470071459604-3b5ec3a7fe05'),
-      makeUniquePhoto('st39', 'Cuisine d’Architecte Bois Noyer & Pierre', '1495616811223-4d98c6e9c869'),
-      makeUniquePhoto('st40', 'Salon Moderne Baie Vitrée Coucher Soleil', '1506703719100-a0f3a48c0f86'),
-    ];
-
-    // 5. REAL CITIES & SKYLINES (40 SKYLINES DE METROPOLES)
-    var BG_CITIES_40 = [
-      makeUniquePhoto('u1', 'Tokyo Shibuya Passage Nuit Neon', '1503899036084-c55cdd92da26'),
-      makeUniquePhoto('u2', 'New York Manhattan Skyline Nuit', '1496442226666-8d4d0e62e6e9'),
-      makeUniquePhoto('u3', 'Paris Tour Eiffel & Pont Alexandre III', '1502602898657-3e91760cbb34'),
-      makeUniquePhoto('u4', 'Londres Tower Bridge & Tamise Sunset', '1513635269975-59663e0ac1ad'),
-      makeUniquePhoto('u5', 'Dubai Burj Khalifa & Tours Futuristes', '1512453979798-5ea266f8880c'),
-      makeUniquePhoto('u6', 'San Francisco Pont Golden Gate Brume', '1501594907352-04cda38ebc29'),
-      makeUniquePhoto('u7', 'Ruelle Pavée Historique de Rome', '1552832230-c0197dd311b5'),
-      makeUniquePhoto('u8', 'La Défense Quartier Affaires Tours Verre', '1486406146926-c627a92ad1ab'),
-      makeUniquePhoto('u9', 'Ruelle d’Omoide Yokocho Lanternes Tokyo', '1528164344705-475426879c0d'),
-      makeUniquePhoto('u10', 'Station Métro Futuriste Design Leds', '1519501025264-65ba15a82390'),
-      makeUniquePhoto('u11', 'Vue Rooftop Panorama Nocturne', '1502672260266-1c1ef2d93688'),
-      makeUniquePhoto('u12', 'Autoroute Ville Traînées Lumineuses', '1508739773434-c26b3d09e071'),
-      makeUniquePhoto('u13', 'Façade Murale Street Art Colorée', '1513694203232-719a280e022f'),
-      makeUniquePhoto('u14', 'Bâtiment d’Architecte Béton Brutaliste', '1497366216548-37526070297c'),
-      makeUniquePhoto('u15', 'Marina de Monaco Yacht Club Luxe', '1507525428034-b723cf961d3e'),
-      makeUniquePhoto('u16', 'Tunnel Cyberpunk Éclairage Violet', '1550745165-9bc0b252726f'),
-      makeUniquePhoto('u17', 'Pagode Japonaise Sensoji au Crépuscule', '1492571350019-22de08371fd3'),
-      makeUniquePhoto('u18', 'Ocean Drive Miami Beach Palmiers', '1600596542815-ffad4c1539a9'),
-      makeUniquePhoto('u19', 'Broadway Avenue Manhattan Enseigne', '1441986300917-64674bd600d8'),
-      makeUniquePhoto('u20', 'Grand Pont Suspendu Lumières Soir', '1470071459604-3b5ec3a7fe05'),
-      makeUniquePhoto('u21', 'Singapour Marina Bay Sands & Baie', '1525625293386-3f8f99389edd'),
-      makeUniquePhoto('u22', 'Hong Kong Victoria Peak Gratte-ciel', '1519671482749-fd09be7ccebf'),
-      makeUniquePhoto('u23', 'Venise Grand Canal & Gondoles Crépuscule', '1514890547357-a9ee288728e0'),
-      makeUniquePhoto('u24', 'Amsterdam Canaux & Maisons Briques', '1512470876302-972faa2aa9a4'),
-      makeUniquePhoto('u25', 'Barcelone Sagrada Família Heure Dorée', '1539037116277-4db20889f2d4'),
-      makeUniquePhoto('u26', 'Séoul Quartier Gangnam Nuit Électrique', '1534447677768-be436bb09401'),
-      makeUniquePhoto('u27', 'Sydney Opéra & Port Reflet Coucher Soleil', '1506973035872-a4ec16b8e8d9'),
-      makeUniquePhoto('u28', 'Chicago Rivière & Gratte-ciel Verre', '1432405972618-c60b0225b8f9'),
-      makeUniquePhoto('u29', 'Ruelle Montmartre Pavée Paris', '1493976040374-85c8e12f0c0e'),
-      makeUniquePhoto('u30', 'Sunset Boulevard Los Angeles Palmiers', '1511497584788-87676104235f'),
-      makeUniquePhoto('u31', 'Kyoto Portiques Rouges Fushimi Inari', '1522383225653-ed111181a951'),
-      makeUniquePhoto('u32', 'Tramway Jaune dans les Rues de Lisbonne', '1501785888041-af3ef285b470'),
-      makeUniquePhoto('u33', 'Prague Pont Charles au Lever du Jour', '1486870591958-9b9d0d1dda99'),
-      makeUniquePhoto('u34', 'Marché de Nuit Bangkok Échoppes', '1552611052-33e04de081de'),
-      makeUniquePhoto('u35', 'Pyramides de Gizeh Coucher de Soleil', '1509316975850-ff9c5deb0cd9'),
-      makeUniquePhoto('u36', 'Porte de Brandebourg Berlin Illuminée', '1518709268805-4e9042af9f23'),
-      makeUniquePhoto('u37', 'Rio de Janeiro Baie de Guanabara', '1507499739999-097706ad8914'),
-      makeUniquePhoto('u38', 'Toronto Tour CN & Skyline Lac Ontario', '1532767153582-b1a0e5145009'),
-      makeUniquePhoto('u39', 'Las Vegas Strip Casinos & Néons Nuit', '1513002749550-c59d786b8e6c'),
-      makeUniquePhoto('u40', 'Istanbul Bosphore & Silhouette Mosquées', '1495616811223-4d98c6e9c869'),
-    ];
-
-    // 6. GRADIENTS (40 HARMONIES)
-    var BG_GRADIENTS_40 = [
-      { id: 'g1', label: 'Sunset Glow', colors: ['#f97316', '#ec4899', '#8b5cf6'], css: 'linear-gradient(135deg, #f97316, #ec4899, #8b5cf6)' },
-      { id: 'g2', label: 'Cyber Neon', colors: ['#06b6d4', '#3b82f6', '#9333ea'], css: 'linear-gradient(135deg, #06b6d4, #3b82f6, #9333ea)' },
-      { id: 'g3', label: 'Aurora Emerald', colors: ['#059669', '#10b981', '#06b6d4'], css: 'linear-gradient(135deg, #059669, #10b981, #06b6d4)' },
-      { id: 'g4', label: 'Cosmic Indigo', colors: ['#1e1b4b', '#312e81', '#4c1d95'], css: 'linear-gradient(135deg, #1e1b4b, #312e81, #4c1d95)' },
-      { id: 'g5', label: 'Champagne Luxe', colors: ['#d97706', '#f59e0b', '#fef3c7'], css: 'linear-gradient(135deg, #d97706, #f59e0b, #fef3c7)' },
-      { id: 'g6', label: 'Cotton Candy', colors: ['#f472b6', '#c084fc', '#60a5fa'], css: 'linear-gradient(135deg, #f472b6, #c084fc, #60a5fa)' },
-      { id: 'g7', label: 'Fire Velvet', colors: ['#b91c1c', '#dc2626', '#f97316'], css: 'linear-gradient(135deg, #b91c1c, #dc2626, #f97316)' },
-      { id: 'g8', label: 'Ocean Depth', colors: ['#0f172a', '#1e3a8a', '#0284c7'], css: 'linear-gradient(135deg, #0f172a, #1e3a8a, #0284c7)' },
-      { id: 'g9', label: 'Pure Frost', colors: ['#f8fafc', '#e2e8f0', '#cbd5e1'], css: 'linear-gradient(135deg, #f8fafc, #e2e8f0, #cbd5e1)' },
-      { id: 'g10', label: 'Holographic Mesh', colors: ['#a855f7', '#06b6d4', '#f43f5e'], css: 'linear-gradient(135deg, #a855f7, #06b6d4, #f43f5e)' },
-      { id: 'g11', label: 'Midnight Blue', colors: ['#020617', '#0f172a', '#1e293b'], css: 'linear-gradient(135deg, #020617, #0f172a, #1e293b)' },
-      { id: 'g12', label: 'Peach Sunrise', colors: ['#ffedd5', '#fed7aa', '#f43f5e'], css: 'linear-gradient(135deg, #ffedd5, #fed7aa, #f43f5e)' },
-      { id: 'g13', label: 'Minty Breeze', colors: ['#ccfbf1', '#99f6e4', '#2dd4bf'], css: 'linear-gradient(135deg, #ccfbf1, #99f6e4, #2dd4bf)' },
-      { id: 'g14', label: 'Electric Purple', colors: ['#581c87', '#7e22ce', '#c084fc'], css: 'linear-gradient(135deg, #581c87, #7e22ce, #c084fc)' },
-      { id: 'g15', label: 'Tropical Punch', colors: ['#f43f5e', '#fb923c', '#facc15'], css: 'linear-gradient(135deg, #f43f5e, #fb923c, #facc15)' },
-      { id: 'g16', label: 'Solar Flare', colors: ['#ea580c', '#f59e0b', '#fef08a'], css: 'linear-gradient(135deg, #ea580c, #f59e0b, #fef08a)' },
-      { id: 'g17', label: 'Mystic Twilight', colors: ['#311042', '#581c87', '#1e1b4b'], css: 'linear-gradient(135deg, #311042, #581c87, #1e1b4b)' },
-      { id: 'g18', label: 'Cyber Matrix', colors: ['#022c22', '#065f46', '#10b981'], css: 'linear-gradient(135deg, #022c22, #065f46, #10b981)' },
-      { id: 'g19', label: 'Lavender Mist', colors: ['#faf5ff', '#f3e8ff', '#d8b4fe'], css: 'linear-gradient(135deg, #faf5ff, #f3e8ff, #d8b4fe)' },
-      { id: 'g20', label: 'Rose Gold', colors: ['#fda4af', '#f43f5e', '#fb7185'], css: 'linear-gradient(135deg, #fda4af, #f43f5e, #fb7185)' },
-      { id: 'g21', label: 'Neon Synthwave', colors: ['#ff007f', '#7928ca', '#00dfd8'], css: 'linear-gradient(135deg, #ff007f, #7928ca, #00dfd8)' },
-      { id: 'g22', label: 'Emerald Glow', colors: ['#064e3b', '#059669', '#34d399'], css: 'linear-gradient(135deg, #064e3b, #059669, #34d399)' },
-      { id: 'g23', label: 'Deep Space Galaxy', colors: ['#000000', '#130f40', '#30336b'], css: 'linear-gradient(135deg, #000000, '#130f40', '#30336b)' },
-      { id: 'g24', label: 'Sunset Mojito', colors: ['#10b981', '#facc15', '#f97316'], css: 'linear-gradient(135deg, #10b981, #facc15, #f97316)' },
-      { id: 'g25', label: 'Velvet Night', colors: ['#18181b', '#27272a', '#3f3f46'], css: 'linear-gradient(135deg, #18181b, #27272a, #3f3f46)' },
-      { id: 'g26', label: 'Citrus Blast', colors: ['#e11d48', '#fb923c', '#fde047'], css: 'linear-gradient(135deg, #e11d48, #fb923c, #fde047)' },
-      { id: 'g27', label: 'Unicorn Dream', colors: ['#c4b5fd', '#fbcfe8', '#fed7aa'], css: 'linear-gradient(135deg, #c4b5fd, #fbcfe8, #fed7aa)' },
-      { id: 'g28', label: 'Golden Horizon', colors: ['#78350f', '#d97706', '#fef3c7'], css: 'linear-gradient(135deg, #78350f, #d97706, #fef3c7)' },
-      { id: 'g29', label: 'Berry Fusion', colors: ['#4c0519', '#9f1239', '#e11d48'], css: 'linear-gradient(135deg, #4c0519, #9f1239, #e11d48)' },
-      { id: 'g30', label: 'Frostbite Cyan', colors: ['#082f49', '#0284c7', '#38bdf8'], css: 'linear-gradient(135deg, #082f49, #0284c7, #38bdf8)' },
-      { id: 'g31', label: 'Volcano Lava', colors: ['#450a0a', '#b91c1c', '#ea580c'], css: 'linear-gradient(135deg, #450a0a, #b91c1c, #ea580c)' },
-      { id: 'g32', label: 'Nordic Sky', colors: ['#0c4a6e', '#0284c7', '#bae6fd'], css: 'linear-gradient(135deg, #0c4a6e, #0284c7, #bae6fd)' },
-      { id: 'g33', label: 'Green Apple', colors: ['#14532d', '#22c55e', '#bef264'], css: 'linear-gradient(135deg, #14532d, #22c55e, #bef264)' },
-      { id: 'g34', label: 'Neon Tokyo', colors: ['#3b0764', '#c026d3', '#06b6d4'], css: 'linear-gradient(135deg, #3b0764, #c026d3, #06b6d4)' },
-      { id: 'g35', label: 'Honey Gold', colors: ['#854d0e', '#ca8a04', '#fef08a'], css: 'linear-gradient(135deg, #854d0e, #ca8a04, #fef08a)' },
-      { id: 'g36', label: 'Midnight Purple', colors: ['#09090b', '#3b0764', '#7e22ce'], css: 'linear-gradient(135deg, #09090b, #3b0764, #7e22ce)' },
-      { id: 'g37', label: 'Coral Reef', colors: ['#be123c', '#fb7185', '#fed7aa'], css: 'linear-gradient(135deg, #be123c, #fb7185, #fed7aa)' },
-      { id: 'g38', label: 'Titanium Slate', colors: ['#0f172a', '#334155', '#94a3b8'], css: 'linear-gradient(135deg, #0f172a, #334155, #94a3b8)' },
-      { id: 'g39', label: 'Aqua Marine', colors: ['#042f2e', '#0d9488', '#5eead4'], css: 'linear-gradient(135deg, #042f2e, #0d9488, #5eead4)' },
-      { id: 'g40', label: 'Sunset Paradise InPixio', colors: ['#312e81', '#ec4899', '#facc15'], css: 'linear-gradient(135deg, #312e81, #ec4899, #facc15)' },
-    ];
-
-    // 7. SOLID PRO COLORS (40 COULEURS)
-    var BG_SOLIDS_40 = [
-      { id: 'transp', label: 'Transparent', value: 'transparent', class: 'bg-checkerboard' },
-      { id: 'white', label: 'Blanc Studio Pur', value: '#ffffff', class: 'bg-white' },
-      { id: 'black', label: 'Noir OLED Absolu', value: '#08080a', class: 'bg-black' },
-      { id: 'slate', label: 'Gris Ardoise Pro', value: '#1e293b', class: 'bg-slate-800' },
-      { id: 'platine', label: 'Gris Platine Clair', value: '#e2e8f0', class: 'bg-slate-200 text-black' },
-      { id: 'taupe', label: 'Gris Taupe Doux', value: '#78716c', class: 'bg-stone-500' },
-      { id: 'sand', label: 'Sable Chaud', value: '#fef3c7', class: 'bg-amber-100 text-black' },
-      { id: 'cream', label: 'Crème Vanille', value: '#fffbeb', class: 'bg-amber-50 text-black' },
-      { id: 'beige', label: 'Beige Lin', value: '#f5f5f4', class: 'bg-stone-100 text-black' },
-      { id: 'indigo', label: 'Indigo Cyber', value: '#4f46e5', class: 'bg-indigo-600' },
-      { id: 'blue', label: 'Bleu Royal', value: '#2563eb', class: 'bg-blue-600' },
-      { id: 'sky', label: 'Bleu Ciel Éclatant', value: '#38bdf8', class: 'bg-sky-400' },
-      { id: 'night', label: 'Bleu Nuit Profond', value: '#0f172a', class: 'bg-slate-900' },
-      { id: 'cyan', label: 'Cyan Électrique', value: '#06b6d4', class: 'bg-cyan-500' },
-      { id: 'turquoise', label: 'Turquoise Lagon', value: '#14b8a6', class: 'bg-teal-500' },
-      { id: 'emerald', label: 'Vert Émeraude', value: '#10b981', class: 'bg-emerald-500' },
-      { id: 'mint', label: 'Menthe Pastel', value: '#a7f3d0', class: 'bg-emerald-200 text-black' },
-      { id: 'sage', label: 'Vert Sauge Zen', value: '#84cc16', class: 'bg-lime-500' },
-      { id: 'olive', label: 'Vert Olive Nature', value: '#65a30d', class: 'bg-lime-600' },
-      { id: 'forest', label: 'Vert Forêt Sombre', value: '#14532d', class: 'bg-green-900' },
-      { id: 'sunset', label: 'Orange Sunset', value: '#f97316', class: 'bg-orange-500' },
-      { id: 'peach', label: 'Pêche Douce', value: '#fed7aa', class: 'bg-orange-200 text-black' },
-      { id: 'apricot', label: 'Abricot Vif', value: '#fb923c', class: 'bg-orange-400' },
-      { id: 'coral', label: 'Corail Doux', value: '#fb7185', class: 'bg-rose-400' },
-      { id: 'red', label: 'Rouge Ferrari Sport', value: '#ef4444', class: 'bg-red-600' },
-      { id: 'crimson', label: 'Pourpre Crimson', value: '#dc2626', class: 'bg-red-700' },
-      { id: 'burgundy', label: 'Bordeaux Rubis', value: '#881337', class: 'bg-rose-950' },
-      { id: 'pink', label: 'Rose Bonbon', value: '#ec4899', class: 'bg-pink-500' },
-      { id: 'neonpink', label: 'Fuchsia Neon', value: '#f43f5e', class: 'bg-rose-500' },
-      { id: 'dustypink', label: 'Rose Poudré Pastel', value: '#fbcfe8', class: 'bg-pink-200 text-black' },
-      { id: 'purple', label: 'Violet Profond', value: '#7c3aed', class: 'bg-purple-600' },
-      { id: 'lavender', label: 'Lavande Douce', value: '#ddd6fe', class: 'bg-purple-200 text-black' },
-      { id: 'violet', label: 'Mauve Électrique', value: '#a855f7', class: 'bg-purple-500' },
-      { id: 'gold', label: 'Or Impérial', value: '#eab308', class: 'bg-yellow-500' },
-      { id: 'lemon', label: 'Jaune Citron Solaire', value: '#fde047', class: 'bg-yellow-300 text-black' },
-      { id: 'amber', label: 'Ambre Chaud', value: '#d97706', class: 'bg-amber-600' },
-      { id: 'coffee', label: 'Café Moka', value: '#451a03', class: 'bg-amber-950' },
-      { id: 'chocolate', label: 'Chocolat Noir', value: '#3f2e21', class: 'bg-stone-900' },
-      { id: 'ice', label: 'Bleu Glacier', value: '#cffafe', class: 'bg-cyan-100 text-black' },
-      { id: 'graphite', label: 'Graphite Mat', value: '#27272a', class: 'bg-zinc-800' },
-    ];
-  </script>
-
-  <!-- REACT APPLICATION -->
-  <script type="text/babel">
-    const { useState, useEffect, useRef, useMemo } = React;
-
-    const Icon = ({ name, className = "w-5 h-5" }) => {
-      switch (name) {
-        case 'wand':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M15 4l5 5L8 21H3v-5L15 4zM18 1L23 6M1 18l3 3M9 2l1 2M2 9l2 1" /></svg>;
-        case 'layers':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>;
-        case 'sparkles':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6l2.1-2.1M12 8a4 4 0 100 8 4 4 0 000-8z" /></svg>;
-        case 'upload':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>;
-        case 'download':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>;
-        case 'zip':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>;
-        case 'trash':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>;
-        case 'check':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>;
-        case 'crop':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M6 2v14a2 2 0 002 2h14M18 22V8a2 2 0 00-2-2H2" /></svg>;
-        case 'resize':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>;
-        case 'stamp':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M5 22h14M5 2h14M12 6v8m-4 4h8a2 2 0 002-2v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2a2 2 0 002 2z" /></svg>;
-        case 'palette':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M7 21a4 4 0 01-4-4 11.96 11.96 0 012.37-7.23A12 12 0 0118.66 4.7 9 9 0 0121 12a9 9 0 01-9 9h-5z" /><circle cx="7.5" cy="10.5" r="1.5"/><circle cx="12" cy="7.5" r="1.5"/><circle cx="16.5" cy="10.5" r="1.5"/></svg>;
-        case 'split':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><line x1="12" y1="3" x2="12" y2="21" /></svg>;
-        case 'cpu':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><path d="M9 1v3m6-3v3m-6 17v3m6-3v3M1 9h3m-3 6h3m17-6h3m-3 6h3" /></svg>;
-        case 'close':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>;
-        case 'search':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
-        case 'shield':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
-        case 'image':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>;
-        case 'bolt':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>;
-        default:
-          return null;
+    // MediaPipe initialization
+    try {
+      if (window.SelfieSegmentation) {
+        selfieSegmenter = new window.SelfieSegmentation({
+          locateFile: function(file) { return 'https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/' + file; },
+        });
+        selfieSegmenter.setOptions({ modelSelection: 1 });
       }
-    };
+    } catch(e) {
+      console.warn("MediaPipe init error:", e);
+    }
 
-    function App() {
-      const [images, setImages] = useState([]);
-      const [selectedIds, setSelectedIds] = useState(new Set());
-      const [applyToAll, setApplyToAll] = useState(true);
-      const [activeTab, setActiveTab] = useState('background');
-      const [bgCategory, setBgCategory] = useState('manga');
-      const [searchQuery, setSearchQuery] = useState('');
-      const [isProcessing, setIsProcessing] = useState(false);
-      const [processingStatus, setProcessingStatus] = useState('');
-      const [progress, setProgress] = useState({ current: 0, total: 0 });
-      const [toasts, setToasts] = useState([]);
+    // High quality cutout
+    function generateCutout(imgUrl) {
+      return new Promise(function(resolve) {
+        var img = new Image();
+        if (imgUrl.indexOf('http') === 0) img.crossOrigin = 'anonymous';
+        img.src = imgUrl;
 
-      const [outputQuality, setOutputQuality] = useState('4k');
-      const [comparingItem, setComparingItem] = useState(null);
-      const [compareSlider, setCompareSlider] = useState(50);
-      const [isCervexOpen, setIsCervexOpen] = useState(false);
+        img.onload = function() {
+          try {
+            var w = img.naturalWidth || 1200;
+            var h = img.naturalHeight || 1200;
+            var canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            var ctx = canvas.getContext('2d', { willReadFrequently: true });
+            ctx.drawImage(img, 0, 0, w, h);
 
-      const segmenterRef = useRef(null);
+            if (selfieSegmenter) {
+              var tempCanvas = document.createElement('canvas');
+              tempCanvas.width = w;
+              tempCanvas.height = h;
+              var tctx = tempCanvas.getContext('2d');
+              tctx.drawImage(img, 0, 0, w, h);
 
-      useEffect(() => {
-        try {
-          if (window.SelfieSegmentation) {
-            const segmenter = new window.SelfieSegmentation({
-              locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`,
-            });
-            segmenter.setOptions({ modelSelection: 1 });
-            segmenterRef.current = segmenter;
-          }
-        } catch (e) {
-          console.warn("MediaPipe init:", e);
-        }
-      }, []);
+              var timeout = setTimeout(function() {
+                resolve({ cutoutUrl: canvas.toDataURL('image/png'), w: w, h: h });
+              }, 1200);
 
-      const [watermark, setWatermark] = useState({
-        enabled: false,
-        text: '© PIXELBATCH AI',
-        color: '#ffffff',
-        opacity: 85,
-      });
-
-      const addToast = (title, message, type = 'info') => {
-        const id = Date.now() + Math.random();
-        setToasts(prev => [...prev, { id, title, message, type }]);
-        setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 4000);
-      };
-
-      const generateAutoCutout = async (imgUrl) => {
-        return new Promise((resolve) => {
-          const img = new Image();
-          if (imgUrl.startsWith('http')) {
-            img.crossOrigin = 'anonymous';
-          }
-          img.src = imgUrl;
-
-          img.onload = async () => {
-            try {
-              const w = img.naturalWidth || 1200;
-              const h = img.naturalHeight || 1200;
-
-              const subjectCanvas = document.createElement('canvas');
-              subjectCanvas.width = w;
-              subjectCanvas.height = h;
-              const sctx = subjectCanvas.getContext('2d', { willReadFrequently: true });
-              sctx.drawImage(img, 0, 0, w, h);
-
-              let maskFound = false;
-
-              if (segmenterRef.current) {
-                try {
-                  await Promise.race([
-                    new Promise((res) => {
-                      const tempCanvas = document.createElement('canvas');
-                      tempCanvas.width = w;
-                      tempCanvas.height = h;
-                      const tctx = tempCanvas.getContext('2d');
-                      tctx.drawImage(img, 0, 0, w, h);
-
-                      segmenterRef.current.onResults((results) => {
-                        if (results.segmentationMask) {
-                          sctx.save();
-                          sctx.globalCompositeOperation = 'destination-in';
-                          sctx.drawImage(results.segmentationMask, 0, 0, w, h);
-                          sctx.restore();
-                          maskFound = true;
-                        }
-                        res();
-                      });
-                      segmenterRef.current.send({ image: tempCanvas });
-                    }),
-                    new Promise((res) => setTimeout(res, 1200))
-                  ]);
-                } catch (err) {
-                  maskFound = false;
+              selfieSegmenter.onResults(function(results) {
+                clearTimeout(timeout);
+                if (results.segmentationMask) {
+                  ctx.save();
+                  ctx.globalCompositeOperation = 'destination-in';
+                  ctx.drawImage(results.segmentationMask, 0, 0, w, h);
+                  ctx.restore();
                 }
+                resolve({ cutoutUrl: canvas.toDataURL('image/png'), w: w, h: h });
+              });
+
+              selfieSegmenter.send({ image: tempCanvas });
+            } else {
+              resolve({ cutoutUrl: canvas.toDataURL('image/png'), w: w, h: h });
+            }
+          } catch(e) {
+            resolve({ cutoutUrl: imgUrl, w: 1200, h: 1200 });
+          }
+        };
+        img.onerror = function() { resolve({ cutoutUrl: imgUrl, w: 1200, h: 1200 }); };
+      });
+    }
+
+    // High quality background composite
+    function compositeItem(item, bgConfig) {
+      return new Promise(function(resolve) {
+        var subjectImg = new Image();
+        if (item.cutoutUrl.indexOf('http') === 0) subjectImg.crossOrigin = 'anonymous';
+        subjectImg.src = item.cutoutUrl;
+
+        subjectImg.onload = function() {
+          try {
+            var w = subjectImg.naturalWidth || 1200;
+            var h = subjectImg.naturalHeight || 1200;
+
+            if (outputQuality === '4k') {
+              var scale = 3840 / w;
+              w = 3840;
+              h = Math.round(h * scale);
+            } else if (outputQuality === '2k') {
+              var scale = 2048 / w;
+              w = 2048;
+              h = Math.round(h * scale);
+            } else if (outputQuality === '1080p') {
+              var scale = 1920 / w;
+              w = 1920;
+              h = Math.round(h * scale);
+            }
+
+            var canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            var ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+
+            function finishRender() {
+              ctx.drawImage(subjectImg, 0, 0, w, h);
+
+              if (watermarkConfig.enabled && watermarkConfig.text) {
+                ctx.save();
+                ctx.globalAlpha = watermarkConfig.opacity / 100;
+                var fontSize = Math.max(16, Math.round(w * 0.03));
+                ctx.font = '700 ' + fontSize + 'px "Plus Jakarta Sans", sans-serif';
+                var metrics = ctx.measureText(watermarkConfig.text);
+                var wx = w - metrics.width - 50;
+                var wy = h - 50;
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+                ctx.fillRect(wx - 16, wy - fontSize - 8, metrics.width + 32, fontSize + 20);
+                ctx.fillStyle = watermarkConfig.color;
+                ctx.fillText(watermarkConfig.text, wx, wy);
+                ctx.restore();
               }
 
-              resolve({
-                cutoutUrl: subjectCanvas.toDataURL('image/png'),
-                w: w,
-                h: h
-              });
-            } catch (err) {
-              console.warn("Cutout error:", err);
-              resolve({ cutoutUrl: imgUrl, w: 1200, h: 1200 });
+              item.currentUrl = canvas.toDataURL('image/png');
+              item.outputResolution = w + ' × ' + h + ' px';
+              resolve(item);
             }
-          };
-          img.onerror = () => resolve({ cutoutUrl: imgUrl, w: 1200, h: 1200 });
-        });
-      };
 
-      useEffect(() => {
-        const initial = DEMO_LIBRARY.map(d => ({
-          id: d.id,
+            if (bgConfig.value === 'transparent') {
+              finishRender();
+            } else if (bgConfig.type === 'solid') {
+              ctx.fillStyle = bgConfig.value;
+              ctx.fillRect(0, 0, w, h);
+              finishRender();
+            } else if (bgConfig.type === 'gradient' && bgConfig.colors) {
+              var grad = ctx.createLinearGradient(0, 0, w, h);
+              grad.addColorStop(0, bgConfig.colors[0]);
+              grad.addColorStop(0.5, bgConfig.colors[1]);
+              grad.addColorStop(1, bgConfig.colors[2]);
+              ctx.fillStyle = grad;
+              ctx.fillRect(0, 0, w, h);
+              finishRender();
+            } else if (bgConfig.url) {
+              var bgImg = new Image();
+              bgImg.crossOrigin = 'anonymous';
+              bgImg.onload = function() {
+                ctx.drawImage(bgImg, 0, 0, w, h);
+                finishRender();
+              };
+              bgImg.onerror = function() {
+                ctx.fillStyle = '#4f46e5';
+                ctx.fillRect(0, 0, w, h);
+                finishRender();
+              };
+              bgImg.src = bgConfig.url;
+            } else {
+              finishRender();
+            }
+          } catch(e) {
+            resolve(item);
+          }
+        };
+        subjectImg.onerror = function() { resolve(item); };
+      });
+    }
+
+    // UI Renderers
+    function renderGallery() {
+      var container = document.getElementById('gallery-container');
+      var countSpan = document.getElementById('count-download');
+      countSpan.textContent = images.length;
+
+      if (images.length === 0) {
+        container.innerHTML = 
+          '<div class="col-span-full flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-pink-500 rounded-3xl p-12 text-center bg-slate-900/40">' +
+          '<div class="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6 text-3xl">🪄</div>' +
+          '<h2 class="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>' +
+          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Vous appliquez ensuite directement les fresques de votre choix en 1 clic !</p>' +
+          '</div>';
+        return;
+      }
+
+      var html = '';
+      images.forEach(function(item) {
+        var isSelected = applyToAll || selectedIds.has(item.id);
+        var borderClass = isSelected ? 'border-pink-500 ring-2 ring-pink-500/40 shadow-xl shadow-pink-500/10' : 'border-slate-800 hover:border-slate-700';
+        var checkClass = isSelected ? 'bg-pink-600 text-white shadow-md shadow-pink-600/50' : 'bg-slate-900/80 border border-slate-600 text-transparent';
+
+        html += 
+          '<div onclick="toggleImageSelect(\'' + item.id + '\')" class="group relative rounded-2xl overflow-hidden border transition-all cursor-pointer bg-slate-900 flex flex-col ' + borderClass + '">' +
+            '<div class="relative w-full aspect-video bg-checkerboard flex items-center justify-center p-2">' +
+              '<img src="' + item.currentUrl + '" alt="' + item.name + '" class="w-full h-full object-contain transition-transform duration-200 group-hover:scale-105" />' +
+              '<div class="absolute top-3 left-3 z-10">' +
+                '<div class="w-6 h-6 rounded-lg flex items-center justify-center ' + checkClass + ' font-bold text-xs">✓</div>' +
+              '</div>' +
+              '<div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">' +
+                '<button onclick="event.stopPropagation(); openCompareModal(\'' + item.id + '\')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200" title="Avant / Après">↔️</button>' +
+                '<button onclick="event.stopPropagation(); downloadSingleItem(\'' + item.id + '\')" class="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black" title="Télécharger">⬇️</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="p-3 border-t border-slate-800 flex items-center justify-between text-xs bg-slate-900/90">' +
+              '<span class="font-semibold text-slate-200 truncate max-w-[160px]">' + item.name + '</span>' +
+              '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono">' + (item.outputResolution || outputQuality.toUpperCase()) + '</span>' +
+            '</div>' +
+          '</div>';
+      });
+
+      container.innerHTML = html;
+    }
+
+    function renderBackgroundCards() {
+      var container = document.getElementById('bg-cards-container');
+      var list = [];
+      if (currentBgCategory === 'manga') list = BG_MANGA_40;
+      else if (currentBgCategory === 'popart') list = BG_POPART_40;
+      else if (currentBgCategory === 'nature') list = BG_NATURE_40;
+      else if (currentBgCategory === 'studios') list = BG_STUDIOS_40;
+      else if (currentBgCategory === 'cities') list = BG_CITIES_40;
+      else if (currentBgCategory === 'gradients') list = BG_GRADIENTS_40;
+      else if (currentBgCategory === 'solids') list = BG_SOLIDS_40;
+
+      if (currentSearch) {
+        list = list.filter(function(item) {
+          return item.label.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1;
+        });
+      }
+
+      var html = '';
+      if (currentBgCategory === 'gradients') {
+        list.forEach(function(g, idx) {
+          html += '<button onclick="applyBgAtIndex(' + idx + ')" style="background: ' + g.css + '" class="h-14 rounded-xl border border-slate-700 hover:border-white transition-all hover:scale-[1.02] flex items-end p-2 shadow-md">' +
+            '<span class="text-[11px] font-bold text-white drop-shadow truncate">' + g.label + '</span>' +
+            '</button>';
+        });
+      } else if (currentBgCategory === 'solids') {
+        html += '<div class="col-span-2 grid grid-cols-4 gap-2">';
+        list.forEach(function(s, idx) {
+          html += '<button onclick="applyBgAtIndex(' + idx + ')" class="h-12 rounded-xl border transition-all hover:scale-105 flex flex-col items-center justify-center ' + s.class + ' border-slate-700 shadow-sm" title="' + s.label + '">' +
+            '<span class="text-[9px] font-bold px-1 rounded bg-black/40 text-white truncate max-w-[70px]">' + s.label.split(' ')[0] + '</span>' +
+            '</button>';
+        });
+        html += '</div>';
+      } else {
+        list.forEach(function(item, idx) {
+          var bgImg = item.thumb || item.url;
+          html += '<button onclick="applyBgAtIndex(' + idx + ')" class="group relative h-24 rounded-2xl overflow-hidden border border-pink-500/40 hover:border-pink-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md">' +
+            '<img src="' + bgImg + '" alt="' + item.label + '" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />' +
+            '<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>' +
+            '<span class="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">' + item.label + '</span>' +
+            '</button>';
+        });
+      }
+
+      container.innerHTML = html;
+    }
+
+    // Apply Background
+    async function applyBgAtIndex(idx) {
+      if (images.length === 0) {
+        showToast('Aucune photo', 'Importez vos photos d’abord !');
+        return;
+      }
+
+      var list = [];
+      if (currentBgCategory === 'manga') list = BG_MANGA_40;
+      else if (currentBgCategory === 'popart') list = BG_POPART_40;
+      else if (currentBgCategory === 'nature') list = BG_NATURE_40;
+      else if (currentBgCategory === 'studios') list = BG_STUDIOS_40;
+      else if (currentBgCategory === 'cities') list = BG_CITIES_40;
+      else if (currentBgCategory === 'gradients') list = BG_GRADIENTS_40;
+      else if (currentBgCategory === 'solids') list = BG_SOLIDS_40;
+
+      if (currentSearch) {
+        list = list.filter(function(item) {
+          return item.label.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1;
+        });
+      }
+
+      var bg = list[idx];
+      if (!bg) return;
+
+      var overlay = document.getElementById('progress-overlay');
+      var statusText = document.getElementById('progress-status-text');
+      var countText = document.getElementById('progress-count-text');
+      var barFill = document.getElementById('progress-bar-fill');
+
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      statusText.textContent = 'Application du fond en ' + outputQuality.toUpperCase() + '...';
+
+      for (var i = 0; i < images.length; i++) {
+        if (applyToAll || selectedIds.has(images[i].id)) {
+          images[i] = await compositeItem(images[i], bg);
+        }
+        countText.textContent = 'Photo ' + (i + 1) + ' sur ' + images.length;
+        barFill.style.width = Math.round(((i + 1) / images.length) * 100) + '%';
+      }
+
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      renderGallery();
+      showToast('Rendu Ultra-HD Prêt !', 'Fond appliqué en qualité ' + outputQuality.toUpperCase() + ' sur ' + images.length + ' photos');
+    }
+
+    // Actions
+    function setOutputQuality(q) {
+      outputQuality = q;
+      var label = document.getElementById('label-current-res');
+      label.textContent = 'Rendu ' + q.toUpperCase();
+
+      ['4k', '2k', '1080p', 'orig'].forEach(function(k) {
+        var btn = document.getElementById('btn-res-' + k);
+        if (k === q || (k === 'orig' && q === 'original')) {
+          btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 font-black shadow-md';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white';
+        }
+      });
+      showToast('Résolution', 'Qualité de sortie réglée en ' + q.toUpperCase());
+    }
+
+    function switchCategory(cat) {
+      currentBgCategory = cat;
+      ['manga', 'popart', 'nature', 'studios', 'cities', 'gradients', 'solids'].forEach(function(c) {
+        var btn = document.getElementById('cat-btn-' + c);
+        if (c === cat) {
+          btn.className = 'py-1.5 px-1 rounded-lg bg-pink-600 text-white font-black truncate';
+        } else {
+          btn.className = 'py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate';
+        }
+      });
+      renderBackgroundCards();
+    }
+
+    function switchToolTab(tab) {
+      ['bg', 'crop', 'resize', 'watermark'].forEach(function(t) {
+        var btn = document.getElementById('tab-btn-' + t);
+        var content = document.getElementById('tab-content-' + t);
+        if (t === tab) {
+          btn.className = 'py-2 px-1 rounded-lg text-xs font-bold bg-pink-600 text-white shadow-md shadow-pink-600/30';
+          content.classList.remove('hidden');
+          content.classList.add('flex');
+        } else {
+          btn.className = 'py-2 px-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white';
+          content.classList.add('hidden');
+          content.classList.remove('flex');
+        }
+      });
+    }
+
+    function handleSearch(e) {
+      currentSearch = e.target.value;
+      renderBackgroundCards();
+    }
+
+    function toggleBatchMode() {
+      applyToAll = !applyToAll;
+      var btn = document.getElementById('btn-batch-mode');
+      if (applyToAll) {
+        btn.className = 'flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-pink-600 text-white shadow-lg shadow-pink-600/30 font-black';
+        btn.innerHTML = '<span>⚡ Mode Lot Actif : Applique à TOUTES les photos</span>';
+      } else {
+        btn.className = 'flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700';
+        btn.innerHTML = '<span>Mode Sélection Manuelle</span>';
+      }
+      renderGallery();
+    }
+
+    function toggleImageSelect(id) {
+      if (selectedIds.has(id)) selectedIds.delete(id);
+      else selectedIds.add(id);
+      renderGallery();
+    }
+
+    function selectAllImages() {
+      images.forEach(function(img) { selectedIds.add(img.id); });
+      renderGallery();
+    }
+
+    function keepTransparentBackground() {
+      images.forEach(function(img) {
+        if (applyToAll || selectedIds.has(img.id)) {
+          img.currentUrl = img.cutoutUrl;
+        }
+      });
+      renderGallery();
+      showToast('Fond Retiré', 'Retour au sujet détouré transparent');
+    }
+
+    function deleteSelectedImages() {
+      images = images.filter(function(img) { return !selectedIds.has(img.id); });
+      selectedIds.clear();
+      renderGallery();
+      showToast('Supprimé', 'Photos supprimées');
+    }
+
+    async function handleFileSelect(e) {
+      var files = e.target.files;
+      if (!files || files.length === 0) return;
+      var count = files.length;
+
+      var overlay = document.getElementById('progress-overlay');
+      var statusText = document.getElementById('progress-status-text');
+      var countText = document.getElementById('progress-count-text');
+      var barFill = document.getElementById('progress-bar-fill');
+
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      statusText.textContent = 'Détourage automatique IA en cours...';
+
+      var newItems = [];
+      for (var i = 0; i < count; i++) {
+        var file = files[i];
+        var url = URL.createObjectURL(file);
+        var id = 'img_' + Math.random().toString(36).substring(2, 9);
+        var result = await generateCutout(url);
+
+        newItems.push({
+          id: id,
+          name: file.name,
+          originalUrl: url,
+          cutoutUrl: result.cutoutUrl,
+          currentUrl: result.cutoutUrl,
+          outputResolution: result.w + ' × ' + result.h + ' px',
+        });
+
+        countText.textContent = 'Photo ' + (i + 1) + ' sur ' + count;
+        barFill.style.width = Math.round(((i + 1) / count) * 100) + '%';
+      }
+
+      images = images.concat(newItems);
+      newItems.forEach(function(item) { selectedIds.add(item.id); });
+
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      renderGallery();
+      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez un fond pour l\'appliquer immédiatement !');
+    }
+
+    function loadDemoImages() {
+      images = DEMO_LIBRARY.map(function(d) {
+        return {
+          id: 'demo_' + Math.random().toString(36).substring(2, 7),
           name: d.name,
           originalUrl: d.url,
           cutoutUrl: d.url,
           currentUrl: d.url,
-          isCutout: true,
-          isModified: false,
-        }));
-        setImages(initial);
-        setSelectedIds(new Set(initial.map(img => img.id)));
-      }, []);
-
-      const handleFiles = async (files) => {
-        if (!files || files.length === 0) return;
-        const count = files.length;
-        
-        setIsProcessing(true);
-        setProcessingStatus('Détourage automatique IA en cours...');
-        setProgress({ current: 0, total: count });
-
-        const rawList = [];
-        Array.from(files).forEach((file) => {
-          const url = URL.createObjectURL(file);
-          const id = 'img_' + Math.random().toString(36).substring(2, 9);
-          rawList.push({
-            id: id,
-            name: file.name,
-            originalUrl: url,
-            cutoutUrl: url,
-            currentUrl: url,
-            isCutout: false,
-            isModified: false,
-          });
-        });
-
-        const processedList = [];
-        for (let i = 0; i < rawList.length; i++) {
-          const item = rawList[i];
-          const result = await generateAutoCutout(item.originalUrl);
-          
-          processedList.push({
-            ...item,
-            cutoutUrl: result.cutoutUrl,
-            currentUrl: result.cutoutUrl,
-            isCutout: true,
-            isModified: true,
-          });
-
-          setProgress({ current: i + 1, total: count });
-          if ((i + 1) % 2 === 0) {
-            await new Promise(r => setTimeout(r, 10));
-          }
-        }
-
-        setImages(prev => {
-          const nextList = [...prev, ...processedList];
-          setSelectedIds(new Set(nextList.map(m => m.id)));
-          return nextList;
-        });
-
-        setIsProcessing(false);
-        addToast(
-          'Détourage 100% Réussi !',
-          `Le fond de vos ${count} photos a été entièrement supprimé. Choisissez maintenant le fond à appliquer en 1 clic !`,
-          'success'
-        );
-      };
-
-      const toggleSelect = (id) => {
-        setSelectedIds(prev => {
-          const next = new Set(prev);
-          if (next.has(id)) next.delete(id);
-          else next.add(id);
-          return next;
-        });
-      };
-      const selectAll = () => setSelectedIds(new Set(images.map(img => img.id)));
-      const revertSelected = () => {
-        setImages(prev => prev.map(img => {
-          if (applyToAll || selectedIds.has(img.id)) {
-            return { ...img, currentUrl: img.cutoutUrl, isModified: true };
-          }
-          return img;
-        }));
-        addToast('Fond Retiré', 'Retour au sujet détouré transparent', 'info');
-      };
-      const deleteSelected = () => {
-        setImages(prev => prev.filter(img => !selectedIds.has(img.id)));
-        setSelectedIds(new Set());
-        addToast('Supprimé', 'Photos supprimées', 'info');
-      };
-
-      const compositeBackground = async (item, bgConfig) => {
-        return new Promise((resolve) => {
-          const subjectImg = new Image();
-          if (item.cutoutUrl.startsWith('http')) {
-            subjectImg.crossOrigin = 'anonymous';
-          }
-          subjectImg.src = item.cutoutUrl;
-
-          subjectImg.onload = async () => {
-            try {
-              let w = subjectImg.naturalWidth || 1200;
-              let h = subjectImg.naturalHeight || 1200;
-
-              if (outputQuality === '4k') {
-                const targetW = 3840;
-                const scale = targetW / w;
-                w = targetW;
-                h = Math.round(h * scale);
-              } else if (outputQuality === '2k') {
-                const targetW = 2048;
-                const scale = targetW / w;
-                w = targetW;
-                h = Math.round(h * scale);
-              } else if (outputQuality === '1080p') {
-                const targetW = 1920;
-                const scale = targetW / w;
-                w = targetW;
-                h = Math.round(h * scale);
-              }
-
-              const finalCanvas = document.createElement('canvas');
-              finalCanvas.width = w;
-              finalCanvas.height = h;
-              const fctx = finalCanvas.getContext('2d');
-              fctx.imageSmoothingEnabled = true;
-              fctx.imageSmoothingQuality = 'high';
-
-              if (bgConfig.value !== 'transparent') {
-                if (bgConfig.type === 'solid') {
-                  fctx.fillStyle = bgConfig.value;
-                  fctx.fillRect(0, 0, w, h);
-                } else if (bgConfig.type === 'gradient' && bgConfig.colors) {
-                  const grad = fctx.createLinearGradient(0, 0, w, h);
-                  grad.addColorStop(0, bgConfig.colors[0]);
-                  grad.addColorStop(0.5, bgConfig.colors[1]);
-                  grad.addColorStop(1, bgConfig.colors[2]);
-                  fctx.fillStyle = grad;
-                  fctx.fillRect(0, 0, w, h);
-                } else if (bgConfig.url) {
-                  try {
-                    const bgImg = new Image();
-                    bgImg.crossOrigin = 'anonymous';
-                    await new Promise((res, rej) => {
-                      bgImg.onload = res;
-                      bgImg.onerror = rej;
-                      bgImg.src = bgConfig.url;
-                    });
-                    fctx.drawImage(bgImg, 0, 0, w, h);
-                  } catch (e) {
-                    fctx.fillStyle = '#4f46e5';
-                    fctx.fillRect(0, 0, w, h);
-                  }
-                }
-              }
-
-              fctx.drawImage(subjectImg, 0, 0, w, h);
-
-              if (watermark.enabled && watermark.text) {
-                fctx.save();
-                fctx.globalAlpha = watermark.opacity / 100;
-                const fontSize = Math.max(16, Math.round(w * 0.03));
-                fctx.font = `700 ${fontSize}px "Plus Jakarta Sans", sans-serif`;
-                const metrics = fctx.measureText(watermark.text);
-                const wx = w - metrics.width - 50;
-                const wy = h - 50;
-
-                fctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-                fctx.beginPath();
-                fctx.roundRect(wx - 16, wy - fontSize - 8, metrics.width + 32, fontSize + 20, 12);
-                fctx.fill();
-
-                fctx.fillStyle = watermark.color;
-                fctx.fillText(watermark.text, wx, wy);
-                fctx.restore();
-              }
-
-              resolve({
-                ...item,
-                currentUrl: finalCanvas.toDataURL('image/png'),
-                isModified: true,
-                outputResolution: `${w} × ${h} px`,
-              });
-            } catch (err) {
-              console.warn("Composite error:", err);
-              resolve(item);
-            }
-          };
-          subjectImg.onerror = () => resolve(item);
-        });
-      };
-
-      const applyBackground = async (bgConfig) => {
-        if (images.length === 0) {
-          addToast('Aucune photo', 'Importez vos photos d’abord !', 'warning');
-          return;
-        }
-
-        const total = images.length;
-        setIsProcessing(true);
-        setProcessingStatus(`Application du fond en Ultra-HD (${outputQuality.toUpperCase()})...`);
-        setProgress({ current: 0, total: total });
-
-        try {
-          const updated = [...images];
-          for (let i = 0; i < updated.length; i++) {
-            if (applyToAll || selectedIds.has(updated[i].id)) {
-              updated[i] = await compositeBackground(updated[i], bgConfig);
-            }
-            setProgress({ current: i + 1, total: total });
-          }
-          setImages(updated);
-          addToast(
-            'Rendu Ultra-HD Prêt !',
-            `Le fond a été appliqué en qualité ${outputQuality.toUpperCase()} sur 100% de vos ${total} photos ✨`,
-            'success'
-          );
-        } catch (e) {
-          console.error(e);
-        } finally {
-          setIsProcessing(false);
-        }
-      };
-
-      const handleCustomBg = (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          applyBackground({ type: 'image', url: event.target.result });
+          outputResolution: '1200 × 1200 px',
         };
-        reader.readAsDataURL(file);
-      };
-
-      const applyCrop = async (ratio) => {
-        setIsProcessing(true);
-        setProcessingStatus('Recadrage HD...');
-        setProgress({ current: 0, total: images.length });
-        try {
-          const updated = [...images];
-          for (let i = 0; i < updated.length; i++) {
-            if (applyToAll || selectedIds.has(updated[i].id)) {
-              const item = updated[i];
-              const img = new Image();
-              img.src = item.currentUrl;
-              await new Promise(res => { img.onload = res; });
-              const w = img.naturalWidth;
-              const h = img.naturalHeight;
-              let tw = w;
-              let th = h;
-              if (ratio === '1:1') { tw = Math.min(w, h); th = tw; }
-              else if (ratio === '16:9') { th = Math.round(w * (9 / 16)); }
-              else if (ratio === '9:16') { tw = Math.round(h * (9 / 16)); }
-
-              const canvas = document.createElement('canvas');
-              canvas.width = tw;
-              canvas.height = th;
-              const ctx = canvas.getContext('2d');
-              ctx.imageSmoothingQuality = 'high';
-              ctx.drawImage(img, (w - tw) / 2, (h - th) / 2, tw, th, 0, 0, tw, th);
-              updated[i] = { ...item, currentUrl: canvas.toDataURL('image/png'), isModified: true };
-            }
-            setProgress({ current: i + 1, total: images.length });
-          }
-          setImages(updated);
-          addToast('Recadrage effectué', `Ratio ${ratio} appliqué à toutes les photos`, 'success');
-        } finally {
-          setIsProcessing(false);
-        }
-      };
-
-      const applyResize = async (w, h) => {
-        setIsProcessing(true);
-        setProcessingStatus('Redimensionnement Ultra-HD...');
-        setProgress({ current: 0, total: images.length });
-        try {
-          const updated = [...images];
-          for (let i = 0; i < updated.length; i++) {
-            if (applyToAll || selectedIds.has(updated[i].id)) {
-              const item = updated[i];
-              const img = new Image();
-              img.src = item.currentUrl;
-              await new Promise(res => { img.onload = res; });
-              const canvas = document.createElement('canvas');
-              canvas.width = w;
-              canvas.height = h;
-              const ctx = canvas.getContext('2d');
-              ctx.imageSmoothingQuality = 'high';
-              ctx.drawImage(img, 0, 0, w, h);
-              updated[i] = { ...item, currentUrl: canvas.toDataURL('image/png'), isModified: true };
-            }
-            setProgress({ current: i + 1, total: images.length });
-          }
-          setImages(updated);
-          addToast('Redimensionné', `${w} × ${h} px`, 'success');
-        } finally {
-          setIsProcessing(false);
-        }
-      };
-
-      const downloadSingle = (item) => {
-        const a = document.createElement('a');
-        a.download = `pixelbatch_${outputQuality.toUpperCase()}_${item.name.replace(/\.[^/.]+$/, '')}.png`;
-        a.href = item.currentUrl;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        addToast('Téléchargé en Ultra-HD', a.download, 'success');
-      };
-
-      const downloadZip = async () => {
-        if (images.length === 0) return;
-        setIsProcessing(true);
-        setProcessingStatus(`Exportation ZIP en Ultra-HD (${outputQuality.toUpperCase()})...`);
-        setProgress({ current: 0, total: images.length });
-        try {
-          const zip = new JSZip();
-          const folder = zip.folder(`pixelbatch_hd_export_${outputQuality.toUpperCase()}`);
-          images.forEach((item, i) => {
-            const data = item.currentUrl.split(',')[1];
-            folder.file(`photo_${i + 1}_${outputQuality.toUpperCase()}_${item.name.replace(/\.[^/.]+$/, '')}.png`, data, { base64: true });
-          });
-          const blob = await zip.generateAsync({ type: 'blob' });
-          saveAs(blob, `PixelBatch_${outputQuality.toUpperCase()}_${images.length}_photos_${Date.now()}.zip`);
-          addToast('Archive HD Prête !', `${images.length} photos téléchargées en Ultra-HD`, 'success');
-        } finally {
-          setIsProcessing(false);
-        }
-      };
-
-      const filteredPopArt = useMemo(() => BG_POPART_40.filter(c => c.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredManga = useMemo(() => BG_MANGA_40.filter(m => m.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredNature = useMemo(() => BG_NATURE_40.filter(n => n.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredStudios = useMemo(() => BG_STUDIOS_40.filter(s => s.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredCities = useMemo(() => BG_CITIES_40.filter(c => c.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredGradients = useMemo(() => BG_GRADIENTS_40.filter(g => g.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-      const filteredSolids = useMemo(() => BG_SOLIDS_40.filter(s => s.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
-
-      return (
-        <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100">
-          
-          {/* TOP NAVBAR */}
-          <header className="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/90 border-b border-slate-800 px-6 py-3.5 flex items-center justify-between shadow-xl">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
-                <Icon name="layers" className="w-6 h-6" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-indigo-100 to-slate-400 bg-clip-text text-transparent">
-                    PixelBatch AI Studio
-                  </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-                    FRESQUES MANGAS & POP ART MAÎTRES
-                  </span>
-                </div>
-                <p className="text-[11px] text-slate-400">Véritables Fresques & Héros Mangas • Pop Art de Collection (Murakami, KAWS, Warhol) • Sortie Ultra-HD 4K</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              
-              {/* Ultra-HD Selector */}
-              <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
-                <span className="px-2 text-[10px] font-bold text-slate-400">Sortie HD :</span>
-                {[
-                  { id: '4k', label: 'Master 4K' },
-                  { id: '2k', label: 'Ultra 2K' },
-                  { id: '1080p', label: 'Full HD' },
-                  { id: 'original', label: 'Original' },
-                ].map(q => (
-                  <button
-                    key={q.id}
-                    onClick={() => {
-                      setOutputQuality(q.id);
-                      addToast('Résolution de Sortie', `Rendu configuré en ${q.label}`, 'info');
-                    }}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-                      outputQuality === q.id ? 'bg-amber-500 text-slate-950 shadow-md font-black' : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    {q.label}
-                  </button>
-                ))}
-              </div>
-
-              <button
-                onClick={() => {
-                  const demos = DEMO_LIBRARY.map(d => ({
-                    id: 'demo_' + Math.random().toString(36).substring(2, 7),
-                    name: d.name,
-                    originalUrl: d.url,
-                    cutoutUrl: d.url,
-                    currentUrl: d.url,
-                    isCutout: true,
-                    isModified: false,
-                  }));
-                  setImages(demos);
-                  setSelectedIds(new Set(demos.map(img => img.id)));
-                  addToast('Démos Chargées', 'Photos prêtes pour tester les fresques et le Pop Art !', 'success');
-                }}
-                className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold"
-              >
-                <Icon name="sparkles" className="w-4 h-4 text-amber-400" />
-                <span>Charger Démos</span>
-              </button>
-
-              <button
-                onClick={() => setIsCervexOpen(true)}
-                className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-cervex-600/10 hover:bg-cervex-600/20 text-cervex-400 border border-cervex-500/30 text-xs font-semibold"
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Connecteur Cervex</span>
-              </button>
-
-              <button
-                onClick={downloadZip}
-                disabled={images.length === 0}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:to-rose-600 text-slate-950 shadow-lg shadow-amber-500/25 disabled:opacity-40 font-black"
-              >
-                <Icon name="zip" className="w-4 h-4" />
-                <span>Télécharger tout en {outputQuality.toUpperCase()} ({images.length} photos)</span>
-              </button>
-            </div>
-          </header>
-
-          {/* WORKSPACE */}
-          <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-            
-            {/* GALLERY AREA */}
-            <main className="flex-1 p-6 overflow-y-auto flex flex-col gap-5">
-              
-              {/* Info Banner */}
-              <div className="p-3 rounded-2xl bg-gradient-to-r from-pink-950/40 via-purple-950/30 to-slate-900 border border-pink-500/30 flex flex-wrap items-center justify-between gap-3 shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-400">
-                    <Icon name="wand" className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-white flex items-center gap-2">
-                      <span>Fresques Mangas & Pop Art Maîtres Disponibles</span>
-                      <span className="text-[10px] px-2 py-0.2 rounded-full bg-pink-500/20 text-pink-300 font-mono font-bold">Ultra-HD 4K</span>
-                    </h4>
-                    <p className="text-[11px] text-slate-300">Détourage automatique 100% garanti. Choisissez une fresque de guerrier/dragon ou un Pop Art Takashi Murakami / KAWS / Warhol pour un rendu somptueux !</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <label className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:to-indigo-500 text-white shadow-lg shadow-pink-600/30 cursor-pointer transition-all">
-                    <Icon name="upload" className="w-4 h-4" />
-                    <span>Ajouter des photos (Détourage Automatique)</span>
-                    <input type="file" multiple accept="image/*" className="hidden" onChange={(e) => handleFiles(e.target.files)} />
-                  </label>
-                </div>
-              </div>
-
-              {/* Batch Mode Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
-                
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setApplyToAll(!applyToAll)}
-                    className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                      applyToAll ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/30 font-black' : 'bg-slate-800 text-slate-400 border border-slate-700'
-                    }`}
-                  >
-                    <Icon name="bolt" className="w-4 h-4 text-amber-300" />
-                    <span>{applyToAll ? `⚡ Mode Lot Actif : Applique à TOUTES les ${images.length} photos` : 'Mode Sélection Manuelle'}</span>
-                  </button>
-                  
-                  <button onClick={selectAll} className="text-xs text-slate-400 hover:text-white underline">
-                    Tout cocher
-                  </button>
-                  <button onClick={revertSelected} className="px-2.5 py-1 rounded-lg border border-amber-500/30 text-amber-300 hover:bg-amber-500/10 text-xs">
-                    Garder fond transparent
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button onClick={deleteSelected} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/10">
-                    <Icon name="trash" className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Grid of Images */}
-              {images.length === 0 ? (
-                <div
-                  onDragOver={(e) => e.preventDefault()}
-                  onDrop={(e) => {
-                    e.preventDefault();
-                    handleFiles(e.dataTransfer.files);
-                  }}
-                  className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-pink-500 rounded-3xl p-12 text-center bg-slate-900/40"
-                >
-                  <div className="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6">
-                    <Icon name="wand" className="w-10 h-10 text-pink-400 animate-bounce" />
-                  </div>
-                  <h2 className="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>
-                  <p className="text-sm text-slate-400 max-w-md mb-6">Le fond est retiré dès l'import. Vous appliquez ensuite directement les fresques de votre choix en 1 clic !</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {images.map((item) => {
-                    const isSelected = applyToAll || selectedIds.has(item.id);
-                    return (
-                      <div
-                        key={item.id}
-                        onClick={() => toggleSelect(item.id)}
-                        className={`group relative rounded-2xl overflow-hidden border transition-all cursor-pointer bg-slate-900 flex flex-col ${
-                          isSelected ? 'border-pink-500 ring-2 ring-pink-500/40 shadow-xl shadow-pink-500/10' : 'border-slate-800 hover:border-slate-700'
-                        }`}
-                      >
-                        <div className="relative w-full aspect-video bg-checkerboard flex items-center justify-center p-2">
-                          <img src={item.currentUrl} alt={item.name} className="w-full h-full object-contain transition-transform duration-200 group-hover:scale-105" />
-                          
-                          {/* Checkbox */}
-                          <div className="absolute top-3 left-3 z-10">
-                            <div className={`w-6 h-6 rounded-lg flex items-center justify-center ${
-                              isSelected ? 'bg-pink-600 text-white shadow-md shadow-pink-600/50' : 'bg-slate-900/80 border border-slate-600 text-transparent'
-                            }`}>
-                              <Icon name="check" className="w-4 h-4" />
-                            </div>
-                          </div>
-
-                          {/* Hover Actions */}
-                          <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setComparingItem(item);
-                              }}
-                              className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200"
-                              title="Avant / Après"
-                            >
-                              <Icon name="split" className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                downloadSingle(item);
-                              }}
-                              className="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black"
-                              title="Télécharger en Ultra-HD"
-                            >
-                              <Icon name="download" className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </div>
-
-                        <div className="p-3 border-t border-slate-800 flex items-center justify-between text-xs bg-slate-900/90">
-                          <span className="font-semibold text-slate-200 truncate max-w-[160px]">{item.name}</span>
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1 font-mono">
-                            <span>{item.outputResolution || outputQuality.toUpperCase()}</span>
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </main>
-
-            {/* CONTROL SIDEBAR (FRESQUES MANGAS & POP ART MAÎTRES) */}
-            <aside className="w-full lg:w-[480px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
-              
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 280+ Fonds Ultra-HD</h3>
-                <span className="text-xs font-mono text-amber-400 font-bold">
-                  Rendu {outputQuality.toUpperCase()}
-                </span>
-              </div>
-
-              {/* Main Tool Tabs */}
-              <div className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
-                {[
-                  { id: 'background', label: 'Fonds (280+)', icon: 'palette' },
-                  { id: 'crop', label: 'Recadrer', icon: 'crop' },
-                  { id: 'resize', label: 'Taille', icon: 'resize' },
-                  { id: 'watermark', label: 'Filigrane', icon: 'stamp' },
-                ].map(tab => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`py-2 px-1 rounded-lg text-xs font-semibold flex flex-col items-center gap-1 transition-all ${
-                      activeTab === tab.id ? 'bg-pink-600 text-white shadow-md shadow-pink-600/30 font-bold' : 'text-slate-400 hover:text-slate-200'
-                    }`}
-                  >
-                    <Icon name={tab.icon} className="w-4 h-4" />
-                    <span>{tab.label}</span>
-                  </button>
-                ))}
-              </div>
-
-              {/* TAB: BACKGROUNDS WITH 7 SECTIONS (40 CHOICES PER SECTION = 280+) */}
-              {activeTab === 'background' && (
-                <div className="flex flex-col gap-3.5">
-                  
-                  {/* Action Banner */}
-                  <div className="p-2.5 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-between">
-                    <div>
-                      <span className="text-xs font-bold text-pink-300 flex items-center gap-1.5">
-                        <Icon name="bolt" className="w-4 h-4 text-amber-300" />
-                        Application Immédiate en 1 Clic
-                      </span>
-                      <p className="text-[10px] text-slate-400">Fresques mangas avec héros/dragons et Pop Art de collection (Murakami, KAWS, Warhol).</p>
-                    </div>
-                  </div>
-
-                  {/* Search Bar */}
-                  <div className="relative">
-                    <Icon name="search" className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Rechercher (ex: dragon, samourai, murakami, kaws, warhol, lichtenstein)..."
-                      className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
-                    />
-                  </div>
-
-                  {/* 7 Category Buttons */}
-                  <div className="grid grid-cols-4 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[10px] font-bold">
-                    <button
-                      onClick={() => setBgCategory('manga')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'manga' ? 'bg-pink-600 text-white font-black' : 'text-slate-400 hover:text-white'}`}
-                    >
-                      ⛩️ Fresques Mangas (40)
-                    </button>
-                    <button
-                      onClick={() => setBgCategory('popart')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'popart' ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-400 hover:text-white'}`}
-                    >
-                      💥 Pop Art Maîtres (40)
-                    </button>
-                    <button
-                      onClick={() => setBgCategory('nature')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'nature' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
-                    >
-                      🏜️ Déserts 4K (40)
-                    </button>
-                    <button
-                      onClick={() => setBgCategory('studios')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'studios' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
-                    >
-                      🏛️ Studios Luxe (40)
-                    </button>
-                    <button
-                      onClick={() => setBgCategory('cities')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'cities' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
-                    >
-                      🏙️ Villes 4K (40)
-                    </button>
-                    <button
-                      onClick={() => setBgCategory('gradients')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'gradients' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
-                    >
-                      🌈 Dégradés (40)
-                    </button>
-                    <button
-                      onClick={() => setBgCategory('solids')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'solids' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
-                    >
-                      🎨 Couleurs (40)
-                    </button>
-                  </div>
-
-                  {/* 1. REAL HD MANGA FRESCOES & WARRIORS/HEROES PAINTINGS (40 CHOIX) */}
-                  {bgCategory === 'manga' && (
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[11px] text-pink-400 font-bold flex items-center gap-1">
-                        ✨ 40 Véritables Fresques & Peintures de Héros, Dragons & Guerriers Mangas :
-                      </span>
-                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
-                        {filteredManga.map(m => (
-                          <button
-                            key={m.id}
-                            onClick={() => applyBackground(m)}
-                            className="group relative h-24 rounded-2xl overflow-hidden border border-pink-500/40 hover:border-pink-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
-                          >
-                            <img src={m.thumb || m.url} alt={m.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                            <span className="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">
-                              {m.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 2. POP ART DE MAÎTRES (40 CHOIX SOPHISTIQUÉS) */}
-                  {bgCategory === 'popart' && (
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[11px] text-amber-300 font-bold">
-                        👉 40 Motifs Pop Art Iconiques (Takashi Murakami, KAWS, Warhol, Lichtenstein, Haring) :
-                      </span>
-                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
-                        {filteredPopArt.map(p => (
-                          <button
-                            key={p.id}
-                            onClick={() => applyBackground(p)}
-                            className="group relative h-24 rounded-2xl overflow-hidden border border-amber-500/40 hover:border-amber-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
-                          >
-                            <img src={p.url} alt={p.label} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-                            <span className="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">
-                              {p.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 3. REAL 4K DESERTS & NATURE */}
-                  {bgCategory === 'nature' && (
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[11px] text-slate-400 font-bold">
-                        👉 40 Vrais Déserts Somptueux & Paysages Nature 4K :
-                      </span>
-                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
-                        {filteredNature.map(n => (
-                          <button
-                            key={n.id}
-                            onClick={() => applyBackground(n)}
-                            className="group relative h-24 rounded-2xl overflow-hidden border border-amber-500/40 hover:border-amber-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
-                          >
-                            <img src={n.thumb || n.url} alt={n.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                            <span className="relative z-10 text-[10px] font-bold text-white drop-shadow truncate">
-                              {n.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 4. REAL STUDIOS & LUXURY */}
-                  {bgCategory === 'studios' && (
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[11px] text-slate-400 font-bold">
-                        👉 40 Véritables Studios Photo Pro & Intérieurs Luxe 4K :
-                      </span>
-                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
-                        {filteredStudios.map(s => (
-                          <button
-                            key={s.id}
-                            onClick={() => applyBackground(s)}
-                            className="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
-                          >
-                            <img src={s.thumb || s.url} alt={s.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                            <span className="relative z-10 text-[10px] font-bold text-white drop-shadow truncate">
-                              {s.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 5. REAL CITIES & SKYLINES */}
-                  {bgCategory === 'cities' && (
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[11px] text-slate-400 font-bold">
-                        👉 40 Véritables Skylines & Villes du Monde 4K :
-                      </span>
-                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
-                        {filteredCities.map(c => (
-                          <button
-                            key={c.id}
-                            onClick={() => applyBackground(c)}
-                            className="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
-                          >
-                            <img src={c.thumb || c.url} alt={c.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                            <span className="relative z-10 text-[10px] font-bold text-white drop-shadow truncate">
-                              {c.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 6. GRADIENTS */}
-                  {bgCategory === 'gradients' && (
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[11px] text-slate-400 font-bold">
-                        👉 40 Dégradés Modernes & Mesh Studio :
-                      </span>
-                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
-                        {filteredGradients.map(grad => (
-                          <button
-                            key={grad.id}
-                            onClick={() => applyBackground({ type: 'gradient', colors: grad.colors, value: grad.id })}
-                            style={{ background: grad.css }}
-                            className="h-14 rounded-xl border border-slate-700 hover:border-white transition-all hover:scale-[1.02] flex items-end p-2 shadow-md"
-                          >
-                            <span className="text-[11px] font-bold text-white drop-shadow truncate">{grad.label}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 7. SOLID COLORS */}
-                  {bgCategory === 'solids' && (
-                    <div className="flex flex-col gap-3">
-                      <span className="text-[11px] text-slate-400 font-bold">
-                        👉 40 Couleurs Studio & Pastels :
-                      </span>
-                      <div className="grid grid-cols-4 gap-2 max-h-80 overflow-y-auto pr-1">
-                        {filteredSolids.map(color => (
-                          <button
-                            key={color.id}
-                            onClick={() => applyBackground({ type: 'solid', value: color.value })}
-                            className={`h-12 rounded-xl border transition-all hover:scale-105 flex flex-col items-center justify-center ${color.class} border-slate-700 shadow-sm`}
-                            title={color.label}
-                          >
-                            <span className="text-[9px] font-bold px-1 rounded bg-black/40 text-white truncate max-w-[70px]">
-                              {color.label.split(' ')[0]}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-                        <span className="text-xs text-slate-400">Couleur personnalisée :</span>
-                        <input
-                          type="color"
-                          defaultValue="#6366f1"
-                          onChange={(e) => applyBackground({ type: 'solid', value: e.target.value })}
-                          className="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0"
-                        />
-                        <span className="text-xs font-mono text-indigo-400">Choisir teinte exacte</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Custom Background Upload */}
-                  <div className="pt-2 border-t border-slate-800">
-                    <label className="w-full py-2.5 px-3 rounded-xl border border-dashed border-slate-700 hover:border-pink-500 bg-slate-950/40 flex items-center justify-center gap-2 text-xs font-semibold text-slate-300 cursor-pointer transition-all">
-                      <Icon name="image" className="w-4 h-4 text-pink-400" />
-                      <span>Importer un fond personnalisé (depuis PC)</span>
-                      <input type="file" accept="image/*" className="hidden" onChange={handleCustomBg} />
-                    </label>
-                  </div>
-
-                </div>
-              )}
-
-              {/* TAB 2: CROP */}
-              {activeTab === 'crop' && (
-                <div className="flex flex-col gap-4">
-                  <span className="text-xs font-bold text-slate-300">Ratios Prédéfinis en 1 Clic</span>
-                  <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { id: '1:1', label: '1:1 Carré' },
-                      { id: '16:9', label: '16:9 YouTube' },
-                      { id: '9:16', label: '9:16 Story' },
-                    ].map(r => (
-                      <button
-                        key={r.id}
-                        onClick={() => applyCrop(r.id)}
-                        className="py-3 px-2 rounded-xl bg-slate-950 hover:bg-pink-600 border border-slate-800 hover:border-pink-500 text-xs font-bold transition-all text-center"
-                      >
-                        {r.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 3: RESIZE */}
-              {activeTab === 'resize' && (
-                <div className="flex flex-col gap-4">
-                  <span className="text-xs font-bold text-slate-300">Préréglages Sociaux Ultra-HD</span>
-                  <div className="grid grid-cols-2 gap-2">
-                    {[
-                      { label: 'Instagram Carré', w: 1080, h: 1080 },
-                      { label: 'Story / TikTok', w: 1080, h: 1920 },
-                      { label: 'YouTube Miniature', w: 1920, h: 1080 },
-                      { label: 'E-Commerce 4K', w: 3840, h: 3840 },
-                    ].map(p => (
-                      <button
-                        key={p.label}
-                        onClick={() => applyResize(p.w, p.h)}
-                        className="p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-pink-500 text-left transition-all"
-                      >
-                        <p className="text-xs font-bold text-slate-200">{p.label}</p>
-                        <p className="text-[10px] font-mono text-amber-400">{p.w} × {p.h} px</p>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 4: WATERMARK */}
-              {activeTab === 'watermark' && (
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800">
-                    <span className="text-xs font-bold text-slate-200">Activer le Filigrane</span>
-                    <input
-                      type="checkbox"
-                      checked={watermark.enabled}
-                      onChange={(e) => setWatermark(prev => ({ ...prev, enabled: e.target.checked }))}
-                      className="w-4 h-4 accent-pink-600 cursor-pointer"
-                    />
-                  </div>
-
-                  <div>
-                    <span className="text-[11px] text-slate-400 block mb-1">Texte du Filigrane</span>
-                    <input
-                      type="text"
-                      value={watermark.text}
-                      onChange={(e) => setWatermark(prev => ({ ...prev, text: e.target.value }))}
-                      className="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
-                    />
-                  </div>
-                </div>
-              )}
-
-            </aside>
-          </div>
-
-          {/* BEFORE / AFTER MODAL */}
-          {comparingItem && (
-            <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-              <div className="relative w-full max-w-3xl bg-slate-900 rounded-3xl border border-slate-800 p-6 flex flex-col gap-4">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <h3 className="text-sm font-bold text-white">Comparaison Avant / Après Ultra-HD</h3>
-                  <button onClick={() => setComparingItem(null)} className="text-slate-400 hover:text-white">
-                    <Icon name="close" className="w-5 h-5" />
-                  </button>
-                </div>
-
-                <div className="relative w-full h-[400px] bg-checkerboard flex items-center justify-center overflow-hidden rounded-2xl">
-                  <img src={comparingItem.originalUrl} alt="Original" className="absolute inset-0 w-full h-full object-contain" />
-                  <div style={{ clipPath: `inset(0 0 0 ${compareSlider}%)` }} className="absolute inset-0 w-full h-full">
-                    <img src={comparingItem.currentUrl} alt="Modifié" className="w-full h-full object-contain" />
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={compareSlider}
-                    onChange={(e) => setCompareSlider(parseInt(e.target.value))}
-                    className="absolute inset-0 opacity-0 cursor-ew-resize z-20 w-full h-full"
-                  />
-                  <div style={{ left: `${compareSlider}%` }} className="absolute top-0 bottom-0 w-1 bg-white pointer-events-none" />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* CERVEX MODAL */}
-          {isCervexOpen && (
-            <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-              <div className="relative w-full max-w-lg bg-slate-900 rounded-3xl border border-slate-800 p-6 flex flex-col gap-4">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <Icon name="cpu" className="w-5 h-5 text-cervex-400" />
-                    <span>Hub de Connexion Cervex</span>
-                  </h3>
-                  <button onClick={() => setIsCervexOpen(false)} className="text-slate-400 hover:text-white">
-                    <Icon name="close" className="w-5 h-5" />
-                  </button>
-                </div>
-
-                <div className="flex flex-col gap-3 text-xs">
-                  <div>
-                    <label className="text-slate-400 block mb-1">Clé API Cervex</label>
-                    <input type="password" value="crvx_live_9a87bf44d8e9" className="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 font-mono" readOnly />
-                  </div>
-                  <div>
-                    <label className="text-slate-400 block mb-1">Projet ID</label>
-                    <input type="text" value="project-ai-prod" className="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 font-mono" readOnly />
-                  </div>
-                </div>
-
-                <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
-                  <button
-                    onClick={() => {
-                      addToast('Cervex Sync', 'Synchronisation Cloud réussie (200 OK)', 'success');
-                      setIsCervexOpen(false);
-                    }}
-                    className="px-4 py-2 rounded-xl bg-cervex-600 hover:bg-cervex-500 text-white font-bold text-xs"
-                  >
-                    Tester la synchronisation
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* REAL-TIME PROGRESS OVERLAY */}
-          {isProcessing && (
-            <div className="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
-              <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 flex flex-col items-center gap-4 max-w-sm w-full shadow-2xl">
-                <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-                <div className="text-center w-full">
-                  <h3 className="text-sm font-bold text-white mb-1">{processingStatus}</h3>
-                  <p className="text-xs text-slate-400 mb-3">
-                    Photo {progress.current} sur {progress.total}
-                  </p>
-                  <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden border border-slate-700">
-                    <div
-                      className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-amber-500 transition-all duration-150"
-                      style={{ width: `${(progress.current / Math.max(1, progress.total)) * 100}%` }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* TOASTS */}
-          <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none">
-            {toasts.map(toast => (
-              <div key={toast.id} className="pointer-events-auto px-4 py-3 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl text-xs text-white">
-                <span className="font-bold">{toast.title}</span> : <span className="text-slate-400">{toast.message}</span>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      );
+      });
+      selectedIds.clear();
+      images.forEach(function(img) { selectedIds.add(img.id); });
+      renderGallery();
+      showToast('Démos Chargées', 'Photos prêtes pour tester les fresques et le Pop Art !');
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    function downloadSingleItem(id) {
+      var item = images.find(function(img) { return img.id === id; });
+      if (!item) return;
+      var a = document.createElement('a');
+      a.download = 'pixelbatch_' + outputQuality.toUpperCase() + '_' + item.name.replace(/\.[^/.]+$/, '') + '.png';
+      a.href = item.currentUrl;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('Téléchargé', a.download);
+    }
+
+    async function downloadAllZip() {
+      if (images.length === 0) return;
+      var overlay = document.getElementById('progress-overlay');
+      var statusText = document.getElementById('progress-status-text');
+      var countText = document.getElementById('progress-count-text');
+      var barFill = document.getElementById('progress-bar-fill');
+
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      statusText.textContent = 'Génération de l\'archive ZIP Ultra-HD...';
+
+      var zip = new JSZip();
+      var folder = zip.folder('pixelbatch_' + outputQuality.toUpperCase());
+
+      images.forEach(function(item, i) {
+        var data = item.currentUrl.split(',')[1];
+        folder.file('photo_' + (i + 1) + '_' + outputQuality.toUpperCase() + '_' + item.name.replace(/\.[^/.]+$/, '') + '.png', data, { base64: true });
+        countText.textContent = 'Export ' + (i + 1) + ' sur ' + images.length;
+        barFill.style.width = Math.round(((i + 1) / images.length) * 100) + '%';
+      });
+
+      var blob = await zip.generateAsync({ type: 'blob' });
+      saveAs(blob, 'PixelBatch_' + outputQuality.toUpperCase() + '_' + images.length + '_photos.zip');
+
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      showToast('Archive HD Prête !', images.length + ' photos téléchargées en Ultra-HD');
+    }
+
+    function handleCustomBgUpload(e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        var customBg = { type: 'image', url: event.target.result };
+        applyCustomBgDirect(customBg);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function applyCustomBgDirect(bg) {
+      var overlay = document.getElementById('progress-overlay');
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      for (var i = 0; i < images.length; i++) {
+        if (applyToAll || selectedIds.has(images[i].id)) {
+          images[i] = await compositeItem(images[i], bg);
+        }
+      }
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      renderGallery();
+      showToast('Fond Personnalisé', 'Appliqué à vos photos');
+    }
+
+    // Modal Compare
+    function openCompareModal(id) {
+      var item = images.find(function(img) { return img.id === id; });
+      if (!item) return;
+      document.getElementById('compare-img-original').src = item.originalUrl;
+      document.getElementById('compare-img-modified').src = item.currentUrl;
+      var modal = document.getElementById('compare-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeCompareModal() {
+      var modal = document.getElementById('compare-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function handleCompareSlider(e) {
+      var val = e.target.value;
+      document.getElementById('compare-overlay-div').style.clipPath = 'inset(0 0 0 ' + val + '%)';
+      document.getElementById('compare-divider-line').style.left = val + '%';
+    }
+
+    // Modal Cervex
+    function openCervexModal() {
+      var modal = document.getElementById('cervex-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeCervexModal() {
+      var modal = document.getElementById('cervex-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function testCervexSync() {
+      showToast('Cervex Sync', 'Synchronisation Cloud réussie (200 OK)');
+      closeCervexModal();
+    }
+
+    // Crop, Resize, Watermark
+    async function applyCropRatio(ratio) {
+      for (var i = 0; i < images.length; i++) {
+        if (applyToAll || selectedIds.has(images[i].id)) {
+          var item = images[i];
+          var img = new Image();
+          img.src = item.currentUrl;
+          await new Promise(function(res) { img.onload = res; });
+          var w = img.naturalWidth;
+          var h = img.naturalHeight;
+          var tw = w, th = h;
+          if (ratio === '1:1') { tw = Math.min(w, h); th = tw; }
+          else if (ratio === '16:9') { th = Math.round(w * (9 / 16)); }
+          else if (ratio === '9:16') { tw = Math.round(h * (9 / 16)); }
+
+          var canvas = document.createElement('canvas');
+          canvas.width = tw;
+          canvas.height = th;
+          var ctx = canvas.getContext('2d');
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, (w - tw) / 2, (h - th) / 2, tw, th, 0, 0, tw, th);
+          item.currentUrl = canvas.toDataURL('image/png');
+        }
+      }
+      renderGallery();
+      showToast('Recadrage', 'Ratio ' + ratio + ' appliqué');
+    }
+
+    async function applyResizeDimensions(w, h) {
+      for (var i = 0; i < images.length; i++) {
+        if (applyToAll || selectedIds.has(images[i].id)) {
+          var item = images[i];
+          var img = new Image();
+          img.src = item.currentUrl;
+          await new Promise(function(res) { img.onload = res; });
+          var canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, 0, 0, w, h);
+          item.currentUrl = canvas.toDataURL('image/png');
+          item.outputResolution = w + ' × ' + h + ' px';
+        }
+      }
+      renderGallery();
+      showToast('Redimensionné', w + ' × ' + h + ' px');
+    }
+
+    function toggleWatermark(e) {
+      watermarkConfig.enabled = e.target.checked;
+      showToast('Filigrane', watermarkConfig.enabled ? 'Activé' : 'Désactivé');
+    }
+
+    function updateWatermarkText(e) {
+      watermarkConfig.text = e.target.value;
+    }
+
+    // Init App
+    loadDemoImages();
+    renderBackgroundCards();
   </script>
 </body>
 </html>
