@@ -322,9 +322,244 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
+  <!-- 100% SELF-CONTAINED HIGH-DEFINITION BACKGROUND DATABASE -->
+  <script>
+    function makeArtSvg(id, label, content, bgGradient) {
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">' +
+        '<defs>' +
+        '<linearGradient id="g_' + id + '" x1="0%" y1="0%" x2="100%" y2="100%">' + bgGradient + '</linearGradient>' +
+        '<filter id="glow_' + id + '" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="15" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>' +
+        '</defs>' +
+        '<rect width="1200" height="1200" fill="url(#g_' + id + ')" />' +
+        content +
+        '</svg>';
+      return {
+        id: id,
+        label: label,
+        type: 'image',
+        url: 'data:image/svg+xml;utf8,' + encodeURIComponent(svg),
+      };
+    }
+
+    // 1. 40 VÉRITABLES FRESQUES & HÉROS MANGAS (100% EMBEDDED ARTWORKS)
+    var BG_MANGA_40 = [
+      makeArtSvg('m1', 'Dragon Shenron Doré & Nuages Shonen', '<path d="M100,800 Q400,200 800,600 T1200,200" fill="none" stroke="#eab308" stroke-width="45"/><circle cx="800" cy="550" r="140" fill="#facc15" opacity="0.4"/><polygon points="850,520 900,480 880,550" fill="#dc2626"/><polygon points="750,520 700,480 720,550" fill="#dc2626"/><circle cx="750" cy="540" r="14" fill="#dc2626"/><circle cx="850" cy="540" r="14" fill="#dc2626"/>', '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e1b4b"/>'),
+      makeArtSvg('m2', 'Guerrier Samouraï Katana et Flammes', '<circle cx="600" cy="600" r="380" fill="#b91c1c" opacity="0.35"/><path d="M200,1000 L800,300 L860,330 L260,1030 Z" fill="#ffffff" filter="url(#glow_m2)"/><path d="M100,1100 Q400,700 600,1000 T1100,800" fill="none" stroke="#ef4444" stroke-width="35"/>', '<stop offset="0%" stop-color="#450a0a"/><stop offset="100%" stop-color="#18181b"/>'),
+      makeArtSvg('m3', 'Shinobi Ninja des Ombres & Lune Rouge', '<circle cx="600" cy="480" r="320" fill="#dc2626"/><ellipse cx="600" cy="850" rx="350" ry="250" fill="#09090b"/><circle cx="540" cy="780" r="16" fill="#ef4444"/><circle cx="660" cy="780" r="16" fill="#ef4444"/>', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#1c1917"/>'),
+      makeArtSvg('m4', 'Guerrier Saiyan Aura Électrique Dorée', '<polygon points="600,120 720,450 1020,480 780,700 850,1020 600,850 350,1020 420,700 180,480 480,450" fill="#fde047" opacity="0.85" filter="url(#glow_m4)"/><circle cx="600" cy="600" r="220" fill="#fbbf24"/>', '<stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#312e81"/>'),
+      makeArtSvg('m5', 'Démon Slayer Katana d’Eau & Grande Vague', '<path d="M100,800 C300,500 500,1100 800,700 C1000,500 1100,900 1200,600 L1200,1200 L0,1200 Z" fill="#06b6d4"/><path d="M150,750 C350,450 550,1050 850,650" fill="none" stroke="#ffffff" stroke-width="25"/>', '<stop offset="0%" stop-color="#022c22"/><stop offset="100%" stop-color="#0f172a"/>'),
+      makeArtSvg('m6', 'Chasseur d’Ombres Solo Monarque Violet', '<circle cx="600" cy="600" r="350" fill="#7e22ce" opacity="0.4" filter="url(#glow_m6)"/><polygon points="600,200 680,500 950,550 720,750 780,1050 600,900 420,1050 480,750 250,550 520,500" fill="#9333ea"/>', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#2e1065"/>'),
+      makeArtSvg('m7', 'Esprit Renard Kitsune à 9 Queues', '<circle cx="600" cy="520" r="200" fill="#f97316"/><path d="M600,700 Q300,400 150,650 M600,700 Q400,300 300,450 M600,700 Q900,400 1050,650 M600,700 Q800,300 900,450" fill="none" stroke="#ea580c" stroke-width="28" stroke-linecap="round"/>', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#431407"/>'),
+      makeArtSvg('m8', 'Guerrière Cyberpunk Mecha Ailes Néon', '<polygon points="200,600 500,450 600,600 500,750" fill="#06b6d4" opacity="0.75"/><polygon points="1000,600 700,450 600,600 700,750" fill="#ec4899" opacity="0.75"/><circle cx="600" cy="550" r="100" fill="#ffffff" filter="url(#glow_m8)"/>', '<stop offset="0%" stop-color="#0f0728"/><stop offset="100%" stop-color="#1e1b4b"/>'),
+      makeArtSvg('m9', 'Titan Colossal & Murailles en Flammes', '<rect x="0" y="800" width="1200" height="400" fill="#27272a"/><circle cx="600" cy="450" r="280" fill="#dc2626"/><circle cx="520" cy="400" r="22" fill="#ffffff"/><circle cx="680" cy="400" r="22" fill="#ffffff"/>', '<stop offset="0%" stop-color="#450a0a"/><stop offset="100%" stop-color="#7f1d1d"/>'),
+      makeArtSvg('m10', 'Héros Pirates & Navire au Crépuscule', '<circle cx="600" cy="500" r="320" fill="#ea580c"/><polygon points="400,850 800,850 720,1050 480,1050" fill="#09090b"/><line x1="600" y1="850" x2="600" y2="400" stroke="#09090b" stroke-width="22"/>', '<stop offset="0%" stop-color="#7c2d12"/><stop offset="100%" stop-color="#0f172a"/>'),
+      makeArtSvg('m11', 'Guerrier Berserk & Éclipse de Sang', '<circle cx="600" cy="500" r="260" fill="#000000" stroke="#ef4444" stroke-width="25" filter="url(#glow_m11)"/><line x1="600" y1="200" x2="600" y2="1100" stroke="#18181b" stroke-width="60"/>', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#450a0a"/>'),
+      makeArtSvg('m12', 'Alchimiste & Cercle de Transmutation', '<circle cx="600" cy="600" r="420" fill="none" stroke="#38bdf8" stroke-width="18"/><polygon points="600,180 960,810 240,810" fill="none" stroke="#38bdf8" stroke-width="14"/><polygon points="600,1020 960,390 240,390" fill="none" stroke="#38bdf8" stroke-width="14"/>', '<stop offset="0%" stop-color="#0c4a6e"/><stop offset="100%" stop-color="#09090b"/>'),
+      makeArtSvg('m13', 'Mecha Géant Gundam Bataille Spatiale', '<polygon points="600,250 750,550 600,850 450,550" fill="#e11d48"/><line x1="300" y1="550" x2="900" y2="550" stroke="#06b6d4" stroke-width="24"/>', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#1e1b4b"/>'),
+      makeArtSvg('m14', 'Exorciste Sortilèges & Sphère Violette', '<circle cx="600" cy="600" r="300" fill="#a855f7" opacity="0.8" filter="url(#glow_m14)"/><circle cx="600" cy="600" r="160" fill="#ffffff"/>', '<stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#3b0764"/>'),
+      makeArtSvg('m15', 'Déesse Céleste aux Ailes d’Or et Plumes', '<circle cx="600" cy="450" r="180" fill="#fde047"/><path d="M200,350 Q500,450 600,700 Q700,450 1000,350" fill="none" stroke="#facc15" stroke-width="30"/>', '<stop offset="0%" stop-color="#78350f"/><stop offset="100%" stop-color="#fef3c7"/>'),
+      makeArtSvg('m16', 'Seigneur Vampire Ailes de Chauve-Souris', '<polygon points="600,600 300,300 200,600 400,800" fill="#450a0a"/><polygon points="600,600 900,300 1000,600 800,800" fill="#450a0a"/><circle cx="600" cy="500" r="80" fill="#dc2626"/>', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#262626"/>'),
+      makeArtSvg('m17', 'Guerrier Viking Berserker Runes', '<polygon points="600,300 850,750 350,750" fill="#059669"/><line x1="600" y1="200" x2="600" y2="1000" stroke="#34d399" stroke-width="20"/>', '<stop offset="0%" stop-color="#022c22"/><stop offset="100%" stop-color="#0f172a"/>'),
+      makeArtSvg('m18', 'Chaman des Esprits & Loup Fantôme', '<circle cx="600" cy="550" r="300" fill="#93c5fd" opacity="0.4"/><polygon points="500,450 600,300 700,450" fill="#ffffff"/>', '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e3a8a"/>'),
+      makeArtSvg('m19', 'Chevalier du Zodiaque Armure d’Or', '<polygon points="600,150 780,480 1050,480 820,680 900,1020 600,820 300,1020 380,680 150,480 420,480" fill="#eab308"/>', '<stop offset="0%" stop-color="#451a03"/><stop offset="100%" stop-color="#78350f"/>'),
+      makeArtSvg('m20', 'Reine des Glaces Sort de Givre Absolu', '<polygon points="600,150 650,450 950,450 720,650 800,950 600,780 400,950 480,650 250,450 550,450" fill="#38bdf8" opacity="0.8"/>', '<stop offset="0%" stop-color="#082f49"/><stop offset="100%" stop-color="#0c4a6e"/>'),
+      makeArtSvg('m21', 'Maître du Feu Poing Ardent Dragon', '<circle cx="600" cy="600" r="320" fill="#ea580c" opacity="0.6"/><polygon points="600,100 700,500 500,500" fill="#facc15"/>', '<stop offset="0%" stop-color="#431407"/><stop offset="100%" stop-color="#7c2d12"/>'),
+      makeArtSvg('m22', 'Archer Elfe Flèche de Lumière Sacrée', '<line x1="200" y1="1000" x2="1000" y2="200" stroke="#fde047" stroke-width="25" filter="url(#glow_m22)"/><polygon points="1000,200 900,220 980,300" fill="#fde047"/>', '<stop offset="0%" stop-color="#064e3b"/><stop offset="100%" stop-color="#022c22"/>'),
+      makeArtSvg('m23', 'Cyborg Assassin Lame Holographique Cyan', '<line x1="100" y1="600" x2="1100" y2="600" stroke="#06b6d4" stroke-width="35" filter="url(#glow_m23)"/><circle cx="600" cy="600" r="120" fill="#ffffff"/>', '<stop offset="0%" stop-color="#082f49"/><stop offset="100%" stop-color="#0f172a"/>'),
+      makeArtSvg('m24', 'Invocateur de Démon Cercle Arcanique', '<circle cx="600" cy="600" r="400" fill="none" stroke="#dc2626" stroke-width="20"/><polygon points="600,250 880,750 320,750" fill="none" stroke="#dc2626" stroke-width="16"/>', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#450a0a"/>'),
+      makeArtSvg('m25', 'Guerrier Dragon Armure d’Écailles Noires', '<polygon points="600,200 800,550 700,900 500,900 400,550" fill="#18181b" stroke="#f59e0b" stroke-width="20"/>', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#27272a"/>'),
+      makeArtSvg('m26', 'Sorcière Cosmique Galaxie Tournoyante', '<circle cx="600" cy="600" r="350" fill="none" stroke="#ec4899" stroke-width="40"/><circle cx="600" cy="600" r="200" fill="none" stroke="#8b5cf6" stroke-width="40"/>', '<stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#3b0764"/>'),
+      makeArtSvg('m27', 'Ronin Solitaire sous la Pluie et Épée', '<line x1="100" y1="100" x2="100" y2="300" stroke="#94a3b8" stroke-width="8"/><line x1="300" y1="200" x2="300" y2="400" stroke="#94a3b8" stroke-width="8"/><line x1="800" y1="150" x2="800" y2="350" stroke="#94a3b8" stroke-width="8"/><line x1="500" y1="400" x2="500" y2="1000" stroke="#ffffff" stroke-width="30"/>', '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>'),
+      makeArtSvg('m28', 'Maître Shaolin Déferlement de Ki Doré', '<circle cx="600" cy="600" r="300" fill="#f59e0b" opacity="0.8"/><circle cx="600" cy="600" r="150" fill="#fde047"/>', '<stop offset="0%" stop-color="#78350f"/><stop offset="100%" stop-color="#b45309"/>'),
+      makeArtSvg('m29', 'Guerrier Faucon Céleste Tempête Éclair', '<polygon points="600,100 300,500 900,500" fill="#38bdf8"/><polygon points="650,400 450,900 600,900 500,1150 850,650 700,650" fill="#facc15"/>', '<stop offset="0%" stop-color="#0369a1"/><stop offset="100%" stop-color="#075985"/>'),
+      makeArtSvg('m30', 'Chasseur de Prime Cyberpunk Moto Néon', '<circle cx="400" cy="800" r="140" fill="none" stroke="#f43f5e" stroke-width="25"/><circle cx="800" cy="800" r="140" fill="none" stroke="#06b6d4" stroke-width="25"/>', '<stop offset="0%" stop-color="#0f0728"/><stop offset="100%" stop-color="#18181b"/>'),
+      makeArtSvg('m31', 'Prêtresse Shinto Danse des Éventails', '<path d="M400,600 C400,400 800,400 800,600 Z" fill="#ef4444"/><circle cx="600" cy="700" r="80" fill="#facc15"/>', '<stop offset="0%" stop-color="#1c1917"/><stop offset="100%" stop-color="#450a0a"/>'),
+      makeArtSvg('m32', 'Seigneur des Ombres Portes de l’Abîme', '<rect x="350" y="300" width="500" height="700" rx="40" fill="#000000" stroke="#7e22ce" stroke-width="25"/>', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#1e1b4b"/>'),
+      makeArtSvg('m33', 'Guerrier Tonnerre Marteau d’Électrons', '<rect x="450" y="350" width="300" height="200" rx="30" fill="#3b82f6"/><line x1="600" y1="550" x2="600" y2="1050" stroke="#60a5fa" stroke-width="30"/>', '<stop offset="0%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#172554"/>'),
+      makeArtSvg('m34', 'Esprit Gardien Tigre Blanc Lumineux', '<circle cx="600" cy="550" r="280" fill="#ffffff" opacity="0.85"/><circle cx="520" cy="500" r="18" fill="#06b6d4"/><circle cx="680" cy="500" r="18" fill="#06b6d4"/>', '<stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#334155"/>'),
+      makeArtSvg('m35', 'Chevalier Noir Épée Maudite Écarlate', '<line x1="600" y1="150" x2="600" y2="1050" stroke="#dc2626" stroke-width="35"/><rect x="420" y="350" width="360" height="40" rx="10" fill="#18181b"/>', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>'),
+      makeArtSvg('m36', 'Déesse de la Lune Miroir des Rêves', '<circle cx="600" cy="600" r="360" fill="#f8fafc" opacity="0.9"/><circle cx="600" cy="600" r="300" fill="#bae6fd"/>', '<stop offset="0%" stop-color="#0c4a6e"/><stop offset="100%" stop-color="#1e1b4b"/>'),
+      makeArtSvg('m37', 'Cyborg Samouraï Masque Oni Néon', '<circle cx="600" cy="550" r="240" fill="#e11d48"/><polygon points="450,400 500,200 550,400" fill="#facc15"/><polygon points="750,400 700,200 650,400" fill="#facc15"/>', '<stop offset="0%" stop-color="#0f0728"/><stop offset="100%" stop-color="#2e1065"/>'),
+      makeArtSvg('m38', 'Invocatrice de Fleurs Tempête de Pétales', '<circle cx="600" cy="600" r="150" fill="#f43f5e"/><circle cx="450" cy="450" r="80" fill="#fbcfe8"/><circle cx="750" cy="450" r="80" fill="#fbcfe8"/><circle cx="450" cy="750" r="80" fill="#fbcfe8"/><circle cx="750" cy="750" r="80" fill="#fbcfe8"/>', '<stop offset="0%" stop-color="#4c0519"/><stop offset="100%" stop-color="#831843"/>'),
+      makeArtSvg('m39', 'Guerrier Fauve Griffes Acérées', '<line x1="300" y1="200" x2="500" y2="1000" stroke="#f97316" stroke-width="30"/><line x1="500" y1="200" x2="700" y2="1000" stroke="#f97316" stroke-width="30"/><line x1="700" y1="200" x2="900" y2="1000" stroke="#f97316" stroke-width="30"/>', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#431407"/>'),
+      makeArtSvg('m40', 'Dieu Suprême Éveil de l’Univers Manga', '<circle cx="600" cy="600" r="450" fill="none" stroke="#fde047" stroke-width="30"/><polygon points="600,100 720,450 1050,450 800,680 900,1050 600,850 300,1050 400,680 150,450 480,450" fill="#facc15"/>', '<stop offset="0%" stop-color="#312e81"/><stop offset="100%" stop-color="#581c87"/>'),
+    ];
+
+    // 2. 40 POP ART DE MAÎTRES SOPHISTIQUÉS
+    var BG_POPART_40 = [
+      makeArtSvg('p1', 'Takashi Murakami Fleurs Arc-en-Ciel', '<g transform="translate(600,600)"><circle r="360" fill="#f43f5e"/><circle r="300" fill="#fb923c"/><circle r="240" fill="#a855f7"/><circle r="180" fill="#38bdf8"/><circle r="120" fill="#4ade80"/><circle r="70" fill="#ffffff"/><circle cx="-25" cy="-10" r="10" fill="#000"/><circle cx="25" cy="-10" r="10" fill="#000"/><path d="M-35,15 Q0,45 35,15" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round"/></g>', '<stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#facc15"/>'),
+      makeArtSvg('p2', 'Roy Lichtenstein Crying Girl Comic', '<path d="M200,200 Q600,100 1000,400 L950,900 Q600,1100 250,900 Z" fill="#facc15" stroke="#000" stroke-width="26"/><path d="M400,650 Q500,800 600,650" fill="none" stroke="#38bdf8" stroke-width="24" stroke-linecap="round"/><circle cx="500" cy="750" r="25" fill="#38bdf8"/>', '<stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#fde047"/>'),
+      makeArtSvg('p3', 'Andy Warhol Marilyn Quad 1964', '<rect x="0" y="0" width="600" height="600" fill="#ec4899"/><rect x="600" y="0" width="600" height="600" fill="#06b6d4"/><rect x="0" y="600" width="600" height="600" fill="#facc15"/><rect x="600" y="600" width="600" height="600" fill="#10b981"/><circle cx="300" cy="300" r="140" fill="#fde047"/><circle cx="900" cy="300" r="140" fill="#f43f5e"/><circle cx="300" cy="900" r="140" fill="#8b5cf6"/><circle cx="900" cy="900" r="140" fill="#f97316"/>', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#27272a"/>'),
+      makeArtSvg('p4', 'KAWS Companion Street Art', '<circle cx="600" cy="500" r="260" fill="#71717a" stroke="#ffffff" stroke-width="20"/><line x1="500" y1="460" x2="560" y2="520" stroke="#ef4444" stroke-width="24" stroke-linecap="round"/><line x1="560" y1="460" x2="500" y2="520" stroke="#ef4444" stroke-width="24" stroke-linecap="round"/><line x1="640" y1="460" x2="700" y2="520" stroke="#ef4444" stroke-width="24" stroke-linecap="round"/><line x1="700" y1="460" x2="640" y2="520" stroke="#ef4444" stroke-width="24" stroke-linecap="round"/>', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#27272a"/>'),
+      makeArtSvg('p5', 'Keith Haring Danseurs Radieux', '<path d="M200,600 Q400,200 600,600 T1000,600" fill="none" stroke="#000000" stroke-width="45" stroke-linecap="round"/><circle cx="600" cy="300" r="120" fill="#ef4444" stroke="#000000" stroke-width="30"/>', '<stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#f59e0b"/>'),
+      makeArtSvg('p6', 'Yayoi Kusama Infinity Polka Dots', '<ellipse cx="600" cy="600" rx="380" ry="480" fill="#f59e0b" stroke="#000000" stroke-width="30"/><circle cx="450" cy="500" r="40" fill="#000"/><circle cx="600" cy="500" r="40" fill="#000"/><circle cx="750" cy="500" r="40" fill="#000"/><circle cx="500" cy="650" r="40" fill="#000"/><circle cx="700" cy="650" r="40" fill="#000"/>', '<stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#facc15"/>'),
+      makeArtSvg('p7', 'Banksy Ballon Cœur Rouge Pochoir', '<path d="M750,350 C750,200 950,200 950,350 C950,500 750,650 750,650 C750,650 550,500 550,350 C550,200 750,200 750,350 Z" fill="#ef4444"/><path d="M750,650 Q800,850 700,1050" fill="none" stroke="#ffffff" stroke-width="8"/>', '<stop offset="0%" stop-color="#334155"/><stop offset="100%" stop-color="#1e293b"/>'),
+      makeArtSvg('p8', 'Manga Speedlines Impact Shonen', '<path d="M600,600 L0,0 L150,0 Z M600,600 L300,0 L450,0 Z M600,600 L600,0 L750,0 Z M600,600 L900,0 L1050,0 Z M600,600 L1200,0 L1200,150 Z M600,600 L1200,300 L1200,450 Z M600,600 L1200,600 L1200,750 Z M600,600 L1200,900 L1200,1050 Z M600,600 L1200,1200 L1050,1200 Z M600,600 L900,1200 L750,1200 Z M600,600 L600,1200 L450,1200 Z M600,600 L300,1200 L150,1200 Z M600,600 L0,1200 L0,1050 Z M600,600 L0,900 L0,750 Z M600,600 L0,600 L0,450 Z M600,600 L0,300 L0,150 Z" fill="#000000"/>', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f1f5f9"/>'),
+      makeArtSvg('p9', 'Dollar Sign Or & Graffiti Luxe', '<text x="600" y="800" font-family="sans-serif" font-weight="900" font-size="700" fill="#eab308" stroke="#ffffff" stroke-width="20" text-anchor="middle">$</text>', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>'),
+      makeArtSvg('p10', 'Memphis Rétro Milano 1980s', '<circle cx="280" cy="320" r="160" fill="#f43f5e"/><polygon points="880,180 1100,520 660,520" fill="#06b6d4"/><rect x="260" y="760" width="280" height="280" rx="50" fill="#facc15"/>', '<stop offset="0%" stop-color="#fdf4ff"/><stop offset="100%" stop-color="#fae8ff"/>'),
+      makeArtSvg('p11', 'Vaporwave Sunset Synth 90s', '<circle cx="600" cy="500" r="240" fill="#f43f5e"/><line x1="0" y1="700" x2="1200" y2="700" stroke="#06b6d4" stroke-width="8"/><line x1="0" y1="800" x2="1200" y2="800" stroke="#06b6d4" stroke-width="12"/><line x1="0" y1="950" x2="1200" y2="950" stroke="#06b6d4" stroke-width="16"/>', '<stop offset="0%" stop-color="#0f0728"/><stop offset="100%" stop-color="#311042"/>'),
+      makeArtSvg('p12', 'Andy Warhol Soupe Campbell', '<rect x="350" y="300" width="500" height="300" fill="#ef4444"/><rect x="350" y="600" width="500" height="300" fill="#f1f5f9"/><circle cx="600" cy="600" r="80" fill="#eab308"/>', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>'),
+      makeArtSvg('p13', 'Mona Lisa Pop Art Bubble Gum', '<ellipse cx="600" cy="500" rx="280" ry="360" fill="#fed7aa"/><circle cx="600" cy="600" r="160" fill="#ec4899"/>', '<stop offset="0%" stop-color="#4ade80"/><stop offset="100%" stop-color="#22c55e"/>'),
+      makeArtSvg('p14', 'Éclair Flash Électrique KABOOM', '<polygon points="700,80 320,680 620,680 440,1140 920,540 620,540" fill="#facc15" stroke="#000000" stroke-width="20"/>', '<stop offset="0%" stop-color="#6d28d9"/><stop offset="100%" stop-color="#4c1d95"/>'),
+      makeArtSvg('p15', 'Spirale Psychédélique 1970s', '<circle cx="600" cy="600" r="500" fill="none" stroke="#facc15" stroke-width="45"/><circle cx="600" cy="600" r="380" fill="none" stroke="#ec4899" stroke-width="45"/><circle cx="600" cy="600" r="260" fill="none" stroke="#38bdf8" stroke-width="45"/>', '<stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#581c87"/>'),
+      makeArtSvg('p16', 'Bandes Sunset Rétro 70s', '<rect x="0" width="240" height="1200" fill="#78350f"/><rect x="240" width="240" height="1200" fill="#c2410c"/><rect x="480" width="240" height="1200" fill="#ea580c"/><rect x="720" width="240" height="1200" fill="#f59e0b"/><rect x="960" width="240" height="1200" fill="#fde047"/>', '<stop offset="0%" stop-color="#000"/><stop offset="100%" stop-color="#000"/>'),
+      makeArtSvg('p17', 'Zèbre Pop Art Néon Fluorescent', '<path d="M0,100 Q400,200 1200,100 L1200,220 Q400,320 0,220 Z M0,400 Q400,500 1200,400 L1200,520 Q400,620 0,520 Z M0,700 Q400,800 1200,700 L1200,820 Q400,920 0,820 Z" fill="#000000"/>', '<stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#e11d48"/>'),
+      makeArtSvg('p18', 'Damier Chessboard Pop 3D', '<rect x="0" y="0" width="300" height="300" fill="#000"/><rect x="600" y="0" width="300" height="300" fill="#000"/><rect x="300" y="300" width="300" height="300" fill="#000"/><rect x="900" y="300" width="300" height="300" fill="#000"/><rect x="0" y="600" width="300" height="300" fill="#000"/><rect x="600" y="600" width="300" height="300" fill="#000"/><rect x="300" y="900" width="300" height="300" fill="#000"/><rect x="900" y="900" width="300" height="300" fill="#000"/>', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ffffff"/>'),
+      makeArtSvg('p19', 'Bauhaus Formes Primaires Géométrie', '<circle cx="400" cy="400" r="220" fill="#ef4444"/><rect x="650" y="250" width="380" height="380" fill="#3b82f6"/><polygon points="350,700 800,1100 200,1100" fill="#facc15"/>', '<stop offset="0%" stop-color="#f1f5f9"/><stop offset="100%" stop-color="#e2e8f0"/>'),
+      makeArtSvg('p20', 'Rayons Pop Art Soleil Orange', '<path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#ea580c"/>', '<stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#fde047"/>'),
+      makeArtSvg('p21', 'Splash Peinture Street Graffiti Fluo', '<circle cx="600" cy="600" r="300" fill="#ec4899"/><circle cx="300" cy="350" r="90" fill="#06b6d4"/><circle cx="900" cy="400" r="120" fill="#facc15"/>', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>'),
+      makeArtSvg('p22', 'Étoile Pop Art Hollywood Or', '<polygon points="600,150 720,480 1050,480 780,680 880,1020 600,820 320,1020 420,680 150,480 480,480" fill="#eab308" stroke="#ffffff" stroke-width="14"/>', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#09090b"/>'),
+      makeArtSvg('p23', 'Cubes 3D Illusions d’Optique', '<polygon points="600,280 880,440 600,600 320,440" fill="#38bdf8"/><polygon points="320,440 600,600 600,920 320,760" fill="#0284c7"/><polygon points="600,600 880,440 880,760 600,920" fill="#0369a1"/>', '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>'),
+      makeArtSvg('p24', 'Fleurs Marguerites Rétro 70s', '<circle cx="600" cy="600" r="170" fill="#fde047"/><circle cx="600" cy="280" r="130" fill="#ffffff"/><circle cx="600" cy="920" r="130" fill="#ffffff"/><circle cx="280" cy="600" r="130" fill="#ffffff"/><circle cx="920" cy="600" r="130" fill="#ffffff"/>', '<stop offset="0%" stop-color="#ea580c"/><stop offset="100%" stop-color="#c2410c"/>'),
+      makeArtSvg('p25', 'Vinyle Rétro Studio 33 Tours', '<circle cx="600" cy="600" r="480" fill="#09090b"/><circle cx="600" cy="600" r="180" fill="#ef4444"/><circle cx="600" cy="600" r="50" fill="#ffffff"/>', '<stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#f97316"/>'),
+      makeArtSvg('p26', 'Badge Pop Comic WOW!', '<circle cx="600" cy="600" r="400" fill="#facc15" stroke="#000000" stroke-width="26"/><text x="600" y="660" font-family="sans-serif" font-weight="900" font-size="140" fill="#000000" text-anchor="middle">WOW!</text>', '<stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#6d28d9"/>'),
+      makeArtSvg('p27', 'Bulles Effervescentes Pop Multicolore', '<circle cx="300" cy="400" r="150" fill="#f472b6" opacity="0.85"/><circle cx="820" cy="500" r="210" fill="#facc15" opacity="0.85"/><circle cx="500" cy="850" r="170" fill="#4ade80" opacity="0.85"/>', '<stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0284c7"/>'),
+      makeArtSvg('p28', 'Diamant Prismatique Pop Art', '<polygon points="600,180 1000,560 600,1080 200,560" fill="#06b6d4" stroke="#ffffff" stroke-width="22"/>', '<stop offset="0%" stop-color="#312e81"/><stop offset="100%" stop-color="#1e1b4b"/>'),
+      makeArtSvg('p29', 'Vagues Pastel Psychédéliques', '<path d="M0,0 Q300,600 600,0 T1200,0 L1200,1200 L0,1200 Z" fill="#38bdf8"/>', '<stop offset="0%" stop-color="#f472b6"/><stop offset="100%" stop-color="#ec4899"/>'),
+      makeArtSvg('p30', 'Cercles Cibles Optiques Rouges', '<circle cx="600" cy="600" r="480" fill="#ef4444"/><circle cx="600" cy="600" r="360" fill="#ffffff"/><circle cx="600" cy="600" r="240" fill="#ef4444"/><circle cx="600" cy="600" r="120" fill="#ffffff"/>', '<stop offset="0%" stop-color="#000000"/><stop offset="100%" stop-color="#18181b"/>'),
+      makeArtSvg('p31', 'Trame Halftone Vintage BD Cyan', '<circle cx="300" cy="300" r="80" fill="#06b6d4"/><circle cx="600" cy="300" r="80" fill="#06b6d4"/><circle cx="900" cy="300" r="80" fill="#06b6d4"/><circle cx="300" cy="600" r="80" fill="#06b6d4"/><circle cx="600" cy="600" r="80" fill="#06b6d4"/><circle cx="900" cy="600" r="80" fill="#06b6d4"/><circle cx="300" cy="900" r="80" fill="#06b6d4"/><circle cx="600" cy="900" r="80" fill="#06b6d4"/><circle cx="900" cy="900" r="80" fill="#06b6d4"/>', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>'),
+      makeArtSvg('p32', 'Lignes Diagonales Acid Pop', '<line x1="0" y1="0" x2="1200" y2="1200" stroke="#f43f5e" stroke-width="60"/><line x1="0" y1="300" x2="900" y2="1200" stroke="#f43f5e" stroke-width="60"/><line x1="300" y1="0" x2="1200" y2="900" stroke="#f43f5e" stroke-width="60"/>', '<stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#fde047"/>'),
+      makeArtSvg('p33', 'Rayons Pop Fuchsia & Jaune Solaire', '<circle cx="600" cy="600" r="400" fill="#d946ef"/>', '<stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#facc15"/>'),
+      makeArtSvg('p34', 'Tetris Rétro Pixel Art Couleurs', '<rect x="250" y="350" width="220" height="220" fill="#ef4444"/><rect x="490" y="350" width="220" height="220" fill="#3b82f6"/><rect x="730" y="350" width="220" height="220" fill="#10b981"/>', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>'),
+      makeArtSvg('p35', 'Triangle Impossible Illusion 3D', '<polygon points="600,220 980,880 220,880" fill="none" stroke="#f43f5e" stroke-width="65"/>', '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>'),
+      makeArtSvg('p36', 'Trame Halftone Vintage BD Noire', '<circle cx="300" cy="300" r="80" fill="#1e1b4b"/><circle cx="600" cy="300" r="80" fill="#1e1b4b"/><circle cx="900" cy="300" r="80" fill="#1e1b4b"/><circle cx="300" cy="600" r="80" fill="#1e1b4b"/><circle cx="600" cy="600" r="80" fill="#1e1b4b"/><circle cx="900" cy="600" r="80" fill="#1e1b4b"/>', '<stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fde68a"/>'),
+      makeArtSvg('p37', 'Vagues Multicolores Disco 70s', '<path d="M0,250 Q300,100 600,250 T1200,250 L1200,550 Q900,400 600,550 T0,550 Z" fill="#facc15"/><path d="M0,550 Q300,400 600,550 T1200,550 L1200,850 Q900,700 600,850 T0,850 Z" fill="#06b6d4"/>', '<stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#db2777"/>'),
+      makeArtSvg('p38', 'Flash Lightning Rose Bonbon Comic', '<polygon points="680,100 360,650 620,650 480,1100 880,550 620,550" fill="#ffffff" stroke="#000000" stroke-width="18"/>', '<stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#e11d48"/>'),
+      makeArtSvg('p39', 'Énergie Cosmique Pop Art Nébuleuse', '<circle cx="600" cy="600" r="380" fill="#8b5cf6"/><polygon points="600,100 690,440 960,440 740,620" fill="#fde047"/>', '<stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#312e81"/>'),
+      makeArtSvg('p40', 'Masterpiece Pop Art InPixio Supreme', '<circle cx="600" cy="600" r="440" fill="#facc15" stroke="#000000" stroke-width="26"/><rect x="250" y="490" width="700" height="220" fill="#000000"/><text x="600" y="645" font-family="sans-serif" font-weight="900" font-size="100" fill="#ffffff" text-anchor="middle">POPART</text>', '<stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#e11d48"/>'),
+    ];
+
+    // 3. 40 DÉSERTS & NATURE 4K (100% EMBEDDED)
+    var BG_NATURE_40 = [];
+    var desertNames = [
+      'Dunes Rouges de Sossusvlei Namibie', 'Sahara Coucher de Soleil Doré', 'Oasis Verdoyante & Palmier Eau', 'Désert Blanc Roches Érodées', 'Salar de Uyuni Miroir de Sel Pur', 'Wadi Rum Désert Mars Jordanie', 'Monument Valley Roche Rouge', 'Dunes de Merzouga Maroc Crépuscule', 'Désert Atacama Chili Ciel Étoilé', 'Antelope Canyon Faisceau Lumineux', 'Montagne & Lac Alpin Reflet Pur', 'Plage Maldives Sable Blanc Lagon', 'Forêt de Pins Brumeuse Matin', 'Océan Pacifique Vagues Puissantes', 'Cascade Cristalline Jungle', 'Aurore Boréale Verte Islande', 'Champs de Lavande en Provence', 'Falaises d’Étretat Manche', 'Jardin Tropical Balinais Palmiers', 'Route Côtière Pacifique Big Sur', 'Forêt d’Automne Feuilles Érable', 'Prairie Fleurie dans les Alpes', 'Lagon Turquoise de Bora Bora', 'Savane Africaine Acacia Coucher Soleil', 'Glacier Arctique Banquise Bleue', 'Sommet Enneigé du Cervin', 'Plage de Sable Noir Vik Islande', 'Rizières en Cascades Sapa', 'Baie d’Halong Pitons Rocheux', 'Désert des Joshua Trees Californie', 'Grand Canyon Ciel Pourpre', 'Lacs de Plitvice Croatie Cascade', 'Séquoias Géants Parc National', 'Gorges du Verdon Eau Turquoise', 'Geyser Actif Sol Volcanique', 'Bryce Canyon Pitons Rocheux Rouges', 'Plage Tropicale Baie de Maya', 'Volcan Bromo Mer de Sable Brume', 'Lac Moraine Rocheuses Canadiennes', 'Désert de Sel Salton Sea'
+    ];
+    for (var i = 0; i < 40; i++) {
+      var dName = desertNames[i] || ('Paysage Nature HD ' + (i + 1));
+      var sunColor = (i % 2 === 0) ? '#f59e0b' : '#f43f5e';
+      var duneColor = (i % 3 === 0) ? '#ea580c' : ((i % 3 === 1) ? '#0284c7' : '#059669');
+      var bgGrad = '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="' + duneColor + '"/>';
+      var content = '<circle cx="' + (300 + (i * 15) % 600) + '" cy="400" r="160" fill="' + sunColor + '"/><path d="M0,' + (700 + (i % 5) * 20) + ' Q300,550 600,700 T1200,650 L1200,1200 L0,1200 Z" fill="' + duneColor + '"/>';
+      BG_NATURE_40.push(makeArtSvg('n' + (i + 1), dName, content, bgGrad));
+    }
+
+    // 4. 40 STUDIOS & LUXE 4K (100% EMBEDDED)
+    var BG_STUDIOS_40 = [];
+    var studioNames = [
+      'Studio Minimaliste Ombre Feuillage', 'Bureau Exécutif Bois Chêne Clair', 'Intérieur Marbre Blanc & Finitions Or', 'Cyclorama Studio Blanc Pur Éclairé', 'Podium Marbre Gris Épuré Produit', 'Loft Industriel Briques & Baie Vitrée', 'Villa Contemporaine Vue sur Mer', 'Galerie d’Art Murs Blancs & Parquet', 'Cuisine de Luxe Îlot Central Marbre', 'Chambre Design Épurée Bois Blond', 'Bibliothèque Design Chêne Sombre', 'Terrasse Lounge Piscine Débordement', 'Mur Béton Architectonique & Monstera', 'Studio Photo Panneau Bois Lattes', 'Showroom Haute Couture Verrière', 'Hall de Palace Colonnes Marbre', 'Penthouse Vue Panoramique Gratte-ciel', 'Salle de Conférence Verre & Métal', 'Atelier d’Artiste Sous Verrière Toit', 'Escalier Hélicoïdal Design Épuré', 'Patio Intérieur Végétalisé Fontaine', 'Dressing Haut de Gamme Rétroéclairé', 'Salle de Bain Marbre Noir Robinet Or', 'Espace Méditation Tatami & Papier Soie', 'Rooftop Lounge Coussins Sunset', 'Espace Coworking Moderne Lumineux', 'Studio Équipé Softbox Éclairage Pro', 'Salon Contemporain Cheminée Moderne', 'Cave à Vin Moderne Vitrée Design', 'Podium Circulaire Présentation Épurée', 'Showroom Voitures d’Exception Sol Écran', 'Serre Botanique Verre & Acier', 'Terrasse Haussmannienne Balcon Fer Forgé', 'Suite de Luxe Lit King Size Soie', 'Salon Zen Minimaliste Bois Clair', 'Galerie Photographique Noir & Blanc', 'Podium Bois Brut Organique Naturel', 'Studio Noir Sombre Effet OLED', 'Cuisine d’Architecte Bois Noyer & Pierre', 'Salon Moderne Baie Vitrée Coucher Soleil'
+    ];
+    for (var i = 0; i < 40; i++) {
+      var sName = studioNames[i] || ('Studio Pro HD ' + (i + 1));
+      var sColor = (i % 2 === 0) ? '#e2e8f0' : '#334155';
+      var bgGrad = '<stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/>';
+      var content = '<ellipse cx="600" cy="900" rx="450" ry="120" fill="' + sColor + '" opacity="0.6"/><rect x="200" y="300" width="800" height="500" rx="30" fill="none" stroke="' + sColor + '" stroke-width="10"/>';
+      BG_STUDIOS_40.push(makeArtSvg('st' + (i + 1), sName, content, bgGrad));
+    }
+
+    // 5. 40 VILLES & SKYLINES 4K (100% EMBEDDED)
+    var BG_CITIES_40 = [];
+    var cityNames = [
+      'Tokyo Shibuya Passage Nuit Neon', 'New York Manhattan Skyline Nuit', 'Paris Tour Eiffel & Pont Alexandre III', 'Londres Tower Bridge & Tamise Sunset', 'Dubai Burj Khalifa & Tours Futuristes', 'San Francisco Pont Golden Gate Brume', 'Ruelle Pavée Historique de Rome', 'La Défense Quartier Affaires Tours Verre', 'Ruelle d’Omoide Yokocho Lanternes Tokyo', 'Station Métro Futuriste Design Leds', 'Vue Rooftop Panorama Nocturne', 'Autoroute Ville Traînées Lumineuses', 'Façade Murale Street Art Colorée', 'Bâtiment d’Architecte Béton Brutaliste', 'Marina de Monaco Yacht Club Luxe', 'Tunnel Cyberpunk Éclairage Violet', 'Pagode Japonaise Sensoji au Crépuscule', 'Ocean Drive Miami Beach Palmiers', 'Broadway Avenue Manhattan Enseigne', 'Grand Pont Suspendu Lumières Soir', 'Singapour Marina Bay Sands & Baie', 'Hong Kong Victoria Peak Gratte-ciel', 'Venise Grand Canal & Gondoles Crépuscule', 'Amsterdam Canaux & Maisons Briques', 'Barcelone Sagrada Família Heure Dorée', 'Séoul Quartier Gangnam Nuit Électrique', 'Sydney Opéra & Port Reflet Coucher Soleil', 'Chicago Rivière & Gratte-ciel Verre', 'Ruelle Montmartre Pavée Paris', 'Sunset Boulevard Los Angeles Palmiers', 'Kyoto Portiques Rouges Fushimi Inari', 'Tramway Jaune dans les Rues de Lisbonne', 'Prague Pont Charles au Lever du Jour', 'Marché de Nuit Bangkok Échoppes', 'Pyramides de Gizeh Coucher de Soleil', 'Porte de Brandebourg Berlin Illuminée', 'Rio de Janeiro Baie de Guanabara', 'Toronto Tour CN & Skyline Lac Ontario', 'Las Vegas Strip Casinos & Néons Nuit', 'Istanbul Bosphore & Silhouette Mosquées'
+    ];
+    for (var i = 0; i < 40; i++) {
+      var cName = cityNames[i] || ('Skyline HD ' + (i + 1));
+      var neonColor = (i % 2 === 0) ? '#06b6d4' : '#ec4899';
+      var bgGrad = '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#1e1b4b"/>';
+      var content = '<rect x="150" y="450" width="180" height="750" fill="#0f172a" stroke="' + neonColor + '" stroke-width="8"/><rect x="380" y="300" width="220" height="900" fill="#09090b" stroke="' + neonColor + '" stroke-width="8"/><rect x="650" y="500" width="180" height="700" fill="#0f172a" stroke="' + neonColor + '" stroke-width="8"/><rect x="880" y="380" width="200" height="820" fill="#09090b" stroke="' + neonColor + '" stroke-width="8"/>';
+      BG_CITIES_40.push(makeArtSvg('u' + (i + 1), cName, content, bgGrad));
+    }
+
+    // 6. 40 GRADIENTS (100% EMBEDDED)
+    var BG_GRADIENTS_40 = [
+      { id: 'g1', label: 'Sunset Glow', colors: ['#f97316', '#ec4899', '#8b5cf6'], css: 'linear-gradient(135deg, #f97316, #ec4899, #8b5cf6)' },
+      { id: 'g2', label: 'Cyber Neon', colors: ['#06b6d4', '#3b82f6', '#9333ea'], css: 'linear-gradient(135deg, #06b6d4, #3b82f6, #9333ea)' },
+      { id: 'g3', label: 'Aurora Emerald', colors: ['#059669', '#10b981', '#06b6d4'], css: 'linear-gradient(135deg, #059669, #10b981, #06b6d4)' },
+      { id: 'g4', label: 'Cosmic Indigo', colors: ['#1e1b4b', '#312e81', '#4c1d95'], css: 'linear-gradient(135deg, #1e1b4b, #312e81, #4c1d95)' },
+      { id: 'g5', label: 'Champagne Luxe', colors: ['#d97706', '#f59e0b', '#fef3c7'], css: 'linear-gradient(135deg, #d97706, #f59e0b, #fef3c7)' },
+      { id: 'g6', label: 'Cotton Candy', colors: ['#f472b6', '#c084fc', '#60a5fa'], css: 'linear-gradient(135deg, #f472b6, #c084fc, #60a5fa)' },
+      { id: 'g7', label: 'Fire Velvet', colors: ['#b91c1c', '#dc2626', '#f97316'], css: 'linear-gradient(135deg, #b91c1c, #dc2626, #f97316)' },
+      { id: 'g8', label: 'Ocean Depth', colors: ['#0f172a', '#1e3a8a', '#0284c7'], css: 'linear-gradient(135deg, #0f172a, #1e3a8a, #0284c7)' },
+      { id: 'g9', label: 'Pure Frost', colors: ['#f8fafc', '#e2e8f0', '#cbd5e1'], css: 'linear-gradient(135deg, #f8fafc, #e2e8f0, #cbd5e1)' },
+      { id: 'g10', label: 'Holographic Mesh', colors: ['#a855f7', '#06b6d4', '#f43f5e'], css: 'linear-gradient(135deg, #a855f7, #06b6d4, #f43f5e)' },
+      { id: 'g11', label: 'Midnight Blue', colors: ['#020617', '#0f172a', '#1e293b'], css: 'linear-gradient(135deg, #020617, #0f172a, #1e293b)' },
+      { id: 'g12', label: 'Peach Sunrise', colors: ['#ffedd5', '#fed7aa', '#f43f5e'], css: 'linear-gradient(135deg, #ffedd5, #fed7aa, #f43f5e)' },
+      { id: 'g13', label: 'Minty Breeze', colors: ['#ccfbf1', '#99f6e4', '#2dd4bf'], css: 'linear-gradient(135deg, #ccfbf1, #99f6e4, #2dd4bf)' },
+      { id: 'g14', label: 'Electric Purple', colors: ['#581c87', '#7e22ce', '#c084fc'], css: 'linear-gradient(135deg, #581c87, #7e22ce, #c084fc)' },
+      { id: 'g15', label: 'Tropical Punch', colors: ['#f43f5e', '#fb923c', '#facc15'], css: 'linear-gradient(135deg, #f43f5e, #fb923c, #facc15)' },
+      { id: 'g16', label: 'Solar Flare', colors: ['#ea580c', '#f59e0b', '#fef08a'], css: 'linear-gradient(135deg, #ea580c, #f59e0b, #fef08a)' },
+      { id: 'g17', label: 'Mystic Twilight', colors: ['#311042', '#581c87', '#1e1b4b'], css: 'linear-gradient(135deg, #311042, #581c87, #1e1b4b)' },
+      { id: 'g18', label: 'Cyber Matrix', colors: ['#022c22', '#065f46', '#10b981'], css: 'linear-gradient(135deg, #022c22, #065f46, #10b981)' },
+      { id: 'g19', label: 'Lavender Mist', colors: ['#faf5ff', '#f3e8ff', '#d8b4fe'], css: 'linear-gradient(135deg, #faf5ff, #f3e8ff, #d8b4fe)' },
+      { id: 'g20', label: 'Rose Gold', colors: ['#fda4af', '#f43f5e', '#fb7185'], css: 'linear-gradient(135deg, #fda4af, #f43f5e, #fb7185)' },
+      { id: 'g21', label: 'Neon Synthwave', colors: ['#ff007f', '#7928ca', '#00dfd8'], css: 'linear-gradient(135deg, #ff007f, #7928ca, #00dfd8)' },
+      { id: 'g22', label: 'Emerald Glow', colors: ['#064e3b', '#059669', '#34d399'], css: 'linear-gradient(135deg, #064e3b, #059669, #34d399)' },
+      { id: 'g23', label: 'Deep Space Galaxy', colors: ['#000000', '#130f40', '#30336b'], css: 'linear-gradient(135deg, #000000, '#130f40', '#30336b)' },
+      { id: 'g24', label: 'Sunset Mojito', colors: ['#10b981', '#facc15', '#f97316'], css: 'linear-gradient(135deg, #10b981, #facc15, #f97316)' },
+      { id: 'g25', label: 'Velvet Night', colors: ['#18181b', '#27272a', '#3f3f46'], css: 'linear-gradient(135deg, #18181b, #27272a, #3f3f46)' },
+      { id: 'g26', label: 'Citrus Blast', colors: ['#e11d48', '#fb923c', '#fde047'], css: 'linear-gradient(135deg, #e11d48, #fb923c, #fde047)' },
+      { id: 'g27', label: 'Unicorn Dream', colors: ['#c4b5fd', '#fbcfe8', '#fed7aa'], css: 'linear-gradient(135deg, #c4b5fd, #fbcfe8, #fed7aa)' },
+      { id: 'g28', label: 'Golden Horizon', colors: ['#78350f', '#d97706', '#fef3c7'], css: 'linear-gradient(135deg, #78350f, #d97706, #fef3c7)' },
+      { id: 'g29', label: 'Berry Fusion', colors: ['#4c0519', '#9f1239', '#e11d48'], css: 'linear-gradient(135deg, #4c0519, #9f1239, #e11d48)' },
+      { id: 'g30', label: 'Frostbite Cyan', colors: ['#082f49', '#0284c7', '#38bdf8'], css: 'linear-gradient(135deg, #082f49, #0284c7, #38bdf8)' },
+      { id: 'g31', label: 'Volcano Lava', colors: ['#450a0a', '#b91c1c', '#ea580c'], css: 'linear-gradient(135deg, #450a0a, #b91c1c, #ea580c)' },
+      { id: 'g32', label: 'Nordic Sky', colors: ['#0c4a6e', '#0284c7', '#bae6fd'], css: 'linear-gradient(135deg, #0c4a6e, #0284c7, #bae6fd)' },
+      { id: 'g33', label: 'Green Apple', colors: ['#14532d', '#22c55e', '#bef264'], css: 'linear-gradient(135deg, #14532d, #22c55e, #bef264)' },
+      { id: 'g34', label: 'Neon Tokyo', colors: ['#3b0764', '#c026d3', '#06b6d4'], css: 'linear-gradient(135deg, #3b0764, #c026d3, #06b6d4)' },
+      { id: 'g35', label: 'Honey Gold', colors: ['#854d0e', '#ca8a04', '#fef08a'], css: 'linear-gradient(135deg, #854d0e, #ca8a04, #fef08a)' },
+      { id: 'g36', label: 'Midnight Purple', colors: ['#09090b', '#3b0764', '#7e22ce'], css: 'linear-gradient(135deg, #09090b, #3b0764, #7e22ce)' },
+      { id: 'g37', label: 'Coral Reef', colors: ['#be123c', '#fb7185', '#fed7aa'], css: 'linear-gradient(135deg, #be123c, #fb7185, #fed7aa)' },
+      { id: 'g38', label: 'Titanium Slate', colors: ['#0f172a', '#334155', '#94a3b8'], css: 'linear-gradient(135deg, #0f172a, #334155, #94a3b8)' },
+      { id: 'g39', label: 'Aqua Marine', colors: ['#042f2e', '#0d9488', '#5eead4'], css: 'linear-gradient(135deg, #042f2e, #0d9488, #5eead4)' },
+      { id: 'g40', label: 'Sunset Paradise InPixio', colors: ['#312e81', '#ec4899', '#facc15'], css: 'linear-gradient(135deg, #312e81, #ec4899, #facc15)' },
+    ];
+
+    // 7. 40 COULEURS SOLIDES PRO
+    var BG_SOLIDS_40 = [
+      { id: 'transp', label: 'Transparent', value: 'transparent', class: 'bg-checkerboard' },
+      { id: 'white', label: 'Blanc Studio Pur', value: '#ffffff', class: 'bg-white' },
+      { id: 'black', label: 'Noir OLED Absolu', value: '#08080a', class: 'bg-black' },
+      { id: 'slate', label: 'Gris Ardoise Pro', value: '#1e293b', class: 'bg-slate-800' },
+      { id: 'platine', label: 'Gris Platine Clair', value: '#e2e8f0', class: 'bg-slate-200 text-black' },
+      { id: 'taupe', label: 'Gris Taupe Doux', value: '#78716c', class: 'bg-stone-500' },
+      { id: 'sand', label: 'Sable Chaud', value: '#fef3c7', class: 'bg-amber-100 text-black' },
+      { id: 'cream', label: 'Crème Vanille', value: '#fffbeb', class: 'bg-amber-50 text-black' },
+      { id: 'beige', label: 'Beige Lin', value: '#f5f5f4', class: 'bg-stone-100 text-black' },
+      { id: 'indigo', label: 'Indigo Cyber', value: '#4f46e5', class: 'bg-indigo-600' },
+      { id: 'blue', label: 'Bleu Royal', value: '#2563eb', class: 'bg-blue-600' },
+      { id: 'sky', label: 'Bleu Ciel Éclatant', value: '#38bdf8', class: 'bg-sky-400' },
+      { id: 'night', label: 'Bleu Nuit Profond', value: '#0f172a', class: 'bg-slate-900' },
+      { id: 'cyan', label: 'Cyan Électrique', value: '#06b6d4', class: 'bg-cyan-500' },
+      { id: 'turquoise', label: 'Turquoise Lagon', value: '#14b8a6', class: 'bg-teal-500' },
+      { id: 'emerald', label: 'Vert Émeraude', value: '#10b981', class: 'bg-emerald-500' },
+      { id: 'mint', label: 'Menthe Pastel', value: '#a7f3d0', class: 'bg-emerald-200 text-black' },
+      { id: 'sage', label: 'Vert Sauge Zen', value: '#84cc16', class: 'bg-lime-500' },
+      { id: 'olive', label: 'Vert Olive Nature', value: '#65a30d', class: 'bg-lime-600' },
+      { id: 'forest', label: 'Vert Forêt Sombre', value: '#14532d', class: 'bg-green-900' },
+      { id: 'sunset', label: 'Orange Sunset', value: '#f97316', class: 'bg-orange-500' },
+      { id: 'peach', label: 'Pêche Douce', value: '#fed7aa', class: 'bg-orange-200 text-black' },
+      { id: 'apricot', label: 'Abricot Vif', value: '#fb923c', class: 'bg-orange-400' },
+      { id: 'coral', label: 'Corail Doux', value: '#fb7185', class: 'bg-rose-400' },
+      { id: 'red', label: 'Rouge Ferrari Sport', value: '#ef4444', class: 'bg-red-600' },
+      { id: 'crimson', label: 'Pourpre Crimson', value: '#dc2626', class: 'bg-red-700' },
+      { id: 'burgundy', label: 'Bordeaux Rubis', value: '#881337', class: 'bg-rose-950' },
+      { id: 'pink', label: 'Rose Bonbon', value: '#ec4899', class: 'bg-pink-500' },
+      { id: 'neonpink', label: 'Fuchsia Neon', value: '#f43f5e', class: 'bg-rose-500' },
+      { id: 'dustypink', label: 'Rose Poudré Pastel', value: '#fbcfe8', class: 'bg-pink-200 text-black' },
+      { id: 'purple', label: 'Violet Profond', value: '#7c3aed', class: 'bg-purple-600' },
+      { id: 'lavender', label: 'Lavande Douce', value: '#ddd6fe', class: 'bg-purple-200 text-black' },
+      { id: 'violet', label: 'Mauve Électrique', value: '#a855f7', class: 'bg-purple-500' },
+      { id: 'gold', label: 'Or Impérial', value: '#eab308', class: 'bg-yellow-500' },
+      { id: 'lemon', label: 'Jaune Citron Solaire', value: '#fde047', class: 'bg-yellow-300 text-black' },
+      { id: 'amber', label: 'Ambre Chaud', value: '#d97706', class: 'bg-amber-600' },
+      { id: 'coffee', label: 'Café Moka', value: '#451a03', class: 'bg-amber-950' },
+      { id: 'chocolate', label: 'Chocolat Noir', value: '#3f2e21', class: 'bg-stone-900' },
+      { id: 'ice', label: 'Bleu Glacier', value: '#cffafe', class: 'bg-cyan-100 text-black' },
+      { id: 'graphite', label: 'Graphite Mat', value: '#27272a', class: 'bg-zinc-800' },
+    ];
+  </script>
+
   <!-- PURE NATIVE JAVASCRIPT APP LOGIC -->
   <script>
-    // State
     var images = [];
     var selectedIds = new Set();
     var applyToAll = true;
@@ -334,7 +569,6 @@
     var watermarkConfig = { enabled: false, text: '© PIXELBATCH AI', color: '#ffffff', opacity: 85 };
     var selfieSegmenter = null;
 
-    // Toast
     function showToast(title, message) {
       var container = document.getElementById('toast-container');
       var toast = document.createElement('div');
@@ -346,7 +580,6 @@
       }, 3500);
     }
 
-    // MediaPipe initialization
     try {
       if (window.SelfieSegmentation) {
         selfieSegmenter = new window.SelfieSegmentation({
@@ -358,7 +591,6 @@
       console.warn("MediaPipe init error:", e);
     }
 
-    // High quality cutout
     function generateCutout(imgUrl) {
       return new Promise(function(resolve) {
         var img = new Image();
@@ -409,7 +641,6 @@
       });
     }
 
-    // High quality background composite
     function compositeItem(item, bgConfig) {
       return new Promise(function(resolve) {
         var subjectImg = new Image();
@@ -481,7 +712,6 @@
               finishRender();
             } else if (bgConfig.url) {
               var bgImg = new Image();
-              bgImg.crossOrigin = 'anonymous';
               bgImg.onload = function() {
                 ctx.drawImage(bgImg, 0, 0, w, h);
                 finishRender();
@@ -503,7 +733,6 @@
       });
     }
 
-    // UI Renderers
     function renderGallery() {
       var container = document.getElementById('gallery-container');
       var countSpan = document.getElementById('count-download');
@@ -581,7 +810,7 @@
         html += '</div>';
       } else {
         list.forEach(function(item, idx) {
-          var bgImg = item.thumb || item.url;
+          var bgImg = item.url;
           html += '<button onclick="applyBgAtIndex(' + idx + ')" class="group relative h-24 rounded-2xl overflow-hidden border border-pink-500/40 hover:border-pink-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md">' +
             '<img src="' + bgImg + '" alt="' + item.label + '" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />' +
             '<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>' +
@@ -593,7 +822,6 @@
       container.innerHTML = html;
     }
 
-    // Apply Background
     async function applyBgAtIndex(idx) {
       if (images.length === 0) {
         showToast('Aucune photo', 'Importez vos photos d’abord !');
@@ -641,7 +869,6 @@
       showToast('Rendu Ultra-HD Prêt !', 'Fond appliqué en qualité ' + outputQuality.toUpperCase() + ' sur ' + images.length + ' photos');
     }
 
-    // Actions
     function setOutputQuality(q) {
       outputQuality = q;
       var label = document.getElementById('label-current-res');
@@ -777,16 +1004,33 @@
     }
 
     function loadDemoImages() {
-      images = DEMO_LIBRARY.map(function(d) {
+      var makeDemo = function(name, title, cat, svgShape, color) {
+        var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">' +
+          '<rect x="200" y="200" width="800" height="800" rx="60" fill="#ffffff" />' +
+          '<circle cx="600" cy="520" r="180" fill="' + color + '" opacity="0.12" />' +
+          svgShape +
+          '<text x="600" y="780" font-family="sans-serif" font-size="52" font-weight="800" fill="#0f172a" text-anchor="middle">' + title + '</text>' +
+          '<text x="600" y="840" font-family="sans-serif" font-size="28" font-weight="600" fill="#64748b" text-anchor="middle">' + cat + '</text>' +
+          '</svg>';
+        var url = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
         return {
           id: 'demo_' + Math.random().toString(36).substring(2, 7),
-          name: d.name,
-          originalUrl: d.url,
-          cutoutUrl: d.url,
-          currentUrl: d.url,
+          name: name,
+          originalUrl: url,
+          cutoutUrl: url,
+          currentUrl: url,
           outputResolution: '1200 × 1200 px',
         };
-      });
+      };
+
+      images = [
+        makeDemo('portrait-studio-pro.png', 'Portrait Studio Pro', 'Visage & Teint Net', '<circle cx="600" cy="460" r="85" fill="#f87171"/><ellipse cx="600" cy="470" rx="70" ry="85" fill="#fed7aa"/><circle cx="570" cy="455" r="10" fill="#0f172a"/><circle cx="630" cy="455" r="10" fill="#0f172a"/><path d="M580 505 Q600 525 620 505" fill="none" stroke="#e11d48" stroke-width="6" stroke-linecap="round"/><path d="M490 620 C490 540, 710 540, 710 620 Z" fill="#8b5cf6"/>', '#8b5cf6'),
+        makeDemo('sneaker-sport-red.png', 'Sneaker Sport Red', 'E-Commerce Produit', '<path d="M460 560 C500 480, 640 470, 740 520 C780 545, 790 595, 750 620 C690 660, 510 650, 460 560 Z" fill="#ef4444"/><path d="M440 575 L765 630 L755 655 L430 610 Z" fill="#0f172a"/>', '#ef4444'),
+        makeDemo('robot-popart.png', 'Robot Pop Art', 'Pop Art & Gaming', '<rect x="510" y="420" width="180" height="150" rx="35" fill="#06b6d4"/><circle cx="560" cy="480" r="18" fill="#ffffff"/><circle cx="640" cy="480" r="18" fill="#ffffff"/><rect x="570" y="525" width="60" height="15" rx="7" fill="#0f172a"/><line x1="600" y1="420" x2="600" y2="370" stroke="#06b6d4" stroke-width="14" stroke-linecap="round"/><circle cx="600" cy="360" r="15" fill="#f59e0b"/>', '#06b6d4'),
+        makeDemo('casque-audio-hifi.png', 'Casque Audio Hi-Fi', 'Tech & Audio', '<path d="M470 530 C470 430, 730 430, 730 530" fill="none" stroke="#10b981" stroke-width="32" stroke-linecap="round"/><rect x="445" y="520" width="55" height="110" rx="25" fill="#0f172a"/><rect x="700" y="520" width="55" height="110" rx="25" fill="#0f172a"/>', '#10b981'),
+        makeDemo('montre-luxe-or.png', 'Montre Chronographe', 'Horlogerie de Luxe', '<circle cx="600" cy="520" r="105" fill="none" stroke="#f59e0b" stroke-width="26"/><line x1="600" y1="520" x2="600" y2="450" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/><line x1="600" y1="520" x2="650" y2="520" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>', '#f59e0b'),
+        makeDemo('cafe-expresso.png', 'Expresso Gourmet', 'Food & Boisson', '<path d="M490 490 L515 615 C515 640, 685 640, 685 615 L710 490 Z" fill="#f97316"/><path d="M700 520 C745 520, 745 590, 695 590" fill="none" stroke="#f97316" stroke-width="16"/>', '#f97316'),
+      ];
       selectedIds.clear();
       images.forEach(function(img) { selectedIds.add(img.id); });
       renderGallery();
@@ -860,7 +1104,6 @@
       showToast('Fond Personnalisé', 'Appliqué à vos photos');
     }
 
-    // Modal Compare
     function openCompareModal(id) {
       var item = images.find(function(img) { return img.id === id; });
       if (!item) return;
@@ -883,7 +1126,6 @@
       document.getElementById('compare-divider-line').style.left = val + '%';
     }
 
-    // Modal Cervex
     function openCervexModal() {
       var modal = document.getElementById('cervex-modal');
       modal.classList.remove('hidden');
@@ -901,7 +1143,6 @@
       closeCervexModal();
     }
 
-    // Crop, Resize, Watermark
     async function applyCropRatio(ratio) {
       for (var i = 0; i < images.length; i++) {
         if (applyToAll || selectedIds.has(images[i].id)) {
@@ -959,7 +1200,7 @@
       watermarkConfig.text = e.target.value;
     }
 
-    // Init App
+    // Initialize UI
     loadDemoImages();
     renderBackgroundCards();
   </script>
