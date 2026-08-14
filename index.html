@@ -337,7 +337,7 @@
         id: id,
         label: label,
         type: 'image',
-        url: 'data:image/svg+xml;utf8,' + encodeURIComponent(svg),
+        url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg),
       };
     }
 
@@ -712,16 +712,37 @@
               finishRender();
             } else if (bgConfig.url) {
               var bgImg = new Image();
+              var loaded = false;
+              var bgTimer = setTimeout(function() {
+                if (!loaded) {
+                  loaded = true;
+                  ctx.fillStyle = '#1e1b4b';
+                  ctx.fillRect(0, 0, w, h);
+                  finishRender();
+                }
+              }, 1200);
+
               bgImg.onload = function() {
-                ctx.drawImage(bgImg, 0, 0, w, h);
-                finishRender();
+                if (!loaded) {
+                  loaded = true;
+                  clearTimeout(bgTimer);
+                  ctx.drawImage(bgImg, 0, 0, w, h);
+                  finishRender();
+                }
               };
               bgImg.onerror = function() {
-                ctx.fillStyle = '#4f46e5';
-                ctx.fillRect(0, 0, w, h);
-                finishRender();
+                if (!loaded) {
+                  loaded = true;
+                  clearTimeout(bgTimer);
+                  ctx.fillStyle = '#4f46e5';
+                  ctx.fillRect(0, 0, w, h);
+                  finishRender();
+                }
               };
               bgImg.src = bgConfig.url;
+              if (bgImg.complete) {
+                bgImg.onload();
+              }
             } else {
               finishRender();
             }
@@ -811,8 +832,7 @@
       } else {
         list.forEach(function(item, idx) {
           var bgImg = item.url;
-          html += '<button onclick="applyBgAtIndex(' + idx + ')" class="group relative h-24 rounded-2xl overflow-hidden border border-pink-500/40 hover:border-pink-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md">' +
-            '<img src="' + bgImg + '" alt="' + item.label + '" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />' +
+          html += '<button onclick="applyBgAtIndex(' + idx + ')" style="background-image: url(\'' + bgImg + '\'); background-size: cover; background-position: center;" class="group relative h-24 rounded-2xl overflow-hidden border border-pink-500/40 hover:border-pink-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 shadow-md">' +
             '<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>' +
             '<span class="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">' + item.label + '</span>' +
             '</button>';
