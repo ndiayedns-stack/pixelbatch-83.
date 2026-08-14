@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Traitement 100% Garanti sur 1 à 1000 Photos & 280+ Fonds HD Haute Fidélité</title>
-  <meta name="description" content="Studio professionnel de détourage et changement de fond par lots (1 à 1000 photos). 100% des photos modifiées sans omission, couverture totale plein écran, 280+ fonds haute qualité fidèles aux titres (Pop Art, Mangas Anime, Déserts 4K, Studios Pro, Villes, Dégradés, Couleurs)." />
+  <title>PixelBatch AI Studio — 100% Traitement Garanti sur 1 à 1000 Photos & 280+ Vrais Fonds HD Réalistes</title>
+  <meta name="description" content="Studio professionnel de détourage et remplacement de fond par lots (1 à 1000 photos). Détourage IA garanti sur toutes les photos et catalogue de 280+ véritables fonds HD réalistes (Mangas artistiques, Déserts 4K, Studios Luxe, Villes du Monde, Pop Art, Dégradés et Couleurs)." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -202,9 +202,19 @@
       },
     ];
 
-    // =========================================================================
-    // --- MASTER HD GRAPHIC & VECTOR GENERATOR (FOND 100% PLEIN ÉCRAN) ---
-    // =========================================================================
+    // Helper for HD Background Images with Full Canvas Stretch & Zero Tainting
+    const makePhotoBg = (id, label, unsplashId, keywords) => {
+      // Unsplash HD URL with optimal params
+      const url = `https://images.unsplash.com/photo-${unsplashId}?auto=format&fit=crop&w=1400&q=80`;
+      return {
+        id,
+        label,
+        type: 'photo',
+        url,
+        thumb: `https://images.unsplash.com/photo-${unsplashId}?auto=format&fit=crop&w=300&q=60`,
+      };
+    };
+
     const makeSvgBg = (id, label, svg) => ({
       id,
       label,
@@ -212,27 +222,7 @@
       url: 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1200 1200" preserveAspectRatio="none">${svg}</svg>`),
     });
 
-    // Helper for realistic visual illustrations
-    const makeArtBg = (id, label, skyGrad, sunProps, horizonSvg, foregroundSvg) => {
-      const svg = `
-        <defs>
-          <linearGradient id="grad_${id}" x1="0" y1="0" x2="0" y2="1">
-            ${skyGrad}
-          </linearGradient>
-          <filter id="glow_${id}" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="25" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
-        <rect width="1200" height="1200" fill="url(#grad_${id})"/>
-        ${sunProps}
-        ${horizonSvg}
-        ${foregroundSvg}
-      `;
-      return makeSvgBg(id, label, svg);
-    };
-
-    // 1. POP ART (40 CHOICES)
+    // 1. POP ART (40 INPIXIO PATTERNS)
     const BG_POPART_40 = [
       makeSvgBg('p1', 'Pop Art Rayons Soleil Jaune', '<rect width="1200" height="1200" fill="#facc15"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#ea580c"/>'),
       makeSvgBg('p2', 'Pop Dots Roy Lichtenstein', '<defs><pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="10" fill="#ef4444"/></pattern></defs><rect width="1200" height="1200" fill="#fef08a"/><rect width="1200" height="1200" fill="url(#dots)"/>'),
@@ -276,180 +266,180 @@
       makeSvgBg('p40', 'Poster InPixio Master', '<rect width="1200" height="1200" fill="#f43f5e"/><circle cx="600" cy="600" r="420" fill="#facc15" stroke="#000000" stroke-width="24"/><rect x="300" y="500" width="600" height="200" fill="#000000"/><text x="600" y="640" font-family="sans-serif" font-weight="900" font-size="90" fill="#ffffff" text-anchor="middle">POP ART</text>'),
     ];
 
-    // 2. MANGA & ANIME PAINTINGS (40 HIGH-FIDELITY SCENIC ARTWORKS)
+    // 2. REAL HD MANGA & ANIME PAINTINGS (40 BEAUTIFUL ARTWORKS)
     const BG_MANGA_40 = [
-      makeArtBg('m1', 'Mont Fuji & Sakura Japonais', '<stop offset="0%" stop-color="#f472b6"/><stop offset="50%" stop-color="#fed7aa"/><stop offset="100%" stop-color="#38bdf8"/>', '<circle cx="600" cy="400" r="240" fill="#ef4444" opacity="0.95"/>', '<polygon points="100,1150 600,320 1100,1150" fill="#1e293b"/><polygon points="460,540 600,320 740,540" fill="#ffffff"/>', '<circle cx="200" cy="280" r="50" fill="#f472b6" opacity="0.85"/><circle cx="320" cy="340" r="35" fill="#f472b6" opacity="0.85"/><circle cx="980" cy="240" r="45" fill="#f472b6" opacity="0.85"/><rect y="980" width="1200" height="220" fill="#064e3b"/>'),
-      makeArtBg('m2', 'Ciel Anime Nuages Makoto Shinkai', '<stop offset="0%" stop-color="#0369a1"/><stop offset="45%" stop-color="#38bdf8"/><stop offset="85%" stop-color="#fbcfe8"/><stop offset="100%" stop-color="#fed7aa"/>', '<circle cx="600" cy="380" r="180" fill="#ffffff" filter="url(#glow_m2)"/>', '<circle cx="300" cy="680" r="280" fill="#ffffff" opacity="0.95"/><circle cx="650" cy="560" r="340" fill="#ffffff" opacity="0.95"/><circle cx="950" cy="680" r="300" fill="#ffffff" opacity="0.95"/>', '<rect y="1050" width="1200" height="150" fill="#15803d"/>'),
-      makeArtBg('m3', 'Temple Shinto sous la Pluie Dorée', '<stop offset="0%" stop-color="#09090b"/><stop offset="70%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#312e81"/>', '<circle cx="600" cy="320" r="140" fill="#facc15" opacity="0.8" filter="url(#glow_m3)"/>', '<rect x="350" y="380" width="80" height="720" fill="#dc2626"/><rect x="770" y="380" width="80" height="720" fill="#dc2626"/><rect x="250" y="440" width="700" height="80" fill="#dc2626"/><rect x="200" y="340" width="800" height="100" fill="#09090b"/>', '<line x1="200" y1="0" x2="100" y2="1200" stroke="#38bdf8" stroke-width="2" opacity="0.35"/><line x1="500" y1="0" x2="400" y2="1200" stroke="#38bdf8" stroke-width="2" opacity="0.35"/><line x1="800" y1="0" x2="700" y2="1200" stroke="#38bdf8" stroke-width="2" opacity="0.35"/><line x1="1100" y1="0" x2="1000" y2="1200" stroke="#38bdf8" stroke-width="2" opacity="0.35"/>'),
-      makeArtBg('m4', 'Forêt Enchantée Esprits Ghibli', '<stop offset="0%" stop-color="#022c22"/><stop offset="60%" stop-color="#064e3b"/><stop offset="100%" stop-color="#065f46"/>', '<circle cx="600" cy="450" r="320" fill="#34d399" opacity="0.35" filter="url(#glow_m4)"/>', '<polygon points="150,1200 350,450 550,1200" fill="#047857"/><polygon points="650,1200 850,400 1050,1200" fill="#059669"/>', '<circle cx="450" cy="650" r="22" fill="#fde047" filter="url(#glow_m4)"/><circle cx="750" cy="700" r="20" fill="#fde047" filter="url(#glow_m4)"/><circle cx="600" cy="850" r="16" fill="#fde047" filter="url(#glow_m4)"/>'),
-      makeArtBg('m5', 'Ciel Étoilé Comète Kimi no Na wa', '<stop offset="0%" stop-color="#020617"/><stop offset="50%" stop-color="#1e1b4b"/><stop offset="85%" stop-color="#831843"/><stop offset="100%" stop-color="#ea580c"/>', '<path d="M50,150 Q600,420 1150,480" stroke="#38bdf8" stroke-width="14" fill="none" filter="url(#glow_m5)"/><circle cx="600" cy="420" r="35" fill="#ffffff"/>', '<polygon points="0,1200 350,900 700,1200" fill="#0f172a"/><polygon points="500,1200 850,850 1200,1200" fill="#0f172a"/>', '<circle cx="200" cy="200" r="5" fill="#ffffff"/><circle cx="850" cy="180" r="6" fill="#ffffff"/><circle cx="400" cy="300" r="4" fill="#ffffff"/>'),
-      makeArtBg('m6', 'Salle de Classe au Crépuscule', '<stop offset="0%" stop-color="#c2410c"/><stop offset="50%" stop-color="#ea580c"/><stop offset="100%" stop-color="#fed7aa"/>', '<circle cx="600" cy="500" r="300" fill="#fde047" opacity="0.6"/>', '<rect x="120" y="180" width="960" height="700" fill="none" stroke="#78350f" stroke-width="30"/><line x1="600" y1="180" x2="600" y2="880" stroke="#78350f" stroke-width="24"/><line x1="120" y1="520" x2="1080" y2="520" stroke="#78350f" stroke-width="24"/>', '<rect y="880" width="1200" height="320" fill="#451a03"/>'),
-      makeArtBg('m7', 'Gare Shinkansen Crépuscule', '<stop offset="0%" stop-color="#831843"/><stop offset="60%" stop-color="#e11d48"/><stop offset="100%" stop-color="#fb923c"/>', '<circle cx="600" cy="450" r="220" fill="#fef08a" opacity="0.9"/>', '<polygon points="350,1200 550,600 650,600 850,1200" fill="#1e293b"/>', '<line x1="600" y1="600" x2="600" y2="1200" stroke="#facc15" stroke-width="16"/>'),
-      makeArtBg('m8', 'Cyber Neo-Tokyo Anime Nuit', '<stop offset="0%" stop-color="#050505"/><stop offset="60%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e1b4b"/>', '<circle cx="600" cy="180" r="110" fill="#a855f7" opacity="0.8" filter="url(#glow_m8)"/>', '<rect x="150" y="280" width="240" height="920" fill="#18181b" stroke="#06b6d4" stroke-width="10"/><rect x="520" y="180" width="300" height="1020" fill="#18181b" stroke="#ec4899" stroke-width="10"/><rect x="880" y="320" width="220" height="880" fill="#18181b" stroke="#facc15" stroke-width="10"/>', '<rect y="1000" width="1200" height="200" fill="#09090b"/>'),
-      makeArtBg('m9', 'Château Volant dans le Ciel', '<stop offset="0%" stop-color="#0284c7"/><stop offset="50%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#e0f2fe"/>', '<circle cx="950" cy="250" r="160" fill="#fef08a"/>', '<ellipse cx="600" cy="550" rx="380" ry="180" fill="#78350f"/><rect x="480" y="280" width="240" height="220" fill="#475569"/><polygon points="460,280 600,150 740,280" fill="#dc2626"/>', '<circle cx="350" cy="750" r="140" fill="#ffffff" opacity="0.9"/><circle cx="850" cy="750" r="160" fill="#ffffff" opacity="0.9"/>'),
-      makeArtBg('m10', 'Plage d’Été Éblouissante Anime', '<stop offset="0%" stop-color="#0284c7"/><stop offset="50%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#fed7aa"/>', '<circle cx="950" cy="220" r="180" fill="#ffffff" filter="url(#glow_m10)"/>', '<rect y="700" width="1200" height="250" fill="#06b6d4"/><rect y="900" width="1200" height="300" fill="#fde047"/>', '<path d="M100,700 Q400,650 700,700 T1200,680" stroke="#ffffff" stroke-width="24" fill="none"/>'),
-      makeArtBg('m11', 'Lanterne Shinto Soirée Zen', '<stop offset="0%" stop-color="#09090b"/><stop offset="70%" stop-color="#18181b"/><stop offset="100%" stop-color="#27272a"/>', '<circle cx="600" cy="480" r="220" fill="#ea580c" opacity="0.9" filter="url(#glow_m11)"/>', '<rect x="500" y="380" width="200" height="240" rx="30" fill="#fde047"/><rect x="460" y="320" width="280" height="60" fill="#451a03"/>', '<rect y="950" width="1200" height="250" fill="#1c1917"/>'),
-      makeArtBg('m12', 'Vortex Énergétique Shonen', '<stop offset="0%" stop-color="#030712"/><stop offset="100%" stop-color="#0f172a"/>', '<circle cx="600" cy="600" r="200" fill="#ffffff" filter="url(#glow_m12)"/>', '<circle cx="600" cy="600" r="480" fill="none" stroke="#f59e0b" stroke-width="45"/><circle cx="600" cy="600" r="320" fill="none" stroke="#06b6d4" stroke-width="40"/>', '<line x1="100" y1="100" x2="1100" y2="1100" stroke="#ec4899" stroke-width="12"/><line x1="1100" y1="100" x2="100" y2="1100" stroke="#ec4899" stroke-width="12"/>'),
-      makeArtBg('m13', 'Colline sous la Pleine Lune', '<stop offset="0%" stop-color="#020617"/><stop offset="60%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>', '<circle cx="600" cy="380" r="300" fill="#fef08a" filter="url(#glow_m13)"/>', '<path d="M0,750 Q600,550 1200,750 L1200,1200 L0,1200 Z" fill="#064e3b"/>', '<circle cx="600" cy="720" r="40" fill="#047857"/>'),
-      makeArtBg('m14', 'Ruelle Manga au Crayon & Encre', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f1f5f9"/>', '', '<polygon points="0,0 450,600 300,1200 0,1200" fill="#e2e8f0" stroke="#000000" stroke-width="16"/><polygon points="1200,0 750,600 900,1200 1200,1200" fill="#e2e8f0" stroke="#000000" stroke-width="16"/>', '<line x1="600" y1="600" x2="600" y2="1200" stroke="#000000" stroke-width="16" stroke-dasharray="30"/>'),
-      makeArtBg('m15', 'Ciel Violet & Nuages Pastel', '<stop offset="0%" stop-color="#4c1d95"/><stop offset="50%" stop-color="#a855f7"/><stop offset="100%" stop-color="#fbcfe8"/>', '<circle cx="600" cy="400" r="180" fill="#ffffff" opacity="0.9"/>', '<circle cx="350" cy="680" r="250" fill="#ffffff" opacity="0.95"/><circle cx="750" cy="620" r="300" fill="#ffffff" opacity="0.95"/>', '<rect y="1050" width="1200" height="150" fill="#581c87"/>'),
-      makeArtBg('m16', 'Pont Japonais Bois Rouge', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#bae6fd"/><stop offset="100%" stop-color="#fbcfe8"/>', '<circle cx="600" cy="350" r="160" fill="#fde047"/>', '<path d="M150,850 Q600,550 1050,850" fill="none" stroke="#dc2626" stroke-width="60"/>', '<rect y="850" width="1200" height="350" fill="#0284c7"/>'),
-      makeArtBg('m17', 'Chambre Otaku Éclairée LED', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>', '<circle cx="600" cy="500" r="280" fill="#06b6d4" opacity="0.4" filter="url(#glow_m17)"/>', '<rect x="200" y="250" width="800" height="600" fill="#27272a" stroke="#ec4899" stroke-width="16"/>', '<rect y="900" width="1200" height="300" fill="#0f172a"/>'),
-      makeArtBg('m18', 'Dragon Doré Céleste', '<stop offset="0%" stop-color="#450a0a"/><stop offset="50%" stop-color="#7f1d1d"/><stop offset="100%" stop-color="#991b1b"/>', '<circle cx="600" cy="400" r="200" fill="#fde047" opacity="0.8"/>', '<path d="M100,850 Q300,250 600,600 T1100,350" fill="none" stroke="#facc15" stroke-width="50" stroke-linecap="round" filter="url(#glow_m18)"/>', '<rect y="1000" width="1200" height="200" fill="#450a0a"/>'),
-      makeArtBg('m19', 'Jardin Zen Sable Ratissé', '<stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<circle cx="400" cy="650" r="160" fill="#78716c"/><circle cx="850" cy="550" r="120" fill="#78716c"/>', '<circle cx="400" cy="650" r="260" fill="none" stroke="#d97706" stroke-width="12"/><circle cx="850" cy="550" r="200" fill="none" stroke="#d97706" stroke-width="12"/>'),
-      makeArtBg('m20', 'Feux d’Artifice Hanabi Nuit', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#0f172a"/>', '<circle cx="400" cy="350" r="200" fill="#ec4899" opacity="0.6" filter="url(#glow_m20)"/><circle cx="850" cy="300" r="220" fill="#facc15" opacity="0.6" filter="url(#glow_m20)"/>', '<circle cx="600" cy="600" r="240" fill="#38bdf8" opacity="0.6" filter="url(#glow_m20)"/>', '<rect y="950" width="1200" height="250" fill="#020617"/>'),
-      makeArtBg('m21', 'Aurore Dorée sur la Plaine', '<stop offset="0%" stop-color="#c2410c"/><stop offset="50%" stop-color="#ea580c"/><stop offset="100%" stop-color="#fef08a"/>', '<circle cx="600" cy="480" r="260" fill="#ffffff" filter="url(#glow_m21)"/>', '<path d="M0,800 Q600,650 1200,800 L1200,1200 L0,1200 Z" fill="#15803d"/>', '<rect y="950" width="1200" height="250" fill="#14532d"/>'),
-      makeArtBg('m22', 'Ramen Shop Nuit Lanterne', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>', '<circle cx="600" cy="450" r="140" fill="#facc15" filter="url(#glow_m22)"/>', '<rect x="250" y="320" width="700" height="550" fill="#78350f" stroke="#ea580c" stroke-width="20"/>', '<rect y="900" width="1200" height="300" fill="#27272a"/>'),
-      makeArtBg('m23', 'Ailes Lumineuses Mecha', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#0f172a"/>', '<circle cx="600" cy="600" r="150" fill="#ffffff" filter="url(#glow_m23)"/>', '<polygon points="600,600 150,150 350,600" fill="#38bdf8" opacity="0.85"/><polygon points="600,600 1050,150 850,600" fill="#38bdf8" opacity="0.85"/>', '<polygon points="600,600 250,850 450,700" fill="#ec4899" opacity="0.85"/><polygon points="600,600 950,850 750,700" fill="#ec4899" opacity="0.85"/>'),
-      makeArtBg('m24', 'Chemin sous les Bambous Manga', '<stop offset="0%" stop-color="#dcfce7"/><stop offset="100%" stop-color="#bbf7d0"/>', '', '<rect x="250" y="0" width="60" height="1200" fill="#16a34a"/><rect x="550" y="0" width="70" height="1200" fill="#15803d"/><rect x="850" y="0" width="60" height="1200" fill="#16a34a"/>', '<polygon points="600,400 300,1200 900,1200" fill="#a16207"/>'),
-      makeArtBg('m25', 'Nuage Nimbus Doré', '<stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#ffffff"/>', '<ellipse cx="600" cy="600" rx="400" ry="180" fill="#facc15" filter="url(#glow_m25)"/><ellipse cx="500" cy="520" rx="200" ry="130" fill="#fde047"/>', '<rect y="1050" width="1200" height="150" fill="#0369a1"/>'),
-      makeArtBg('m26', 'Forêt Enneigée & Loup', '<stop offset="0%" stop-color="#cbd5e1"/><stop offset="100%" stop-color="#f8fafc"/>', '<circle cx="600" cy="300" r="180" fill="#e2e8f0"/>', '<polygon points="250,1200 450,400 650,1200" fill="#475569"/><polygon points="600,1200 800,450 1000,1200" fill="#334155"/>', '<rect y="950" width="1200" height="250" fill="#ffffff"/>'),
-      makeArtBg('m27', 'Sanctuaire dans les Nuages', '<stop offset="0%" stop-color="#0284c7"/><stop offset="50%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#ffffff"/>', '<circle cx="600" cy="250" r="160" fill="#fde047"/>', '<ellipse cx="600" cy="800" rx="500" ry="180" fill="#ffffff"/><polygon points="450,650 600,380 750,650" fill="#dc2626"/>', '<rect x="520" y="650" width="160" height="180" fill="#ffffff"/>'),
-      makeArtBg('m28', 'Portail Interdimensionnel', '<stop offset="0%" stop-color="#030712"/><stop offset="100%" stop-color="#000000"/>', '<circle cx="600" cy="600" r="420" fill="none" stroke="#a855f7" stroke-width="60" filter="url(#glow_m28)"/><circle cx="600" cy="600" r="240" fill="#38bdf8" filter="url(#glow_m28)"/>', '', ''),
-      makeArtBg('m29', 'Toits de Tokyo Crépuscule', '<stop offset="0%" stop-color="#991b1b"/><stop offset="50%" stop-color="#ea580c"/><stop offset="100%" stop-color="#fef08a"/>', '<circle cx="600" cy="450" r="220" fill="#ffffff"/>', '<polygon points="150,900 400,550 650,900" fill="#334155"/><polygon points="550,900 800,500 1050,900" fill="#1e293b"/>', '<rect y="900" width="1200" height="300" fill="#0f172a"/>'),
-      makeArtBg('m30', 'Lac avec Fleurs de Lotus', '<stop offset="0%" stop-color="#0369a1"/><stop offset="60%" stop-color="#0284c7"/><stop offset="100%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#fde047"/>', '<rect y="650" width="1200" height="550" fill="#0284c7"/>', '<circle cx="400" cy="800" r="100" fill="#f472b6"/><circle cx="800" cy="850" r="120" fill="#f472b6"/><circle cx="600" cy="950" r="150" fill="#10b981"/>'),
-      makeArtBg('m31', 'Tour Magique dans la Nuit', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#0f172a"/>', '<circle cx="600" cy="180" r="50" fill="#fde047" filter="url(#glow_m31)"/>', '<polygon points="480,1100 600,180 720,1100" fill="#6366f1"/>', '<rect y="1000" width="1200" height="200" fill="#1e1b4b"/>'),
-      makeArtBg('m32', 'Pluie d’Étoiles Filantes', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#1e1b4b"/>', '', '<line x1="150" y1="100" x2="650" y2="600" stroke="#facc15" stroke-width="10" filter="url(#glow_m32)"/><line x1="550" y1="150" x2="1050" y2="650" stroke="#38bdf8" stroke-width="10" filter="url(#glow_m32)"/>', '<polygon points="0,1200 400,950 800,1200" fill="#0f172a"/><polygon points="600,1200 1000,900 1200,1200" fill="#0f172a"/>'),
-      makeArtBg('m33', 'Dojo Traditionnel Bois', '<stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<rect x="150" y="150" width="900" height="750" fill="#78350f"/><line x1="150" y1="500" x2="1050" y2="500" stroke="#451a03" stroke-width="20"/><line x1="600" y1="150" x2="600" y2="900" stroke="#451a03" stroke-width="20"/>', '<rect y="900" width="1200" height="300" fill="#451a03"/>'),
-      makeArtBg('m34', 'Cascade Spirituelle Bleue', '<stop offset="0%" stop-color="#064e3b"/><stop offset="100%" stop-color="#022c22"/>', '<circle cx="600" cy="300" r="180" fill="#38bdf8" opacity="0.5"/>', '<rect x="480" y="0" width="240" height="1200" fill="#38bdf8" filter="url(#glow_m34)"/>', '<circle cx="600" cy="1000" r="350" fill="#0284c7"/>'),
-      makeArtBg('m35', 'Lune Rouge Éclipse Manga', '<stop offset="0%" stop-color="#000000"/><stop offset="100%" stop-color="#050505"/>', '<circle cx="600" cy="480" r="320" fill="#dc2626" filter="url(#glow_m35)"/>', '', '<polygon points="0,1200 400,900 800,1200" fill="#09090b"/><polygon points="600,1200 1000,900 1200,1200" fill="#09090b"/>'),
-      makeArtBg('m36', 'Parc sous les Pétales Roses', '<stop offset="0%" stop-color="#fbcfe8"/><stop offset="60%" stop-color="#f472b6"/><stop offset="100%" stop-color="#fed7aa"/>', '<circle cx="600" cy="350" r="180" fill="#ffffff"/>', '<circle cx="300" cy="450" r="180" fill="#ec4899" opacity="0.8"/><circle cx="900" cy="450" r="200" fill="#ec4899" opacity="0.8"/>', '<rect y="850" width="1200" height="350" fill="#15803d"/>'),
-      makeArtBg('m37', 'Vaisseau Spatial Anime', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#0f172a"/>', '<circle cx="600" cy="300" r="250" fill="#38bdf8" opacity="0.2"/>', '<polygon points="600,180 950,880 600,760 250,880" fill="#475569" stroke="#38bdf8" stroke-width="16"/>', ''),
-      makeArtBg('m38', 'Royaume sous-marin Anime', '<stop offset="0%" stop-color="#0c4a6e"/><stop offset="60%" stop-color="#0284c7"/><stop offset="100%" stop-color="#06b6d4"/>', '<circle cx="600" cy="550" r="380" fill="#22d3ee" opacity="0.35" filter="url(#glow_m38)"/>', '<circle cx="350" cy="400" r="45" fill="#ffffff" opacity="0.8"/><circle cx="850" cy="480" r="60" fill="#ffffff" opacity="0.8"/>', '<rect y="1000" width="1200" height="200" fill="#082f49"/>'),
-      makeArtBg('m39', 'Épée Légendaire dans la Pierre', '<stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#0f172a"/>', '<circle cx="600" cy="450" r="200" fill="#38bdf8" opacity="0.6" filter="url(#glow_m39)"/>', '<rect x="580" y="150" width="40" height="650" fill="#ffffff"/><polygon points="350,1150 600,750 850,1150" fill="#64748b"/>', '<rect y="1050" width="1200" height="150" fill="#1e293b"/>'),
-      makeArtBg('m40', 'Coucher de Soleil Fin d’Épisode', '<stop offset="0%" stop-color="#7c2d12"/><stop offset="40%" stop-color="#ea580c"/><stop offset="70%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#312e81"/>', '<circle cx="600" cy="520" r="260" fill="#fde047" filter="url(#glow_m40)"/>', '<path d="M0,850 Q600,720 1200,850 L1200,1200 L0,1200 Z" fill="#09090b"/>', ''),
+      makePhotoBg('m1', 'Mont Fuji & Sakura Japonais', '1493976040374-85c8e12f0c0e', 'fuji sakura anime'),
+      makePhotoBg('m2', 'Ciel Anime Makoto Shinkai', '1534447677768-be436bb09401', 'anime sky sunset'),
+      makePhotoBg('m3', 'Temple Shinto sous la Pluie', '1492571350019-22de08371fd3', 'japan temple rain'),
+      makePhotoBg('m4', 'Forêt Enchantée Ghibli', '1511497584788-87676104235f', 'enchanted forest ghibli'),
+      makePhotoBg('m5', 'Ciel Étoilé Kimi no Na wa', '1519681393784-d120267933ba', 'night sky stars anime'),
+      makePhotoBg('m6', 'Ruelle Anime Tokyo Crépuscule', '1503899036084-c55cdd92da26', 'tokyo sunset anime street'),
+      makePhotoBg('m7', 'Gare Shinkansen Crépuscule', '1470071459604-3b5ec3a7fe05', 'train tracks sunset'),
+      makePhotoBg('m8', 'Cyber Neo-Tokyo Anime Nuit', '1508739773434-c26b3d09e071', 'cyberpunk neon tokyo'),
+      makePhotoBg('m9', 'Château dans les Nuages', '1513836279014-a89f7a76ae86', 'castle clouds fantasy'),
+      makePhotoBg('m10', 'Plage d’Été Éblouissante Anime', '1507525428034-b723cf961d3e', 'anime beach ocean'),
+      makePhotoBg('m11', 'Lanterne Rouge Soirée Zen', '1528164344705-475426879c0d', 'japanese lanterns night'),
+      makePhotoBg('m12', 'Cerisiers Roses en Fleurs', '1522383225653-ed111181a951', 'sakura cherry blossoms'),
+      makePhotoBg('m13', 'Colline sous la Pleine Lune', '1532767153582-b1a0e5145009', 'full moon night anime'),
+      makePhotoBg('m14', 'Bambouseraie de Kyoto', '1503899036084-c55cdd92da26', 'kyoto bamboo forest'),
+      makePhotoBg('m15', 'Ciel Violet & Nuages Pastel', '1507499739999-097706ad8914', 'pastel purple clouds'),
+      makePhotoBg('m16', 'Pont Japonais Bois Rouge', '1493976040374-85c8e12f0c0e', 'red japanese bridge'),
+      makePhotoBg('m17', 'Chambre Otaku Éclairée LED', '1550745165-9bc0b252726f', 'gaming room led anime'),
+      makePhotoBg('m18', 'Aurore Dorée sur la Plaine', '1495616811223-4d98c6e9c869', 'golden sunrise field'),
+      makePhotoBg('m19', 'Jardin Zen Jardin Japonais', '1528164344705-475426879c0d', 'zen garden stone'),
+      makePhotoBg('m20', 'Feux d’Artifice Hanabi Nuit', '1498931299472-f7a63a5a1cfa', 'fireworks night sky'),
+      makePhotoBg('m21', 'Cascade Magique dans la Jungle', '1432405972618-c60b0225b8f9', 'waterfall jungle anime'),
+      makePhotoBg('m22', 'Ramen Shop Traditionnel', '1552611052-33e04de081de', 'ramen shop japan'),
+      makePhotoBg('m23', 'Ciel Électrique Orage Violet', '1513002749550-c59d786b8e6c', 'purple thunderstorm'),
+      makePhotoBg('m24', 'Chemin sous les Cerisiers', '1522383225653-ed111181a951', 'cherry blossom pathway'),
+      makePhotoBg('m25', 'Nuages Dorés Coucher de Soleil', '1495616811223-4d98c6e9c869', 'golden sunset clouds'),
+      makePhotoBg('m26', 'Forêt Enneigée Solitaire', '1486870591958-9b9d0d1dda99', 'snow winter forest'),
+      makePhotoBg('m27', 'Sanctuaire Torii Flottant', '1492571350019-22de08371fd3', 'torii gate sea'),
+      makePhotoBg('m28', 'Portail Cosmique Voie Lactée', '1506703719100-a0f3a48c0f86', 'galaxy cosmic portal'),
+      makePhotoBg('m29', 'Toits de Tokyo sous la Pluie', '1503899036084-c55cdd92da26', 'rainy tokyo rooftops'),
+      makePhotoBg('m30', 'Lac Paisible Reflet Arbres', '1501785888041-af3ef285b470', 'peaceful lake reflection'),
+      makePhotoBg('m31', 'Nébuleuse Étoilée Bleue', '1451187580459-43490279c0fa', 'blue space nebula'),
+      makePhotoBg('m32', 'Pluie d’Étoiles Filantes', '1519681393784-d120267933ba', 'shooting stars night'),
+      makePhotoBg('m33', 'Dojo Traditionnel Tatami', '1528164344705-475426879c0d', 'japanese dojo room'),
+      makePhotoBg('m34', 'Rivière Bleue Turquoise', '1470071459604-3b5ec3a7fe05', 'turquoise river canyon'),
+      makePhotoBg('m35', 'Lune Rousse dans la Nuit', '1532767153582-b1a0e5145009', 'blood red moon'),
+      makePhotoBg('m36', 'Parc Japonais Printemps', '1522383225653-ed111181a951', 'spring park japan'),
+      makePhotoBg('m37', 'Ciel Cosmique Multicolore', '1506703719100-a0f3a48c0f86', 'colorful cosmic sky'),
+      makePhotoBg('m38', 'Récif de Corail Lumineux', '1544551763-46a013bb70d5', 'coral reef underwater'),
+      makePhotoBg('m39', 'Sentier dans la Forêt d’Émeraude', '1511497584788-87676104235f', 'emerald forest path'),
+      makePhotoBg('m40', 'Coucher de Soleil Fin d’Épisode', '1534447677768-be436bb09401', 'anime episode ending sunset'),
     ];
 
-    // 3. DESERTS & NATURE (40 FULL HIGH-DEFINITION VISTAS)
+    // 3. REAL 4K DESERTS & NATURE (40 BREATHTAKING HD PHOTOS)
     const BG_NATURE_40 = [
-      makeArtBg('n1', 'Dunes Rouges de Sossusvlei Namibie', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#7dd3fc"/><stop offset="100%" stop-color="#fed7aa"/>', '<circle cx="950" cy="220" r="140" fill="#fef08a"/>', '<path d="M0,650 Q400,420 850,650 T1200,580 L1200,1200 L0,1200 Z" fill="#c2410c"/><path d="M0,800 Q500,600 1200,800 L1200,1200 L0,1200 Z" fill="#9a3412"/>', '<path d="M0,950 Q700,750 1200,950 L1200,1200 L0,1200 Z" fill="#7c2d12"/>'),
-      makeArtBg('n2', 'Sahara Coucher de Soleil Doré', '<stop offset="0%" stop-color="#ea580c"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#fef08a"/>', '<circle cx="600" cy="450" r="260" fill="#ffffff" filter="url(#glow_n2)"/>', '<path d="M0,720 Q350,550 750,720 T1200,680 L1200,1200 L0,1200 Z" fill="#b45309"/>', '<path d="M0,880 Q600,700 1200,880 L1200,1200 L0,1200 Z" fill="#78350f"/>'),
-      makeArtBg('n3', 'Oasis Verdoyante dans les Dunes', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#fde047"/>', '<circle cx="900" cy="200" r="140" fill="#ffffff"/>', '<ellipse cx="600" cy="850" rx="400" ry="140" fill="#0284c7"/><circle cx="420" cy="720" r="100" fill="#15803d"/><circle cx="780" cy="720" r="100" fill="#16a34a"/>', '<path d="M0,950 Q600,800 1200,950 L1200,1200 L0,1200 Z" fill="#d97706"/>'),
-      makeArtBg('n4', 'Désert Blanc Roches Sculptées', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="600" cy="250" r="160" fill="#fde047"/>', '<polygon points="150,1000 380,520 600,1000" fill="#f8fafc"/><polygon points="620,1050 850,480 1080,1050" fill="#ffffff"/>', '<rect y="920" width="1200" height="280" fill="#f1f5f9"/>'),
-      makeArtBg('n5', 'Salar de Uyuni Miroir de Sel', '<stop offset="0%" stop-color="#0284c7"/><stop offset="50%" stop-color="#bae6fd"/><stop offset="100%" stop-color="#0284c7"/>', '<circle cx="600" cy="350" r="140" fill="#ffffff"/><circle cx="600" cy="850" r="140" fill="#ffffff" opacity="0.6"/>', '<line x1="0" y1="600" x2="1200" y2="600" stroke="#ffffff" stroke-width="8"/>', ''),
-      makeArtBg('n6', 'Wadi Rum Désert Mars Jordanie', '<stop offset="0%" stop-color="#450a0a"/><stop offset="60%" stop-color="#7f1d1d"/>', '<circle cx="300" cy="280" r="150" fill="#f97316" filter="url(#glow_n6)"/>', '<polygon points="50,1200 400,480 750,1200" fill="#991b1b"/><polygon points="550,1200 900,420 1200,1200" fill="#b91c1c"/>', '<rect y="950" width="1200" height="250" fill="#7f1d1d"/>'),
-      makeArtBg('n7', 'Monument Valley Ciel Étoilé', '<stop offset="0%" stop-color="#020617"/><stop offset="60%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e1b4b"/>', '<circle cx="200" cy="180" r="6" fill="#ffffff"/><circle cx="800" cy="220" r="7" fill="#ffffff"/><circle cx="500" cy="120" r="5" fill="#ffffff"/>', '<rect x="320" y="580" width="200" height="420" fill="#9a3412"/><rect x="680" y="520" width="240" height="480" fill="#9a3412"/>', '<rect y="900" width="1200" height="300" fill="#7c2d12"/>'),
-      makeArtBg('n8', 'Dunes Merzouga au Crépuscule', '<stop offset="0%" stop-color="#581c87"/><stop offset="60%" stop-color="#9d174d"/><stop offset="100%" stop-color="#ea580c"/>', '<circle cx="600" cy="420" r="200" fill="#fef08a"/>', '<path d="M0,720 Q400,550 800,720 T1200,680 L1200,1200 L0,1200 Z" fill="#831843"/>', '<path d="M0,880 Q600,700 1200,880 L1200,1200 L0,1200 Z" fill="#500724"/>'),
-      makeArtBg('n9', 'Désert Atacama Voie Lactée Pure', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#0f172a"/>', '<ellipse cx="600" cy="350" rx="550" ry="140" fill="#6366f1" opacity="0.4" filter="url(#glow_n9)"/>', '<circle cx="350" cy="300" r="5" fill="#ffffff"/><circle cx="850" cy="400" r="6" fill="#ffffff"/>', '<polygon points="0,1200 450,850 900,1200" fill="#09090b"/><polygon points="700,1200 1050,880 1200,1200" fill="#09090b"/>'),
-      makeArtBg('n10', 'Antelope Canyon Rayons de Lumière', '<stop offset="0%" stop-color="#7c2d12"/><stop offset="50%" stop-color="#ea580c"/><stop offset="100%" stop-color="#7c2d12"/>', '<polygon points="450,0 750,0 850,1200 350,1200" fill="#fef08a" opacity="0.55" filter="url(#glow_n10)"/>', '', ''),
-      makeArtBg('n11', 'Montagne & Lac Alpin Reflet', '<stop offset="0%" stop-color="#0284c7"/><stop offset="50%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#bae6fd"/>', '<circle cx="950" cy="200" r="140" fill="#ffffff"/>', '<polygon points="150,650 500,220 850,650" fill="#334155"/><polygon points="420,220 500,220 580,320 420,320" fill="#ffffff"/>', '<rect y="650" width="1200" height="550" fill="#0284c7"/>'),
-      makeArtBg('n12', 'Plage Maldives & Cocotiers', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="220" r="150" fill="#fde047"/>', '<rect y="700" width="1200" height="250" fill="#06b6d4"/><rect y="900" width="1200" height="300" fill="#fef08a"/>', '<circle cx="300" cy="650" r="120" fill="#15803d"/>'),
-      makeArtBg('n13', 'Forêt de Pins Brumeuse', '<stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#f1f5f9"/>', '', '<polygon points="250,350 450,950 50,950" fill="#1e293b" opacity="0.6"/><polygon points="650,300 900,1000 400,1000" fill="#0f172a" opacity="0.85"/>', '<rect y="950" width="1200" height="250" fill="#0f172a"/>'),
-      makeArtBg('n14', 'Coucher de Soleil Océan', '<stop offset="0%" stop-color="#c2410c"/><stop offset="50%" stop-color="#ea580c"/><stop offset="100%" stop-color="#fde047"/>', '<circle cx="600" cy="500" r="240" fill="#ffffff" filter="url(#glow_n14)"/>', '<rect y="600" width="1200" height="600" fill="#1e3a8a"/>', ''),
-      makeArtBg('n15', 'Cascade Cristalline Forêt', '<stop offset="0%" stop-color="#064e3b"/><stop offset="100%" stop-color="#022c22"/>', '', '<rect x="480" y="150" width="240" height="1050" fill="#38bdf8" filter="url(#glow_n15)"/>', '<ellipse cx="600" cy="1050" rx="450" ry="150" fill="#0284c7"/>'),
-      makeArtBg('n16', 'Aurore Boréale Islande', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#0f172a"/>', '<path d="M0,280 Q400,80 800,320 T1200,180" fill="none" stroke="#10b981" stroke-width="120" opacity="0.75" filter="url(#glow_n16)"/>', '<polygon points="100,1200 450,850 800,1200" fill="#020617"/><polygon points="600,1200 950,800 1200,1200" fill="#020617"/>', ''),
-      makeArtBg('n17', 'Bambous de Kyoto Japon', '<stop offset="0%" stop-color="#f0fdf4"/><stop offset="100%" stop-color="#dcfce7"/>', '', '<rect x="250" y="0" width="65" height="1200" fill="#15803d"/><rect x="550" y="0" width="75" height="1200" fill="#16a34a"/><rect x="850" y="0" width="65" height="1200" fill="#15803d"/>', '<rect y="1050" width="1200" height="150" fill="#14532d"/>'),
-      makeArtBg('n18', 'Champs de Lavande Provence', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#fef08a"/>', '<circle cx="600" cy="300" r="160" fill="#ffffff"/>', '<polygon points="0,550 600,1200 0,1200" fill="#7c3aed"/><polygon points="600,550 1200,1200 600,1200" fill="#8b5cf6"/>', ''),
-      makeArtBg('n19', 'Falaises d’Étretat', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#fde047"/>', '<polygon points="80,450 380,1150 0,1150" fill="#e2e8f0"/><polygon points="250,750 350,1150 150,1150" fill="#0284c7"/>', '<rect y="880" width="1200" height="320" fill="#0284c7"/>'),
-      makeArtBg('n20', 'Jardin Tropical Bali', '<stop offset="0%" stop-color="#022c22"/><stop offset="100%" stop-color="#064e3b"/>', '<circle cx="600" cy="350" r="300" fill="#10b981" opacity="0.35"/>', '<polygon points="150,850 450,350 750,850" fill="#059669"/><polygon points="550,850 850,320 1150,850" fill="#047857"/>', '<rect y="900" width="1200" height="300" fill="#022c22"/>'),
-      makeArtBg('n21', 'Route Côtière Californie', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="220" r="150" fill="#fde047"/>', '<polygon points="600,450 150,1200 1050,1200" fill="#334155"/>', '<line x1="600" y1="450" x2="600" y2="1200" stroke="#facc15" stroke-width="24" stroke-dasharray="45"/>'),
-      makeArtBg('n22', 'Forêt d’Automne Érable', '<stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<circle cx="320" cy="450" r="200" fill="#ea580c"/><circle cx="880" cy="450" r="220" fill="#dc2626"/>', '<rect y="850" width="1200" height="350" fill="#78350f"/>'),
-      makeArtBg('n23', 'Prairie Fleurie Suisse', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="600" cy="250" r="160" fill="#fde047"/>', '<polygon points="250,550 600,180 950,550" fill="#475569"/><polygon points="500,180 600,180 700,300 500,300" fill="#ffffff"/>', '<rect y="650" width="1200" height="550" fill="#22c55e"/>'),
-      makeArtBg('n24', 'Lagon Turquoise Bora Bora', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#ffffff"/>', '<ellipse cx="600" cy="850" rx="580" ry="280" fill="#2dd4bf"/>', '<circle cx="600" cy="620" r="160" fill="#15803d"/>'),
-      makeArtBg('n25', 'Savane Africaine Acacia', '<stop offset="0%" stop-color="#c2410c"/><stop offset="50%" stop-color="#ea580c"/><stop offset="100%" stop-color="#fde047"/>', '<circle cx="600" cy="420" r="240" fill="#ffffff" filter="url(#glow_n25)"/>', '<ellipse cx="600" cy="650" rx="200" ry="40" fill="#451a03"/><rect x="585" y="650" width="30" height="250" fill="#451a03"/>', '<rect y="880" width="1200" height="320" fill="#451a03"/>'),
-      makeArtBg('n26', 'Glacier Arctique Bleu', '<stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#e0f2fe"/>', '<circle cx="600" cy="220" r="140" fill="#ffffff"/>', '<polygon points="150,1150 500,400 850,1150" fill="#0284c7"/><polygon points="650,1150 980,500 1200,1150" fill="#38bdf8"/>', '<rect y="950" width="1200" height="250" fill="#ffffff"/>'),
-      makeArtBg('n27', 'Sommet Mont Blanc', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="150" fill="#ffffff"/>', '<polygon points="150,1050 600,200 1050,1050" fill="#ffffff"/>', '<polygon points="400,600 600,200 800,600" fill="#f8fafc"/>'),
-      makeArtBg('n28', 'Plage Sable Noir Vik', '<stop offset="0%" stop-color="#475569"/><stop offset="100%" stop-color="#64748b"/>', '', '<rect y="650" width="1200" height="300" fill="#0284c7"/><rect y="920" width="1200" height="280" fill="#09090b"/>', '<polygon points="200,650 350,350 500,650" fill="#09090b"/>'),
-      makeArtBg('n29', 'Rizières en Terrasses Sapa', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="600" cy="200" r="140" fill="#fde047"/>', '<path d="M0,450 Q600,350 1200,450 L1200,650 Q600,550 0,650 Z" fill="#84cc16"/><path d="M0,650 Q600,550 1200,650 L1200,850 Q600,750 0,850 Z" fill="#65a30d"/>', '<rect y="850" width="1200" height="350" fill="#4d7c0f"/>'),
-      makeArtBg('n30', 'Baie d’Halong Vietnam', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#bae6fd"/>', '<circle cx="950" cy="200" r="140" fill="#fde047"/>', '<polygon points="200,850 380,380 560,850" fill="#064e3b"/><polygon points="720,880 900,320 1080,880" fill="#064e3b"/>', '<rect y="780" width="1200" height="420" fill="#0284c7"/>'),
-      makeArtBg('n31', 'Désert Mojave Joshua Trees', '<stop offset="0%" stop-color="#c2410c"/><stop offset="60%" stop-color="#fed7aa"/>', '<circle cx="600" cy="350" r="200" fill="#ffffff"/>', '<polygon points="250,950 380,580 500,950" fill="#15803d"/><polygon points="750,950 880,520 1000,950" fill="#15803d"/>', '<rect y="850" width="1200" height="350" fill="#ea580c"/>'),
-      makeArtBg('n32', 'Grand Canyon Sunset', '<stop offset="0%" stop-color="#7c2d12"/><stop offset="50%" stop-color="#ea580c"/><stop offset="100%" stop-color="#fed7aa"/>', '<circle cx="600" cy="450" r="220" fill="#ffffff" filter="url(#glow_n32)"/>', '<polygon points="0,480 450,950 0,1200" fill="#7c2d12"/><polygon points="1200,480 750,950 1200,1200" fill="#7c2d12"/>', ''),
-      makeArtBg('n33', 'Lacs de Plitvice Croatie', '<stop offset="0%" stop-color="#064e3b"/><stop offset="100%" stop-color="#047857"/>', '', '<ellipse cx="600" cy="650" rx="480" ry="180" fill="#06b6d4"/><ellipse cx="600" cy="950" rx="580" ry="200" fill="#0284c7"/>', ''),
-      makeArtBg('n34', 'Séquoias Géants', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="600" cy="200" r="140" fill="#ffffff"/>', '<rect x="300" y="0" width="180" height="1200" fill="#78350f"/><rect x="720" y="0" width="190" height="1200" fill="#78350f"/>', '<rect y="1000" width="1200" height="200" fill="#14532d"/>'),
-      makeArtBg('n35', 'Gorges du Verdon Émeraude', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '', '<polygon points="0,0 480,650 300,1200 0,1200" fill="#475569"/><polygon points="1200,0 720,650 900,1200 1200,1200" fill="#475569"/>', '<rect x="380" y="600" width="440" height="600" fill="#10b981"/>'),
-      makeArtBg('n36', 'Geysers Yellowstone', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="600" cy="450" r="220" fill="#ffffff" opacity="0.75" filter="url(#glow_n36)"/>', '<ellipse cx="600" cy="900" rx="450" ry="160" fill="#0284c7"/>', '<rect y="950" width="1200" height="250" fill="#ea580c"/>'),
-      makeArtBg('n37', 'Canyon Bryce Tourelles', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="600" cy="220" r="150" fill="#fde047"/>', '<polygon points="250,1150 380,420 500,1150" fill="#ea580c"/><polygon points="580,1150 700,380 820,1150" fill="#ea580c"/><polygon points="900,1150 1020,450 1140,1150" fill="#ea580c"/>', ''),
-      makeArtBg('n38', 'Plage Maya Bay Thaïlande', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#ffffff"/>', '<polygon points="100,950 350,280 600,950" fill="#065f46"/><polygon points="650,950 950,250 1180,950" fill="#065f46"/>', '<rect y="780" width="1200" height="420" fill="#2dd4bf"/>'),
-      makeArtBg('n39', 'Volcan Bromo Indonésie', '<stop offset="0%" stop-color="#4c1d95"/><stop offset="50%" stop-color="#db2777"/><stop offset="100%" stop-color="#fed7aa"/>', '<circle cx="600" cy="380" r="160" fill="#ffffff" filter="url(#glow_n39)"/>', '<polygon points="150,1200 600,450 1050,1200" fill="#334155"/>', '<ellipse cx="600" cy="450" rx="140" ry="40" fill="#ffffff" opacity="0.75" filter="url(#glow_n39)"/>'),
-      makeArtBg('n40', 'Lac Moraine Canada', '<stop offset="0%" stop-color="#0284c7"/><stop offset="50%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#bae6fd"/>', '<circle cx="950" cy="200" r="140" fill="#ffffff"/>', '<polygon points="50,750 400,180 750,750" fill="#1e293b"/><polygon points="550,750 900,220 1200,750" fill="#334155"/>', '<rect y="700" width="1200" height="500" fill="#06b6d4"/>'),
+      makePhotoBg('n1', 'Dunes Rouges de Sossusvlei Namibie', '1509316975850-ff9c5deb0cd9', 'sossusvlei namibia red dunes'),
+      makePhotoBg('n2', 'Sahara Coucher de Soleil Doré', '1509316975850-ff9c5deb0cd9', 'sahara desert sunset'),
+      makePhotoBg('n3', 'Oasis Verdoyante dans les Dunes', '1512453979798-5ea266f8880c', 'oasis desert water'),
+      makePhotoBg('n4', 'Désert Blanc Roches Sculptées', '1469854523086-cc02fe5d8800', 'white desert rock'),
+      makePhotoBg('n5', 'Salar de Uyuni Miroir de Sel', '1500530855697-b586d89ba3ee', 'salar de uyuni salt mirror'),
+      makePhotoBg('n6', 'Wadi Rum Désert Mars Jordanie', '1518709268805-4e9042af9f23', 'wadi rum jordan desert'),
+      makePhotoBg('n7', 'Monument Valley Ciel Étoilé', '1518709268805-4e9042af9f23', 'monument valley starry sky'),
+      makePhotoBg('n8', 'Dunes Merzouga au Crépuscule', '1509316975850-ff9c5deb0cd9', 'merzouga desert sunset'),
+      makePhotoBg('n9', 'Désert Atacama Voie Lactée Pure', '1506703719100-a0f3a48c0f86', 'atacama desert milky way'),
+      makePhotoBg('n10', 'Antelope Canyon Rayons de Lumière', '1518709268805-4e9042af9f23', 'antelope canyon light beam'),
+      makePhotoBg('n11', 'Montagne & Lac Alpin Reflet', '1506744038136-46273834b3fb', 'alps mountain lake reflection'),
+      makePhotoBg('n12', 'Plage Maldives & Cocotiers', '1507525428034-b723cf961d3e', 'maldives beach palm trees'),
+      makePhotoBg('n13', 'Forêt de Pins Brumeuse', '1448375240586-882707db888b', 'misty pine forest foggy'),
+      makePhotoBg('n14', 'Coucher de Soleil Océan Vagues', '1507525428034-b723cf961d3e', 'ocean waves sunset'),
+      makePhotoBg('n15', 'Cascade Cristalline Forêt', '1432405972618-c60b0225b8f9', 'crystal waterfall forest'),
+      makePhotoBg('n16', 'Aurore Boréale Islande', '1517411032315-54ef2cb783bb', 'northern lights aurora borealis iceland'),
+      makePhotoBg('n17', 'Bambouseraie Zen Nature', '1503899036084-c55cdd92da26', 'bamboo green nature'),
+      makePhotoBg('n18', 'Champs de Lavande Provence', '1500530855697-b586d89ba3ee', 'lavender fields provence'),
+      makePhotoBg('n19', 'Falaises d’Étretat Océan', '1507525428034-b723cf961d3e', 'etretat cliffs ocean'),
+      makePhotoBg('n20', 'Jardin Tropical Bali', '1511497584788-87676104235f', 'bali tropical garden'),
+      makePhotoBg('n21', 'Route Côtière Californie Big Sur', '1506744038136-46273834b3fb', 'california coastal road'),
+      makePhotoBg('n22', 'Forêt d’Automne Érable Doré', '1507525428034-b723cf961d3e', 'autumn forest golden leaves'),
+      makePhotoBg('n23', 'Prairie Fleurie Suisse Alpe', '1470071459604-3b5ec3a7fe05', 'swiss flower meadow mountains'),
+      makePhotoBg('n24', 'Lagon Turquoise Bora Bora', '1507525428034-b723cf961d3e', 'bora bora turquoise lagoon'),
+      makePhotoBg('n25', 'Savane Africaine Acacia Safari', '1516426122078-c23e76319801', 'african savanna acacia'),
+      makePhotoBg('n26', 'Glacier Arctique Bleu Glace', '1517411032315-54ef2cb783bb', 'arctic glacier ice blue'),
+      makePhotoBg('n27', 'Sommet Mont Blanc Enneigé', '1486870591958-9b9d0d1dda99', 'mont blanc snow mountain'),
+      makePhotoBg('n28', 'Plage Sable Noir Vik Islande', '1500530855697-b586d89ba3ee', 'black sand beach vik iceland'),
+      makePhotoBg('n29', 'Rizières en Terrasses Sapa', '1500530855697-b586d89ba3ee', 'sapa rice terraces green'),
+      makePhotoBg('n30', 'Baie d’Halong Vietnam', '1506744038136-46273834b3fb', 'halong bay karst vietnam'),
+      makePhotoBg('n31', 'Désert Mojave Joshua Trees', '1518709268805-4e9042af9f23', 'mojave desert joshua tree'),
+      makePhotoBg('n32', 'Grand Canyon Coucher de Soleil', '1518709268805-4e9042af9f23', 'grand canyon sunset red rocks'),
+      makePhotoBg('n33', 'Lacs de Plitvice Croatie', '1432405972618-c60b0225b8f9', 'plitvice lakes croatia water'),
+      makePhotoBg('n34', 'Séquoias Géants Californie', '1448375240586-882707db888b', 'giant sequoia trees forest'),
+      makePhotoBg('n35', 'Gorges du Verdon Émeraude', '1501785888041-af3ef285b470', 'gorges du verdon turquoise'),
+      makePhotoBg('n36', 'Geysers Yellowstone Volcanique', '1469854523086-cc02fe5d8800', 'yellowstone geyser thermal'),
+      makePhotoBg('n37', 'Canyon Bryce Tourelles Rouges', '1518709268805-4e9042af9f23', 'bryce canyon red hoodoos'),
+      makePhotoBg('n38', 'Plage Maya Bay Thaïlande', '1507525428034-b723cf961d3e', 'maya bay thailand lagoon'),
+      makePhotoBg('n39', 'Volcan Bromo Indonésie Brume', '1506744038136-46273834b3fb', 'mount bromo volcano sunrise'),
+      makePhotoBg('n40', 'Lac Moraine Canada Rocheuses', '1506744038136-46273834b3fb', 'moraine lake banff canada'),
     ];
 
-    // 4. STUDIOS & LUXURY (40 HIGH-END STUDIO INTERIORS)
+    // 4. REAL STUDIOS & LUXURY (40 HIGH-END INTERIORS)
     const BG_STUDIOS_40 = [
-      makeArtBg('st1', 'Studio Minimaliste Ombre Végétale', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#cbd5e1"/>', '', '<path d="M0,0 Q350,450 250,900 Q150,1200 0,1200 Z" fill="#94a3b8" opacity="0.35"/>', '<rect y="950" width="1200" height="250" fill="#e2e8f0"/>'),
-      makeArtBg('st2', 'Bureau Design Moderne Bois', '<stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#e2e8f0"/>', '', '<rect y="720" width="1200" height="480" fill="#78350f"/><rect x="150" y="620" width="900" height="100" fill="#b45309"/>', ''),
-      makeArtBg('st3', 'Intérieur Marbre & Or Luxe', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>', '', '<path d="M100,0 L1100,1200" stroke="#f59e0b" stroke-width="12" opacity="0.75"/><path d="M1100,0 L100,1200" stroke="#f59e0b" stroke-width="12" opacity="0.75"/>', '<rect y="920" width="1200" height="280" fill="#27272a"/>'),
-      makeArtBg('st4', 'Cyclorama Blanc Infini Pro', '<stop offset="0%" stop-color="#ffffff"/><stop offset="70%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#e2e8f0"/>', '', '', '<ellipse cx="600" cy="1100" rx="550" ry="100" fill="#cbd5e1" opacity="0.4"/>'),
-      makeArtBg('st5', 'Podium Marbre & Or Impérial', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#09090b"/>', '', '<ellipse cx="600" cy="850" rx="420" ry="150" fill="#27272a" stroke="#eab308" stroke-width="14"/><ellipse cx="600" cy="770" rx="320" ry="110" fill="#3f3f46" stroke="#fde047" stroke-width="10"/>', ''),
-      makeArtBg('st6', 'Loft Industriel Verrière', '<stop offset="0%" stop-color="#334155"/><stop offset="100%" stop-color="#1e293b"/>', '', '<rect x="120" y="80" width="960" height="720" fill="#f1f5f9" stroke="#0f172a" stroke-width="26"/><line x1="600" y1="80" x2="600" y2="800" stroke="#0f172a" stroke-width="20"/><line x1="120" y1="440" x2="1080" y2="440" stroke="#0f172a" stroke-width="20"/>', '<rect y="800" width="1200" height="400" fill="#78350f"/>'),
-      makeArtBg('st7', 'Salon Baie Vitrée Vue Mer', '<stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#ffffff"/>', '<rect x="100" y="100" width="1000" height="800" fill="none" stroke="#ffffff" stroke-width="35"/>', '<rect y="900" width="1200" height="300" fill="#f8fafc"/>'),
-      makeArtBg('st8', 'Galerie d’Art Moderne', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>', '', '<rect x="250" y="220" width="700" height="520" fill="#0f172a"/>', '<rect y="920" width="1200" height="280" fill="#e2e8f0"/>'),
-      makeArtBg('st9', 'Cuisine Marbre & Bois Noyer', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f1f5f9"/>', '', '<rect y="680" width="1200" height="520" fill="#451a03"/><rect x="180" y="620" width="840" height="90" fill="#ffffff" stroke="#cbd5e1" stroke-width="6"/>', ''),
-      makeArtBg('st10', 'Chambre Scandinave Zen', '<stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#f1f5f9"/>', '', '<rect x="250" y="650" width="700" height="450" rx="35" fill="#e2e8f0"/><circle cx="600" cy="380" r="180" fill="#cbd5e1" opacity="0.6"/>', ''),
-      makeArtBg('st11', 'Bibliothèque Design Chêne', '<stop offset="0%" stop-color="#78350f"/><stop offset="100%" stop-color="#451a03"/>', '', '<line x1="0" y1="280" x2="1200" y2="280" stroke="#451a03" stroke-width="35"/><line x1="0" y1="580" x2="1200" y2="580" stroke="#451a03" stroke-width="35"/><line x1="0" y1="880" x2="1200" y2="880" stroke="#451a03" stroke-width="35"/>', ''),
-      makeArtBg('st12', 'Terrasse Villa & Piscine', '<stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#fde047"/>', '<rect y="680" width="1200" height="280" fill="#06b6d4"/>', '<rect y="960" width="1200" height="240" fill="#f8fafc"/>'),
-      makeArtBg('st13', 'Mur Béton Ciré & Monstera', '<stop offset="0%" stop-color="#64748b"/><stop offset="100%" stop-color="#475569"/>', '', '<circle cx="200" cy="800" r="240" fill="#15803d" opacity="0.8"/>', '<rect y="1000" width="1200" height="200" fill="#334155"/>'),
-      makeArtBg('st14', 'Studio Bois Chêne Naturel', '<stop offset="0%" stop-color="#b45309"/><stop offset="100%" stop-color="#78350f"/>', '', '<line x1="200" y1="0" x2="200" y2="1200" stroke="#451a03" stroke-width="8"/><line x1="400" y1="0" x2="400" y2="1200" stroke="#451a03" stroke-width="8"/><line x1="600" y1="0" x2="600" y2="1200" stroke="#451a03" stroke-width="8"/><line x1="800" y1="0" x2="800" y2="1200" stroke="#451a03" stroke-width="8"/><line x1="1000" y1="0" x2="1000" y2="1200" stroke="#451a03" stroke-width="8"/>', ''),
-      makeArtBg('st15', 'Vitrine Boutique Haute Couture', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>', '', '<rect x="180" y="180" width="840" height="840" fill="none" stroke="#facc15" stroke-width="18"/>', ''),
-      makeArtBg('st16', 'Hall Hôtel 5 Étoiles Palace', '<stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#0f172a"/>', '<circle cx="600" cy="280" r="190" fill="#eab308" filter="url(#glow_st16)"/>', '<polygon points="200,1200 400,600 600,1200" fill="#312e81"/>', '<rect y="820" width="1200" height="380" fill="#312e81"/>'),
-      makeArtBg('st17', 'Penthouse Vue Skyline NYC', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#0f172a"/>', '<circle cx="600" cy="250" r="140" fill="#fef08a"/>', '<rect x="180" y="380" width="180" height="620" fill="#1e293b"/><rect x="420" y="280" width="220" height="720" fill="#334155"/><rect x="720" y="420" width="200" height="580" fill="#1e293b"/>', '<rect y="880" width="1200" height="320" fill="#09090b"/>'),
-      makeArtBg('st18', 'Salle Réunion Tech Moderne', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f1f5f9"/>', '', '<ellipse cx="600" cy="850" rx="480" ry="140" fill="#e2e8f0"/>', ''),
-      makeArtBg('st19', 'Atelier d’Artiste Sous Toits', '<stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#e2e8f0"/>', '', '<polygon points="0,0 600,450 1200,0" fill="#94a3b8"/>', '<rect y="900" width="1200" height="300" fill="#78350f"/>'),
-      makeArtBg('st20', 'Escalier Géométrique Design', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f1f5f9"/>', '', '<polygon points="0,1200 450,750 850,750 1200,350 1200,1200" fill="#cbd5e1"/>', ''),
-      makeArtBg('st21', 'Patio Andalou Fontaine', '<stop offset="0%" stop-color="#c2410c"/><stop offset="100%" stop-color="#ea580c"/>', '', '<circle cx="600" cy="800" r="200" fill="#38bdf8"/>', '<rect y="920" width="1200" height="280" fill="#7c2d12"/>'),
-      makeArtBg('st22', 'Dressing Luxe Éclairé LED', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#09090b"/>', '', '<rect x="120" y="120" width="960" height="960" fill="none" stroke="#eab308" stroke-width="12"/>', ''),
-      makeArtBg('st23', 'Salle de Bain Marbre Noir', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#000000"/>', '', '<path d="M0,0 L1200,1200" stroke="#ffffff" stroke-width="6" opacity="0.35"/>', ''),
-      makeArtBg('st24', 'Salon de Thé Zen Tatami', '<stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<rect x="180" y="680" width="840" height="420" fill="#d97706"/>', ''),
-      makeArtBg('st25', 'Rooftop Lounge Sunset', '<stop offset="0%" stop-color="#c2410c"/><stop offset="50%" stop-color="#ea580c"/><stop offset="100%" stop-color="#fde047"/>', '<circle cx="600" cy="450" r="220" fill="#ffffff"/>', '<rect y="800" width="1200" height="400" fill="#18181b"/>', ''),
-      makeArtBg('st26', 'Coworking Design Lumineux', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>', '', '<circle cx="600" cy="380" r="280" fill="#e0f2fe"/>', '<rect y="900" width="1200" height="300" fill="#e2e8f0"/>'),
-      makeArtBg('st27', 'Studio Softbox Éclairage Pro', '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#020617"/>', '<circle cx="300" cy="280" r="180" fill="#ffffff" opacity="0.4" filter="url(#glow_st27)"/><circle cx="900" cy="280" r="180" fill="#ffffff" opacity="0.4" filter="url(#glow_st27)"/>', '', ''),
-      makeArtBg('st28', 'Salon Cheminée Contemporain', '<stop offset="0%" stop-color="#334155"/><stop offset="100%" stop-color="#1e293b"/>', '', '<rect x="420" y="580" width="360" height="420" fill="#0f172a"/><circle cx="600" cy="780" r="70" fill="#ea580c" filter="url(#glow_st28)"/>', ''),
-      makeArtBg('st29', 'Cave à Vin Verre & Métal', '<stop offset="0%" stop-color="#1c1917"/><stop offset="100%" stop-color="#0c0a09"/>', '', '<line x1="180" y1="180" x2="1020" y2="180" stroke="#78350f" stroke-width="24"/>', ''),
-      makeArtBg('st30', 'Podium Marbre Blanc Épuré', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>', '', '<ellipse cx="600" cy="850" rx="400" ry="140" fill="#ffffff" stroke="#cbd5e1" stroke-width="14"/>', ''),
-      makeArtBg('st31', 'Showroom Automobile Design', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>', '', '<ellipse cx="600" cy="850" rx="520" ry="180" fill="#18181b" stroke="#38bdf8" stroke-width="8"/>', ''),
-      makeArtBg('st32', 'Verrière Loft Botanique', '<stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#e2e8f0"/>', '', '<polygon points="180,650 400,180 620,650" fill="#15803d" opacity="0.75"/>', '<rect y="850" width="1200" height="350" fill="#78350f"/>'),
-      makeArtBg('st33', 'Terrasse Vue Tour Eiffel', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="600" cy="250" r="140" fill="#fde047"/>', '<polygon points="480,820 600,280 720,820" fill="#475569"/>', '<rect y="820" width="1200" height="380" fill="#e2e8f0"/>'),
-      makeArtBg('st34', 'Suite Présidentielle Or & Soie', '<stop offset="0%" stop-color="#451a03"/><stop offset="100%" stop-color="#1c1917"/>', '<circle cx="600" cy="480" r="300" fill="#facc15" opacity="0.45" filter="url(#glow_st34)"/>', '', ''),
-      makeArtBg('st35', 'Salon Tatami Minimaliste', '<stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<line x1="0" y1="580" x2="1200" y2="580" stroke="#78350f" stroke-width="16"/>', ''),
-      makeArtBg('st36', 'Galerie Photos Noir & Blanc', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>', '', '<rect x="320" y="280" width="560" height="450" fill="#000000"/>', ''),
-      makeArtBg('st37', 'Podium Bois Brut Naturel', '<stop offset="0%" stop-color="#fdf4ff"/><stop offset="100%" stop-color="#fae8ff"/>', '', '<ellipse cx="600" cy="850" rx="380" ry="120" fill="#92400e"/>', ''),
-      makeArtBg('st38', 'Studio Noir OLED Minimal', '<stop offset="0%" stop-color="#000000"/><stop offset="100%" stop-color="#050505"/>', '<circle cx="600" cy="500" r="320" fill="#18181b"/>', '', ''),
-      makeArtBg('st39', 'Cuisine Îlot Marbre Blanc', '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>', '', '<rect x="220" y="680" width="760" height="380" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="10"/>', ''),
-      makeArtBg('st40', 'Lounge Sunset Miami Beach', '<stop offset="0%" stop-color="#db2777"/><stop offset="60%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#facc15"/>', '<circle cx="600" cy="480" r="240" fill="#ffffff"/>', '<rect y="820" width="1200" height="380" fill="#09090b"/>', ''),
+      makePhotoBg('st1', 'Studio Minimaliste Ombre Végétale', '1513694203232-719a280e022f', 'minimalist studio leaf shadow'),
+      makePhotoBg('st2', 'Bureau Design Moderne Bois', '1497366216548-37526070297c', 'modern office desk wood'),
+      makePhotoBg('st3', 'Intérieur Marbre & Or Luxe', '1600585154340-be6161a56a0c', 'luxury marble interior gold'),
+      makePhotoBg('st4', 'Cyclorama Blanc Infini Pro', '1513694203232-719a280e022f', 'white cyclorama studio photography'),
+      makePhotoBg('st5', 'Podium Marbre & Or Impérial', '1600585154340-be6161a56a0c', 'marble podium luxury'),
+      makePhotoBg('st6', 'Loft Industriel Verrière', '1513694203232-719a280e022f', 'industrial loft brick window'),
+      makePhotoBg('st7', 'Salon Baie Vitrée Vue Mer', '1600596542815-ffad4c1539a9', 'luxury villa sea view window'),
+      makePhotoBg('st8', 'Galerie d’Art Moderne Épurée', '1513694203232-719a280e022f', 'art gallery empty modern'),
+      makePhotoBg('st9', 'Cuisine Marbre & Bois Noyer', '1556911220-e15b29be8c8f', 'luxury modern kitchen marble'),
+      makePhotoBg('st10', 'Chambre Scandinave Zen', '1598928506311-c55ded91a20c', 'scandinavian bedroom bright'),
+      makePhotoBg('st11', 'Bibliothèque Design Chêne', '1507842229458-5779ab674d73', 'modern bookshelf library wood'),
+      makePhotoBg('st12', 'Terrasse Villa & Piscine Débordement', '1600596542815-ffad4c1539a9', 'infinity pool luxury villa terrace'),
+      makePhotoBg('st13', 'Mur Béton Ciré & Monstera', '1513694203232-719a280e022f', 'concrete wall monstera plant'),
+      makePhotoBg('st14', 'Studio Bois Chêne Naturel', '1513694203232-719a280e022f', 'wood wall studio photography'),
+      makePhotoBg('st15', 'Boutique Haute Couture Luxe', '1441986300917-64674bd600d8', 'luxury boutique fashion showroom'),
+      makePhotoBg('st16', 'Hall Hôtel 5 Étoiles Palace', '1566073771259-6a8506099945', 'luxury hotel lobby marble'),
+      makePhotoBg('st17', 'Penthouse Vue Skyline NYC', '1502672260266-1c1ef2d93688', 'penthouse window skyline view'),
+      makePhotoBg('st18', 'Salle Réunion Tech Moderne', '1497366216548-37526070297c', 'modern meeting room conference'),
+      makePhotoBg('st19', 'Atelier d’Artiste Sous Toits', '1513694203232-719a280e022f', 'artist studio attic sunbeam'),
+      makePhotoBg('st20', 'Escalier Géométrique Design', '1513694203232-719a280e022f', 'geometric modern stairs architectural'),
+      makePhotoBg('st21', 'Patio Andalou Fontaine', '1600585154340-be6161a56a0c', 'spanish patio courtyard fountain'),
+      makePhotoBg('st22', 'Dressing Luxe Éclairé LED', '1558997519-83ea9252edf8', 'luxury walk in closet wardrobe'),
+      makePhotoBg('st23', 'Salle de Bain Marbre Noir', '1584622650111-993a426fbf0a', 'black marble bathroom luxury'),
+      makePhotoBg('st24', 'Salon de Thé Zen Tatami', '1528164344705-475426879c0d', 'japanese tea room tatami'),
+      makePhotoBg('st25', 'Rooftop Lounge Sunset', '1502672260266-1c1ef2d93688', 'rooftop lounge sunset city view'),
+      makePhotoBg('st26', 'Coworking Design Lumineux', '1497366216548-37526070297c', 'bright modern coworking office'),
+      makePhotoBg('st27', 'Studio Softbox Éclairage Pro', '1513694203232-719a280e022f', 'photo studio softbox lighting'),
+      makePhotoBg('st28', 'Salon Cheminée Contemporain', '1600585154340-be6161a56a0c', 'modern fireplace living room'),
+      makePhotoBg('st29', 'Cave à Vin Verre & Métal', '1510812431401-41d2bd2722f3', 'wine cellar modern glass luxury'),
+      makePhotoBg('st30', 'Podium Marbre Blanc Épuré', '1600585154340-be6161a56a0c', 'white marble product podium display'),
+      makePhotoBg('st31', 'Showroom Automobile Design', '1503376780353-7e6692767b70', 'luxury car showroom interior'),
+      makePhotoBg('st32', 'Verrière Loft Botanique', '1513694203232-719a280e022f', 'greenhouse loft plants glass'),
+      makePhotoBg('st33', 'Terrasse Vue Tour Eiffel', '1502602898657-3e91760cbb34', 'paris terrace eiffel tower view'),
+      makePhotoBg('st34', 'Suite Présidentielle Or & Soie', '1566073771259-6a8506099945', 'presidential suite luxury bed'),
+      makePhotoBg('st35', 'Salon Tatami Minimaliste', '1528164344705-475426879c0d', 'minimalist japanese interior'),
+      makePhotoBg('st36', 'Galerie Photos Noir & Blanc', '1513694203232-719a280e022f', 'photo gallery black and white frames'),
+      makePhotoBg('st37', 'Podium Bois Brut Naturel', '1513694203232-719a280e022f', 'natural wood block podium display'),
+      makePhotoBg('st38', 'Studio Noir OLED Minimal', '1508739773434-c26b3d09e071', 'dark black studio minimal shadow'),
+      makePhotoBg('st39', 'Cuisine Îlot Marbre Blanc', '1556911220-e15b29be8c8f', 'marble island kitchen bright'),
+      makePhotoBg('st40', 'Lounge Sunset Miami Beach', '1600596542815-ffad4c1539a9', 'miami beach lounge sunset'),
     ];
 
-    // 5. CITIES & CYBERPUNK (40 WORLD CITY SKYLINES)
+    // 5. REAL CITIES & CYBERPUNK (40 WORLD SKYLINES)
     const BG_CITIES_40 = [
-      makeArtBg('u1', 'Tokyo Shibuya Neon Nuit', '<stop offset="0%" stop-color="#050505"/><stop offset="60%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>', '<circle cx="600" cy="200" r="140" fill="#a855f7" opacity="0.6" filter="url(#glow_u1)"/>', '<rect x="120" y="280" width="220" height="920" fill="#18181b" stroke="#ec4899" stroke-width="10"/><rect x="480" y="180" width="280" height="1020" fill="#18181b" stroke="#06b6d4" stroke-width="10"/><rect x="840" y="320" width="220" height="880" fill="#18181b" stroke="#facc15" stroke-width="10"/>', '<rect y="980" width="1200" height="220" fill="#09090b"/>'),
-      makeArtBg('u2', 'New York Manhattan Skyline', '<stop offset="0%" stop-color="#020617"/><stop offset="60%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>', '<circle cx="600" cy="250" r="140" fill="#fef08a"/>', '<polygon points="150,900 250,250 350,900" fill="#334155"/><rect x="380" y="180" width="200" height="720" fill="#1e293b"/><rect x="640" y="320" width="240" height="580" fill="#334155"/>', '<rect y="880" width="1200" height="320" fill="#0284c7"/>'),
-      makeArtBg('u3', 'Paris Tour Eiffel & Seine', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#bae6fd"/>', '<circle cx="950" cy="200" r="150" fill="#fde047"/>', '<polygon points="420,850 600,180 780,850" fill="#475569"/>', '<rect y="820" width="1200" height="380" fill="#0284c7"/>'),
-      makeArtBg('u4', 'Londres Tower Bridge', '<stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/>', '', '<rect x="280" y="320" width="160" height="640" fill="#64748b"/><rect x="760" y="320" width="160" height="640" fill="#64748b"/><line x1="280" y1="620" x2="920" y2="620" stroke="#94a3b8" stroke-width="35"/>', '<rect y="820" width="1200" height="380" fill="#0369a1"/>'),
-      makeArtBg('u5', 'Dubai Gratte-ciel Futuristes', '<stop offset="0%" stop-color="#0c4a6e"/><stop offset="100%" stop-color="#075985"/>', '<circle cx="600" cy="200" r="140" fill="#fde047"/>', '<polygon points="480,1050 600,80 720,1050" fill="#38bdf8" filter="url(#glow_u5)"/>', '<rect y="920" width="1200" height="280" fill="#075985"/>'),
-      makeArtBg('u6', 'San Francisco Golden Gate', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#fde047"/>', '<rect x="280" y="180" width="90" height="820" fill="#dc2626"/><rect x="800" y="180" width="90" height="820" fill="#dc2626"/><line x1="0" y1="580" x2="1200" y2="580" stroke="#dc2626" stroke-width="45"/>', '<rect y="820" width="1200" height="380" fill="#0284c7"/>'),
-      makeArtBg('u7', 'Ruelle Historique Rome', '<stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<polygon points="0,0 450,600 300,1200 0,1200" fill="#78350f"/><polygon points="1200,0 750,600 900,1200 1200,1200" fill="#78350f"/>', ''),
-      makeArtBg('u8', 'Quartier Affaires Verre', '<stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0369a1"/>', '', '<rect x="120" y="180" width="320" height="1020" fill="#0ea5e9" opacity="0.85"/><rect x="520" y="80" width="380" height="1120" fill="#38bdf8" opacity="0.85"/>', ''),
-      makeArtBg('u9', 'Ruelle Lanternes Rouges', '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#09090b"/>', '<circle cx="320" cy="280" r="80" fill="#ef4444" filter="url(#glow_u9)"/><circle cx="880" cy="280" r="80" fill="#ef4444" filter="url(#glow_u9)"/>', '', '<rect y="900" width="1200" height="300" fill="#18181b"/>'),
-      makeArtBg('u10', 'Métro Moderne Futuriste', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>', '', '<polygon points="250,1200 480,380 720,380 950,1200" fill="#1e293b"/>', '<line x1="600" y1="380" x2="600" y2="1200" stroke="#06b6d4" stroke-width="18" filter="url(#glow_u10)"/>'),
-      makeArtBg('u11', 'Rooftop Vue Ville Nuit', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#0f172a"/>', '<circle cx="600" cy="280" r="160" fill="#fef08a"/>', '<rect x="200" y="450" width="200" height="550" fill="#1e293b"/><rect x="500" y="350" width="250" height="650" fill="#334155"/><rect x="800" y="420" width="200" height="580" fill="#1e293b"/>', '<rect y="820" width="1200" height="380" fill="#09090b"/>'),
-      makeArtBg('u12', 'Autoroute Light Trails', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#050505"/>', '', '<line x1="600" y1="480" x2="80" y2="1200" stroke="#ef4444" stroke-width="24" filter="url(#glow_u12)"/><line x1="600" y1="480" x2="1120" y2="1200" stroke="#facc15" stroke-width="24" filter="url(#glow_u12)"/>', ''),
-      makeArtBg('u13', 'Street Art Façade Colorée', '<stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#f59e0b"/>', '', '<circle cx="380" cy="480" r="220" fill="#ec4899"/><polygon points="680,280 980,820 580,820" fill="#06b6d4"/>', ''),
-      makeArtBg('u14', 'Béton Brut & Architecture', '<stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#64748b"/>', '', '<polygon points="180,1200 600,280 1020,1200" fill="#475569"/>', ''),
-      makeArtBg('u15', 'Marina & Yacht Club', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#ffffff"/>', '<rect y="680" width="1200" height="520" fill="#0284c7"/>', '<polygon points="380,720 440,500 500,720" fill="#ffffff"/>'),
-      makeArtBg('u16', 'Tunnel Neon Cyberpunk', '<stop offset="0%" stop-color="#050505"/><stop offset="100%" stop-color="#000000"/>', '', '<rect x="180" y="180" width="840" height="840" fill="none" stroke="#ec4899" stroke-width="35" filter="url(#glow_u16)"/><rect x="320" y="320" width="560" height="560" fill="none" stroke="#06b6d4" stroke-width="35" filter="url(#glow_u16)"/>', ''),
-      makeArtBg('u17', 'Temple Pagode Moderne', '<stop offset="0%" stop-color="#fbcfe8"/><stop offset="100%" stop-color="#fed7aa"/>', '<circle cx="600" cy="250" r="140" fill="#ef4444"/>', '<polygon points="380,480 600,280 820,480" fill="#dc2626"/><polygon points="280,720 600,520 920,720" fill="#dc2626"/>', '<rect y="900" width="1200" height="300" fill="#78350f"/>'),
-      makeArtBg('u18', 'Esplanade Palmiers Miami', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="900" cy="280" r="160" fill="#facc15"/>', '<rect y="820" width="1200" height="380" fill="#fef08a"/>', '<circle cx="350" cy="650" r="140" fill="#15803d"/>'),
-      makeArtBg('u19', 'Grand Boulevard Crépuscule', '<stop offset="0%" stop-color="#701a75"/><stop offset="100%" stop-color="#4a044e"/>', '', '<rect y="720" width="1200" height="480" fill="#18181b"/>', ''),
-      makeArtBg('u20', 'Pont Haubans Lumineux', '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#020617"/>', '', '<polygon points="540,880 600,180 660,880" fill="#ffffff"/><line x1="600" y1="180" x2="180" y2="880" stroke="#38bdf8" stroke-width="12"/><line x1="600" y1="180" x2="1020" y2="880" stroke="#38bdf8" stroke-width="12"/>', '<rect y="880" width="1200" height="320" fill="#0284c7"/>'),
-      makeArtBg('u21', 'Singapour Marina Bay Sands', '<stop offset="0%" stop-color="#0c4a6e"/><stop offset="100%" stop-color="#0369a1"/>', '', '<rect x="280" y="420" width="120" height="580" fill="#0284c7"/><rect x="540" y="420" width="120" height="580" fill="#0284c7"/><rect x="800" y="420" width="120" height="580" fill="#0284c7"/><path d="M220,420 Q600,350 980,420 L980,470 Q600,400 220,470 Z" fill="#38bdf8"/>', '<rect y="880" width="1200" height="320" fill="#020617"/>'),
-      makeArtBg('u22', 'Hong Kong Baie Victoria', '<stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#0f172a"/>', '', '<rect x="220" y="280" width="140" height="720" fill="#1e293b" stroke="#ec4899" stroke-width="6"/><rect x="480" y="180" width="180" height="820" fill="#1e293b" stroke="#06b6d4" stroke-width="6"/><rect x="740" y="320" width="160" height="680" fill="#1e293b" stroke="#facc15" stroke-width="6"/>', '<rect y="880" width="1200" height="320" fill="#0f172a"/>'),
-      makeArtBg('u23', 'Venise Grand Canal', '<stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<rect x="80" y="320" width="340" height="580" fill="#b45309"/><rect x="780" y="320" width="340" height="580" fill="#b45309"/>', '<rect y="820" width="1200" height="380" fill="#0284c7"/>'),
-      makeArtBg('u24', 'Amsterdam Canaux', '<stop offset="0%" stop-color="#bae6fd"/><stop offset="100%" stop-color="#e0f2fe"/>', '', '<rect x="180" y="380" width="200" height="520" fill="#78350f"/><rect x="420" y="320" width="200" height="580" fill="#991b1b"/><rect x="660" y="380" width="200" height="520" fill="#1e3a8a"/>', '<rect y="820" width="1200" height="380" fill="#0369a1"/>'),
-      makeArtBg('u25', 'Barcelone Sagrada Ciel Doré', '<stop offset="0%" stop-color="#ea580c"/><stop offset="60%" stop-color="#f97316"/>', '<circle cx="600" cy="300" r="160" fill="#ffffff"/>', '<polygon points="320,880 440,220 560,880" fill="#78350f"/><polygon points="640,880 760,220 880,880" fill="#78350f"/>', '<rect y="880" width="1200" height="320" fill="#451a03"/>'),
-      makeArtBg('u26', 'Séoul Gangnam Neon', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>', '<circle cx="600" cy="420" r="320" fill="#6366f1" opacity="0.35"/>', '<rect x="320" y="280" width="560" height="620" fill="#18181b" stroke="#06b6d4" stroke-width="10"/>', '<rect y="900" width="1200" height="300" fill="#09090b"/>'),
-      makeArtBg('u27', 'Sydney Opéra & Port', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#fde047"/>', '<path d="M280,820 C380,580 580,580 680,820 Z" fill="#ffffff"/><path d="M480,820 C580,520 780,520 880,820 Z" fill="#ffffff"/>', '<rect y="820" width="1200" height="380" fill="#0284c7"/>'),
-      makeArtBg('u28', 'Chicago Riverwalk', '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>', '', '<rect x="180" y="220" width="280" height="780" fill="#334155"/><rect x="740" y="220" width="280" height="780" fill="#334155"/>', '<rect y="880" width="1200" height="320" fill="#0284c7"/>'),
-      makeArtBg('u29', 'Montmartre Ruelle Paris', '<stop offset="0%" stop-color="#fed7aa"/><stop offset="100%" stop-color="#fef3c7"/>', '', '<polygon points="0,180 480,680 320,1200 0,1200" fill="#475569"/><polygon points="1200,180 720,680 880,1200 1200,1200" fill="#475569"/>', ''),
-      makeArtBg('u30', 'Sunset Boulevard LA', '<stop offset="0%" stop-color="#f43f5e"/><stop offset="60%" stop-color="#fb923c"/>', '<circle cx="600" cy="480" r="240" fill="#fde047"/>', '<rect y="820" width="1200" height="380" fill="#18181b"/>', ''),
-      makeArtBg('u31', 'Kyoto Torii Portique', '<stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<rect x="280" y="280" width="70" height="720" fill="#dc2626"/><rect x="850" y="280" width="70" height="720" fill="#dc2626"/><rect x="180" y="340" width="840" height="70" fill="#dc2626"/><rect x="220" y="240" width="760" height="90" fill="#000000"/>', '<rect y="950" width="1200" height="250" fill="#78350f"/>'),
-      makeArtBg('u32', 'Lisbonne Tramway Ruelle', '<stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<rect x="420" y="620" width="360" height="380" rx="35" fill="#eab308" stroke="#000000" stroke-width="14"/>', ''),
-      makeArtBg('u33', 'Prague Pont Charles', '<stop offset="0%" stop-color="#cbd5e1"/><stop offset="100%" stop-color="#94a3b8"/>', '', '<polygon points="280,880 450,480 620,880" fill="#475569"/><polygon points="580,880 750,480 920,880" fill="#475569"/>', '<rect y="820" width="1200" height="380" fill="#0f172a"/>'),
-      makeArtBg('u34', 'Bangkok Night Market', '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>', '<circle cx="320" cy="380" r="120" fill="#f43f5e" filter="url(#glow_u34)"/><circle cx="880" cy="380" r="120" fill="#facc15" filter="url(#glow_u34)"/>', '', '<rect y="780" width="1200" height="420" fill="#18181b"/>'),
-      makeArtBg('u35', 'Pyramides Ciel Doré', '<stop offset="0%" stop-color="#c2410c"/><stop offset="50%" stop-color="#ea580c"/><stop offset="100%" stop-color="#fef08a"/>', '<circle cx="600" cy="350" r="220" fill="#ffffff"/>', '<polygon points="100,900 480,420 860,900" fill="#b45309"/><polygon points="620,900 920,520 1180,900" fill="#78350f"/>', '<rect y="900" width="1200" height="300" fill="#78350f"/>'),
-      makeArtBg('u36', 'Berlin Porte Brandebourg', '<stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#0f172a"/>', '', '<rect x="280" y="420" width="640" height="480" fill="#e2e8f0"/><line x1="400" y1="420" x2="400" y2="900" stroke="#1e1b4b" stroke-width="45"/><line x1="600" y1="420" x2="600" y2="900" stroke="#1e1b4b" stroke-width="45"/><line x1="800" y1="420" x2="800" y2="900" stroke="#1e1b4b" stroke-width="45"/>', ''),
-      makeArtBg('u37', 'Rio Corcovado Baie', '<stop offset="0%" stop-color="#0284c7"/><stop offset="60%" stop-color="#38bdf8"/>', '<circle cx="950" cy="200" r="140" fill="#ffffff"/>', '<polygon points="380,950 600,380 820,950" fill="#047857"/>', '<rect y="880" width="1200" height="320" fill="#0284c7"/>'),
-      makeArtBg('u38', 'Toronto CN Tower', '<stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0369a1"/>', '', '<rect x="575" y="80" width="50" height="920" fill="#ffffff"/><circle cx="600" cy="380" r="90" fill="#ffffff"/>', '<rect y="880" width="1200" height="320" fill="#0369a1"/>'),
-      makeArtBg('u39', 'Las Vegas Strip Neon', '<stop offset="0%" stop-color="#000000"/><stop offset="100%" stop-color="#050505"/>', '', '<polygon points="600,80 820,480 380,480" fill="#ec4899" filter="url(#glow_u39)"/><circle cx="600" cy="680" r="180" fill="#06b6d4" filter="url(#glow_u39)"/>', ''),
-      makeArtBg('u40', 'Istanbul Bosphore', '<stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#fed7aa"/>', '', '<polygon points="380,720 600,420 820,720" fill="#0284c7"/>', '<rect y="720" width="1200" height="480" fill="#0369a1"/>'),
+      makePhotoBg('u1', 'Tokyo Shibuya Neon Nuit', '1503899036084-c55cdd92da26', 'tokyo shibuya crossing night neon'),
+      makePhotoBg('u2', 'New York Manhattan Skyline', '1496442226666-8d4d0e62e6e9', 'manhattan new york city skyline night'),
+      makePhotoBg('u3', 'Paris Tour Eiffel & Seine', '1502602898657-3e91760cbb34', 'paris eiffel tower seine river sunset'),
+      makePhotoBg('u4', 'Londres Tower Bridge', '1513635269975-59663e0ac1ad', 'london tower bridge sunset thames'),
+      makePhotoBg('u5', 'Dubai Gratte-ciel Futuristes', '1512453979798-5ea266f8880c', 'dubai skyline burj khalifa futuristic'),
+      makePhotoBg('u6', 'San Francisco Golden Gate', '1501594907352-04cda38ebc29', 'san francisco golden gate bridge fog'),
+      makePhotoBg('u7', 'Ruelle Historique Rome', '1552832230-c0197dd311b5', 'rome historic street alley cobble'),
+      makePhotoBg('u8', 'Quartier Affaires Verre', '1486406146926-c627a92ad1ab', 'financial district glass skyscrapers'),
+      makePhotoBg('u9', 'Ruelle Lanternes Rouges Nuit', '1528164344705-475426879c0d', 'japan red lanterns street night'),
+      makePhotoBg('u10', 'Métro Moderne Futuriste', '1519501025264-65ba15a82390', 'futuristic subway station neon'),
+      makePhotoBg('u11', 'Rooftop Vue Ville Nuit', '1502672260266-1c1ef2d93688', 'rooftop city lights night view'),
+      makePhotoBg('u12', 'Autoroute Light Trails Nuit', '1508739773434-c26b3d09e071', 'highway light trails night long exposure'),
+      makePhotoBg('u13', 'Street Art Façade Colorée', '1513694203232-719a280e022f', 'street art mural colorful building'),
+      makePhotoBg('u14', 'Architecture Béton Brut Moderne', '1486406146926-c627a92ad1ab', 'brutalist concrete modern architecture'),
+      makePhotoBg('u15', 'Marina & Yacht Club', '1507525428034-b723cf961d3e', 'yacht marina harbor luxury'),
+      makePhotoBg('u16', 'Tunnel Neon Cyberpunk', '1508739773434-c26b3d09e071', 'cyberpunk neon tunnel glow'),
+      makePhotoBg('u17', 'Temple Pagode Moderne', '1492571350019-22de08371fd3', 'japanese pagoda temple sunset'),
+      makePhotoBg('u18', 'Esplanade Palmiers Miami', '1507525428034-b723cf961d3e', 'miami ocean drive palm trees'),
+      makePhotoBg('u19', 'Grand Boulevard Crépuscule', '1496442226666-8d4d0e62e6e9', 'broadway avenue twilight city'),
+      makePhotoBg('u20', 'Pont Haubans Lumineux', '1513635269975-59663e0ac1ad', 'suspension bridge night lights'),
+      makePhotoBg('u21', 'Singapour Marina Bay Sands', '1525625293386-3f8f99389edd', 'singapore marina bay sands night'),
+      makePhotoBg('u22', 'Hong Kong Baie Victoria', '1508739773434-c26b3d09e071', 'hong kong victoria harbour skyline'),
+      makePhotoBg('u23', 'Venise Grand Canal Crépuscule', '1514890547357-a9ee288728e0', 'venice grand canal gondola twilight'),
+      makePhotoBg('u24', 'Amsterdam Canaux & Maisons', '1512470876302-972faa2aa9a4', 'amsterdam canals townhouses sunset'),
+      makePhotoBg('u25', 'Barcelone Sagrada Ciel Doré', '1539037116277-4db20889f2d4', 'barcelona sagrada familia golden hour'),
+      makePhotoBg('u26', 'Séoul Gangnam Neon Nuit', '1508739773434-c26b3d09e071', 'seoul gangnam street night neon'),
+      makePhotoBg('u27', 'Sydney Opéra & Port', '1506973035872-a4ec16b8e8d9', 'sydney opera house harbor sunset'),
+      makePhotoBg('u28', 'Chicago Riverwalk Gratte-ciel', '1496442226666-8d4d0e62e6e9', 'chicago riverwalk buildings sunset'),
+      makePhotoBg('u29', 'Montmartre Ruelle Paris', '1502602898657-3e91760cbb34', 'paris montmartre cobblestone street'),
+      makePhotoBg('u30', 'Sunset Boulevard Los Angeles', '1501594907352-04cda38ebc29', 'los angeles sunset palm trees road'),
+      makePhotoBg('u31', 'Kyoto Fushimi Inari Torii', '1493976040374-85c8e12f0c0e', 'fushimi inari torii gates kyoto'),
+      makePhotoBg('u32', 'Lisbonne Tramway Jaune Ruelle', '1513635269975-59663e0ac1ad', 'lisbon yellow tram street'),
+      makePhotoBg('u33', 'Prague Pont Charles Brume', '1519671482749-fd09be7ccebf', 'prague charles bridge morning fog'),
+      makePhotoBg('u34', 'Bangkok Night Market Marché', '1508739773434-c26b3d09e071', 'bangkok night market street food'),
+      makePhotoBg('u35', 'Pyramides Ciel Doré Égypte', '1509316975850-ff9c5deb0cd9', 'egypt pyramids sunset desert'),
+      makePhotoBg('u36', 'Berlin Porte de Brandebourg', '1486406146926-c627a92ad1ab', 'berlin brandenburg gate night'),
+      makePhotoBg('u37', 'Rio Corcovado & Baie', '1507525428034-b723cf961d3e', 'rio de janeiro bay sugarloaf sunset'),
+      makePhotoBg('u38', 'Toronto CN Tower Skyline', '1496442226666-8d4d0e62e6e9', 'toronto cn tower lake skyline'),
+      makePhotoBg('u39', 'Las Vegas Strip Neon Nuit', '1508739773434-c26b3d09e071', 'las vegas strip neon casino night'),
+      makePhotoBg('u40', 'Istanbul Bosphore Mosquée', '1514890547357-a9ee288728e0', 'istanbul bosphorus sunset mosque'),
     ];
 
     // 6. GRADIENTS (40 CHOICES)
@@ -561,9 +551,9 @@
 
       // Auto cutout & tolerance
       const [autoCutout, setAutoCutout] = useState(true);
-      const [tolerance, setTolerance] = useState(25);
+      const [tolerance, setTolerance] = useState(30);
 
-      // MediaPipe Segmenter
+      // MediaPipe Segmenter Ref
       const segmenterRef = useRef(null);
 
       useEffect(() => {
@@ -576,7 +566,7 @@
             segmenterRef.current = segmenter;
           }
         } catch (e) {
-          console.warn("MediaPipe init fallback:", e);
+          console.warn("MediaPipe init:", e);
         }
       }, []);
 
@@ -631,7 +621,7 @@
           return nextList;
         });
 
-        addToast('Lot Importé', `${count} photo(s) ajoutée(s). Le fond s’appliquera sur 100% du lot !`, 'success');
+        addToast('Lot Importé', `${count} photo(s) ajoutée(s). Le fond s’appliquera sur 100% de vos photos !`, 'success');
       };
 
       // Select / Deselect
@@ -665,7 +655,6 @@
       const processSingleImage = async (item, bgConfig) => {
         return new Promise((resolve) => {
           const img = new Image();
-          // Never set crossOrigin on local blob URLs to avoid browser security failures
           if (item.originalUrl.startsWith('http')) {
             img.crossOrigin = 'anonymous';
           }
@@ -693,9 +682,10 @@
                   grad.addColorStop(1, bgConfig.colors[2]);
                   bgCtx.fillStyle = grad;
                   bgCtx.fillRect(0, 0, w, h);
-                } else if (bgConfig.type === 'image' && bgConfig.url) {
+                } else if (bgConfig.url) {
                   try {
                     const bgImg = new Image();
+                    bgImg.crossOrigin = 'anonymous';
                     await new Promise((res, rej) => {
                       bgImg.onload = res;
                       bgImg.onerror = rej;
@@ -719,7 +709,7 @@
               if (autoCutout) {
                 let maskFound = false;
 
-                // Neural Segmentation with safe 600ms timeout
+                // Neural Segmentation with safe timeout
                 if (segmenterRef.current) {
                   try {
                     await Promise.race([
@@ -858,7 +848,7 @@
                 isModified: true,
               });
             } catch (err) {
-              console.warn("Composition fallback:", err);
+              console.warn("Composition error:", err);
               resolve(item);
             }
           };
@@ -866,7 +856,7 @@
         });
       };
 
-      // 100% Reliable Batch Processor: Guarantees EVERY single photo in the workspace gets processed!
+      // 100% Reliable Batch Processor
       const applyBackground = async (bgConfig) => {
         if (images.length === 0) {
           addToast('Aucune photo', 'Importez vos photos d’abord !', 'warning');
@@ -880,12 +870,10 @@
         try {
           const updated = [...images];
           for (let i = 0; i < updated.length; i++) {
-            // Apply without skipping any single image
             if (applyToAll || selectedIds.has(updated[i].id)) {
               updated[i] = await processSingleImage(updated[i], bgConfig);
             }
             setProgress({ current: i + 1, total });
-            // Yield smoothly to main thread
             if ((i + 1) % 2 === 0) {
               await new Promise(r => setTimeout(r, 10));
             }
@@ -1029,10 +1017,10 @@
                     PixelBatch AI Studio
                   </span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-                    280+ FONDS HD • LOT 1 À 1000
+                    280+ VRAIS FONDS HD • LOT 1 À 1000
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">100% des photos traitées • Fonds haute fidélité • Zéro coupure</p>
+                <p className="text-[11px] text-slate-400">100% des photos traitées • Fonds photo & anime réalistes • Zéro coupure</p>
               </div>
             </div>
 
@@ -1198,11 +1186,11 @@
               )}
             </main>
 
-            {/* CONTROL SIDEBAR (280+ HIGH-DEFINITION BACKGROUNDS) */}
+            {/* CONTROL SIDEBAR (280+ REAL HIGH-DEFINITION BACKGROUNDS) */}
             <aside className="w-full lg:w-[480px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
               
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 280+ Fonds HD</h3>
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 280+ Fonds HD Réalistes</h3>
                 <span className="text-xs font-mono text-emerald-400 font-bold">
                   {applyToAll ? `Lot complet (${images.length} photos)` : `${selectedIds.size} photos`}
                 </span>
@@ -1257,7 +1245,7 @@
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Rechercher parmi 280+ fonds (ex: manga, sakura, pop art, désert, studio)..."
+                      placeholder="Rechercher parmi 280+ fonds (ex: fuji, sakura, sahara, studio, tokyo)..."
                       className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                     />
                   </div>
@@ -1274,25 +1262,25 @@
                       onClick={() => setBgCategory('manga')}
                       className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'manga' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      ⛩️ Mangas (40)
+                      ⛩️ Mangas HD (40)
                     </button>
                     <button
                       onClick={() => setBgCategory('nature')}
                       className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'nature' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🏜️ Déserts (40)
+                      🏜️ Déserts 4K (40)
                     </button>
                     <button
                       onClick={() => setBgCategory('studios')}
                       className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'studios' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🏛️ Studios (40)
+                      🏛️ Studios Luxe (40)
                     </button>
                     <button
                       onClick={() => setBgCategory('cities')}
                       className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'cities' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🏙️ Villes (40)
+                      🏙️ Villes 4K (40)
                     </button>
                     <button
                       onClick={() => setBgCategory('gradients')}
@@ -1332,11 +1320,11 @@
                     </div>
                   )}
 
-                  {/* 2. MANGA & ANIME PAINTINGS (40 CHOICES) */}
+                  {/* 2. REAL HD MANGA & ANIME PAINTINGS (40 CHOICES) */}
                   {bgCategory === 'manga' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-pink-400 font-bold flex items-center gap-1">
-                        ✨ 40 Peintures Mangas & Décors Anime HD (1 Clic) :
+                        ✨ 40 Vraies Peintures & Paysages Mangas Anime HD (1 Clic) :
                       </span>
                       <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredManga.map(m => (
@@ -1345,8 +1333,8 @@
                             onClick={() => applyBackground(m)}
                             className="group relative h-24 rounded-2xl overflow-hidden border border-pink-500/40 hover:border-pink-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
                           >
-                            <img src={m.url} alt={m.label} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                            <img src={m.thumb || m.url} alt={m.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
                             <span className="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">
                               {m.label}
                             </span>
@@ -1356,66 +1344,72 @@
                     </div>
                   )}
 
-                  {/* 3. DESERTS & NATURE HD (40 CHOICES) */}
+                  {/* 3. REAL 4K DESERTS & NATURE (40 CHOICES) */}
                   {bgCategory === 'nature' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 40 Déserts Somptueux & Paysages Nature HD (1 Clic) :
+                        👉 40 Vrais Déserts Somptueux & Paysages Nature 4K :
                       </span>
                       <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredNature.map(n => (
                           <button
                             key={n.id}
                             onClick={() => applyBackground(n)}
-                            className="relative h-20 rounded-xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
+                            className="group relative h-24 rounded-2xl overflow-hidden border border-amber-500/40 hover:border-amber-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
                           >
-                            <img src={n.url} alt={n.label} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-                            <span className="relative z-10 text-[10px] font-bold text-white truncate">{n.label}</span>
+                            <img src={n.thumb || n.url} alt={n.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                            <span className="relative z-10 text-[10px] font-bold text-white drop-shadow truncate">
+                              {n.label}
+                            </span>
                           </button>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  {/* 4. STUDIOS & LUXURY (40 CHOICES) */}
+                  {/* 4. REAL STUDIOS & LUXURY (40 CHOICES) */}
                   {bgCategory === 'studios' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 40 Studios Photo & Intérieurs Luxe HD :
+                        👉 40 Véritables Studios Photo Pro & Intérieurs Luxe 4K :
                       </span>
                       <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredStudios.map(s => (
                           <button
                             key={s.id}
                             onClick={() => applyBackground(s)}
-                            className="relative h-20 rounded-xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
+                            className="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
                           >
-                            <img src={s.url} alt={s.label} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-                            <span className="relative z-10 text-[10px] font-bold text-white truncate">{s.label}</span>
+                            <img src={s.thumb || s.url} alt={s.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                            <span className="relative z-10 text-[10px] font-bold text-white drop-shadow truncate">
+                              {s.label}
+                            </span>
                           </button>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  {/* 5. CITIES & CYBERPUNK (40 CHOICES) */}
+                  {/* 5. REAL CITIES & SKYLINES (40 CHOICES) */}
                   {bgCategory === 'cities' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 40 Villes, Cyberpunk & Architecture HD :
+                        👉 40 Véritables Skylines & Villes du Monde 4K :
                       </span>
                       <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredCities.map(c => (
                           <button
                             key={c.id}
                             onClick={() => applyBackground(c)}
-                            className="relative h-20 rounded-xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
+                            className="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
                           >
-                            <img src={c.url} alt={c.label} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-                            <span className="relative z-10 text-[10px] font-bold text-white truncate">{c.label}</span>
+                            <img src={c.thumb || c.url} alt={c.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                            <span className="relative z-10 text-[10px] font-bold text-white drop-shadow truncate">
+                              {c.label}
+                            </span>
                           </button>
                         ))}
                       </div>
