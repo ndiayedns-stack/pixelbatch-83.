@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Éditeur Haute Définition par Lots & Fonds Multiples</title>
-  <meta name="description" content="Traitement d'images par lots haute fidélité : conservation de la qualité HD, détourage intelligent sans altération, vaste catalogue de fonds Studio, Cartoons 3D, Dégradés et Couleurs Pro." />
+  <title>PixelBatch AI Studio — Éditeur HD par Lots & Catalogue Géant de Fonds</title>
+  <meta name="description" content="Studio SaaS ultra-rapide de traitement d'images par lots : détourage automatique HD, catalogue géant de 120+ fonds (Cartoons 3D, Studios, Paysages Nature, Villes Cyberpunk, Dégradés et Couleurs Pro)." />
 
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -123,16 +123,16 @@
           return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><path d="M9 1v3m6-3v3m-6 17v3m6-3v3M1 9h3m-3 6h3m17-6h3m-3 6h3" /></svg>;
         case 'close':
           return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>;
+        case 'search':
+          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
         case 'image':
           return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>;
-        case 'smile':
-          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>;
         default:
           return null;
       }
     };
 
-    // --- High Quality Vector Sample Image Generator (Zero CORS, 100% Crisp HD) ---
+    // --- Vector Demo Image Generator (High Definition & Zero CORS) ---
     const makeSvgDemo = (title, cat, shapeSvg, color) => {
       const svg = `
         <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
@@ -153,7 +153,6 @@
       return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
     };
 
-    // 12 Varied Demo Images (Products, Portraits, Mascots, Gadgets, Food)
     const DEMO_LIBRARY = [
       {
         id: 'd1',
@@ -209,162 +208,174 @@
           <path d="M700 520 C745 520, 745 590, 695 590" fill="none" stroke="#f97316" stroke-width="16"/>
         `, '#f97316'),
       },
-      {
-        id: 'd7',
-        name: 'appareil-photo-reflex.png',
-        url: makeSvgDemo('Appareil Photo 4K', 'Photo & Vidéo', `
-          <rect x="450" y="440" width="300" height="190" rx="28" fill="#3b82f6"/>
-          <circle cx="600" cy="535" r="60" fill="#ffffff"/>
-          <circle cx="600" cy="535" r="35" fill="#0f172a"/>
-        `, '#3b82f6'),
-      },
-      {
-        id: 'd8',
-        name: 'voiture-sport-neon.png',
-        url: makeSvgDemo('Supercar Cyber', 'Véhicule & Tuning', `
-          <path d="M440 560 L500 500 L700 500 L760 560 L750 610 L450 610 Z" fill="#ec4899"/>
-          <circle cx="510" cy="610" r="30" fill="#0f172a"/>
-          <circle cx="690" cy="610" r="30" fill="#0f172a"/>
-        `, '#ec4899'),
-      },
     ];
 
     // =========================================================================
-    // --- VAST RICH BACKGROUND CATALOGUE ---
+    // --- MASSIVE BACKGROUNDS CATALOGUE (120+ CHOICES, 20+ PER CATEGORY) ---
     // =========================================================================
 
-    // 1. Pro Solid Colors
-    const BG_SOLIDS = [
+    // 1. CARTOONS, ANIME & 3D (20 CHOICES)
+    const createCartoon = (id, label, svg) => ({
+      id,
+      label,
+      type: 'image',
+      url: 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">${svg}</svg>`),
+    });
+
+    const BG_CARTOONS_20 = [
+      createCartoon('c1', 'Studio 3D Pastel', '<rect width="1200" height="1200" fill="#ffedd5"/><rect y="800" width="1200" height="400" fill="#fbcfe8"/><circle cx="200" cy="300" r="120" fill="#fde047" opacity="0.6"/><circle cx="1000" cy="400" r="160" fill="#a7f3d0" opacity="0.6"/>'),
+      createCartoon('c2', 'Ciel Anime & Nuages', '<defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#bae6fd"/></linearGradient></defs><rect width="1200" height="1200" fill="url(#g2)"/><ellipse cx="300" cy="400" rx="160" ry="80" fill="#ffffff"/><ellipse cx="850" cy="500" rx="200" ry="90" fill="#ffffff"/><rect y="900" width="1200" height="300" fill="#4ade80"/>'),
+      createCartoon('c3', 'Espace & Planètes 3D', '<rect width="1200" height="1200" fill="#0f172a"/><circle cx="950" cy="250" r="140" fill="#ec4899"/><circle cx="250" cy="800" r="90" fill="#38bdf8"/><circle cx="150" cy="200" r="10" fill="#ffffff"/><circle cx="750" cy="400" r="12" fill="#facc15"/>'),
+      createCartoon('c4', 'Chambre Pop Art', '<rect width="1200" height="1200" fill="#facc15"/><rect y="750" width="1200" height="450" fill="#38bdf8"/><circle cx="600" cy="450" r="220" fill="#f43f5e" opacity="0.8"/>'),
+      createCartoon('c5', 'Forêt Enchantée', '<rect width="1200" height="1200" fill="#14532d"/><circle cx="600" cy="300" r="180" fill="#fef08a" opacity="0.3"/><polygon points="300,500 450,850 150,850" fill="#22c55e"/><polygon points="900,450 1080,850 720,850" fill="#15803d"/><rect y="820" width="1200" height="380" fill="#15803d"/>'),
+      createCartoon('c6', 'Cyber City Neon 3D', '<rect width="1200" height="1200" fill="#09090b"/><rect x="150" y="450" width="180" height="750" fill="#18181b" stroke="#06b6d4" stroke-width="6"/><rect x="450" y="300" width="220" height="900" fill="#18181b" stroke="#ec4899" stroke-width="6"/><rect x="750" y="480" width="180" height="720" fill="#18181b" stroke="#a855f7" stroke-width="6"/>'),
+      createCartoon('c7', 'Plage Cartoon Sunset', '<rect width="1200" height="1200" fill="#fb923c"/><circle cx="600" cy="450" r="200" fill="#fef08a"/><rect y="700" width="1200" height="200" fill="#0284c7"/><rect y="900" width="1200" height="300" fill="#fde047"/>'),
+      createCartoon('c8', 'Château Fantastique', '<rect width="1200" height="1200" fill="#312e81"/><polygon points="400,500 500,300 600,500" fill="#c084fc"/><rect x="430" y="500" width="140" height="400" fill="#818cf8"/><polygon points="650,550 750,380 850,550" fill="#c084fc"/><rect x="680" y="550" width="140" height="350" fill="#818cf8"/>'),
+      createCartoon('c9', 'Monde Sous-marin', '<rect width="1200" height="1200" fill="#0369a1"/><circle cx="300" cy="300" r="40" fill="#7dd3fc" opacity="0.6"/><circle cx="450" cy="500" r="60" fill="#7dd3fc" opacity="0.6"/><circle cx="850" cy="350" r="80" fill="#7dd3fc" opacity="0.6"/><rect y="1000" width="1200" height="200" fill="#fef08a"/>'),
+      createCartoon('c10', 'Désert Oasis Cartoon', '<rect width="1200" height="1200" fill="#fdba74"/><circle cx="300" cy="300" r="140" fill="#facc15"/><path d="M0,800 Q300,650 600,800 T1200,800 L1200,1200 L0,1200 Z" fill="#f59e0b"/>'),
+      createCartoon('c11', 'Podium Studio 3D Menthe', '<rect width="1200" height="1200" fill="#ccfbf1"/><ellipse cx="600" cy="850" rx="350" ry="120" fill="#5eead4"/><ellipse cx="600" cy="780" rx="260" ry="90" fill="#14b8a6"/>'),
+      createCartoon('c12', 'Salle Gaming Neon', '<rect width="1200" height="1200" fill="#18181b"/><polygon points="0,0 300,300 300,900 0,1200" fill="#27272a" stroke="#ec4899" stroke-width="4"/><polygon points="1200,0 900,300 900,900 1200,1200" fill="#27272a" stroke="#06b6d4" stroke-width="4"/><rect x="300" y="300" width="600" height="600" fill="#09090b"/>'),
+      createCartoon('c13', 'Montgolfières & Ciel', '<rect width="1200" height="1200" fill="#7dd3fc"/><circle cx="350" cy="350" r="100" fill="#f43f5e"/><polygon points="300,430 400,430 350,480" fill="#f43f5e"/><circle cx="850" cy="500" r="80" fill="#a855f7"/><polygon points="810,560 890,560 850,600" fill="#a855f7"/>'),
+      createCartoon('c14', 'Volcan & Lave 3D', '<rect width="1200" height="1200" fill="#450a0a"/><polygon points="200,1200 600,400 1000,1200" fill="#7f1d1d"/><polygon points="500,550 600,400 700,550" fill="#ea580c"/><circle cx="600" cy="300" r="80" fill="#f97316" opacity="0.6"/>'),
+      createCartoon('c15', 'Banquise & Glace', '<rect width="1200" height="1200" fill="#e0f2fe"/><polygon points="100,1000 350,500 600,1000" fill="#bae6fd"/><polygon points="500,1050 750,450 1000,1050" fill="#7dd3fc"/><rect y="950" width="1200" height="250" fill="#f0f9ff"/>'),
+      createCartoon('c16', 'Jardin Japonais Cartoon', '<rect width="1200" height="1200" fill="#fce7f3"/><circle cx="950" cy="300" r="140" fill="#f43f5e" opacity="0.8"/><rect y="850" width="1200" height="350" fill="#86efac"/><ellipse cx="400" cy="950" rx="200" ry="60" fill="#38bdf8"/>'),
+      createCartoon('c17', 'Arcade Rétro Pixel', '<rect width="1200" height="1200" fill="#2e1065"/><rect x="200" y="200" width="800" height="800" fill="#3b0764" stroke="#a855f7" stroke-width="12"/><circle cx="600" cy="600" r="150" fill="#ec4899"/>'),
+      createCartoon('c18', 'Île Flottante Magique', '<rect width="1200" height="1200" fill="#cffafe"/><path d="M300,700 Q600,550 900,700 Q600,950 300,700 Z" fill="#22c55e"/><circle cx="600" cy="400" r="80" fill="#facc15"/>'),
+      createCartoon('c19', 'Studio Minimaliste Lavande', '<rect width="1200" height="1200" fill="#f3e8ff"/><rect y="750" width="1200" height="450" fill="#e9d5ff"/><circle cx="600" cy="450" r="220" fill="#c084fc" opacity="0.4"/>'),
+      createCartoon('c20', 'Galaxy Dream Néon', '<rect width="1200" height="1200" fill="#020617"/><circle cx="600" cy="600" r="400" fill="#6366f1" opacity="0.25"/><circle cx="600" cy="600" r="250" fill="#ec4899" opacity="0.3"/><circle cx="600" cy="600" r="120" fill="#38bdf8" opacity="0.4"/>'),
+    ];
+
+    // 2. SOLID COLORS (24 CHOICES)
+    const BG_SOLIDS_24 = [
       { id: 'transp', label: 'Transparent', value: 'transparent', class: 'bg-checkerboard' },
-      { id: 'white', label: 'Blanc Studio Pur', value: '#ffffff', class: 'bg-white' },
+      { id: 'white', label: 'Blanc Studio', value: '#ffffff', class: 'bg-white' },
       { id: 'black', label: 'Noir OLED', value: '#08080a', class: 'bg-black' },
-      { id: 'slate', label: 'Gris Ardoise Minimal', value: '#1e293b', class: 'bg-slate-800' },
+      { id: 'slate', label: 'Gris Ardoise', value: '#1e293b', class: 'bg-slate-800' },
+      { id: 'platine', label: 'Gris Platine', value: '#e2e8f0', class: 'bg-slate-200 text-black' },
       { id: 'indigo', label: 'Indigo Cyber', value: '#4f46e5', class: 'bg-indigo-600' },
       { id: 'blue', label: 'Bleu Royal', value: '#2563eb', class: 'bg-blue-600' },
+      { id: 'sky', label: 'Bleu Ciel', value: '#38bdf8', class: 'bg-sky-400' },
+      { id: 'turquoise', label: 'Turquoise', value: '#06b6d4', class: 'bg-cyan-500' },
       { id: 'emerald', label: 'Vert Émeraude', value: '#10b981', class: 'bg-emerald-500' },
-      { id: 'mint', label: 'Menthe Pastel', value: '#a7f3d0', class: 'bg-emerald-200' },
+      { id: 'mint', label: 'Menthe Pastel', value: '#a7f3d0', class: 'bg-emerald-200 text-black' },
+      { id: 'olive', label: 'Vert Olive', value: '#65a30d', class: 'bg-lime-600' },
+      { id: 'forest', label: 'Vert Forêt', value: '#14532d', class: 'bg-green-900' },
       { id: 'sunset', label: 'Orange Sunset', value: '#f97316', class: 'bg-orange-500' },
-      { id: 'coral', label: 'Corail Doux', value: '#fb7185', class: 'bg-rose-400' },
+      { id: 'peach', label: 'Pêche Douce', value: '#fed7aa', class: 'bg-orange-200 text-black' },
+      { id: 'coral', label: 'Corail', value: '#fb7185', class: 'bg-rose-400' },
+      { id: 'red', label: 'Rouge Ferrari', value: '#ef4444', class: 'bg-red-600' },
+      { id: 'burgundy', label: 'Bordeaux', value: '#881337', class: 'bg-rose-950' },
       { id: 'pink', label: 'Rose Bonbon', value: '#ec4899', class: 'bg-pink-500' },
-      { id: 'purple', label: 'Violet Sombre', value: '#7c3aed', class: 'bg-purple-600' },
-      { id: 'lavender', label: 'Lavande Douce', value: '#ddd6fe', class: 'bg-purple-200' },
+      { id: 'neonpink', label: 'Fuchsia Neon', value: '#f43f5e', class: 'bg-rose-500' },
+      { id: 'purple', label: 'Violet Profond', value: '#7c3aed', class: 'bg-purple-600' },
+      { id: 'lavender', label: 'Lavande', value: '#ddd6fe', class: 'bg-purple-200 text-black' },
       { id: 'gold', label: 'Or Impérial', value: '#eab308', class: 'bg-yellow-500' },
-      { id: 'cream', label: 'Beige Crème', value: '#fef3c7', class: 'bg-amber-100' },
-      { id: 'cyan', label: 'Cyan Lumineux', value: '#06b6d4', class: 'bg-cyan-500' },
+      { id: 'sand', label: 'Sable Chaud', value: '#fef3c7', class: 'bg-amber-100 text-black' },
     ];
 
-    // 2. Ultra-Modern Mesh & Linear Gradients
-    const BG_GRADIENTS = [
+    // 3. GRADIENTS (20 CHOICES)
+    const BG_GRADIENTS_20 = [
       { id: 'g1', label: 'Sunset Glow', colors: ['#f97316', '#ec4899', '#8b5cf6'], css: 'linear-gradient(135deg, #f97316, #ec4899, #8b5cf6)' },
       { id: 'g2', label: 'Cyber Neon', colors: ['#06b6d4', '#3b82f6', '#9333ea'], css: 'linear-gradient(135deg, #06b6d4, #3b82f6, #9333ea)' },
-      { id: 'g3', label: 'Aurora Borealis', colors: ['#059669', '#10b981', '#06b6d4'], css: 'linear-gradient(135deg, #059669, #10b981, #06b6d4)' },
+      { id: 'g3', label: 'Aurora Emerald', colors: ['#059669', '#10b981', '#06b6d4'], css: 'linear-gradient(135deg, #059669, #10b981, #06b6d4)' },
       { id: 'g4', label: 'Cosmic Indigo', colors: ['#1e1b4b', '#312e81', '#4c1d95'], css: 'linear-gradient(135deg, #1e1b4b, #312e81, #4c1d95)' },
       { id: 'g5', label: 'Champagne Luxe', colors: ['#d97706', '#f59e0b', '#fef3c7'], css: 'linear-gradient(135deg, #d97706, #f59e0b, #fef3c7)' },
       { id: 'g6', label: 'Cotton Candy', colors: ['#f472b6', '#c084fc', '#60a5fa'], css: 'linear-gradient(135deg, #f472b6, #c084fc, #60a5fa)' },
       { id: 'g7', label: 'Fire Velvet', colors: ['#b91c1c', '#dc2626', '#f97316'], css: 'linear-gradient(135deg, #b91c1c, #dc2626, #f97316)' },
       { id: 'g8', label: 'Ocean Depth', colors: ['#0f172a', '#1e3a8a', '#0284c7'], css: 'linear-gradient(135deg, #0f172a, #1e3a8a, #0284c7)' },
       { id: 'g9', label: 'Pure Frost', colors: ['#f8fafc', '#e2e8f0', '#cbd5e1'], css: 'linear-gradient(135deg, #f8fafc, #e2e8f0, #cbd5e1)' },
+      { id: 'g10', label: 'Holographic Mesh', colors: ['#a855f7', '#06b6d4', '#f43f5e'], css: 'linear-gradient(135deg, #a855f7, #06b6d4, #f43f5e)' },
+      { id: 'g11', label: 'Midnight Blue', colors: ['#020617', '#0f172a', '#1e293b'], css: 'linear-gradient(135deg, #020617, #0f172a, #1e293b)' },
+      { id: 'g12', label: 'Peach Sunrise', colors: ['#ffedd5', '#fed7aa', '#f43f5e'], css: 'linear-gradient(135deg, #ffedd5, #fed7aa, #f43f5e)' },
+      { id: 'g13', label: 'Minty Breeze', colors: ['#ccfbf1', '#99f6e4', '#2dd4bf'], css: 'linear-gradient(135deg, #ccfbf1, #99f6e4, #2dd4bf)' },
+      { id: 'g14', label: 'Electric Purple', colors: ['#581c87', '#7e22ce', '#c084fc'], css: 'linear-gradient(135deg, #581c87, #7e22ce, #c084fc)' },
+      { id: 'g15', label: 'Tropical Punch', colors: ['#f43f5e', '#fb923c', '#facc15'], css: 'linear-gradient(135deg, #f43f5e, #fb923c, #facc15)' },
+      { id: 'g16', label: 'Solar Flare', colors: ['#ea580c', '#f59e0b', '#fef08a'], css: 'linear-gradient(135deg, #ea580c, #f59e0b, #fef08a)' },
+      { id: 'g17', label: 'Mystic Twilight', colors: ['#311042', '#581c87', '#1e1b4b'], css: 'linear-gradient(135deg, #311042, #581c87, #1e1b4b)' },
+      { id: 'g18', label: 'Cyber Matrix', colors: ['#022c22', '#065f46', '#10b981'], css: 'linear-gradient(135deg, #022c22, #065f46, #10b981)' },
+      { id: 'g19', label: 'Lavender Mist', colors: ['#faf5ff', '#f3e8ff', '#d8b4fe'], css: 'linear-gradient(135deg, #faf5ff, #f3e8ff, #d8b4fe)' },
+      { id: 'g20', label: 'Rose Gold', colors: ['#fda4af', '#f43f5e', '#fb7185'], css: 'linear-gradient(135deg, #fda4af, #f43f5e, #fb7185)' },
     ];
 
-    // 3. Cartoons, 3D & Anime Backgrounds (Generated Clean Vectors)
-    const createCartoonBg = (id, label, svgContent) => {
-      const fullSvg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
-          ${svgContent}
-        </svg>
-      `;
-      return {
-        id,
-        label,
-        type: 'image',
-        url: 'data:image/svg+xml;utf8,' + encodeURIComponent(fullSvg),
-      };
-    };
-
-    const BG_CARTOONS = [
-      createCartoonBg('c1', 'Studio 3D Pastel', `
-        <defs>
-          <linearGradient id="cbg1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ffedd5" />
-            <stop offset="100%" stop-color="#fed7aa" />
-          </linearGradient>
-        </defs>
-        <rect width="1200" height="1200" fill="url(#cbg1)" />
-        <rect x="0" y="800" width="1200" height="400" fill="#fbcfe8" />
-        <circle cx="200" cy="300" r="120" fill="#fde047" opacity="0.6" />
-        <circle cx="1000" cy="400" r="160" fill="#a7f3d0" opacity="0.6" />
-        <rect x="850" y="700" width="180" height="180" rx="30" fill="#c084fc" opacity="0.5" />
-      `),
-      createCartoonBg('c2', 'Ciel Anime & Nuages', `
-        <defs>
-          <linearGradient id="cbg2" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#38bdf8" />
-            <stop offset="100%" stop-color="#bae6fd" />
-          </linearGradient>
-        </defs>
-        <rect width="1200" height="1200" fill="url(#cbg2)" />
-        <ellipse cx="300" cy="400" rx="160" ry="80" fill="#ffffff" opacity="0.9" />
-        <ellipse cx="420" cy="360" rx="130" ry="90" fill="#ffffff" opacity="0.9" />
-        <ellipse cx="850" cy="500" rx="200" ry="90" fill="#ffffff" opacity="0.9" />
-        <ellipse cx="980" cy="460" rx="140" ry="80" fill="#ffffff" opacity="0.9" />
-        <rect x="0" y="900" width="1200" height="300" fill="#4ade80" />
-      `),
-      createCartoonBg('c3', 'Espace & Planètes 3D', `
-        <rect width="1200" height="1200" fill="#0f172a" />
-        <circle cx="950" cy="250" r="140" fill="#ec4899" />
-        <ellipse cx="950" cy="250" rx="220" ry="30" fill="none" stroke="#f472b6" stroke-width="12" transform="rotate(-25 950 250)" />
-        <circle cx="250" cy="800" r="90" fill="#38bdf8" />
-        <circle cx="150" cy="200" r="8" fill="#ffffff" />
-        <circle cx="450" cy="150" r="6" fill="#ffffff" />
-        <circle cx="750" cy="400" r="10" fill="#facc15" />
-        <circle cx="350" cy="600" r="6" fill="#ffffff" />
-      `),
-      createCartoonBg('c4', 'Chambre Pop Art Jaune', `
-        <rect width="1200" height="1200" fill="#facc15" />
-        <rect x="0" y="750" width="1200" height="450" fill="#38bdf8" />
-        <circle cx="600" cy="450" r="220" fill="#f43f5e" opacity="0.8" />
-        <polygon points="150,200 200,300 100,300" fill="#ffffff" />
-        <polygon points="1050,300 1100,400 1000,400" fill="#ffffff" />
-      `),
-      createCartoonBg('c5', 'Forêt Enchantée Cartoon', `
-        <defs>
-          <linearGradient id="cbg5" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#14532d" />
-            <stop offset="100%" stop-color="#166534" />
-          </linearGradient>
-        </defs>
-        <rect width="1200" height="1200" fill="url(#cbg5)" />
-        <circle cx="600" cy="300" r="180" fill="#fef08a" opacity="0.3" />
-        <polygon points="300,500 450,850 150,850" fill="#22c55e" opacity="0.8" />
-        <polygon points="900,450 1080,850 720,850" fill="#15803d" opacity="0.9" />
-        <rect x="0" y="820" width="1200" height="380" fill="#15803d" />
-      `),
-      createCartoonBg('c6', 'Cyber City Neon 3D', `
-        <rect width="1200" height="1200" fill="#09090b" />
-        <rect x="150" y="450" width="180" height="750" fill="#18181b" stroke="#06b6d4" stroke-width="4" />
-        <rect x="400" y="300" width="220" height="900" fill="#18181b" stroke="#ec4899" stroke-width="4" />
-        <rect x="700" y="500" width="160" height="700" fill="#18181b" stroke="#a855f7" stroke-width="4" />
-        <rect x="920" y="380" width="200" height="820" fill="#18181b" stroke="#3b82f6" stroke-width="4" />
-        <line x1="0" y1="900" x2="1200" y2="900" stroke="#f43f5e" stroke-width="6" />
-      `),
+    // 4. STUDIOS & LUXURY INTERIORS (20 HD CHOICES)
+    const BG_STUDIOS_20 = [
+      { id: 'st1', label: 'Studio Minimaliste Ombre', url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st2', label: 'Bureau Design Moderne', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st3', label: 'Intérieur Marbre Luxe', url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st4', label: 'Cyclorama Blanc Infini', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st5', label: 'Podium Marbre & Or', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st6', label: 'Loft Industriel Verrière', url: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st7', label: 'Salon Moderne Baie Vitrée', url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st8', label: 'Galerie d’Art Moderne', url: 'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st9', label: 'Cuisine Marbre & Bois', url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st10', label: 'Chambre Scandinave Zen', url: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st11', label: 'Bibliothèque Design', url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st12', label: 'Terrasse Villa & Piscine', url: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st13', label: 'Mur Béton Ciré & Plantes', url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st14', label: 'Studio Bois Chêne Naturel', url: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st15', label: 'Vitrine Boutique Luxe', url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st16', label: 'Hall d’Hôtel 5 Étoiles', url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st17', label: 'Penthouse Vue Ciel', url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st18', label: 'Salle de Réunion Tech', url: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st19', label: 'Atelier d’Artiste Lumineux', url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'st20', label: 'Escalier Géométrique', url: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1200&q=80' },
     ];
 
-    // 4. Realistic HD Photo Backgrounds
-    const BG_PHOTOS = [
-      { id: 'p1', label: 'Studio Minimaliste', url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'p2', label: 'Bureau Design Moderne', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'p3', label: 'Intérieur Marbre Luxe', url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'p4', label: 'Tokyo Nuit Neon', url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'p5', label: 'Montagne & Nature', url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80' },
-      { id: 'p6', label: 'Plage Tropicale', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
+    // 5. NATURE, LANDSCAPES & OUTDOORS (20 HD CHOICES)
+    const BG_NATURE_20 = [
+      { id: 'n1', label: 'Montagne & Lac Alpin', url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n2', label: 'Plage Tropicale & Cocotiers', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n3', label: 'Forêt de Pins Brumeuse', url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n4', label: 'Coucher de Soleil Océan', url: 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n5', label: 'Désert & Dunes Dorées', url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n6', label: 'Cascade d’Eau Pure', url: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n7', label: 'Aurore Boréale Islande', url: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n8', label: 'Forêt de Bambou Zen', url: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n9', label: 'Ciel Étoilé Voie Lactée', url: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n10', label: 'Champs de Lavande', url: 'https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n11', label: 'Canyon Rouge Arizona', url: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n12', label: 'Falaise Côtière Vagues', url: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n13', label: 'Jardin Botanique Tropical', url: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n14', label: 'Route Panoramique Côte', url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n15', label: 'Rivière Forêt d’Automne', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n16', label: 'Prairie Fleurie Printemps', url: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n17', label: 'Îles Maldives Turquoise', url: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n18', label: 'Coucher de Soleil Savane', url: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n19', label: 'Glacier Bleu Arctique', url: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'n20', label: 'Sentier Randonnée Sommet', url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80' },
     ];
 
-    // --- Main App Component ---
+    // 6. CITIES, CYBERPUNK & URBAN ARCHITECTURE (20 HD CHOICES)
+    const BG_CITIES_20 = [
+      { id: 'u1', label: 'Tokyo Nuit Neon', url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u2', label: 'New York Manhattan Skyline', url: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u3', label: 'Paris Tour Eiffel Classique', url: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u4', label: 'Londres Pont & Big Ben', url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u5', label: 'Dubai Gratte-ciel Futuristes', url: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u6', label: 'San Francisco Golden Gate', url: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u7', label: 'Ruelle Historique Rome', url: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u8', label: 'Quartier Affaires Verre', url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u9', label: 'Ruelle Asiatique Lanternes', url: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u10', label: 'Métro Moderne Futuriste', url: 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u11', label: 'Rooftop Vue Ville Nuit', url: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u12', label: 'Autoroute Light Trails', url: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u13', label: 'Street Art Urbain', url: 'https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u14', label: 'Béton Brut & Architecture', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u15', label: 'Marina & Yacht Club', url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u16', label: 'Tunnel Neon Cyberpunk', url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u17', label: 'Temple Pagode Moderne', url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u18', label: 'Esplanade Palmiers Ville', url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u19', label: 'Grand Boulevard Crépuscule', url: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1200&q=80' },
+      { id: 'u20', label: 'Pont Moderne Haubans', url: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1200&q=80' },
+    ];
+
+    // --- Main Application ---
     function App() {
       const [images, setImages] = useState([]);
       const [selectedIds, setSelectedIds] = useState(new Set());
       const [activeTab, setActiveTab] = useState('background');
-      const [bgCategory, setBgCategory] = useState('cartoons'); // 'cartoons' | 'solids' | 'gradients' | 'photos' | 'custom'
+      const [bgCategory, setBgCategory] = useState('cartoons'); // 'cartoons' | 'solids' | 'gradients' | 'studios' | 'nature' | 'cities'
+      const [searchQuery, setSearchQuery] = useState('');
       const [isProcessing, setIsProcessing] = useState(false);
       const [processingMsg, setProcessingMsg] = useState('');
       const [toasts, setToasts] = useState([]);
@@ -376,10 +387,9 @@
       // Cervex Modal
       const [isCervexOpen, setIsCervexOpen] = useState(false);
 
-      // Background State
+      // Auto cutout & tolerance
       const [autoCutout, setAutoCutout] = useState(true);
       const [tolerance, setTolerance] = useState(28);
-      const [customBgUrl, setCustomBgUrl] = useState(null);
 
       // Watermark
       const [watermark, setWatermark] = useState({
@@ -395,7 +405,7 @@
         setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 4000);
       };
 
-      // Load initial Demo Library
+      // Load initial 6 demo images
       useEffect(() => {
         const initial = DEMO_LIBRARY.slice(0, 6).map(d => ({
           id: d.id,
@@ -410,10 +420,9 @@
         setSelectedIds(new Set(initial.map(img => img.id)));
       }, []);
 
-      // File Upload Handler
+      // Upload Handler
       const handleFiles = (files) => {
         if (!files || files.length === 0) return;
-        const newImgs = [];
         const newIds = new Set(selectedIds);
 
         Array.from(files).forEach((file) => {
@@ -431,8 +440,8 @@
                   name: file.name,
                   originalUrl: url,
                   currentUrl: url,
-                  width: img.naturalWidth || 1000,
-                  height: img.naturalHeight || 1000,
+                  width: img.naturalWidth || 1200,
+                  height: img.naturalHeight || 1200,
                   isModified: false,
                 }
               ]);
@@ -443,26 +452,10 @@
           reader.readAsDataURL(file);
         });
 
-        addToast('Images Prêtes !', `${files.length} image(s) importée(s) en Haute Définition.`, 'success');
+        addToast('Photos Importées', `${files.length} image(s) ajoutée(s). Prêtes pour le changement de fond !`, 'success');
       };
 
-      // Add Demos Button
-      const addMoreDemos = () => {
-        const allFormatted = DEMO_LIBRARY.map(d => ({
-          id: 'demo_' + Math.random().toString(36).substring(2, 7),
-          name: d.name,
-          originalUrl: d.url,
-          currentUrl: d.url,
-          width: 1200,
-          height: 1200,
-          isModified: false,
-        }));
-        setImages(allFormatted);
-        setSelectedIds(new Set(allFormatted.map(img => img.id)));
-        addToast('Catalogue Démo Chargé', '8 images variées prêtes pour le traitement !', 'success');
-      };
-
-      // Selection helpers
+      // Select / Deselect
       const toggleSelect = (id) => {
         setSelectedIds(prev => {
           const next = new Set(prev);
@@ -471,7 +464,6 @@
           return next;
         });
       };
-
       const selectAll = () => setSelectedIds(new Set(images.map(img => img.id)));
       const deselectAll = () => setSelectedIds(new Set());
       const revertSelected = () => {
@@ -481,7 +473,7 @@
           }
           return img;
         }));
-        addToast('Restauré', 'Retour aux photos d’origine', 'info');
+        addToast('Restauré', 'Retour aux photos d’origine sans modification', 'info');
       };
       const deleteSelected = () => {
         setImages(prev => prev.filter(img => !selectedIds.has(img.id)));
@@ -490,31 +482,30 @@
       };
 
       // =========================================================================
-      // --- ULTRA CRISP HD CANVAS ENGINE : PRESERVES 100% QUALITY OF SUBJECT ---
+      // --- ULTRA CRISP HD CANVAS PROCESSOR : 100% QUALITY SUBJECT PRESERVED ---
       // =========================================================================
       const processSingleImage = async (item, bgConfig) => {
         return new Promise((resolve, reject) => {
           const img = new Image();
           img.crossOrigin = 'anonymous';
-          img.src = item.originalUrl; // ALWAYS process from the crystal-clear original!
+          img.src = item.originalUrl; // Process from crisp original
 
           img.onload = async () => {
             try {
               const w = img.naturalWidth || item.width || 1200;
               const h = img.naturalHeight || item.height || 1200;
 
-              // Output Canvas at native HD resolution
               const canvas = document.createElement('canvas');
               canvas.width = w;
               canvas.height = h;
               const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-              // 1. Paint Background
+              // 1. Paint Selected Background
               if (bgConfig.value !== 'transparent') {
                 if (bgConfig.type === 'solid') {
                   ctx.fillStyle = bgConfig.value;
                   ctx.fillRect(0, 0, w, h);
-                } else if (bgConfig.type === 'gradient') {
+                } else if (bgConfig.type === 'gradient' && bgConfig.colors) {
                   const grad = ctx.createLinearGradient(0, 0, w, h);
                   grad.addColorStop(0, bgConfig.colors[0]);
                   grad.addColorStop(0.5, bgConfig.colors[1]);
@@ -532,12 +523,12 @@
                     });
                     ctx.drawImage(bgImg, 0, 0, w, h);
                   } catch (e) {
-                    console.warn('Erreur chargement image fond:', e);
+                    console.warn('Erreur fond image:', e);
                   }
                 }
               }
 
-              // 2. High-Precision Subject Extraction (Preserves 100% HD subject detail)
+              // 2. High-Precision Subject Extraction (Intact Subject, Dissolved Background)
               const subCanvas = document.createElement('canvas');
               subCanvas.width = w;
               subCanvas.height = h;
@@ -548,7 +539,6 @@
                 const imgData = sctx.getImageData(0, 0, w, h);
                 const data = imgData.data;
 
-                // Sample corners and borders for background detection
                 const samples = [
                   [data[0], data[1], data[2]],
                   [data[(w - 1) * 4], data[(w - 1) * 4 + 1], data[(w - 1) * 4 + 2]],
@@ -573,7 +563,6 @@
                     Math.pow(b - bgB, 2)
                   );
 
-                  // Keep subject 100% untouched and opaque; only dissolve the detected background
                   if (dist < limit || (r > 245 && g > 245 && b > 245 && bgR > 230)) {
                     const alpha = Math.max(0, (dist / limit) - 0.25);
                     data[i + 3] = Math.round(data[i + 3] * alpha);
@@ -582,16 +571,14 @@
                 sctx.putImageData(imgData, 0, 0);
               }
 
-              // Draw crystal-clear subject onto new background
               ctx.drawImage(subCanvas, 0, 0);
 
-              // 3. Optional Watermark
+              // 3. Watermark
               if (watermark.enabled && watermark.text) {
                 ctx.save();
                 ctx.globalAlpha = watermark.opacity / 100;
                 const fontSize = Math.max(16, Math.round(w * 0.035));
                 ctx.font = `700 ${fontSize}px "Plus Jakarta Sans", sans-serif`;
-
                 const metrics = ctx.measureText(watermark.text);
                 const wx = w - metrics.width - 40;
                 const wy = h - 40;
@@ -606,14 +593,11 @@
                 ctx.restore();
               }
 
-              // High-resolution lossless PNG output
-              const resultUrl = canvas.toDataURL('image/png');
               resolve({
                 ...item,
-                currentUrl: resultUrl,
+                currentUrl: canvas.toDataURL('image/png'),
                 isModified: true,
               });
-
             } catch (err) {
               reject(err);
             }
@@ -622,17 +606,15 @@
         });
       };
 
-      // 1-Click Instant Batch Background Changer
+      // 1-Click Batch Background Apply
       const applyBackground = async (bgConfig) => {
         if (images.length === 0) {
-          addToast('Aucune image', 'Importez d’abord des images ou cliquez sur "Charger des Démos"', 'warning');
+          addToast('Aucune image', 'Importez vos images d’abord !', 'warning');
           return;
         }
 
         const targets = selectedIds.size > 0 ? selectedIds : new Set(images.map(img => img.id));
-        if (selectedIds.size === 0) {
-          setSelectedIds(new Set(images.map(img => img.id)));
-        }
+        if (selectedIds.size === 0) setSelectedIds(new Set(images.map(img => img.id)));
 
         setIsProcessing(true);
         setProcessingMsg(`Changement de fond HD (${targets.size} images)...`);
@@ -645,10 +627,9 @@
             }
           }
           setImages(updated);
-          addToast('Fond Appliqué en HD !', `Vos ${targets.size} photos conservent 100% de leur netteté ✨`, 'success');
+          addToast('Fond Appliqué en HD !', `${targets.size} photo(s) sublimée(s) avec le nouveau décor ✨`, 'success');
         } catch (e) {
           console.error(e);
-          addToast('Erreur', 'Erreur lors de l’application', 'error');
         } finally {
           setIsProcessing(false);
         }
@@ -660,9 +641,7 @@
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (event) => {
-          const bgData = event.target.result;
-          setCustomBgUrl(bgData);
-          applyBackground({ type: 'image', url: bgData });
+          applyBackground({ type: 'image', url: event.target.result });
         };
         reader.readAsDataURL(file);
       };
@@ -697,7 +676,7 @@
             }
           }
           setImages(updated);
-          addToast('Recadrage effectué', `Ratio ${ratio} appliqué`, 'success');
+          addToast('Recadrage appliqué', `Ratio ${ratio} appliqué`, 'success');
         } finally {
           setIsProcessing(false);
         }
@@ -763,10 +742,18 @@
         }
       };
 
+      // Filtered Backgrounds calculation based on search query
+      const filteredCartoons = useMemo(() => BG_CARTOONS_20.filter(c => c.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredSolids = useMemo(() => BG_SOLIDS_24.filter(s => s.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredGradients = useMemo(() => BG_GRADIENTS_20.filter(g => g.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredStudios = useMemo(() => BG_STUDIOS_20.filter(s => s.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredNature = useMemo(() => BG_NATURE_20.filter(n => n.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+      const filteredCities = useMemo(() => BG_CITIES_20.filter(c => c.label.toLowerCase().includes(searchQuery.toLowerCase())), [searchQuery]);
+
       return (
         <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100">
           
-          {/* HEADER */}
+          {/* TOP NAVBAR */}
           <header className="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/90 border-b border-slate-800 px-6 py-3.5 flex items-center justify-between shadow-xl">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
@@ -778,20 +765,33 @@
                     PixelBatch AI Studio
                   </span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-                    HD ULTRA
+                    120+ FONDS HD
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">Changement de fond instantané & Qualité photo 100% préservée</p>
+                <p className="text-[11px] text-slate-400">Éditeur par lots & Qualité HD du sujet 100% préservée</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
               <button
-                onClick={addMoreDemos}
+                onClick={() => {
+                  const demos = DEMO_LIBRARY.map(d => ({
+                    id: 'demo_' + Math.random().toString(36).substring(2, 7),
+                    name: d.name,
+                    originalUrl: d.url,
+                    currentUrl: d.url,
+                    width: 1200,
+                    height: 1200,
+                    isModified: false,
+                  }));
+                  setImages(demos);
+                  setSelectedIds(new Set(demos.map(img => img.id)));
+                  addToast('Démos Chargées', 'Images prêtes pour tester les 120+ fonds !', 'success');
+                }}
                 className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold"
               >
                 <Icon name="sparkles" className="w-4 h-4 text-amber-400" />
-                <span>Charger 8 Démos</span>
+                <span>Charger Démos</span>
               </button>
 
               <button
@@ -819,7 +819,7 @@
             {/* GALLERY AREA */}
             <main className="flex-1 p-6 overflow-y-auto flex flex-col gap-5">
               
-              {/* Top Action Bar */}
+              {/* Top Toolbar */}
               <div className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-slate-900 border border-slate-800">
                 <div className="flex items-center gap-2 text-xs">
                   <button onClick={selectAll} className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 font-semibold text-slate-200">
@@ -836,7 +836,7 @@
                 <div className="flex items-center gap-2">
                   <label className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 cursor-pointer hover:bg-indigo-500/30 transition-all">
                     <Icon name="upload" className="w-3.5 h-3.5" />
-                    <span>Glisser / Ajouter des photos</span>
+                    <span>Glisser / Ajouter vos photos</span>
                     <input type="file" multiple accept="image/*" className="hidden" onChange={(e) => handleFiles(e.target.files)} />
                   </label>
 
@@ -861,10 +861,6 @@
                   </div>
                   <h2 className="text-xl font-bold text-white mb-2">Glissez vos photos ici</h2>
                   <p className="text-sm text-slate-400 max-w-md mb-6">Vos photos restent en qualité HD intégrale. Le fond est remplacé en 1 clic.</p>
-                  
-                  <button onClick={addMoreDemos} className="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg">
-                    Charger des exemples de test
-                  </button>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -932,18 +928,18 @@
               )}
             </main>
 
-            {/* EXPANDED CONTROL SIDEBAR */}
-            <aside className="w-full lg:w-[420px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-6 flex flex-col gap-5 shrink-0 shadow-2xl overflow-y-auto">
+            {/* EXPANDED CONTROL SIDEBAR (120+ BACKGROUNDS) */}
+            <aside className="w-full lg:w-[460px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
               
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue de Fonds</h3>
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 120+ Fonds HD</h3>
                 <span className="text-xs font-mono text-indigo-400 font-bold">{selectedIds.size} sélectionnée(s)</span>
               </div>
 
-              {/* Main Sidebar Tool Tabs */}
+              {/* Main Tool Tabs */}
               <div className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
                 {[
-                  { id: 'background', label: 'Fonds', icon: 'palette' },
+                  { id: 'background', label: 'Fonds (120+)', icon: 'palette' },
                   { id: 'crop', label: 'Recadrer', icon: 'crop' },
                   { id: 'resize', label: 'Taille', icon: 'resize' },
                   { id: 'watermark', label: 'Filigrane', icon: 'stamp' },
@@ -962,19 +958,19 @@
               </div>
 
               {/* ================================================================= */}
-              {/* --- TAB: BACKGROUNDS WITH HUGE RICH CATALOGUE --- */}
+              {/* --- TAB: BACKGROUNDS WITH 6 HUGE CATEGORIES (20+ PER SECTION) --- */}
               {/* ================================================================= */}
               {activeTab === 'background' && (
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-3.5">
                   
-                  {/* Subject Quality Protection Banner */}
-                  <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-between">
+                  {/* Quality Preservation Switch */}
+                  <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
                         <Icon name="wand" className="w-4 h-4 text-indigo-400" />
-                        Protection Qualité HD
+                        Préservation HD & Sujet Net
                       </span>
-                      <p className="text-[10px] text-slate-400">Le sujet reste 100% net et inaltéré.</p>
+                      <p className="text-[10px] text-slate-400">Le sujet conserve 100% de sa résolution.</p>
                     </div>
                     <input
                       type="checkbox"
@@ -984,49 +980,73 @@
                     />
                   </div>
 
-                  {/* Sub-Tabs: Background Categories */}
-                  <div className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-bold">
+                  {/* Search Bar for Backgrounds */}
+                  <div className="relative">
+                    <Icon name="search" className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Rechercher parmi 120+ fonds (ex: anime, sunset, plage, marbre, rose)..."
+                      className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                    />
+                  </div>
+
+                  {/* 6 Category Switcher Buttons */}
+                  <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-bold">
                     <button
                       onClick={() => setBgCategory('cartoons')}
-                      className={`py-1.5 rounded-lg transition-all ${bgCategory === 'cartoons' ? 'bg-indigo-600 text-white' : 'text-slate-400'}`}
+                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'cartoons' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🧸 Cartoons
+                      🧸 Cartoons (20)
                     </button>
                     <button
                       onClick={() => setBgCategory('solids')}
-                      className={`py-1.5 rounded-lg transition-all ${bgCategory === 'solids' ? 'bg-indigo-600 text-white' : 'text-slate-400'}`}
+                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'solids' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🎨 Couleurs
+                      🎨 Couleurs (24)
                     </button>
                     <button
                       onClick={() => setBgCategory('gradients')}
-                      className={`py-1.5 rounded-lg transition-all ${bgCategory === 'gradients' ? 'bg-indigo-600 text-white' : 'text-slate-400'}`}
+                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'gradients' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      🌈 Dégradés
+                      🌈 Dégradés (20)
                     </button>
                     <button
-                      onClick={() => setBgCategory('photos')}
-                      className={`py-1.5 rounded-lg transition-all ${bgCategory === 'photos' ? 'bg-indigo-600 text-white' : 'text-slate-400'}`}
+                      onClick={() => setBgCategory('studios')}
+                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'studios' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
                     >
-                      📸 Photos HD
+                      🏛️ Studios HD (20)
+                    </button>
+                    <button
+                      onClick={() => setBgCategory('nature')}
+                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'nature' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                    >
+                      🌲 Nature HD (20)
+                    </button>
+                    <button
+                      onClick={() => setBgCategory('cities')}
+                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'cities' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                    >
+                      🏙️ Villes HD (20)
                     </button>
                   </div>
 
-                  {/* 1. CARTOONS & 3D BACKGROUNDS */}
+                  {/* 1. CARTOONS & 3D SECTION (20 CHOICES) */}
                   {bgCategory === 'cartoons' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 Cliquez sur un décor cartoon pour l'appliquer :
+                        👉 20 Décors Cartoons, Anime & 3D (1 Clic) :
                       </span>
-                      <div className="grid grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pr-1">
-                        {BG_CARTOONS.map(c => (
+                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
+                        {filteredCartoons.map(c => (
                           <button
                             key={c.id}
                             onClick={() => applyBackground(c)}
-                            className="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-105 transition-all text-left flex flex-col justify-end p-2 bg-slate-900"
+                            className="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
                           >
                             <img src={c.url} alt={c.label} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
                             <span className="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">
                               {c.label}
                             </span>
@@ -1036,76 +1056,122 @@
                     </div>
                   )}
 
-                  {/* 2. PRO SOLID COLORS (16 COLORS + PICKER) */}
+                  {/* 2. SOLID COLORS (24 CHOICES) */}
                   {bgCategory === 'solids' && (
                     <div className="flex flex-col gap-3">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 16 Couleurs Studio & Minimalistes :
+                        👉 24 Couleurs Studio & Pastels :
                       </span>
-                      <div className="grid grid-cols-4 gap-2">
-                        {BG_SOLIDS.map(color => (
+                      <div className="grid grid-cols-4 gap-2 max-h-80 overflow-y-auto pr-1">
+                        {filteredSolids.map(color => (
                           <button
                             key={color.id}
                             onClick={() => applyBackground({ type: 'solid', value: color.value })}
-                            className={`h-11 rounded-xl border transition-all hover:scale-105 flex flex-col items-center justify-center ${color.class} border-slate-700`}
+                            className={`h-12 rounded-xl border transition-all hover:scale-105 flex flex-col items-center justify-center ${color.class} border-slate-700 shadow-sm`}
                             title={color.label}
                           >
-                            <span className="text-[9px] font-bold px-1 rounded bg-black/40 text-white truncate max-w-[60px]">{color.label.split(' ')[0]}</span>
+                            <span className="text-[9px] font-bold px-1 rounded bg-black/40 text-white truncate max-w-[70px]">
+                              {color.label.split(' ')[0]}
+                            </span>
                           </button>
                         ))}
                       </div>
 
-                      {/* Custom Hex Color */}
-                      <div className="flex items-center gap-2 p-2 rounded-xl bg-slate-950 border border-slate-800">
-                        <span className="text-xs text-slate-400">Couleur libre :</span>
+                      {/* Custom Hex Color Picker */}
+                      <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                        <span className="text-xs text-slate-400">Couleur personnalisée :</span>
                         <input
                           type="color"
                           defaultValue="#6366f1"
                           onChange={(e) => applyBackground({ type: 'solid', value: e.target.value })}
                           className="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0"
                         />
-                        <span className="text-xs font-mono text-indigo-400">Choisir sur la palette</span>
+                        <span className="text-xs font-mono text-indigo-400">Choisir teinte exacte</span>
                       </div>
                     </div>
                   )}
 
-                  {/* 3. MESH GRADIENTS */}
+                  {/* 3. GRADIENTS (20 CHOICES) */}
                   {bgCategory === 'gradients' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 9 Dégradés Éclatants & Cyber :
+                        👉 20 Dégradés Modernes & Mesh :
                       </span>
-                      <div className="grid grid-cols-3 gap-2">
-                        {BG_GRADIENTS.map(grad => (
+                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
+                        {filteredGradients.map(grad => (
                           <button
                             key={grad.id}
                             onClick={() => applyBackground({ type: 'gradient', colors: grad.colors, value: grad.id })}
                             style={{ background: grad.css }}
-                            className="h-14 rounded-xl border border-slate-700 hover:border-white transition-all hover:scale-105 flex items-end p-1.5 shadow-md"
+                            className="h-14 rounded-xl border border-slate-700 hover:border-white transition-all hover:scale-[1.02] flex items-end p-2 shadow-md"
                           >
-                            <span className="text-[10px] font-bold text-white drop-shadow truncate">{grad.label}</span>
+                            <span className="text-[11px] font-bold text-white drop-shadow truncate">{grad.label}</span>
                           </button>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  {/* 4. REALISTIC HD PHOTOS */}
-                  {bgCategory === 'photos' && (
+                  {/* 4. STUDIOS & INTERIORS HD (20 CHOICES) */}
+                  {bgCategory === 'studios' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
-                        👉 Décors Réalistes & Studio :
+                        👉 20 Studios Photo & Intérieurs Luxe HD :
                       </span>
-                      <div className="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto pr-1">
-                        {BG_PHOTOS.map(p => (
+                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
+                        {filteredStudios.map(s => (
                           <button
-                            key={p.id}
-                            onClick={() => applyBackground({ type: 'image', url: p.url })}
-                            className="relative h-20 rounded-xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-105 transition-all text-left flex flex-col justify-end p-2 bg-slate-900"
+                            key={s.id}
+                            onClick={() => applyBackground({ type: 'image', url: s.url })}
+                            className="relative h-20 rounded-xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
                           >
-                            <img src={p.url} alt={p.label} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                            <span className="relative z-10 text-[10px] font-bold text-white truncate">{p.label}</span>
+                            <img src={s.url} alt={s.label} className="absolute inset-0 w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                            <span className="relative z-10 text-[10px] font-bold text-white truncate">{s.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 5. NATURE & LANDSCAPES HD (20 CHOICES) */}
+                  {bgCategory === 'nature' && (
+                    <div className="flex flex-col gap-2">
+                      <span className="text-[11px] text-slate-400 font-bold">
+                        👉 20 Paysages Nature, Montagnes & Plages HD :
+                      </span>
+                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
+                        {filteredNature.map(n => (
+                          <button
+                            key={n.id}
+                            onClick={() => applyBackground({ type: 'image', url: n.url })}
+                            className="relative h-20 rounded-xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
+                          >
+                            <img src={n.url} alt={n.label} className="absolute inset-0 w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                            <span className="relative z-10 text-[10px] font-bold text-white truncate">{n.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 6. CITIES & CYBERPUNK HD (20 CHOICES) */}
+                  {bgCategory === 'cities' && (
+                    <div className="flex flex-col gap-2">
+                      <span className="text-[11px] text-slate-400 font-bold">
+                        👉 20 Villes, Cyberpunk & Architecture HD :
+                      </span>
+                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
+                        {filteredCities.map(c => (
+                          <button
+                            key={c.id}
+                            onClick={() => applyBackground({ type: 'image', url: c.url })}
+                            className="relative h-20 rounded-xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
+                          >
+                            <img src={c.url} alt={c.label} className="absolute inset-0 w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                            <span className="relative z-10 text-[10px] font-bold text-white truncate">{c.label}</span>
                           </button>
                         ))}
                       </div>
@@ -1116,7 +1182,7 @@
                   <div className="pt-2 border-t border-slate-800">
                     <label className="w-full py-2.5 px-3 rounded-xl border border-dashed border-slate-700 hover:border-indigo-500 bg-slate-950/40 flex items-center justify-center gap-2 text-xs font-semibold text-slate-300 cursor-pointer transition-all">
                       <Icon name="image" className="w-4 h-4 text-indigo-400" />
-                      <span>Importer un fond depuis votre PC</span>
+                      <span>Importer un fond personnalisé (depuis PC)</span>
                       <input type="file" accept="image/*" className="hidden" onChange={handleCustomBg} />
                     </label>
                   </div>
@@ -1268,7 +1334,7 @@
             </div>
           )}
 
-          {/* SPINNER */}
+          {/* SPINNER OVERLAY */}
           {isProcessing && (
             <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
               <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col items-center gap-3">
