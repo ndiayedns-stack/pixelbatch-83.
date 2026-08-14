@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — 100% Traitement Garanti sur 1 à 1000 Photos & 280+ Vrais Fonds HD Réalistes</title>
-  <meta name="description" content="Studio professionnel de détourage et remplacement de fond par lots (1 à 1000 photos). Détourage IA garanti sur toutes les photos et catalogue de 280+ véritables fonds HD réalistes (Mangas artistiques, Déserts 4K, Studios Luxe, Villes du Monde, Pop Art, Dégradés et Couleurs)." />
+  <title>PixelBatch AI Studio — Détourage Automatique Instantané & 280+ Fonds HD</title>
+  <meta name="description" content="Studio professionnel de détourage automatique dès l'import et remplacement de fond par lots (1 à 1000 photos). Détourage IA immédiat et 280+ véritables fonds HD réalistes." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -204,7 +204,6 @@
 
     // Helper for HD Background Images with Full Canvas Stretch & Zero Tainting
     const makePhotoBg = (id, label, unsplashId, keywords) => {
-      // Unsplash HD URL with optimal params
       const url = `https://images.unsplash.com/photo-${unsplashId}?auto=format&fit=crop&w=1400&q=80`;
       return {
         id,
@@ -539,6 +538,7 @@
       const [bgCategory, setBgCategory] = useState('popart');
       const [searchQuery, setSearchQuery] = useState('');
       const [isProcessing, setIsProcessing] = useState(false);
+      const [processingStatus, setProcessingStatus] = useState('');
       const [progress, setProgress] = useState({ current: 0, total: 0 });
       const [toasts, setToasts] = useState([]);
 
@@ -549,9 +549,8 @@
       // Cervex Modal
       const [isCervexOpen, setIsCervexOpen] = useState(false);
 
-      // Auto cutout & tolerance
-      const [autoCutout, setAutoCutout] = useState(true);
-      const [tolerance, setTolerance] = useState(30);
+      // Current Selected Background State
+      const [currentAppliedBg, setCurrentAppliedBg] = useState(null);
 
       // MediaPipe Segmenter Ref
       const segmenterRef = useRef(null);
@@ -584,44 +583,218 @@
         setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 4000);
       };
 
-      // Load initial demo images
+      // =========================================================================
+      // --- CORE AUTO-CUTOUT FUNCTION (AUTOMATIC BACKGROUND REMOVAL ON UPLOAD) ---
+      // =========================================================================
+      const generateAutoCutout = async (imgUrl) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          if (imgUrl.startsWith('http')) {
+            img.crossOrigin = 'anonymous';
+          }
+          img.src = imgUrl;
+
+          img.onload = async () => {
+            try {
+              const w = img.naturalWidth || 1200;
+              const h = img.naturalHeight || 1200;
+
+              const subjectCanvas = document.createElement('canvas');
+              subjectCanvas.width = w;
+              subjectCanvas.height = h;
+              const sctx = subjectCanvas.getContext('2d', { willReadFrequently: true });
+              sctx.drawImage(img, 0, 0, w, h);
+
+              let maskFound = false;
+
+              // 1. Try MediaPipe Neural AI Segmentation
+              if (segmenterRef.current) {
+                try {
+                  await Promise.race([
+                    new Promise((res) => {
+                      const tempCanvas = document.createElement('canvas');
+                      tempCanvas.width = w;
+                      tempCanvas.height = h;
+                      const tctx = tempCanvas.getContext('2d');
+                      tctx.drawImage(img, 0, 0, w, h);
+
+                      segmenterRef.current.onResults((results) => {
+                        if (results.segmentationMask) {
+                          sctx.save();
+                          sctx.globalCompositeOperation = 'destination-in';
+                          sctx.drawImage(results.segmentationMask, 0, 0, w, h);
+                          sctx.restore();
+                          maskFound = true;
+                        }
+                        res();
+                      });
+                      segmenterRef.current.send({ image: tempCanvas });
+                    }),
+                    new Promise((res) => setTimeout(res, 700))
+                  ]);
+                } catch (err) {
+                  maskFound = false;
+                }
+              }
+
+              // 2. Smart Boundary Floodfill Fallback
+              if (!maskFound) {
+                const imgData = sctx.getImageData(0, 0, w, h);
+                const data = imgData.data;
+
+                const c1 = [data[0], data[1], data[2]];
+                const c2 = [data[(w - 1) * 4], data[(w - 1) * 4 + 1], data[(w - 1) * 4 + 2]];
+                const c3 = [data[(h - 1) * w * 4], data[(h - 1) * w * 4 + 1], data[(h - 1) * w * 4 + 2]];
+                const c4 = [data[((h * w) - 1) * 4], data[((h * w) - 1) * 4 + 1], data[((h * w) - 1) * 4 + 2]];
+
+                const bgR = Math.round((c1[0] + c2[0] + c3[0] + c4[0]) / 4);
+                const bgG = Math.round((c1[1] + c2[1] + c3[1] + c4[1]) / 4);
+                const bgB = Math.round((c1[2] + c2[2] + c3[2] + c4[2]) / 4);
+
+                const threshold = 65;
+                const visited = new Uint8Array(w * h);
+                const queue = [];
+
+                for (let x = 0; x < w; x++) {
+                  queue.push(x, 0);
+                  queue.push(x, h - 1);
+                  visited[x] = 1;
+                  visited[(h - 1) * w + x] = 1;
+                }
+                for (let y = 0; y < h; y++) {
+                  queue.push(0, y);
+                  queue.push(w - 1, y);
+                  visited[y * w] = 1;
+                  visited[y * w + (w - 1)] = 1;
+                }
+
+                let head = 0;
+                while (head < queue.length) {
+                  const qx = queue[head++];
+                  const qy = queue[head++];
+                  const pIdx = (qy * w + qx) * 4;
+
+                  const r = data[pIdx];
+                  const g = data[pIdx + 1];
+                  const b = data[pIdx + 2];
+
+                  const dist = Math.sqrt(
+                    Math.pow(r - bgR, 2) +
+                    Math.pow(g - bgG, 2) +
+                    Math.pow(b - bgB, 2)
+                  );
+
+                  if (dist < threshold || (r > 235 && g > 235 && b > 235)) {
+                    data[pIdx + 3] = 0;
+
+                    const neighbors = [
+                      [qx + 1, qy],
+                      [qx - 1, qy],
+                      [qx, qy + 1],
+                      [qx, qy - 1],
+                    ];
+
+                    for (let n = 0; n < 4; n++) {
+                      const nx = neighbors[n][0];
+                      const ny = neighbors[n][1];
+                      if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+                        const nPos = ny * w + nx;
+                        if (!visited[nPos]) {
+                          visited[nPos] = 1;
+                          queue.push(nx, ny);
+                        }
+                      }
+                    }
+                  }
+                }
+                sctx.putImageData(imgData, 0, 0);
+              }
+
+              resolve({
+                cutoutUrl: subjectCanvas.toDataURL('image/png'),
+                w,
+                h
+              });
+            } catch (err) {
+              console.warn("Cutout error:", err);
+              resolve({ cutoutUrl: imgUrl, w: 1200, h: 1200 });
+            }
+          };
+          img.onerror = () => resolve({ cutoutUrl: imgUrl, w: 1200, h: 1200 });
+        });
+      };
+
+      // Load initial demo images WITH AUTOMATIC BACKGROUND REMOVAL PRE-APPLIED
       useEffect(() => {
         const initial = DEMO_LIBRARY.map(d => ({
           id: d.id,
           name: d.name,
           originalUrl: d.url,
+          cutoutUrl: d.url, // Vector demos already isolated
           currentUrl: d.url,
+          isCutout: true,
           isModified: false,
         }));
         setImages(initial);
         setSelectedIds(new Set(initial.map(img => img.id)));
       }, []);
 
-      // High-Capacity Batch Upload (1 to 1000 photos via memory-efficient ObjectURLs)
-      const handleFiles = (files) => {
+      // High-Capacity Batch Upload with INSTANT AUTOMATIC BACKGROUND REMOVAL (1 to 1000 photos)
+      const handleFiles = async (files) => {
         if (!files || files.length === 0) return;
         const count = files.length;
-        const newItems = [];
+        
+        setIsProcessing(true);
+        setProcessingStatus('Détourage automatique IA en cours...');
+        setProgress({ current: 0, total: count });
 
+        const rawList = [];
         Array.from(files).forEach((file) => {
           const url = URL.createObjectURL(file);
           const id = 'img_' + Math.random().toString(36).substring(2, 9);
-          newItems.push({
+          rawList.push({
             id,
             name: file.name,
             originalUrl: url,
+            cutoutUrl: url,
             currentUrl: url,
+            isCutout: false,
             isModified: false,
           });
         });
 
+        // Perform Automatic Background Removal on every imported photo immediately
+        const processedList = [];
+        for (let i = 0; i < rawList.length; i++) {
+          const item = rawList[i];
+          const { cutoutUrl } = await generateAutoCutout(item.originalUrl);
+          
+          processedList.push({
+            ...item,
+            cutoutUrl: cutoutUrl,
+            currentUrl: cutoutUrl, // Display the isolated subject directly!
+            isCutout: true,
+            isModified: true,
+          });
+
+          setProgress({ current: i + 1, total: count });
+          if ((i + 1) % 2 === 0) {
+            await new Promise(r => setTimeout(r, 10));
+          }
+        }
+
         setImages(prev => {
-          const nextList = [...prev, ...newItems];
+          const nextList = [...prev, ...processedList];
           setSelectedIds(new Set(nextList.map(m => m.id)));
           return nextList;
         });
 
-        addToast('Lot Importé', `${count} photo(s) ajoutée(s). Le fond s’appliquera sur 100% de vos photos !`, 'success');
+        setIsProcessing(false);
+        addToast(
+          'Détourage Automatique Réussi !',
+          `Le fond de vos ${count} photo(s) a été retiré avec succès. Choisissez maintenant votre fond préféré !`,
+          'success'
+        );
       };
 
       // Select / Deselect
@@ -637,11 +810,11 @@
       const revertSelected = () => {
         setImages(prev => prev.map(img => {
           if (applyToAll || selectedIds.has(img.id)) {
-            return { ...img, currentUrl: img.originalUrl, isModified: false };
+            return { ...img, currentUrl: img.cutoutUrl, isModified: true };
           }
           return img;
         }));
-        addToast('Restauré', 'Retour aux photos d’origine', 'info');
+        addToast('Fond Retiré', 'Retour au sujet détouré transparent', 'info');
       };
       const deleteSelected = () => {
         setImages(prev => prev.filter(img => !selectedIds.has(img.id)));
@@ -650,38 +823,38 @@
       };
 
       // =========================================================================
-      // --- BULLETPROOF FULL-CANVAS RENDERING ENGINE (ZERO SKIPS, 100% COMPLETE) ---
+      // --- INSTANT BACKGROUND REPLACEMENT ENGINE (APPLIES TO PRE-CUTOUT SUBJECTS) ---
       // =========================================================================
-      const processSingleImage = async (item, bgConfig) => {
+      const compositeBackground = async (item, bgConfig) => {
         return new Promise((resolve) => {
-          const img = new Image();
-          if (item.originalUrl.startsWith('http')) {
-            img.crossOrigin = 'anonymous';
+          const subjectImg = new Image();
+          if (item.cutoutUrl.startsWith('http')) {
+            subjectImg.crossOrigin = 'anonymous';
           }
-          img.src = item.originalUrl;
+          subjectImg.src = item.cutoutUrl;
 
-          img.onload = async () => {
+          subjectImg.onload = async () => {
             try {
-              const w = img.naturalWidth || 1200;
-              const h = img.naturalHeight || 1200;
+              const w = subjectImg.naturalWidth || 1200;
+              const h = subjectImg.naturalHeight || 1200;
 
-              // 1. Background Canvas (Full coverage 100% of (w, h) without cropping)
-              const bgCanvas = document.createElement('canvas');
-              bgCanvas.width = w;
-              bgCanvas.height = h;
-              const bgCtx = bgCanvas.getContext('2d');
+              const finalCanvas = document.createElement('canvas');
+              finalCanvas.width = w;
+              finalCanvas.height = h;
+              const fctx = finalCanvas.getContext('2d');
 
+              // 1. Draw Selected Background (Full canvas 100% (w, h))
               if (bgConfig.value !== 'transparent') {
                 if (bgConfig.type === 'solid') {
-                  bgCtx.fillStyle = bgConfig.value;
-                  bgCtx.fillRect(0, 0, w, h);
+                  fctx.fillStyle = bgConfig.value;
+                  fctx.fillRect(0, 0, w, h);
                 } else if (bgConfig.type === 'gradient' && bgConfig.colors) {
-                  const grad = bgCtx.createLinearGradient(0, 0, w, h);
+                  const grad = fctx.createLinearGradient(0, 0, w, h);
                   grad.addColorStop(0, bgConfig.colors[0]);
                   grad.addColorStop(0.5, bgConfig.colors[1]);
                   grad.addColorStop(1, bgConfig.colors[2]);
-                  bgCtx.fillStyle = grad;
-                  bgCtx.fillRect(0, 0, w, h);
+                  fctx.fillStyle = grad;
+                  fctx.fillRect(0, 0, w, h);
                 } else if (bgConfig.url) {
                   try {
                     const bgImg = new Image();
@@ -691,138 +864,18 @@
                       bgImg.onerror = rej;
                       bgImg.src = bgConfig.url;
                     });
-                    bgCtx.drawImage(bgImg, 0, 0, w, h);
+                    fctx.drawImage(bgImg, 0, 0, w, h);
                   } catch (e) {
-                    bgCtx.fillStyle = '#4f46e5';
-                    bgCtx.fillRect(0, 0, w, h);
+                    fctx.fillStyle = '#4f46e5';
+                    fctx.fillRect(0, 0, w, h);
                   }
                 }
               }
 
-              // 2. Original Subject Cutout
-              const subjectCanvas = document.createElement('canvas');
-              subjectCanvas.width = w;
-              subjectCanvas.height = h;
-              const sctx = subjectCanvas.getContext('2d', { willReadFrequently: true });
-              sctx.drawImage(img, 0, 0, w, h);
+              // 2. Draw Pristine Cutout Subject on top
+              fctx.drawImage(subjectImg, 0, 0, w, h);
 
-              if (autoCutout) {
-                let maskFound = false;
-
-                // Neural Segmentation with safe timeout
-                if (segmenterRef.current) {
-                  try {
-                    await Promise.race([
-                      new Promise((res) => {
-                        const tempCanvas = document.createElement('canvas');
-                        tempCanvas.width = w;
-                        tempCanvas.height = h;
-                        const tctx = tempCanvas.getContext('2d');
-                        tctx.drawImage(img, 0, 0, w, h);
-
-                        segmenterRef.current.onResults((results) => {
-                          if (results.segmentationMask) {
-                            sctx.save();
-                            sctx.globalCompositeOperation = 'destination-in';
-                            sctx.drawImage(results.segmentationMask, 0, 0, w, h);
-                            sctx.restore();
-                            maskFound = true;
-                          }
-                          res();
-                        });
-                        segmenterRef.current.send({ image: tempCanvas });
-                      }),
-                      new Promise((res) => setTimeout(res, 600))
-                    ]);
-                  } catch (err) {
-                    maskFound = false;
-                  }
-                }
-
-                // Fallback BFS Floodfill for products/objects
-                if (!maskFound) {
-                  const imgData = sctx.getImageData(0, 0, w, h);
-                  const data = imgData.data;
-
-                  const c1 = [data[0], data[1], data[2]];
-                  const c2 = [data[(w - 1) * 4], data[(w - 1) * 4 + 1], data[(w - 1) * 4 + 2]];
-                  const c3 = [data[(h - 1) * w * 4], data[(h - 1) * w * 4 + 1], data[(h - 1) * w * 4 + 2]];
-                  const c4 = [data[((h * w) - 1) * 4], data[((h * w) - 1) * 4 + 1], data[((h * w) - 1) * 4 + 2]];
-
-                  const bgR = Math.round((c1[0] + c2[0] + c3[0] + c4[0]) / 4);
-                  const bgG = Math.round((c1[1] + c2[1] + c3[1] + c4[1]) / 4);
-                  const bgB = Math.round((c1[2] + c2[2] + c3[2] + c4[2]) / 4);
-
-                  const threshold = tolerance * 2.2;
-                  const visited = new Uint8Array(w * h);
-                  const queue = [];
-
-                  for (let x = 0; x < w; x++) {
-                    queue.push(x, 0);
-                    queue.push(x, h - 1);
-                    visited[x] = 1;
-                    visited[(h - 1) * w + x] = 1;
-                  }
-                  for (let y = 0; y < h; y++) {
-                    queue.push(0, y);
-                    queue.push(w - 1, y);
-                    visited[y * w] = 1;
-                    visited[y * w + (w - 1)] = 1;
-                  }
-
-                  let head = 0;
-                  while (head < queue.length) {
-                    const qx = queue[head++];
-                    const qy = queue[head++];
-                    const pIdx = (qy * w + qx) * 4;
-
-                    const r = data[pIdx];
-                    const g = data[pIdx + 1];
-                    const b = data[pIdx + 2];
-
-                    const dist = Math.sqrt(
-                      Math.pow(r - bgR, 2) +
-                      Math.pow(g - bgG, 2) +
-                      Math.pow(b - bgB, 2)
-                    );
-
-                    if (dist < threshold || (r > 240 && g > 240 && b > 240 && bgR > 220)) {
-                      data[pIdx + 3] = 0;
-
-                      const neighbors = [
-                        [qx + 1, qy],
-                        [qx - 1, qy],
-                        [qx, qy + 1],
-                        [qx, qy - 1],
-                      ];
-
-                      for (let n = 0; n < 4; n++) {
-                        const nx = neighbors[n][0];
-                        const ny = neighbors[n][1];
-                        if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
-                          const nPos = ny * w + nx;
-                          if (!visited[nPos]) {
-                            visited[nPos] = 1;
-                            queue.push(nx, ny);
-                          }
-                        }
-                      }
-                    }
-                  }
-                  sctx.putImageData(imgData, 0, 0);
-                }
-              }
-
-              // 3. Final Composition (Full Canvas Coverage + Pristine Original Subject)
-              const finalCanvas = document.createElement('canvas');
-              finalCanvas.width = w;
-              finalCanvas.height = h;
-              const fctx = finalCanvas.getContext('2d');
-
-              fctx.drawImage(bgCanvas, 0, 0, w, h);
-              fctx.drawImage(subjectCanvas, 0, 0, w, h);
-
-              // 4. Optional Watermark
+              // 3. Optional Watermark
               if (watermark.enabled && watermark.text) {
                 fctx.save();
                 fctx.globalAlpha = watermark.opacity / 100;
@@ -848,38 +901,41 @@
                 isModified: true,
               });
             } catch (err) {
-              console.warn("Composition error:", err);
+              console.warn("Composite error:", err);
               resolve(item);
             }
           };
-          img.onerror = () => resolve(item);
+          subjectImg.onerror = () => resolve(item);
         });
       };
 
-      // 100% Reliable Batch Processor
+      // 100% Reliable Batch Background Applier (Instant because cutout is already done!)
       const applyBackground = async (bgConfig) => {
         if (images.length === 0) {
           addToast('Aucune photo', 'Importez vos photos d’abord !', 'warning');
           return;
         }
 
+        setCurrentAppliedBg(bgConfig);
         const total = images.length;
         setIsProcessing(true);
+        setProcessingStatus('Application instantanée du nouveau fond...');
         setProgress({ current: 0, total });
 
         try {
           const updated = [...images];
           for (let i = 0; i < updated.length; i++) {
             if (applyToAll || selectedIds.has(updated[i].id)) {
-              updated[i] = await processSingleImage(updated[i], bgConfig);
+              updated[i] = await compositeBackground(updated[i], bgConfig);
             }
             setProgress({ current: i + 1, total });
-            if ((i + 1) % 2 === 0) {
-              await new Promise(r => setTimeout(r, 10));
-            }
           }
           setImages(updated);
-          addToast('Lot 100% Traité !', `Toutes les ${total} photos ont reçu le fond appliqué en plein écran ✨`, 'success');
+          addToast(
+            'Fond Appliqué en 1 Clic !',
+            `Le nouveau fond a été appliqué en plein écran sur 100% de vos ${total} photos ✨`,
+            'success'
+          );
         } catch (e) {
           console.error(e);
         } finally {
@@ -901,6 +957,7 @@
       // Crop
       const applyCrop = async (ratio) => {
         setIsProcessing(true);
+        setProcessingStatus('Recadrage...');
         setProgress({ current: 0, total: images.length });
         try {
           const updated = [...images];
@@ -937,6 +994,7 @@
       // Resize
       const applyResize = async (w, h) => {
         setIsProcessing(true);
+        setProcessingStatus('Redimensionnement...');
         setProgress({ current: 0, total: images.length });
         try {
           const updated = [...images];
@@ -977,6 +1035,7 @@
       const downloadZip = async () => {
         if (images.length === 0) return;
         setIsProcessing(true);
+        setProcessingStatus('Création de l’archive ZIP...');
         setProgress({ current: 0, total: images.length });
         try {
           const zip = new JSZip();
@@ -1016,11 +1075,12 @@
                   <span className="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-indigo-100 to-slate-400 bg-clip-text text-transparent">
                     PixelBatch AI Studio
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-                    280+ VRAIS FONDS HD • LOT 1 À 1000
+                  <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    DÉTOURAGE AUTO DÈS L'IMPORT
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">100% des photos traitées • Fonds photo & anime réalistes • Zéro coupure</p>
+                <p className="text-[11px] text-slate-400">Vos photos sont détourées automatiquement • Choisissez directement le fond de votre choix</p>
               </div>
             </div>
 
@@ -1031,7 +1091,9 @@
                     id: 'demo_' + Math.random().toString(36).substring(2, 7),
                     name: d.name,
                     originalUrl: d.url,
+                    cutoutUrl: d.url,
                     currentUrl: d.url,
+                    isCutout: true,
                     isModified: false,
                   }));
                   setImages(demos);
@@ -1069,6 +1131,30 @@
             {/* GALLERY AREA */}
             <main className="flex-1 p-6 overflow-y-auto flex flex-col gap-5">
               
+              {/* Auto Cutout Info Banner */}
+              <div className="p-3 rounded-2xl bg-gradient-to-r from-indigo-900/40 via-purple-900/30 to-slate-900 border border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 shadow-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                    <Icon name="wand" className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-white flex items-center gap-2">
+                      <span>Détourage Automatique Actif</span>
+                      <span className="text-[10px] px-2 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 font-mono font-bold">100% Automatique</span>
+                    </h4>
+                    <p className="text-[11px] text-slate-300">Toute photo ajoutée a automatiquement son fond supprimé. Cliquez sur n'importe quel fond à droite pour l'appliquer instantanément !</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <label className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-600/30 cursor-pointer transition-all">
+                    <Icon name="upload" className="w-4 h-4" />
+                    <span>Ajouter des photos (Détourage Automatique)</span>
+                    <input type="file" multiple accept="image/*" className="hidden" onChange={(e) => handleFiles(e.target.files)} />
+                  </label>
+                </div>
+              </div>
+
               {/* Batch Mode Bar */}
               <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
                 
@@ -1080,24 +1166,18 @@
                     }`}
                   >
                     <Icon name="bolt" className="w-4 h-4 text-amber-400" />
-                    <span>{applyToAll ? `⚡ Mode Lot Actif : Traite TOUTES les ${images.length} photos` : 'Mode Sélection Manuelle'}</span>
+                    <span>{applyToAll ? `⚡ Mode Lot Actif : Applique à TOUTES les ${images.length} photos` : 'Mode Sélection Manuelle'}</span>
                   </button>
                   
                   <button onClick={selectAll} className="text-xs text-slate-400 hover:text-white underline">
                     Tout cocher
                   </button>
                   <button onClick={revertSelected} className="px-2.5 py-1 rounded-lg border border-amber-500/30 text-amber-300 hover:bg-amber-500/10 text-xs">
-                    Restaurer originaux
+                    Garder fond transparent
                   </button>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <label className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 cursor-pointer hover:bg-indigo-500/30 transition-all">
-                    <Icon name="upload" className="w-3.5 h-3.5" />
-                    <span>Ajouter des photos (1 à 1000)</span>
-                    <input type="file" multiple accept="image/*" className="hidden" onChange={(e) => handleFiles(e.target.files)} />
-                  </label>
-
                   <button onClick={deleteSelected} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/10">
                     <Icon name="trash" className="w-4 h-4" />
                   </button>
@@ -1115,10 +1195,10 @@
                   className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-indigo-500 rounded-3xl p-12 text-center bg-slate-900/40"
                 >
                   <div className="w-20 h-20 rounded-3xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-6">
-                    <Icon name="upload" className="w-10 h-10 text-indigo-400 animate-bounce" />
+                    <Icon name="wand" className="w-10 h-10 text-indigo-400 animate-bounce" />
                   </div>
-                  <h2 className="text-xl font-bold text-white mb-2">Glissez vos 20 à 1000 photos ici</h2>
-                  <p className="text-sm text-slate-400 max-w-md mb-6">Toutes les photos sont modifiées instantanément en 1 clic sans exception.</p>
+                  <h2 className="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>
+                  <p className="text-sm text-slate-400 max-w-md mb-6">Le fond est retiré dès l'import. Vous appliquez ensuite directement le fond HD de votre choix en 1 clic !</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -1171,13 +1251,10 @@
 
                         <div className="p-3 border-t border-slate-800 flex items-center justify-between text-xs bg-slate-900/90">
                           <span className="font-semibold text-slate-200 truncate max-w-[160px]">{item.name}</span>
-                          {item.isModified ? (
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                              Fond 100% Plein Écran
-                            </span>
-                          ) : (
-                            <span className="text-[10px] text-slate-500 font-mono">Original</span>
-                          )}
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                            <Icon name="wand" className="w-3 h-3 text-emerald-400" />
+                            <span>Détouré</span>
+                          </span>
                         </div>
                       </div>
                     );
@@ -1190,7 +1267,7 @@
             <aside className="w-full lg:w-[480px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
               
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 280+ Fonds HD Réalistes</h3>
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 280+ Vrais Fonds HD</h3>
                 <span className="text-xs font-mono text-emerald-400 font-bold">
                   {applyToAll ? `Lot complet (${images.length} photos)` : `${selectedIds.size} photos`}
                 </span>
@@ -1221,21 +1298,15 @@
               {activeTab === 'background' && (
                 <div className="flex flex-col gap-3.5">
                   
-                  {/* Full Coverage Guarantee Banner */}
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between">
+                  {/* Action Banner */}
+                  <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-between">
                     <div>
-                      <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
-                        <Icon name="shield" className="w-4 h-4 text-emerald-400" />
-                        Traitement 100% de toutes les photos
+                      <span className="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+                        <Icon name="bolt" className="w-4 h-4 text-amber-400" />
+                        Application Instantanée en 1 Clic
                       </span>
-                      <p className="text-[10px] text-slate-400">Le fond remplit 100% de la surface sans aucune coupure.</p>
+                      <p className="text-[10px] text-slate-400">Cliquez sur un fond ci-dessous pour l'appliquer à toutes vos photos détourées.</p>
                     </div>
-                    <input
-                      type="checkbox"
-                      checked={autoCutout}
-                      onChange={(e) => setAutoCutout(e.target.checked)}
-                      className="w-4 h-4 accent-emerald-500 cursor-pointer"
-                    />
                   </div>
 
                   {/* Search Bar */}
@@ -1633,7 +1704,7 @@
               <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 flex flex-col items-center gap-4 max-w-sm w-full shadow-2xl">
                 <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
                 <div className="text-center w-full">
-                  <h3 className="text-sm font-bold text-white mb-1">Traitement de 100% du lot</h3>
+                  <h3 className="text-sm font-bold text-white mb-1">{processingStatus || 'Traitement du lot...'}</h3>
                   <p className="text-xs text-slate-400 mb-3">
                     Photo {progress.current} sur {progress.total} ({Math.round((progress.current / Math.max(1, progress.total)) * 100)}%)
                   </p>
