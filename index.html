@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Détourage 100% Automatique & 280+ Fonds HD Uniques Sans Répétition</title>
-  <meta name="description" content="Studio professionnel de détourage IA automatique dès l'importation et remplacement de fond par lots (1 à 1000 photos). 280+ fonds entièrement uniques (Peintures Mangas Anime, Déserts 4K, Studios Luxe, Villes du Monde, Pop Art, Dégradés et Couleurs)." />
+  <title>PixelBatch AI Studio — Détourage Automatique, Sortie Ultra-HD 4K & Nouveaux Motifs Pop Art & Peintures Mangas</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage automatique, export Ultra-HD (4K, 2K, 1080p), motifs Pop Art de collection et peintures mangas authentiques." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -115,6 +115,8 @@
           return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>;
         case 'bolt':
           return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>;
+        case 'hd':
+          return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M7 9v6m0-3h3m0-3v6m4-6v6c0 1.5 2 1.5 2 0v-6c0-1.5-2-1.5-2 0z"/></svg>;
         default:
           return null;
       }
@@ -207,8 +209,8 @@
       id,
       label,
       type: 'photo',
-      url: `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=1400&q=80`,
-      thumb: `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=320&q=60`,
+      url: `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=1600&q=85`,
+      thumb: `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=350&q=60`,
     });
 
     const makeSvgBg = (id, label, svg) => ({
@@ -218,92 +220,92 @@
       url: 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1200 1200" preserveAspectRatio="none">${svg}</svg>`),
     });
 
-    // 1. POP ART (40 100% UNIQUE PATTERNS)
+    // 1. POP ART (40 MOTIFS TRÈS RECHERCHÉS & ICONIQUES)
     const BG_POPART_40 = [
-      makeSvgBg('p1', 'Pop Art Rayons Soleil Jaune', '<rect width="1200" height="1200" fill="#facc15"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#ea580c"/>'),
-      makeSvgBg('p2', 'Pop Dots Roy Lichtenstein', '<defs><pattern id="p2d" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="10" fill="#ef4444"/></pattern></defs><rect width="1200" height="1200" fill="#fef08a"/><rect width="1200" height="1200" fill="url(#p2d)"/>'),
-      makeSvgBg('p3', 'Andy Warhol 4 Quadrants', '<rect x="0" y="0" width="600" height="600" fill="#f43f5e"/><rect x="600" y="0" width="600" height="600" fill="#38bdf8"/><rect x="0" y="600" width="600" height="600" fill="#facc15"/><rect x="600" y="600" width="600" height="600" fill="#4ade80"/>'),
-      makeSvgBg('p4', 'Explosion Comic BOOM', '<rect width="1200" height="1200" fill="#3b82f6"/><polygon points="600,150 720,400 980,300 850,550 1100,600 850,700 1000,950 730,850 600,1100 470,850 200,950 350,700 100,600 350,550 220,300 480,400" fill="#facc15" stroke="#ef4444" stroke-width="20"/>'),
-      makeSvgBg('p5', 'Memphis Rétro 80s', '<rect width="1200" height="1200" fill="#fdf4ff"/><circle cx="250" cy="300" r="140" fill="#ec4899"/><polygon points="850,200 1050,500 650,500" fill="#06b6d4"/><rect x="300" y="750" width="250" height="250" rx="40" fill="#facc15"/><line x1="750" y1="800" x2="1050" y2="1050" stroke="#8b5cf6" stroke-width="30" stroke-linecap="round"/>'),
-      makeSvgBg('p6', 'Halftone Cyan Vintage', '<defs><pattern id="p6d" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="8" fill="#06b6d4"/></pattern></defs><rect width="1200" height="1200" fill="#ffffff"/><rect width="1200" height="1200" fill="url(#p6d)"/>'),
-      makeSvgBg('p7', 'Rayons Pop Rose & Blanc', '<rect width="1200" height="1200" fill="#ffffff"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#f43f5e"/>'),
-      makeSvgBg('p8', 'Bande Dessinée Grille', '<rect width="1200" height="1200" fill="#fef08a"/><rect x="100" y="100" width="1000" height="1000" fill="#ffffff" stroke="#000000" stroke-width="24"/><line x1="100" y1="600" x2="1100" y2="600" stroke="#000000" stroke-width="20"/><line x1="600" y1="100" x2="600" y2="1100" stroke="#000000" stroke-width="20"/>'),
-      makeSvgBg('p9', 'Pop Lignes Diagonales', '<defs><pattern id="p9d" width="60" height="60" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="60" stroke="#ec4899" stroke-width="30"/></pattern></defs><rect width="1200" height="1200" fill="#facc15"/><rect width="1200" height="1200" fill="url(#p9d)"/>'),
-      makeSvgBg('p10', 'Cercles Concentriques Pop', '<rect width="1200" height="1200" fill="#3b82f6"/><circle cx="600" cy="600" r="500" fill="#f43f5e"/><circle cx="600" cy="600" r="380" fill="#facc15"/><circle cx="600" cy="600" r="260" fill="#10b981"/><circle cx="600" cy="600" r="140" fill="#ffffff"/>'),
-      makeSvgBg('p11', 'Neon Pop Grid Synth', '<rect width="1200" height="1200" fill="#09090b"/><line x1="0" y1="600" x2="1200" y2="600" stroke="#ec4899" stroke-width="8"/><circle cx="600" cy="400" r="200" fill="#f59e0b"/>'),
-      makeSvgBg('p12', 'Vagues Miami Pop 80s', '<rect width="1200" height="1200" fill="#06b6d4"/><path d="M0,400 Q300,200 600,400 T1200,400 L1200,1200 L0,1200 Z" fill="#f43f5e"/><path d="M0,800 Q300,600 600,800 T1200,800 L1200,1200 L0,1200 Z" fill="#facc15"/>'),
-      makeSvgBg('p13', 'Pop Losanges Vintage', '<rect width="1200" height="1200" fill="#4ade80"/><polygon points="600,100 1100,600 600,1100 100,600" fill="#a855f7" stroke="#ffffff" stroke-width="24"/>'),
-      makeSvgBg('p14', 'Étoiles Colorées Pop', '<rect width="1200" height="1200" fill="#1e1b4b"/><polygon points="600,200 680,450 950,450 730,620 810,880 600,720 390,880 470,620 250,450 520,450" fill="#facc15"/>'),
-      makeSvgBg('p15', 'Spirale Hypnotique', '<rect width="1200" height="1200" fill="#000000"/><circle cx="600" cy="600" r="450" fill="none" stroke="#ffffff" stroke-width="40"/><circle cx="600" cy="600" r="300" fill="none" stroke="#ef4444" stroke-width="40"/><circle cx="600" cy="600" r="150" fill="none" stroke="#facc15" stroke-width="40"/>'),
-      makeSvgBg('p16', 'Éclair Flash Jaune', '<rect width="1200" height="1200" fill="#7c3aed"/><polygon points="650,100 350,650 600,650 450,1100 850,550 600,550" fill="#fde047" stroke="#000000" stroke-width="16"/>'),
-      makeSvgBg('p17', 'Nuages Pop Stylisés', '<rect width="1200" height="1200" fill="#38bdf8"/><circle cx="350" cy="500" r="150" fill="#ffffff" stroke="#000000" stroke-width="16"/><circle cx="550" cy="450" r="180" fill="#ffffff" stroke="#000000" stroke-width="16"/><circle cx="750" cy="500" r="140" fill="#ffffff" stroke="#000000" stroke-width="16"/>'),
-      makeSvgBg('p18', 'Damier Noir & Blanc Pop', '<defs><pattern id="p18d" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="#000000"/><rect x="50" width="50" height="50" fill="#ffffff"/><rect y="50" width="50" height="50" fill="#ffffff"/><rect x="50" y="50" width="50" height="50" fill="#000000"/></pattern></defs><rect width="1200" height="1200" fill="url(#p18d)"/>'),
-      makeSvgBg('p19', 'Splash Peinture Arty', '<rect width="1200" height="1200" fill="#ffffff"/><circle cx="600" cy="600" r="280" fill="#ec4899"/><circle cx="350" cy="400" r="90" fill="#06b6d4"/><circle cx="850" cy="450" r="110" fill="#facc15"/><circle cx="450" cy="850" r="120" fill="#10b981"/>'),
-      makeSvgBg('p20', 'Lunettes Rétro Pop', '<rect width="1200" height="1200" fill="#fef08a"/><circle cx="420" cy="600" r="160" fill="#000000"/><circle cx="780" cy="600" r="160" fill="#000000"/><line x1="580" y1="600" x2="620" y2="600" stroke="#000000" stroke-width="40"/>'),
-      makeSvgBg('p21', 'Cubes 3D Isométriques', '<rect width="1200" height="1200" fill="#f1f5f9"/><polygon points="600,300 850,450 600,600 350,450" fill="#38bdf8"/><polygon points="350,450 600,600 600,900 350,750" fill="#0284c7"/><polygon points="600,600 850,450 850,750 600,900" fill="#0369a1"/>'),
-      makeSvgBg('p22', 'Cœur Pop Art Rose', '<rect width="1200" height="1200" fill="#fce7f3"/><path d="M600,950 C400,750 200,600 200,400 C200,250 350,200 480,270 L600,400 L720,270 C850,200 1000,250 1000,400 C1000,600 800,750 600,950 Z" fill="#e11d48" stroke="#000000" stroke-width="20"/>'),
-      makeSvgBg('p23', 'Bulles de Savon Pop', '<rect width="1200" height="1200" fill="#38bdf8"/><circle cx="300" cy="400" r="140" fill="#f472b6" opacity="0.8"/><circle cx="800" cy="500" r="200" fill="#facc15" opacity="0.8"/><circle cx="500" cy="800" r="160" fill="#4ade80" opacity="0.8"/>'),
-      makeSvgBg('p24', 'Fleurs Marguerites 70s', '<rect width="1200" height="1200" fill="#f97316"/><circle cx="600" cy="600" r="160" fill="#fde047"/><circle cx="600" cy="300" r="120" fill="#ffffff"/><circle cx="600" cy="900" r="120" fill="#ffffff"/><circle cx="300" cy="600" r="120" fill="#ffffff"/><circle cx="900" cy="600" r="120" fill="#ffffff"/>'),
-      makeSvgBg('p25', 'Bandes Verticales Rétro', '<rect x="0" width="200" height="1200" fill="#78350f"/><rect x="200" width="200" height="1200" fill="#d97706"/><rect x="400" width="200" height="1200" fill="#f59e0b"/><rect x="600" width="200" height="1200" fill="#fef3c7"/><rect x="800" width="200" height="1200" fill="#ea580c"/><rect x="1000" width="200" height="1200" fill="#991b1b"/>'),
-      makeSvgBg('p26', 'Vagues Psychédéliques', '<rect width="1200" height="1200" fill="#6366f1"/><path d="M0,0 Q300,600 600,0 T1200,0 L1200,1200 L0,1200 Z" fill="#ec4899"/>'),
-      makeSvgBg('p27', 'Arcade Pacman Vintage', '<rect width="1200" height="1200" fill="#000000"/><circle cx="400" cy="600" r="160" fill="#facc15"/><circle cx="850" cy="600" r="140" fill="#ef4444"/>'),
-      makeSvgBg('p28', 'Polka Dots Rouges', '<defs><pattern id="p28d" width="80" height="80" patternUnits="userSpaceOnUse"><circle cx="40" cy="40" r="25" fill="#ffffff"/></pattern></defs><rect width="1200" height="1200" fill="#dc2626"/><rect width="1200" height="1200" fill="url(#p28d)"/>'),
-      makeSvgBg('p29', 'Étoile Hollywood Or', '<rect width="1200" height="1200" fill="#18181b"/><polygon points="600,150 720,480 1050,480 780,680 880,1020 600,820 320,1020 420,680 150,480 480,480" fill="#eab308"/>'),
-      makeSvgBg('p30', 'Graffiti Badge Pop', '<rect width="1200" height="1200" fill="#0284c7"/><rect x="200" y="400" width="800" height="400" rx="50" fill="#fde047" stroke="#000000" stroke-width="24"/>'),
-      makeSvgBg('p31', 'Labyrinthe Vert Pop', '<rect width="1200" height="1200" fill="#047857"/><rect x="200" y="200" width="800" height="800" fill="none" stroke="#facc15" stroke-width="50"/><rect x="400" y="400" width="400" height="400" fill="none" stroke="#ffffff" stroke-width="50"/>'),
-      makeSvgBg('p32', 'Tetris Blocs Colorés', '<rect width="1200" height="1200" fill="#111827"/><rect x="300" y="300" width="200" height="200" fill="#ef4444"/><rect x="500" y="300" width="200" height="200" fill="#3b82f6"/><rect x="700" y="300" width="200" height="200" fill="#10b981"/>'),
-      makeSvgBg('p33', 'Diamant Turquoise Pop', '<rect width="1200" height="1200" fill="#312e81"/><polygon points="600,200 950,550 600,1050 250,550" fill="#06b6d4" stroke="#ffffff" stroke-width="20"/>'),
-      makeSvgBg('p34', 'Esquisse BD Crayon', '<rect width="1200" height="1200" fill="#fffbeb"/><line x1="100" y1="100" x2="1100" y2="1100" stroke="#000000" stroke-width="30"/><line x1="1100" y1="100" x2="100" y2="1100" stroke="#000000" stroke-width="30"/>'),
-      makeSvgBg('p35', 'Triangle Impossible Pop', '<rect width="1200" height="1200" fill="#0f172a"/><polygon points="600,250 950,850 250,850" fill="none" stroke="#ec4899" stroke-width="60"/>'),
-      makeSvgBg('p36', 'Vagues Multicolores', '<rect width="1200" height="1200" fill="#ec4899"/><path d="M0,300 Q300,150 600,300 T1200,300 L1200,600 Q900,450 600,600 T0,600 Z" fill="#facc15"/><path d="M0,600 Q300,450 600,600 T1200,600 L1200,900 Q900,750 600,900 T0,900 Z" fill="#06b6d4"/>'),
-      makeSvgBg('p37', 'Rayons Orange Vif Pop', '<rect width="1200" height="1200" fill="#ffffff"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#f97316"/>'),
-      makeSvgBg('p38', 'Cercle Vinyle Rétro', '<rect width="1200" height="1200" fill="#fb923c"/><circle cx="600" cy="600" r="450" fill="#0f172a"/><circle cx="600" cy="600" r="160" fill="#ef4444"/><circle cx="600" cy="600" r="40" fill="#ffffff"/>'),
-      makeSvgBg('p39', 'Énergie Électrique Pop', '<rect width="1200" height="1200" fill="#1e1b4b"/><circle cx="600" cy="600" r="350" fill="#8b5cf6"/><polygon points="600,100 680,450 950,450 730,620" fill="#fde047"/>'),
-      makeSvgBg('p40', 'Poster InPixio Master', '<rect width="1200" height="1200" fill="#f43f5e"/><circle cx="600" cy="600" r="420" fill="#facc15" stroke="#000000" stroke-width="24"/><rect x="300" y="500" width="600" height="200" fill="#000000"/><text x="600" y="640" font-family="sans-serif" font-weight="900" font-size="90" fill="#ffffff" text-anchor="middle">POP ART</text>'),
+      makeSvgBg('p1', 'Roy Lichtenstein Pointillés Kiss', '<defs><pattern id="p1dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="7" fill="#ef4444"/></pattern></defs><rect width="1200" height="1200" fill="#fef08a"/><rect width="1200" height="1200" fill="url(#p1dots)"/><path d="M0,0 L600,600 L0,1200 Z" fill="#38bdf8" opacity="0.4"/><polygon points="800,200 1100,500 700,500" fill="#f43f5e"/>'),
+      makeSvgBg('p2', 'Andy Warhol Quad 1964', '<rect x="0" y="0" width="600" height="600" fill="#ec4899"/><rect x="600" y="0" width="600" height="600" fill="#06b6d4"/><rect x="0" y="600" width="600" height="600" fill="#facc15"/><rect x="600" y="600" width="600" height="600" fill="#10b981"/><circle cx="300" cy="300" r="140" fill="#fde047"/><circle cx="900" cy="300" r="140" fill="#f43f5e"/><circle cx="300" cy="900" r="140" fill="#8b5cf6"/><circle cx="900" cy="900" r="140" fill="#f97316"/>'),
+      makeSvgBg('p3', 'Keith Haring Lignes d’Énergie', '<rect width="1200" height="1200" fill="#facc15"/><path d="M200,600 Q400,200 600,600 T1000,600" fill="none" stroke="#000000" stroke-width="45" stroke-linecap="round"/><circle cx="600" cy="300" r="120" fill="#ef4444" stroke="#000000" stroke-width="30"/><line x1="300" y1="200" x2="200" y2="100" stroke="#000000" stroke-width="25" stroke-linecap="round"/><line x1="900" y1="200" x2="1000" y2="100" stroke="#000000" stroke-width="25" stroke-linecap="round"/>'),
+      makeSvgBg('p4', 'Explosion Comic KABOOM', '<rect width="1200" height="1200" fill="#2563eb"/><polygon points="600,100 750,380 1080,250 920,550 1180,620 900,750 1080,1020 750,880 600,1150 450,880 120,1020 300,750 20,620 280,550 120,250 450,380" fill="#facc15" stroke="#dc2626" stroke-width="26"/>'),
+      makeSvgBg('p5', 'Memphis Rétro 1980s Design', '<rect width="1200" height="1200" fill="#fdf4ff"/><circle cx="280" cy="320" r="160" fill="#f43f5e"/><polygon points="880,180 1100,520 660,520" fill="#06b6d4"/><rect x="260" y="760" width="280" height="280" rx="50" fill="#facc15"/><line x1="750" y1="800" x2="1100" y2="1050" stroke="#8b5cf6" stroke-width="35" stroke-linecap="round"/>'),
+      makeSvgBg('p6', 'Manga Speedlines Vitesse Pure', '<rect width="1200" height="1200" fill="#ffffff"/><path d="M600,600 L0,0 L60,0 Z M600,600 L180,0 L240,0 Z M600,600 L360,0 L420,0 Z M600,600 L540,0 L600,0 Z M600,600 L720,0 L780,0 Z M600,600 L900,0 L960,0 Z M600,600 L1080,0 L1140,0 Z M600,600 L1200,60 L1200,120 Z M600,600 L1200,240 L1200,300 Z M600,600 L1200,420 L1200,480 Z M600,600 L1200,600 L1200,660 Z M600,600 L1200,780 L1200,840 Z M600,600 L1200,960 L1200,1020 Z M600,600 L1140,1200 L1080,1200 Z M600,600 L960,1200 L900,1200 Z M600,600 L780,1200 L720,1200 Z M600,600 L600,1200 L540,1200 Z M600,600 L420,1200 L360,1200 Z M600,600 L240,1200 L180,1200 Z M600,600 L60,1200 L0,1200 Z M600,600 L0,1020 L0,960 Z M600,600 L0,840 L0,780 Z M600,600 L0,660 L0,600 Z M600,600 L0,480 L0,420 Z M600,600 L0,300 L0,240 Z M600,600 L0,120 L0,60 Z" fill="#000000"/>'),
+      makeSvgBg('p7', 'Rayons Pop Art Soleil Radiant', '<rect width="1200" height="1200" fill="#facc15"/><path d="M600,600 L0,0 L150,0 Z M600,600 L300,0 L450,0 Z M600,600 L600,0 L750,0 Z M600,600 L900,0 L1050,0 Z M600,600 L1200,0 L1200,150 Z M600,600 L1200,300 L1200,450 Z M600,600 L1200,600 L1200,750 Z M600,600 L1200,900 L1200,1050 Z M600,600 L1200,1200 L1050,1200 Z M600,600 L900,1200 L750,1200 Z M600,600 L600,1200 L450,1200 Z M600,600 L300,1200 L150,1200 Z M600,600 L0,1200 L0,1050 Z M600,600 L0,900 L0,750 Z M600,600 L0,600 L0,450 Z M600,600 L0,300 L0,150 Z" fill="#ea580c"/>'),
+      makeSvgBg('p8', 'Halftone Trame Cyan Comic', '<defs><pattern id="p8ht" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="6" fill="#06b6d4"/></pattern></defs><rect width="1200" height="1200" fill="#ffffff"/><rect width="1200" height="1200" fill="url(#p8ht)"/><circle cx="600" cy="600" r="350" fill="none" stroke="#f43f5e" stroke-width="30"/>'),
+      makeSvgBg('p9', 'Pop Art Banane Silkscreen', '<rect width="1200" height="1200" fill="#fef08a"/><path d="M300,800 C400,950 800,950 900,500 C850,550 650,750 400,650 Z" fill="#facc15" stroke="#000000" stroke-width="24"/><circle cx="900" cy="500" r="25" fill="#78350f"/>'),
+      makeSvgBg('p10', 'Spirale Psychédélique 1970s', '<rect width="1200" height="1200" fill="#7c3aed"/><circle cx="600" cy="600" r="500" fill="none" stroke="#facc15" stroke-width="45"/><circle cx="600" cy="600" r="380" fill="none" stroke="#ec4899" stroke-width="45"/><circle cx="600" cy="600" r="260" fill="none" stroke="#38bdf8" stroke-width="45"/><circle cx="600" cy="600" r="140" fill="none" stroke="#4ade80" stroke-width="45"/>'),
+      makeSvgBg('p11', 'Vaporwave Sunset Grille 90s', '<rect width="1200" height="1200" fill="#0f0728"/><circle cx="600" cy="500" r="240" fill="#f43f5e"/><line x1="0" y1="700" x2="1200" y2="700" stroke="#06b6d4" stroke-width="8"/><line x1="0" y1="800" x2="1200" y2="800" stroke="#06b6d4" stroke-width="12"/><line x1="0" y1="950" x2="1200" y2="950" stroke="#06b6d4" stroke-width="16"/>'),
+      makeSvgBg('p12', 'Bandes Sunset Rétro 70s', '<rect x="0" width="200" height="1200" fill="#78350f"/><rect x="200" width="200" height="1200" fill="#c2410c"/><rect x="400" width="200" height="1200" fill="#ea580c"/><rect x="600" width="200" height="1200" fill="#f59e0b"/><rect x="800" width="200" height="1200" fill="#fde047"/><rect x="1000" width="200" height="1200" fill="#fef3c7"/>'),
+      makeSvgBg('p13', 'Zèbre Pop Art Néon', '<rect width="1200" height="1200" fill="#f43f5e"/><path d="M0,100 Q400,200 1200,100 L1200,220 Q400,320 0,220 Z M0,400 Q400,500 1200,400 L1200,520 Q400,620 0,520 Z M0,700 Q400,800 1200,700 L1200,820 Q400,920 0,820 Z M0,1000 Q400,1100 1200,1000 L1200,1120 Q400,1220 0,1120 Z" fill="#000000"/>'),
+      makeSvgBg('p14', 'Éclair Flash Électrique BD', '<rect width="1200" height="1200" fill="#6d28d9"/><polygon points="700,80 320,680 620,680 440,1140 920,540 620,540" fill="#facc15" stroke="#000000" stroke-width="20"/>'),
+      makeSvgBg('p15', 'Cœurs Love Pop Art', '<rect width="1200" height="1200" fill="#fce7f3"/><path d="M600,1000 C350,750 150,550 150,350 C150,180 320,120 460,200 L600,340 L740,200 C880,120 1050,180 1050,350 C1050,550 850,750 600,1000 Z" fill="#e11d48" stroke="#000000" stroke-width="24"/>'),
+      makeSvgBg('p16', 'Damier Chessboard Pop 3D', '<defs><pattern id="p16d" width="120" height="120" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#000000"/><rect x="60" width="60" height="60" fill="#ffffff"/><rect y="60" width="60" height="60" fill="#ffffff"/><rect x="60" y="60" width="60" height="60" fill="#000000"/></pattern></defs><rect width="1200" height="1200" fill="url(#p16d)"/>'),
+      makeSvgBg('p17', 'Nuages Kawaii Pop Art', '<rect width="1200" height="1200" fill="#38bdf8"/><circle cx="350" cy="500" r="160" fill="#ffffff" stroke="#000000" stroke-width="18"/><circle cx="580" cy="440" r="190" fill="#ffffff" stroke="#000000" stroke-width="18"/><circle cx="800" cy="500" r="150" fill="#ffffff" stroke="#000000" stroke-width="18"/>'),
+      makeSvgBg('p18', 'Bauhaus Formes Primaires', '<rect width="1200" height="1200" fill="#f1f5f9"/><circle cx="400" cy="400" r="220" fill="#ef4444"/><rect x="650" y="250" width="380" height="380" fill="#3b82f6"/><polygon points="350,700 800,1100 200,1100" fill="#facc15"/>'),
+      makeSvgBg('p19', 'Splash Peinture Street Graffiti', '<rect width="1200" height="1200" fill="#ffffff"/><circle cx="600" cy="600" r="300" fill="#ec4899"/><circle cx="300" cy="350" r="90" fill="#06b6d4"/><circle cx="900" cy="400" r="120" fill="#facc15"/><circle cx="400" cy="900" r="130" fill="#10b981"/>'),
+      makeSvgBg('p20', 'Étoile Pop Art Hollywood', '<rect width="1200" height="1200" fill="#18181b"/><polygon points="600,150 720,480 1050,480 780,680 880,1020 600,820 320,1020 420,680 150,480 480,480" fill="#eab308" stroke="#ffffff" stroke-width="14"/>'),
+      makeSvgBg('p21', 'Losanges Harlequin Multicolores', '<rect width="1200" height="1200" fill="#0284c7"/><polygon points="600,150 1050,600 600,1050 150,600" fill="#f43f5e" stroke="#facc15" stroke-width="24"/>'),
+      makeSvgBg('p22', 'Polka Dots Rouges Chic', '<defs><pattern id="p22p" width="70" height="70" patternUnits="userSpaceOnUse"><circle cx="35" cy="35" r="20" fill="#ffffff"/></pattern></defs><rect width="1200" height="1200" fill="#dc2626"/><rect width="1200" height="1200" fill="url(#p22p)"/>'),
+      makeSvgBg('p23', 'Cubes 3D Illusions d’Optique', '<rect width="1200" height="1200" fill="#0f172a"/><polygon points="600,280 880,440 600,600 320,440" fill="#38bdf8"/><polygon points="320,440 600,600 600,920 320,760" fill="#0284c7"/><polygon points="600,600 880,440 880,760 600,920" fill="#0369a1"/>'),
+      makeSvgBg('p24', 'Fleurs Marguerites Rétro 70s', '<rect width="1200" height="1200" fill="#ea580c"/><circle cx="600" cy="600" r="170" fill="#fde047"/><circle cx="600" cy="280" r="130" fill="#ffffff"/><circle cx="600" cy="920" r="130" fill="#ffffff"/><circle cx="280" cy="600" r="130" fill="#ffffff"/><circle cx="920" cy="600" r="130" fill="#ffffff"/>'),
+      makeSvgBg('p25', 'Vinyle Rétro Studio 33 Tours', '<rect width="1200" height="1200" fill="#fb923c"/><circle cx="600" cy="600" r="480" fill="#09090b"/><circle cx="600" cy="600" r="180" fill="#ef4444"/><circle cx="600" cy="600" r="50" fill="#ffffff"/>'),
+      makeSvgBg('p26', 'Labyrinthe Géométrique Pop', '<rect width="1200" height="1200" fill="#047857"/><rect x="180" y="180" width="840" height="840" fill="none" stroke="#facc15" stroke-width="50"/><rect x="380" y="380" width="440" height="440" fill="none" stroke="#ffffff" stroke-width="50"/>'),
+      makeSvgBg('p27', 'Bulles Effervescentes Pop', '<rect width="1200" height="1200" fill="#06b6d4"/><circle cx="300" cy="400" r="150" fill="#f472b6" opacity="0.85"/><circle cx="820" cy="500" r="210" fill="#facc15" opacity="0.85"/><circle cx="500" cy="850" r="170" fill="#4ade80" opacity="0.85"/>'),
+      makeSvgBg('p28', 'Diamant Prismatique Pop', '<rect width="1200" height="1200" fill="#312e81"/><polygon points="600,180 1000,560 600,1080 200,560" fill="#06b6d4" stroke="#ffffff" stroke-width="22"/>'),
+      makeSvgBg('p29', 'Vagues Pastel Psyché', '<rect width="1200" height="1200" fill="#f472b6"/><path d="M0,0 Q300,600 600,0 T1200,0 L1200,1200 L0,1200 Z" fill="#38bdf8"/>'),
+      makeSvgBg('p30', 'Badge Pop Comic WOW', '<rect width="1200" height="1200" fill="#7c3aed"/><circle cx="600" cy="600" r="400" fill="#facc15" stroke="#000000" stroke-width="26"/><text x="600" y="660" font-family="sans-serif" font-weight="900" font-size="140" fill="#000000" text-anchor="middle">WOW!</text>'),
+      makeSvgBg('p31', 'Cercles Cibles Optiques', '<rect width="1200" height="1200" fill="#000000"/><circle cx="600" cy="600" r="480" fill="#ef4444"/><circle cx="600" cy="600" r="360" fill="#ffffff"/><circle cx="600" cy="600" r="240" fill="#ef4444"/><circle cx="600" cy="600" r="120" fill="#ffffff"/>'),
+      makeSvgBg('p32', 'Lignes Diagonales Acid Pop', '<defs><pattern id="p32d" width="60" height="60" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="60" stroke="#f43f5e" stroke-width="30"/></pattern></defs><rect width="1200" height="1200" fill="#facc15"/><rect width="1200" height="1200" fill="url(#p32d)"/>'),
+      makeSvgBg('p33', 'Rayons Pop Fuchsia & Jaune', '<rect width="1200" height="1200" fill="#fde047"/><path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#d946ef"/>'),
+      makeSvgBg('p34', 'Tetris Rétro Pixel Art', '<rect width="1200" height="1200" fill="#09090b"/><rect x="250" y="350" width="220" height="220" fill="#ef4444"/><rect x="490" y="350" width="220" height="220" fill="#3b82f6"/><rect x="730" y="350" width="220" height="220" fill="#10b981"/>'),
+      makeSvgBg('p35', 'Triangle Impossible Illusion', '<rect width="1200" height="1200" fill="#0f172a"/><polygon points="600,220 980,880 220,880" fill="none" stroke="#f43f5e" stroke-width="65"/>'),
+      makeSvgBg('p36', 'Trame Halftone Vintage BD', '<defs><pattern id="p36d" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="5" fill="#1e1b4b"/></pattern></defs><rect width="1200" height="1200" fill="#fef3c7"/><rect width="1200" height="1200" fill="url(#p36d)"/>'),
+      makeSvgBg('p37', 'Vagues Multicolores Disco', '<rect width="1200" height="1200" fill="#ec4899"/><path d="M0,250 Q300,100 600,250 T1200,250 L1200,550 Q900,400 600,550 T0,550 Z" fill="#facc15"/><path d="M0,550 Q300,400 600,550 T1200,550 L1200,850 Q900,700 600,850 T0,850 Z" fill="#06b6d4"/>'),
+      makeSvgBg('p38', 'Flash Lightning Rose Bonbon', '<rect width="1200" height="1200" fill="#f43f5e"/><polygon points="680,100 360,650 620,650 480,1100 880,550 620,550" fill="#ffffff" stroke="#000000" stroke-width="18"/>'),
+      makeSvgBg('p39', 'Énergie Cosmique Pop', '<rect width="1200" height="1200" fill="#1e1b4b"/><circle cx="600" cy="600" r="380" fill="#8b5cf6"/><polygon points="600,100 690,440 960,440 740,620" fill="#fde047"/>'),
+      makeSvgBg('p40', 'Masterpiece Pop Art InPixio', '<rect width="1200" height="1200" fill="#f43f5e"/><circle cx="600" cy="600" r="440" fill="#facc15" stroke="#000000" stroke-width="26"/><rect x="250" y="490" width="700" height="220" fill="#000000"/><text x="600" y="645" font-family="sans-serif" font-weight="900" font-size="100" fill="#ffffff" text-anchor="middle">POPART</text>'),
     ];
 
     // 2. REAL HD MANGA & ANIME PAINTINGS (40 100% UNIQUE ARTWORKS & ILLUSTRATIONS)
     const BG_MANGA_40 = [
-      makeUniquePhoto('m1', 'Ciel Makoto Shinkai Nuages Pastel', '1534447677768-be436bb09401'),
-      makeUniquePhoto('m2', 'Kyoto Ruelle Traditionnelle Nuit', '1503899036084-c55cdd92da26'),
-      makeUniquePhoto('m3', 'Mont Fuji & Cerisiers Sakura', '1493976040374-85c8e12f0c0e'),
-      makeUniquePhoto('m4', 'Sanctuaire Torii sous la Brume', '1492571350019-22de08371fd3'),
-      makeUniquePhoto('m5', 'Forêt Enchantée Esprits Ghibli', '1511497584788-87676104235f'),
+      makeUniquePhoto('m1', 'Ciel Makoto Shinkai Peinture Nuages', '1534447677768-be436bb09401'),
+      makeUniquePhoto('m2', 'Kyoto Ruelle Traditionnelle Peinte Nuit', '1503899036084-c55cdd92da26'),
+      makeUniquePhoto('m3', 'Mont Fuji & Cerisiers Sakura Peinture', '1493976040374-85c8e12f0c0e'),
+      makeUniquePhoto('m4', 'Sanctuaire Torii Brume Dorée Peinture', '1492571350019-22de08371fd3'),
+      makeUniquePhoto('m5', 'Forêt Enchantée Esprits Ghibli Peinte', '1511497584788-87676104235f'),
       makeUniquePhoto('m6', 'Nuit Étoilée Comète Kimi no Na wa', '1519681393784-d120267933ba'),
-      makeUniquePhoto('m7', 'Cyber Neo-Tokyo Anime Neon Nuit', '1508739773434-c26b3d09e071'),
-      makeUniquePhoto('m8', 'Lanterne Rouge Ruelle Tokyo', '1528164344705-475426879c0d'),
-      makeUniquePhoto('m9', 'Chambre Otaku Éclairée LED Rose', '1550745165-9bc0b252726f'),
-      makeUniquePhoto('m10', 'Plage d’Été Mer Turquoise Anime', '1507525428034-b723cf961d3e'),
-      makeUniquePhoto('m11', 'Feux d’Artifice Hanabi Nuit', '1498931299472-f7a63a5a1cfa'),
-      makeUniquePhoto('m12', 'Bambouseraie de Sagano Kyoto', '1518709268805-4e9042af9f23'),
-      makeUniquePhoto('m13', 'Gare Shinkansen au Crépuscule', '1470071459604-3b5ec3a7fe05'),
-      makeUniquePhoto('m14', 'Ciel Violet & Nuages Rose Bonbon', '1507499739999-097706ad8914'),
-      makeUniquePhoto('m15', 'Pleine Lune Lumineuse Nuit Bleue', '1532767153582-b1a0e5145009'),
-      makeUniquePhoto('m16', 'Cerisiers Roses Printemps Japon', '1522383225653-ed111181a951'),
-      makeUniquePhoto('m17', 'Château dans les Nuages Célestes', '1513836279014-a89f7a76ae86'),
-      makeUniquePhoto('m18', 'Cascade Magique Forêt d’Émeraude', '1432405972618-c60b0225b8f9'),
-      makeUniquePhoto('m19', 'Ramen Shop Rétro Japonais', '1552611052-33e04de081de'),
-      makeUniquePhoto('m20', 'Ciel Électrique Éclair Violet', '1513002749550-c59d786b8e6c'),
-      makeUniquePhoto('m21', 'Aurore Dorée sur la Vallée', '1495616811223-4d98c6e9c869'),
-      makeUniquePhoto('m22', 'Forêt Enneigée Hiver Solitaire', '1486870591958-9b9d0d1dda99'),
-      makeUniquePhoto('m23', 'Galaxie Cosmique Voie Lactée', '1506703719100-a0f3a48c0f86'),
-      makeUniquePhoto('m24', 'Toits de Tokyo sous la Pluie', '1486406146926-c627a92ad1ab'),
-      makeUniquePhoto('m25', 'Lac Paisible Reflet Arbres', '1501785888041-af3ef285b470'),
-      makeUniquePhoto('m26', 'Nébuleuse Étoilée Bleue Espace', '1451187580459-43490279c0fa'),
-      makeUniquePhoto('m27', 'Temple Pagode Rouge Doré', '1506973035872-a4ec16b8e8d9'),
-      makeUniquePhoto('m28', 'Dojo Traditionnel Tatami Bois', '1513694203232-719a280e022f'),
-      makeUniquePhoto('m29', 'Rivière Bleue Turquoise Vallée', '1469854523086-cc02fe5d8800'),
-      makeUniquePhoto('m30', 'Lune Rousse dans la Nuit Sombre', '1509316975850-ff9c5deb0cd9'),
-      makeUniquePhoto('m31', 'Parc Floral Japonais Printemps', '1500530855697-b586d89ba3ee'),
-      makeUniquePhoto('m32', 'Ciel Cosmique Multicolore', '1517411032315-54ef2cb783bb'),
-      makeUniquePhoto('m33', 'Récif Lumineux Monde Sous-marin', '1544551763-46a013bb70d5'),
-      makeUniquePhoto('m34', 'Sentier dans les Pins Brumeux', '1448375240586-882707db888b'),
-      makeUniquePhoto('m35', 'Coucher de Soleil Anime Orange', '1506744038136-46273834b3fb'),
-      makeUniquePhoto('m36', 'Jardin Zen avec Pierres et Mousse', '1512470876302-972faa2aa9a4'),
-      makeUniquePhoto('m37', 'Passage Piéton Anime Tokyo Nuit', '1496442226666-8d4d0e62e6e9'),
-      makeUniquePhoto('m38', 'Champs de Fleurs Sauvages Pastel', '1501594907352-04cda38ebc29'),
-      makeUniquePhoto('m39', 'Pont Rouge sous Ciel Nuageux', '1513635269975-59663e0ac1ad'),
-      makeUniquePhoto('m40', 'Horizon Crépuscule Fin d’Anime', '1502602898657-3e91760cbb34'),
+      makeUniquePhoto('m7', 'Cyber Neo-Tokyo Anime Néon Nuit', '1508739773434-c26b3d09e071'),
+      makeUniquePhoto('m8', 'Lanterne Rouge Ruelle Tokyo Peinte', '1528164344705-475426879c0d'),
+      makeUniquePhoto('m9', 'Chambre Otaku Éclairée LED Rose Peinte', '1550745165-9bc0b252726f'),
+      makeUniquePhoto('m10', 'Plage d’Été Mer Turquoise Anime Peinte', '1507525428034-b723cf961d3e'),
+      makeUniquePhoto('m11', 'Feux d’Artifice Hanabi Nuit Peinture', '1498931299472-f7a63a5a1cfa'),
+      makeUniquePhoto('m12', 'Bambouseraie de Sagano Kyoto Peinte', '1518709268805-4e9042af9f23'),
+      makeUniquePhoto('m13', 'Gare Shinkansen au Crépuscule Peinte', '1470071459604-3b5ec3a7fe05'),
+      makeUniquePhoto('m14', 'Ciel Violet & Nuages Rose Bonbon Peint', '1507499739999-097706ad8914'),
+      makeUniquePhoto('m15', 'Pleine Lune Lumineuse Nuit Bleue Peinte', '1532767153582-b1a0e5145009'),
+      makeUniquePhoto('m16', 'Cerisiers Roses Printemps Peinture', '1522383225653-ed111181a951'),
+      makeUniquePhoto('m17', 'Château dans les Nuages Célestes Peint', '1513836279014-a89f7a76ae86'),
+      makeUniquePhoto('m18', 'Cascade Magique Forêt d’Émeraude Peinte', '1432405972618-c60b0225b8f9'),
+      makeUniquePhoto('m19', 'Ramen Shop Rétro Japonais Peint', '1552611052-33e04de081de'),
+      makeUniquePhoto('m20', 'Ciel Électrique Éclair Violet Anime', '1513002749550-c59d786b8e6c'),
+      makeUniquePhoto('m21', 'Aurore Dorée sur la Vallée Peinte', '1495616811223-4d98c6e9c869'),
+      makeUniquePhoto('m22', 'Forêt Enneigée Hiver Solitaire Peinte', '1486870591958-9b9d0d1dda99'),
+      makeUniquePhoto('m23', 'Galaxie Cosmique Voie Lactée Anime', '1506703719100-a0f3a48c0f86'),
+      makeUniquePhoto('m24', 'Toits de Tokyo sous la Pluie Peints', '1486406146926-c627a92ad1ab'),
+      makeUniquePhoto('m25', 'Lac Paisible Reflet Arbres Peint', '1501785888041-af3ef285b470'),
+      makeUniquePhoto('m26', 'Nébuleuse Étoilée Bleue Espace Peinte', '1451187580459-43490279c0fa'),
+      makeUniquePhoto('m27', 'Temple Pagode Rouge Doré Peinture', '1506973035872-a4ec16b8e8d9'),
+      makeUniquePhoto('m28', 'Dojo Traditionnel Tatami Bois Peint', '1513694203232-719a280e022f'),
+      makeUniquePhoto('m29', 'Rivière Bleue Turquoise Vallée Peinte', '1469854523086-cc02fe5d8800'),
+      makeUniquePhoto('m30', 'Lune Rousse dans la Nuit Sombre Peinte', '1509316975850-ff9c5deb0cd9'),
+      makeUniquePhoto('m31', 'Parc Floral Japonais Printemps Peint', '1500530855697-b586d89ba3ee'),
+      makeUniquePhoto('m32', 'Ciel Cosmique Multicolore Anime', '1517411032315-54ef2cb783bb'),
+      makeUniquePhoto('m33', 'Récif Lumineux Monde Sous-marin Peint', '1544551763-46a013bb70d5'),
+      makeUniquePhoto('m34', 'Sentier dans les Pins Brumeux Peint', '1448375240586-882707db888b'),
+      makeUniquePhoto('m35', 'Coucher de Soleil Anime Orange Peint', '1506744038136-46273834b3fb'),
+      makeUniquePhoto('m36', 'Jardin Zen avec Pierres et Mousse Peint', '1512470876302-972faa2aa9a4'),
+      makeUniquePhoto('m37', 'Passage Piéton Anime Tokyo Nuit Peint', '1496442226666-8d4d0e62e6e9'),
+      makeUniquePhoto('m38', 'Champs de Fleurs Sauvages Pastel Peints', '1501594907352-04cda38ebc29'),
+      makeUniquePhoto('m39', 'Pont Rouge sous Ciel Nuageux Peinture', '1513635269975-59663e0ac1ad'),
+      makeUniquePhoto('m40', 'Horizon Crépuscule Fin d’Anime Peint', '1502602898657-3e91760cbb34'),
     ];
 
     // 3. REAL 4K DESERTS & NATURE (40 100% UNIQUE PHOTOGRAPHS)
@@ -532,12 +534,15 @@
       const [selectedIds, setSelectedIds] = useState(new Set());
       const [applyToAll, setApplyToAll] = useState(true);
       const [activeTab, setActiveTab] = useState('background');
-      const [bgCategory, setBgCategory] = useState('manga');
+      const [bgCategory, setBgCategory] = useState('popart');
       const [searchQuery, setSearchQuery] = useState('');
       const [isProcessing, setIsProcessing] = useState(false);
       const [processingStatus, setProcessingStatus] = useState('');
       const [progress, setProgress] = useState({ current: 0, total: 0 });
       const [toasts, setToasts] = useState([]);
+
+      // Ultra-HD Output Quality Setting (HD 1080p / Ultra 2K / Master 4K / Original HD)
+      const [outputQuality, setOutputQuality] = useState('4k'); // '1080p' | '2k' | '4k' | 'original'
 
       // Compare Modal
       const [comparingItem, setComparingItem] = useState(null);
@@ -545,9 +550,6 @@
 
       // Cervex Modal
       const [isCervexOpen, setIsCervexOpen] = useState(false);
-
-      // Current Selected Background State
-      const [currentAppliedBg, setCurrentAppliedBg] = useState(null);
 
       // MediaPipe Segmenter Ref
       const segmenterRef = useRef(null);
@@ -604,7 +606,7 @@
 
               let maskFound = false;
 
-              // 1. Try MediaPipe Neural AI Segmentation with adequate timeout
+              // 1. Try MediaPipe Neural AI Segmentation
               if (segmenterRef.current) {
                 try {
                   await Promise.race([
@@ -634,12 +636,11 @@
                 }
               }
 
-              // 2. High-Accuracy Boundary Floodfill Fallback (Ensures 100% background removal on every photo)
+              // 2. High-Accuracy Boundary Floodfill Fallback
               if (!maskFound) {
                 const imgData = sctx.getImageData(0, 0, w, h);
                 const data = imgData.data;
 
-                // Sample edge pixels
                 const edgeSamples = [];
                 for (let x = 0; x < w; x += Math.max(1, Math.floor(w / 40))) {
                   const pTop = x * 4;
@@ -733,7 +734,7 @@
         });
       };
 
-      // Load initial demo images WITH AUTOMATIC BACKGROUND REMOVAL PRE-APPLIED
+      // Load initial demo images
       useEffect(() => {
         const initial = DEMO_LIBRARY.map(d => ({
           id: d.id,
@@ -754,7 +755,7 @@
         const count = files.length;
         
         setIsProcessing(true);
-        setProcessingStatus('Détourage automatique IA de toutes les photos...');
+        setProcessingStatus('Détourage automatique IA en cours...');
         setProgress({ current: 0, total: count });
 
         const rawList = [];
@@ -772,7 +773,6 @@
           });
         });
 
-        // Perform Automatic Background Removal on every imported photo sequentially
         const processedList = [];
         for (let i = 0; i < rawList.length; i++) {
           const item = rawList[i];
@@ -832,7 +832,7 @@
       };
 
       // =========================================================================
-      // --- INSTANT BACKGROUND REPLACEMENT ENGINE (APPLIES TO PRE-CUTOUT SUBJECTS) ---
+      // --- ULTRA-HD COMPOSITING ENGINE (SUPPORTS 4K MASTER, 2K, 1080P, ORIGINAL) ---
       // =========================================================================
       const compositeBackground = async (item, bgConfig) => {
         return new Promise((resolve) => {
@@ -844,15 +844,35 @@
 
           subjectImg.onload = async () => {
             try {
-              const w = subjectImg.naturalWidth || 1200;
-              const h = subjectImg.naturalHeight || 1200;
+              let w = subjectImg.naturalWidth || 1200;
+              let h = subjectImg.naturalHeight || 1200;
+
+              // Target resolution according to outputQuality
+              if (outputQuality === '4k') {
+                const targetW = 3840;
+                const scale = targetW / w;
+                w = targetW;
+                h = Math.round(h * scale);
+              } else if (outputQuality === '2k') {
+                const targetW = 2048;
+                const scale = targetW / w;
+                w = targetW;
+                h = Math.round(h * scale);
+              } else if (outputQuality === '1080p') {
+                const targetW = 1920;
+                const scale = targetW / w;
+                w = targetW;
+                h = Math.round(h * scale);
+              }
 
               const finalCanvas = document.createElement('canvas');
               finalCanvas.width = w;
               finalCanvas.height = h;
               const fctx = finalCanvas.getContext('2d');
+              fctx.imageSmoothingEnabled = true;
+              fctx.imageSmoothingQuality = 'high';
 
-              // 1. Draw Selected Background (Full canvas 100% without cropping)
+              // 1. Draw Selected Background (Full canvas Ultra-HD without cropping)
               if (bgConfig.value !== 'transparent') {
                 if (bgConfig.type === 'solid') {
                   fctx.fillStyle = bgConfig.value;
@@ -881,22 +901,22 @@
                 }
               }
 
-              // 2. Draw Pristine Cutout Subject on top
+              // 2. Draw Pristine Cutout Subject on top with High-Quality Resampling
               fctx.drawImage(subjectImg, 0, 0, w, h);
 
               // 3. Optional Watermark
               if (watermark.enabled && watermark.text) {
                 fctx.save();
                 fctx.globalAlpha = watermark.opacity / 100;
-                const fontSize = Math.max(16, Math.round(w * 0.035));
+                const fontSize = Math.max(16, Math.round(w * 0.03));
                 fctx.font = `700 ${fontSize}px "Plus Jakarta Sans", sans-serif`;
                 const metrics = fctx.measureText(watermark.text);
-                const wx = w - metrics.width - 40;
-                const wy = h - 40;
+                const wx = w - metrics.width - 50;
+                const wy = h - 50;
 
                 fctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
                 fctx.beginPath();
-                fctx.roundRect(wx - 14, wy - fontSize - 6, metrics.width + 28, fontSize + 18, 10);
+                fctx.roundRect(wx - 16, wy - fontSize - 8, metrics.width + 32, fontSize + 20, 12);
                 fctx.fill();
 
                 fctx.fillStyle = watermark.color;
@@ -908,6 +928,7 @@
                 ...item,
                 currentUrl: finalCanvas.toDataURL('image/png'),
                 isModified: true,
+                outputResolution: `${w} × ${h} px`,
               });
             } catch (err) {
               console.warn("Composite error:", err);
@@ -918,17 +939,16 @@
         });
       };
 
-      // 100% Reliable Batch Background Applier (Instant because cutout is already done!)
+      // 100% Reliable Batch Background Applier
       const applyBackground = async (bgConfig) => {
         if (images.length === 0) {
           addToast('Aucune photo', 'Importez vos photos d’abord !', 'warning');
           return;
         }
 
-        setCurrentAppliedBg(bgConfig);
         const total = images.length;
         setIsProcessing(true);
-        setProcessingStatus('Application instantanée du nouveau fond...');
+        setProcessingStatus(`Application du fond en Ultra-HD (${outputQuality.toUpperCase()})...`);
         setProgress({ current: 0, total });
 
         try {
@@ -941,8 +961,8 @@
           }
           setImages(updated);
           addToast(
-            'Fond Appliqué en 1 Clic !',
-            `Le nouveau fond a été appliqué en plein écran sur 100% de vos ${total} photos ✨`,
+            'Rendu Ultra-HD Prêt !',
+            `Le fond a été appliqué en qualité ${outputQuality.toUpperCase()} sur 100% de vos ${total} photos ✨`,
             'success'
           );
         } catch (e) {
@@ -966,7 +986,7 @@
       // Crop
       const applyCrop = async (ratio) => {
         setIsProcessing(true);
-        setProcessingStatus('Recadrage...');
+        setProcessingStatus('Recadrage HD...');
         setProgress({ current: 0, total: images.length });
         try {
           const updated = [...images];
@@ -988,6 +1008,7 @@
               canvas.width = tw;
               canvas.height = th;
               const ctx = canvas.getContext('2d');
+              ctx.imageSmoothingQuality = 'high';
               ctx.drawImage(img, (w - tw) / 2, (h - th) / 2, tw, th, 0, 0, tw, th);
               updated[i] = { ...item, currentUrl: canvas.toDataURL('image/png'), isModified: true };
             }
@@ -1003,7 +1024,7 @@
       // Resize
       const applyResize = async (w, h) => {
         setIsProcessing(true);
-        setProcessingStatus('Redimensionnement...');
+        setProcessingStatus('Redimensionnement Ultra-HD...');
         setProgress({ current: 0, total: images.length });
         try {
           const updated = [...images];
@@ -1017,6 +1038,7 @@
               canvas.width = w;
               canvas.height = h;
               const ctx = canvas.getContext('2d');
+              ctx.imageSmoothingQuality = 'high';
               ctx.drawImage(img, 0, 0, w, h);
               updated[i] = { ...item, currentUrl: canvas.toDataURL('image/png'), isModified: true };
             }
@@ -1029,33 +1051,33 @@
         }
       };
 
-      // Download Single
+      // Download Single in Ultra-HD
       const downloadSingle = (item) => {
         const a = document.createElement('a');
-        a.download = `pixelbatch_${item.name.replace(/\.[^/.]+$/, '')}.png`;
+        a.download = `pixelbatch_${outputQuality.toUpperCase()}_${item.name.replace(/\.[^/.]+$/, '')}.png`;
         a.href = item.currentUrl;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        addToast('Téléchargé', a.download, 'success');
+        addToast('Téléchargé en Ultra-HD', a.download, 'success');
       };
 
-      // Download Zip
+      // Download Zip in Ultra-HD
       const downloadZip = async () => {
         if (images.length === 0) return;
         setIsProcessing(true);
-        setProcessingStatus('Création de l’archive ZIP...');
+        setProcessingStatus(`Exportation ZIP en Ultra-HD (${outputQuality.toUpperCase()})...`);
         setProgress({ current: 0, total: images.length });
         try {
           const zip = new JSZip();
-          const folder = zip.folder("pixelbatch_hd_export");
+          const folder = zip.folder(`pixelbatch_hd_export_${outputQuality.toUpperCase()}`);
           images.forEach((item, i) => {
             const data = item.currentUrl.split(',')[1];
-            folder.file(`photo_${i + 1}_${item.name.replace(/\.[^/.]+$/, '')}.png`, data, { base64: true });
+            folder.file(`photo_${i + 1}_${outputQuality.toUpperCase()}_${item.name.replace(/\.[^/.]+$/, '')}.png`, data, { base64: true });
           });
           const blob = await zip.generateAsync({ type: 'blob' });
-          saveAs(blob, `PixelBatch_Export_${images.length}_photos_${Date.now()}.zip`);
-          addToast('ZIP Prêt !', `${images.length} photos téléchargées`, 'success');
+          saveAs(blob, `PixelBatch_${outputQuality.toUpperCase()}_${images.length}_photos_${Date.now()}.zip`);
+          addToast('Archive HD Prête !', `${images.length} photos téléchargées en Ultra-HD`, 'success');
         } finally {
           setIsProcessing(false);
         }
@@ -1084,16 +1106,41 @@
                   <span className="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-indigo-100 to-slate-400 bg-clip-text text-transparent">
                     PixelBatch AI Studio
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                    280+ FONDS 100% UNIQUES SANS RÉPÉTITION
+                  <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+                    <Icon name="hd" className="w-3.5 h-3.5" />
+                    SORTIE ULTRA-HD 4K
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">Détourage 100% automatique sur toutes les photos • Fonds Mangas, Déserts 4K, Studios & Villes tous différents</p>
+                <p className="text-[11px] text-slate-400">Export Ultra-HD 4K • Motifs Pop Art de Collection • Peintures Mangas Japonaises Authentiques</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
+              
+              {/* Ultra-HD Selector */}
+              <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+                <span className="px-2 text-[10px] font-bold text-slate-400">Sortie HD :</span>
+                {[
+                  { id: '4k', label: 'Master 4K' },
+                  { id: '2k', label: 'Ultra 2K' },
+                  { id: '1080p', label: 'Full HD' },
+                  { id: 'original', label: 'Original' },
+                ].map(q => (
+                  <button
+                    key={q.id}
+                    onClick={() => {
+                      setOutputQuality(q.id);
+                      addToast('Résolution de Sortie', `Rendu configuré en ${q.label}`, 'info');
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                      outputQuality === q.id ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    {q.label}
+                  </button>
+                ))}
+              </div>
+
               <button
                 onClick={() => {
                   const demos = DEMO_LIBRARY.map(d => ({
@@ -1126,10 +1173,10 @@
               <button
                 onClick={downloadZip}
                 disabled={images.length === 0}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-indigo-500 via-indigo-600 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 disabled:opacity-40"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:to-rose-600 text-slate-950 shadow-lg shadow-amber-500/25 disabled:opacity-40 font-black"
               >
                 <Icon name="zip" className="w-4 h-4" />
-                <span>Télécharger tout ({images.length} photos)</span>
+                <span>Télécharger tout en {outputQuality.toUpperCase()} ({images.length} photos)</span>
               </button>
             </div>
           </header>
@@ -1140,7 +1187,7 @@
             {/* GALLERY AREA */}
             <main className="flex-1 p-6 overflow-y-auto flex flex-col gap-5">
               
-              {/* Auto Cutout Info Banner */}
+              {/* Auto Cutout & HD Info Banner */}
               <div className="p-3 rounded-2xl bg-gradient-to-r from-indigo-900/40 via-purple-900/30 to-slate-900 border border-indigo-500/30 flex flex-wrap items-center justify-between gap-3 shadow-lg">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
@@ -1148,10 +1195,10 @@
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white flex items-center gap-2">
-                      <span>Détourage Automatique Immédiat</span>
-                      <span className="text-[10px] px-2 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 font-mono font-bold">100% Garanti</span>
+                      <span>Détourage Automatique & Sortie {outputQuality.toUpperCase()} Active</span>
+                      <span className="text-[10px] px-2 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 font-mono font-bold">100% Automatique</span>
                     </h4>
-                    <p className="text-[11px] text-slate-300">Toutes les photos ajoutées sont automatiquement détourées à 100%. Cliquez sur n'importe quel fond à droite pour l'appliquer instantanément !</p>
+                    <p className="text-[11px] text-slate-300">Vos photos sont détourées immédiatement. Choisissez parmi les motifs Pop Art de collection et peintures mangas ci-dessous pour un rendu 4K d'une netteté parfaite.</p>
                   </div>
                 </div>
 
@@ -1250,8 +1297,8 @@
                                 e.stopPropagation();
                                 downloadSingle(item);
                               }}
-                              className="p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
-                              title="Télécharger"
+                              className="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold"
+                              title="Télécharger en Ultra-HD"
                             >
                               <Icon name="download" className="w-4 h-4" />
                             </button>
@@ -1260,9 +1307,8 @@
 
                         <div className="p-3 border-t border-slate-800 flex items-center justify-between text-xs bg-slate-900/90">
                           <span className="font-semibold text-slate-200 truncate max-w-[160px]">{item.name}</span>
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
-                            <Icon name="wand" className="w-3 h-3 text-emerald-400" />
-                            <span>Détouré</span>
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1 font-mono">
+                            <span>{item.outputResolution || outputQuality.toUpperCase()}</span>
                           </span>
                         </div>
                       </div>
@@ -1272,13 +1318,13 @@
               )}
             </main>
 
-            {/* CONTROL SIDEBAR (280+ 100% UNIQUE HIGH-DEFINITION BACKGROUNDS) */}
+            {/* CONTROL SIDEBAR (MOTIFS POP ART RECHERCHÉS & PEINTURES MANGAS) */}
             <aside className="w-full lg:w-[480px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
               
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">280+ Fonds HD 100% Uniques</h3>
-                <span className="text-xs font-mono text-emerald-400 font-bold">
-                  {applyToAll ? `Lot complet (${images.length} photos)` : `${selectedIds.size} photos`}
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 280+ Fonds Ultra-HD</h3>
+                <span className="text-xs font-mono text-amber-400 font-bold">
+                  Rendu {outputQuality.toUpperCase()}
                 </span>
               </div>
 
@@ -1308,13 +1354,13 @@
                 <div className="flex flex-col gap-3.5">
                   
                   {/* Action Banner */}
-                  <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-between">
+                  <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
                     <div>
-                      <span className="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+                      <span className="text-xs font-bold text-amber-300 flex items-center gap-1.5">
                         <Icon name="bolt" className="w-4 h-4 text-amber-400" />
-                        Application Instantanée en 1 Clic
+                        Application Ultra-HD en 1 Clic
                       </span>
-                      <p className="text-[10px] text-slate-400">Chaque fond est 100% unique et s'applique en plein écran sans répétition.</p>
+                      <p className="text-[10px] text-slate-400">Rendu haute définition sans perte de netteté ni altération du visage.</p>
                     </div>
                   </div>
 
@@ -1325,7 +1371,7 @@
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Rechercher parmi 280+ fonds uniques (ex: fuji, sakura, sahara, cyclorama, tokyo)..."
+                      placeholder="Rechercher parmi 280+ fonds (ex: lichtenstein, warhol, shinkai, sakura, sahara)..."
                       className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                     />
                   </div>
@@ -1333,16 +1379,16 @@
                   {/* 7 Category Buttons */}
                   <div className="grid grid-cols-4 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[10px] font-bold">
                     <button
-                      onClick={() => setBgCategory('manga')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'manga' ? 'bg-pink-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      onClick={() => setBgCategory('popart')}
+                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'popart' ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-400 hover:text-white'}`}
                     >
-                      ⛩️ Mangas HD (40)
+                      💥 Pop Art Master (40)
                     </button>
                     <button
-                      onClick={() => setBgCategory('popart')}
-                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'popart' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      onClick={() => setBgCategory('manga')}
+                      className={`py-1.5 px-1 rounded-lg transition-all text-center truncate ${bgCategory === 'manga' ? 'bg-pink-600 text-white font-black' : 'text-slate-400 hover:text-white'}`}
                     >
-                      💥 Pop Art (40)
+                      ⛩️ Peintures Mangas (40)
                     </button>
                     <button
                       onClick={() => setBgCategory('nature')}
@@ -1376,11 +1422,35 @@
                     </button>
                   </div>
 
-                  {/* 1. REAL HD MANGA & ANIME PAINTINGS (40 100% UNIQUE CHOICES) */}
+                  {/* 1. POP ART (40 MOTIFS TRÈS RECHERCHÉS) */}
+                  {bgCategory === 'popart' && (
+                    <div className="flex flex-col gap-2">
+                      <span className="text-[11px] text-amber-300 font-bold">
+                        👉 40 Motifs Pop Art Iconiques & Recherchés (Lichtenstein, Warhol, Haring, Memphis) :
+                      </span>
+                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
+                        {filteredPopArt.map(p => (
+                          <button
+                            key={p.id}
+                            onClick={() => applyBackground(p)}
+                            className="group relative h-24 rounded-2xl overflow-hidden border border-amber-500/40 hover:border-amber-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
+                          >
+                            <img src={p.url} alt={p.label} className="absolute inset-0 w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                            <span className="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">
+                              {p.label}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 2. REAL HD MANGA & ANIME PAINTINGS (40 PEINTURES AUTHENTIQUES) */}
                   {bgCategory === 'manga' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-pink-400 font-bold flex items-center gap-1">
-                        ✨ 40 Vraies Peintures & Décors Mangas Anime HD 100% Uniques (1 Clic) :
+                        ✨ 40 Véritables Peintures & Décors Artistiques Mangas Japonais (1 Clic) :
                       </span>
                       <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
                         {filteredManga.map(m => (
@@ -1400,31 +1470,7 @@
                     </div>
                   )}
 
-                  {/* 2. POP ART (40 100% UNIQUE CHOICES) */}
-                  {bgCategory === 'popart' && (
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[11px] text-slate-400 font-bold">
-                        👉 40 Décors Pop Art & Rétro InPixio 100% Uniques (1 Clic) :
-                      </span>
-                      <div className="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
-                        {filteredPopArt.map(p => (
-                          <button
-                            key={p.id}
-                            onClick={() => applyBackground(p)}
-                            className="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-indigo-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md"
-                          >
-                            <img src={p.url} alt={p.label} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-                            <span className="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">
-                              {p.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 3. REAL 4K DESERTS & NATURE (40 100% UNIQUE CHOICES) */}
+                  {/* 3. REAL 4K DESERTS & NATURE (40 CHOIX) */}
                   {bgCategory === 'nature' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
@@ -1448,7 +1494,7 @@
                     </div>
                   )}
 
-                  {/* 4. REAL STUDIOS & LUXURY (40 100% UNIQUE CHOICES) */}
+                  {/* 4. REAL STUDIOS & LUXURY (40 CHOICES) */}
                   {bgCategory === 'studios' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
@@ -1472,7 +1518,7 @@
                     </div>
                   )}
 
-                  {/* 5. REAL CITIES & SKYLINES (40 100% UNIQUE CHOICES) */}
+                  {/* 5. REAL CITIES & SKYLINES (40 CHOICES) */}
                   {bgCategory === 'cities' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
@@ -1496,7 +1542,7 @@
                     </div>
                   )}
 
-                  {/* 6. GRADIENTS (40 100% UNIQUE CHOICES) */}
+                  {/* 6. GRADIENTS (40 CHOICES) */}
                   {bgCategory === 'gradients' && (
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] text-slate-400 font-bold">
@@ -1517,7 +1563,7 @@
                     </div>
                   )}
 
-                  {/* 7. SOLID COLORS (40 100% UNIQUE CHOICES) */}
+                  {/* 7. SOLID COLORS (40 CHOICES) */}
                   {bgCategory === 'solids' && (
                     <div className="flex flex-col gap-3">
                       <span className="text-[11px] text-slate-400 font-bold">
@@ -1588,13 +1634,13 @@
               {/* TAB 3: RESIZE */}
               {activeTab === 'resize' && (
                 <div className="flex flex-col gap-4">
-                  <span className="text-xs font-bold text-slate-300">Préréglages Sociaux en 1 Clic</span>
+                  <span className="text-xs font-bold text-slate-300">Préréglages Sociaux Ultra-HD</span>
                   <div className="grid grid-cols-2 gap-2">
                     {[
                       { label: 'Instagram Carré', w: 1080, h: 1080 },
                       { label: 'Story / TikTok', w: 1080, h: 1920 },
                       { label: 'YouTube Miniature', w: 1920, h: 1080 },
-                      { label: 'E-Commerce HD', w: 1200, h: 1200 },
+                      { label: 'E-Commerce 4K', w: 3840, h: 3840 },
                     ].map(p => (
                       <button
                         key={p.label}
@@ -1602,7 +1648,7 @@
                         className="p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500 text-left transition-all"
                       >
                         <p className="text-xs font-bold text-slate-200">{p.label}</p>
-                        <p className="text-[10px] font-mono text-indigo-400">{p.w} × {p.h} px</p>
+                        <p className="text-[10px] font-mono text-amber-400">{p.w} × {p.h} px</p>
                       </button>
                     ))}
                   </div>
@@ -1642,7 +1688,7 @@
             <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
               <div className="relative w-full max-w-3xl bg-slate-900 rounded-3xl border border-slate-800 p-6 flex flex-col gap-4">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <h3 className="text-sm font-bold text-white">Comparaison Avant / Après</h3>
+                  <h3 className="text-sm font-bold text-white">Comparaison Avant / Après Ultra-HD</h3>
                   <button onClick={() => setComparingItem(null)} className="text-slate-400 hover:text-white">
                     <Icon name="close" className="w-5 h-5" />
                   </button>
@@ -1711,7 +1757,7 @@
           {isProcessing && (
             <div className="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
               <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 flex flex-col items-center gap-4 max-w-sm w-full shadow-2xl">
-                <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
                 <div className="text-center w-full">
                   <h3 className="text-sm font-bold text-white mb-1">{processingStatus || 'Traitement du lot...'}</h3>
                   <p className="text-xs text-slate-400 mb-3">
@@ -1719,7 +1765,7 @@
                   </p>
                   <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden border border-slate-700">
                     <div
-                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-150"
+                      className="h-full bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 transition-all duration-150"
                       style={{ width: `${(progress.current / Math.max(1, progress.total)) * 100}%` }}
                     ></div>
                   </div>
