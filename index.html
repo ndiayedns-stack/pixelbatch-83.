@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Glisser-Déposer & Détourage Automatique Instantané</title>
-  <meta name="description" content="Studio professionnel de détourage 100% automatique par lot (1 à 1000 photos). Glisser-déposer depuis votre bureau, sortie Master 4K, 25 textures HD professionnelles." />
+  <title>PixelBatch AI Studio — 25 Arrière-plans HD Optimisés</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, rendu Ultra-HD 4K, 25 textures HD légères et optimisées (Wood, Marbles, Pop Art BD, Désert, Baby Theme)." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -79,10 +79,10 @@
           </span>
           <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-            DÉTOURAGE AUTO + DRAG & DROP
+            25 FONDS HD RAPIDES
           </span>
         </div>
-        <p class="text-[11px] text-slate-400">Glissez-déposez vos photos depuis votre bureau • Détourage automatique • Sortie Ultra-HD 4K</p>
+        <p class="text-[11px] text-slate-400">Wood • Marbles • Pop Art BD • Désert • Baby Theme • Sortie Ultra-HD 4K</p>
       </div>
     </div>
 
@@ -206,7 +206,7 @@
 
         <!-- Background items container (Grid) -->
         <div id="bg-cards-container" class="grid grid-cols-2 gap-2.5 max-h-96 overflow-y-auto pr-1">
-          <!-- Populated dynamically with the 25 exact raw Unsplash cards -->
+          <!-- Populated dynamically with the 25 exact optimized Unsplash cards -->
         </div>
 
         <!-- Custom Background Uploader -->
@@ -301,43 +301,43 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- 25 DIRECT RAW UNSPLASH TEXTURES -->
+  <!-- EXACT 25 OPTIMIZED UNSPLASH URLS GIVEN BY USER -->
   <script>
     const professionalBackgrounds = [
-      // 1. WOOD / BOIS (Textures de bois pures)
-      { id: 'w-1', category: 'Wood', title: 'Bois Chêne Clair', url: 'https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c' },
-      { id: 'w-2', category: 'Wood', title: 'Bois Flotté Gris', url: 'https://images.unsplash.com/photo-1546484396-fb3fc6f95f98' },
-      { id: 'w-3', category: 'Wood', title: 'Planches Sombres', url: 'https://images.unsplash.com/photo-1520188740392-67fe83a152d5' },
-      { id: 'w-4', category: 'Wood', title: 'Bois Lisse Noyer', url: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d' },
-      { id: 'w-5', category: 'Wood', title: 'Parquet Texturé', url: 'https://images.unsplash.com/photo-1510172600216-724bc46c8200' },
+      // 1. WOOD / BOIS
+      { id: 'w-1', category: 'Wood', title: 'Bois Chêne', url: 'https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?auto=format&fit=crop&w=600&q=80' },
+      { id: 'w-2', category: 'Wood', title: 'Bois Flotté', url: 'https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=600&q=80' },
+      { id: 'w-3', category: 'Wood', title: 'Planches Sombres', url: 'https://images.unsplash.com/photo-1520188740392-67fe83a152d5?auto=format&fit=crop&w=600&q=80' },
+      { id: 'w-4', category: 'Wood', title: 'Bois Noyer', url: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=600&q=80' },
+      { id: 'w-5', category: 'Wood', title: 'Parquet', url: 'https://images.unsplash.com/photo-1510172600216-724bc46c8200?auto=format&fit=crop&w=600&q=80' },
 
-      // 2. MARBLES / MARBRES (Textures de marbre pures)
-      { id: 'm-1', category: 'Marbles', title: 'Marbre Blanc Carrare', url: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b' },
-      { id: 'm-2', category: 'Marbles', title: 'Marbre Noir Veines Or', url: 'https://images.unsplash.com/photo-1598444458316-200a7479beba' },
-      { id: 'm-3', category: 'Marbles', title: 'Onyx Bleu Profond', url: 'https://images.unsplash.com/photo-1582236940866-22d7d8e23547' },
-      { id: 'm-4', category: 'Marbles', title: 'Granit Gris Lisse', url: 'https://images.unsplash.com/photo-1620202868200-a61685121e7d' },
-      { id: 'm-5', category: 'Marbles', title: 'Marbre Rose Doux', url: 'https://images.unsplash.com/photo-1505820921221-a537f7112ce5' },
+      // 2. MARBLES / MARBRES
+      { id: 'm-1', category: 'Marbles', title: 'Carrare', url: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?auto=format&fit=crop&w=600&q=80' },
+      { id: 'm-2', category: 'Marbles', title: 'Marbre Or', url: 'https://images.unsplash.com/photo-1598444458316-200a7479beba?auto=format&fit=crop&w=600&q=80' },
+      { id: 'm-3', category: 'Marbles', title: 'Onyx Bleu', url: 'https://images.unsplash.com/photo-1582236940866-22d7d8e23547?auto=format&fit=crop&w=600&q=80' },
+      { id: 'm-4', category: 'Marbles', title: 'Granit Gris', url: 'https://images.unsplash.com/photo-1620202868200-a61685121e7d?auto=format&fit=crop&w=600&q=80' },
+      { id: 'm-5', category: 'Marbles', title: 'Marbre Rose', url: 'https://images.unsplash.com/photo-1505820921221-a537f7112ce5?auto=format&fit=crop&w=600&q=80' },
 
-      // 3. POP ART BD (Motifs abstraits et halftone)
-      { id: 'p-1', category: 'Pop Art BD', title: 'Halftone Comic', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe' },
-      { id: 'p-2', category: 'Pop Art BD', title: 'Rayons Dynamiques', url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1' },
-      { id: 'p-3', category: 'Pop Art BD', title: 'Formes Rétro', url: 'https://images.unsplash.com/photo-1608501078713-8e445a709b39' },
-      { id: 'p-4', category: 'Pop Art BD', title: 'Texture Pointillée', url: 'https://images.unsplash.com/photo-1501696461415-6bd6660c6742' },
-      { id: 'p-5', category: 'Pop Art BD', title: 'Fond Vibrant', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853' },
+      // 3. POP ART BD
+      { id: 'p-1', category: 'Pop Art BD', title: 'Halftone', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p-2', category: 'Pop Art BD', title: 'Rayons', url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p-3', category: 'Pop Art BD', title: 'Rétro', url: 'https://images.unsplash.com/photo-1608501078713-8e445a709b39?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p-4', category: 'Pop Art BD', title: 'Pointillé', url: 'https://images.unsplash.com/photo-1501696461415-6bd6660c6742?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p-5', category: 'Pop Art BD', title: 'Vibrant', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80' },
 
-      // 4. DESERT (Dunes de sable pures, sans ciel, pour incrustation)
-      { id: 'd-1', category: 'Désert', title: 'Sable Fin', url: 'https://images.unsplash.com/photo-1473580044384-7ba9967e16a0' },
-      { id: 'd-2', category: 'Désert', title: 'Ondulations Désert', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35' },
-      { id: 'd-3', category: 'Désert', title: 'Dune Minimaliste', url: 'https://images.unsplash.com/photo-1453873531674-2151bcd01707' },
-      { id: 'd-4', category: 'Désert', title: 'Sable Doré', url: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09' },
-      { id: 'd-5', category: 'Désert', title: 'Texture Saharienne', url: 'https://images.unsplash.com/photo-1510006766348-8a9d15024467' },
+      // 4. DESERT
+      { id: 'd-1', category: 'Désert', title: 'Sable Fin', url: 'https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?auto=format&fit=crop&w=600&q=80' },
+      { id: 'd-2', category: 'Désert', title: 'Ondulations', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=600&q=80' },
+      { id: 'd-3', category: 'Désert', title: 'Dune Minimaliste', url: 'https://images.unsplash.com/photo-1453873531674-2151bcd01707?auto=format&fit=crop&w=600&q=80' },
+      { id: 'd-4', category: 'Désert', title: 'Sable Doré', url: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80' },
+      { id: 'd-5', category: 'Désert', title: 'Sahara', url: 'https://images.unsplash.com/photo-1510006766348-8a9d15024467?auto=format&fit=crop&w=600&q=80' },
 
-      // 5. BABY THEME (Textures douces, pastel, peluche - AUCUN BEBE)
-      { id: 'b-1', category: 'Baby Theme', title: 'Couverture Pastel', url: 'https://images.unsplash.com/photo-1555448248-2571daf6344b' },
-      { id: 'b-2', category: 'Baby Theme', title: 'Dégradé Rose', url: 'https://images.unsplash.com/photo-1518116527503-49d63c5d762e' },
-      { id: 'b-3', category: 'Baby Theme', title: 'Tricot Doux', url: 'https://images.unsplash.com/photo-1616047242145-c1fc342ec197' },
-      { id: 'b-4', category: 'Baby Theme', title: 'Coton Nuage', url: 'https://images.unsplash.com/photo-1601662528567-526cd06f6582' },
-      { id: 'b-5', category: 'Baby Theme', title: 'Bleu Ciel Texture', url: 'https://images.unsplash.com/photo-1520607162514-419b486d9d1c' }
+      // 5. BABY THEME
+      { id: 'b-1', category: 'Baby Theme', title: 'Couverture Pastel', url: 'https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=600&q=80' },
+      { id: 'b-2', category: 'Baby Theme', title: 'Dégradé Rose', url: 'https://images.unsplash.com/photo-1518116527503-49d63c5d762e?auto=format&fit=crop&w=600&q=80' },
+      { id: 'b-3', category: 'Baby Theme', title: 'Tricot Doux', url: 'https://images.unsplash.com/photo-1616047242145-c1fc342ec197?auto=format&fit=crop&w=600&q=80' },
+      { id: 'b-4', category: 'Baby Theme', title: 'Coton Nuage', url: 'https://images.unsplash.com/photo-1601662528567-526cd06f6582?auto=format&fit=crop&w=600&q=80' },
+      { id: 'b-5', category: 'Baby Theme', title: 'Bleu Ciel', url: 'https://images.unsplash.com/photo-1520607162514-419b486d9d1c?auto=format&fit=crop&w=600&q=80' }
     ];
   </script>
 
@@ -375,7 +375,7 @@
       console.warn("MediaPipe init error:", e);
     }
 
-    // 100% Automatic Cutout Algorithm (MediaPipe AI + High-Contrast Color Extraction Fallback)
+    // 100% Automatic Cutout Algorithm (MediaPipe AI + Smart Object Extraction Fallback)
     function generateCutout(imgUrl) {
       return new Promise(function(resolve) {
         var img = new Image();
@@ -437,12 +437,11 @@
       });
     }
 
-    // Smart object/solid corner background cutout fallback
+    // Smart solid corner background cutout fallback
     function smartObjectCutout(canvas, ctx, w, h) {
       try {
         var imgData = ctx.getImageData(0, 0, w, h);
         var data = imgData.data;
-        // Sample corners
         var r0 = data[0], g0 = data[1], b0 = data[2];
         var isPlainBg = (Math.abs(r0 - 255) < 30 && Math.abs(g0 - 255) < 30 && Math.abs(b0 - 255) < 30) ||
                         (Math.abs(r0 - 0) < 25 && Math.abs(g0 - 0) < 25 && Math.abs(b0 - 0) < 25) ||
@@ -453,7 +452,7 @@
             var dg = Math.abs(data[i + 1] - g0);
             var db = Math.abs(data[i + 2] - b0);
             if (dr < 35 && dg < 35 && db < 35) {
-              data[i + 3] = 0; // Set transparent
+              data[i + 3] = 0;
             }
           }
           ctx.putImageData(imgData, 0, 0);
@@ -634,9 +633,10 @@
 
       var html = '';
       list.forEach(function(bg) {
+        // EXACT OPTIMIZED CARD WITH FAST ONERROR FALLBACK
         html += 
           '<div onclick="applySpecificBg(\'' + bg.id + '\')" class="relative overflow-hidden rounded-xl h-40 group cursor-pointer border border-gray-700 hover:border-pink-500 transition-all shadow-lg">' +
-            '<img src="' + bg.url + '" alt="' + bg.title + '" class="absolute inset-0 w-full h-full object-cover z-0" />' +
+            '<img src="' + bg.url + '" alt="' + bg.title + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-0 bg-gray-800" onerror="this.onerror=null; this.src=\'https://placehold.co/600x400/1f2937/ffffff?text=' + encodeURIComponent(bg.title) + '\';" />' +
             '<div class="absolute inset-0 bg-black/40 z-10 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-2 pointer-events-none">' +
               '<p class="text-white text-xs font-bold">' + bg.title + '</p>' +
               '<p class="text-[10px] text-pink-400">' + bg.category + '</p>' +
@@ -772,7 +772,7 @@
         }
       });
       renderGallery();
-      showToast('Fond Détouré', 'Vos sujets sont transparents et prêts à exporter');
+      showToast('Fond Retiré', 'Vos sujets sont transparents et prêts à exporter');
     }
 
     function deleteSelectedImages() {
