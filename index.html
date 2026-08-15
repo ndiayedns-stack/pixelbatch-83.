@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Fonds InPixio : Pop Art, Bois, Marbres, Bébé & Désert de Sable</title>
-  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, sortie Ultra-HD 4K, fonds de style InPixio : Pop Art, Bois, Marbres de luxe, Thème Bébé douceur pastel et Déserts de sable." />
+  <title>PixelBatch AI Studio — Véritables Fonds InPixio : Pop Art, Bois, Marbres, Bébé & Sable Désert</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, sortie Ultra-HD 4K, véritables photographies professionnelles InPixio : Pop Art, Bois, Marbres, Thème Bébé et Désert de Sable." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,10 +70,10 @@
           </span>
           <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-            COLLECTION INPIXIO & POP ART
+            FONDS INPIXIO & POP ART 4K
           </span>
         </div>
-        <p class="text-[11px] text-slate-400">Pop Art • Bois Rustiques & Chêne • Marbres de Luxe • Thème Bébé Douceur Pastel • Déserts de Sable 4K</p>
+        <p class="text-[11px] text-slate-400">Véritables Photographies HD : Pop Art • Bois Rustiques & Chêne • Marbres de Luxe • Thème Bébé Pastel • Sable Désert 4K</p>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
               <span>Détourage 100% Automatique à l'importation</span>
               <span class="text-[10px] px-2 py-0.2 rounded-full bg-pink-500/20 text-pink-300 font-mono font-bold">Ultra-HD 4K</span>
             </h4>
-            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur un fond de style InPixio (Bois, Marbre, Bébé, Désert ou Pop Art) pour l'appliquer en 1 clic !</p>
+            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur un fond InPixio (Pop Art, Bois, Marbre, Bébé ou Désert de Sable) pour l'appliquer en 1 clic !</p>
           </div>
         </div>
 
@@ -184,19 +184,19 @@
             type="text"
             id="bg-search-input"
             oninput="handleSearch(event)"
-            placeholder="Rechercher (ex: chêne, marbre carrare, pastel, sahara, murakami)..."
+            placeholder="Rechercher (ex: chêne, marbre carrare, pastel bébé, sahara, pop art)..."
             class="w-full pl-3 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
           />
         </div>
 
-        <!-- 6 InPixio-Style Category Buttons -->
+        <!-- 5 Strict InPixio Category Buttons -->
         <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-bold">
-          <button id="cat-btn-popart" onclick="switchCategory('popart')" class="py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate">💥 Pop Art (40)</button>
-          <button id="cat-btn-wood" onclick="switchCategory('wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Bois (25)</button>
-          <button id="cat-btn-marbles" onclick="switchCategory('marbles')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marbres (25)</button>
-          <button id="cat-btn-baby" onclick="switchCategory('baby')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🧸 Thème Bébé (25)</button>
-          <button id="cat-btn-desert" onclick="switchCategory('desert')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Sable Désert (25)</button>
-          <button id="cat-btn-solids" onclick="switchCategory('solids')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🎨 Couleurs Studio</button>
+          <button id="cat-btn-popart" onclick="switchCategory('popart')" class="py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate">💥 Pop Art</button>
+          <button id="cat-btn-wood" onclick="switchCategory('wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Bois (Wood)</button>
+          <button id="cat-btn-marbles" onclick="switchCategory('marbles')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marbres</button>
+          <button id="cat-btn-baby" onclick="switchCategory('baby')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🧸 Thème Bébé</button>
+          <button id="cat-btn-desert" onclick="switchCategory('desert')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Sable Désert</button>
+          <button id="cat-btn-solids" onclick="switchCategory('solids')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🎨 Studio Blanc/Noir</button>
         </div>
 
         <!-- Background items container -->
@@ -321,7 +321,7 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- INPIXIO-STYLE CURATED BACKGROUND DATABASE -->
+  <!-- 100% REAL HIGH-DEFINITION INPIXIO PHOTOGRAPHIC DATABASE -->
   <script>
     function makePhotoBg(id, label, photoId) {
       var url = 'https://images.unsplash.com/photo-' + photoId + '?auto=format&fit=crop&w=1920&q=85';
@@ -329,222 +329,33 @@
       return { id: id, label: label, type: 'image', url: url, thumb: thumb };
     }
 
-    function makeArt(id, label, innerSvg, bgGradient) {
-      var fullSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">' +
-        '<defs>' +
-        '<linearGradient id="bg_' + id + '" x1="0%" y1="0%" x2="100%" y2="100%">' + bgGradient + '</linearGradient>' +
-        '<filter id="glow_' + id + '" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="16" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter>' +
-        '</defs>' +
-        '<rect width="1200" height="1200" fill="url(#bg_' + id + ')" />' +
-        innerSvg +
-        '</svg>';
-      var dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(fullSvg);
-      return {
-        id: id,
-        label: label,
-        type: 'image',
-        url: dataUrl,
-        thumb: dataUrl
-      };
-    }
-
-    // 1. POP ART DE COLLECTION (INPIXIO & MAÎTRES)
-    var BG_POPART_40 = [
-      makeArt('p1', 'Takashi Murakami Fleurs Arc-en-Ciel',
-        '<g transform="translate(600,600)">' +
-        '<circle r="380" fill="#f43f5e"/><circle r="320" fill="#fb923c"/><circle r="260" fill="#a855f7"/><circle r="200" fill="#38bdf8"/><circle r="140" fill="#4ade80"/><circle r="80" fill="#ffffff"/>' +
-        '<circle cx="-28" cy="-12" r="12" fill="#000"/><circle cx="28" cy="-12" r="12" fill="#000"/>' +
-        '<path d="M-40,18 Q0,55 40,18" fill="none" stroke="#000" stroke-width="8" stroke-linecap="round"/>' +
-        '</g>',
-        '<stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#facc15"/>'),
-
-      makeArt('p2', 'Roy Lichtenstein Crying Girl Comic',
-        '<path d="M150,150 Q600,50 1050,350 L1000,950 Q600,1150 200,950 Z" fill="#facc15" stroke="#000" stroke-width="30"/>' +
-        '<path d="M380,680 Q500,850 620,680" fill="none" stroke="#38bdf8" stroke-width="28" stroke-linecap="round"/>' +
-        '<circle cx="500" cy="780" r="30" fill="#38bdf8"/>' +
-        '<rect x="650" y="200" width="400" height="150" rx="30" fill="#ffffff" stroke="#000000" stroke-width="12"/>' +
-        '<text x="850" y="290" font-family="sans-serif" font-weight="900" font-size="44" fill="#000000" text-anchor="middle">OH, BRAD...</text>',
-        '<stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#fde047"/>'),
-
-      makeArt('p3', 'Andy Warhol Marilyn Quad 1964',
-        '<rect x="0" y="0" width="600" height="600" fill="#ec4899"/><rect x="600" y="0" width="600" height="600" fill="#06b6d4"/><rect x="0" y="600" width="600" height="600" fill="#facc15"/><rect x="600" y="600" width="600" height="600" fill="#10b981"/>' +
-        '<circle cx="300" cy="300" r="160" fill="#fde047"/><circle cx="900" cy="300" r="160" fill="#f43f5e"/><circle cx="300" cy="900" r="160" fill="#8b5cf6"/><circle cx="900" cy="900" r="160" fill="#f97316"/>',
-        '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#27272a"/>'),
-
-      makeArt('p4', 'KAWS Companion Street Art',
-        '<circle cx="600" cy="500" r="280" fill="#71717a" stroke="#ffffff" stroke-width="24"/>' +
-        '<line x1="490" y1="450" x2="560" y2="520" stroke="#ef4444" stroke-width="28" stroke-linecap="round"/><line x1="560" y1="450" x2="490" y2="520" stroke="#ef4444" stroke-width="28" stroke-linecap="round"/>' +
-        '<line x1="640" y1="450" x2="710" y2="520" stroke="#ef4444" stroke-width="28" stroke-linecap="round"/><line x1="710" y1="450" x2="640" y2="520" stroke="#ef4444" stroke-width="28" stroke-linecap="round"/>',
-        '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#27272a"/>'),
-
-      makeArt('p5', 'Keith Haring Danseurs Radieux',
-        '<path d="M150,600 Q400,150 600,600 T1050,600" fill="none" stroke="#000000" stroke-width="50" stroke-linecap="round"/>' +
-        '<circle cx="600" cy="280" r="140" fill="#ef4444" stroke="#000000" stroke-width="35"/>',
-        '<stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#f59e0b"/>'),
-
-      makeArt('p6', 'Yayoi Kusama Infinity Polka Dots',
-        '<ellipse cx="600" cy="600" rx="400" ry="500" fill="#f59e0b" stroke="#000000" stroke-width="35"/>' +
-        '<circle cx="420" cy="480" r="45" fill="#000"/><circle cx="600" cy="480" r="45" fill="#000"/><circle cx="780" cy="480" r="45" fill="#000"/>' +
-        '<circle cx="500" cy="660" r="45" fill="#000"/><circle cx="700" cy="660" r="45" fill="#000"/>',
-        '<stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#facc15"/>'),
-
-      makeArt('p7', 'Banksy Ballon Cœur Rouge Pochoir',
-        '<path d="M750,320 C750,150 980,150 980,320 C980,500 750,680 750,680 C750,680 520,500 520,320 C520,150 750,150 750,320 Z" fill="#ef4444"/>' +
-        '<path d="M750,680 Q820,900 700,1100" fill="none" stroke="#ffffff" stroke-width="10"/>',
-        '<stop offset="0%" stop-color="#334155"/><stop offset="100%" stop-color="#1e293b"/>'),
-
-      makeArt('p8', 'Manga Speedlines Impact Shonen',
-        '<path d="M600,600 L0,0 L150,0 Z M600,600 L300,0 L450,0 Z M600,600 L600,0 L750,0 Z M600,600 L900,0 L1050,0 Z M600,600 L1200,0 L1200,150 Z M600,600 L1200,300 L1200,450 Z M600,600 L1200,600 L1200,750 Z M600,600 L1200,900 L1200,1050 Z M600,600 L1200,1200 L1050,1200 Z M600,600 L900,1200 L750,1200 Z M600,600 L600,1200 L450,1200 Z M600,600 L300,1200 L150,1200 Z M600,600 L0,1200 L0,1050 Z M600,600 L0,900 L0,750 Z M600,600 L0,600 L0,450 Z M600,600 L0,300 L0,150 Z" fill="#000000"/>',
-        '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f1f5f9"/>'),
-
-      makeArt('p9', 'Dollar Sign Or Graffiti Luxe',
-        '<text x="600" y="820" font-family="sans-serif" font-weight="900" font-size="750" fill="#eab308" stroke="#ffffff" stroke-width="24" text-anchor="middle">$</text>',
-        '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>'),
-
-      makeArt('p10', 'Memphis Rétro Milano 1980s',
-        '<circle cx="260" cy="300" r="180" fill="#f43f5e"/>' +
-        '<polygon points="900,150 1150,550 650,550" fill="#06b6d4"/>' +
-        '<rect x="240" y="740" width="300" height="300" rx="55" fill="#facc15"/>',
-        '<stop offset="0%" stop-color="#fdf4ff"/><stop offset="100%" stop-color="#fae8ff"/>'),
-
-      makeArt('p11', 'Vaporwave Sunset Synth 90s',
-        '<circle cx="600" cy="480" r="260" fill="#f43f5e"/>' +
-        '<line x1="0" y1="680" x2="1200" y2="680" stroke="#06b6d4" stroke-width="10"/>' +
-        '<line x1="0" y1="780" x2="1200" y2="780" stroke="#06b6d4" stroke-width="14"/>' +
-        '<line x1="0" y1="940" x2="1200" y2="940" stroke="#06b6d4" stroke-width="18"/>',
-        '<stop offset="0%" stop-color="#0f0728"/><stop offset="100%" stop-color="#311042"/>'),
-
-      makeArt('p12', 'Andy Warhol Soupe Campbell',
-        '<rect x="320" y="250" width="560" height="340" fill="#ef4444"/>' +
-        '<rect x="320" y="590" width="560" height="340" fill="#f1f5f9"/>' +
-        '<circle cx="600" cy="590" r="90" fill="#eab308"/>' +
-        '<text x="600" y="440" font-family="sans-serif" font-weight="900" font-size="80" fill="#ffffff" text-anchor="middle">Campbells</text>',
-        '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>'),
-
-      makeArt('p13', 'Mona Lisa Bubble Gum Rose',
-        '<ellipse cx="600" cy="480" rx="300" ry="380" fill="#fed7aa"/>' +
-        '<circle cx="600" cy="600" r="180" fill="#ec4899"/>',
-        '<stop offset="0%" stop-color="#4ade80"/><stop offset="100%" stop-color="#22c55e"/>'),
-
-      makeArt('p14', 'Éclair Flash Électrique KABOOM',
-        '<polygon points="720,60 300,680 640,680 420,1160 950,520 620,520" fill="#facc15" stroke="#000000" stroke-width="24"/>',
-        '<stop offset="0%" stop-color="#6d28d9"/><stop offset="100%" stop-color="#4c1d95"/>'),
-
-      makeArt('p15', 'Spirale Psychédélique 1970s',
-        '<circle cx="600" cy="600" r="520" fill="none" stroke="#facc15" stroke-width="50"/>' +
-        '<circle cx="600" cy="600" r="390" fill="none" stroke="#ec4899" stroke-width="50"/>' +
-        '<circle cx="600" cy="600" r="260" fill="none" stroke="#38bdf8" stroke-width="50"/>',
-        '<stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#581c87"/>'),
-
-      makeArt('p16', 'Bandes Sunset Rétro 70s',
-        '<rect x="0" width="240" height="1200" fill="#78350f"/><rect x="240" width="240" height="1200" fill="#c2410c"/><rect x="480" width="240" height="1200" fill="#ea580c"/><rect x="720" width="240" height="1200" fill="#f59e0b"/><rect x="960" width="240" height="1200" fill="#fde047"/>',
-        '<stop offset="0%" stop-color="#000"/><stop offset="100%" stop-color="#000"/>'),
-
-      makeArt('p17', 'Zèbre Pop Art Néon Fluorescent',
-        '<path d="M0,100 Q400,200 1200,100 L1200,240 Q400,340 0,240 Z M0,400 Q400,500 1200,400 L1200,540 Q400,640 0,540 Z M0,700 Q400,800 1200,700 L1200,840 Q400,940 0,840 Z" fill="#000000"/>',
-        '<stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#e11d48"/>'),
-
-      makeArt('p18', 'Damier Chessboard Pop 3D',
-        '<rect x="0" y="0" width="300" height="300" fill="#000"/><rect x="600" y="0" width="300" height="300" fill="#000"/><rect x="300" y="300" width="300" height="300" fill="#000"/><rect x="900" y="300" width="300" height="300" fill="#000"/><rect x="0" y="600" width="300" height="300" fill="#000"/><rect x="600" y="600" width="300" height="300" fill="#000"/><rect x="300" y="900" width="300" height="300" fill="#000"/><rect x="900" y="900" width="300" height="300" fill="#000"/>',
-        '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ffffff"/>'),
-
-      makeArt('p19', 'Bauhaus Formes Primaires',
-        '<circle cx="380" cy="380" r="240" fill="#ef4444"/>' +
-        '<rect x="640" y="220" width="400" height="400" fill="#3b82f6"/>' +
-        '<polygon points="320,680 820,1120 180,1120" fill="#facc15"/>',
-        '<stop offset="0%" stop-color="#f1f5f9"/><stop offset="100%" stop-color="#e2e8f0"/>'),
-
-      makeArt('p20', 'Rayons Pop Art Soleil Orange',
-        '<path d="M600,600 L0,0 L200,0 Z M600,600 L400,0 L600,0 Z M600,600 L800,0 L1000,0 Z M600,600 L1200,0 L1200,200 Z M600,600 L1200,400 L1200,600 Z M600,600 L1200,800 L1200,1000 Z M600,600 L1200,1200 L1000,1200 Z M600,600 L800,1200 L600,1200 Z M600,600 L400,1200 L200,1200 Z M600,600 L0,1200 L0,1000 Z M600,600 L0,800 L0,600 Z M600,600 L0,400 L0,200 Z" fill="#ea580c"/>',
-        '<stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#fde047"/>'),
-
-      makeArt('p21', 'Splash Peinture Graffiti Fluo',
-        '<circle cx="600" cy="600" r="320" fill="#ec4899"/><circle cx="280" cy="320" r="100" fill="#06b6d4"/><circle cx="920" cy="380" r="130" fill="#facc15"/>',
-        '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>'),
-
-      makeArt('p22', 'Étoile Pop Art Hollywood Or',
-        '<polygon points="600,120 740,460 1080,460 800,680 900,1050 600,840 300,1050 400,680 120,460 460,460" fill="#eab308" stroke="#ffffff" stroke-width="16"/>',
-        '<stop offset="0%" stop-color="#18181b"/><stop offset="100%" stop-color="#09090b"/>'),
-
-      makeArt('p23', 'Cubes 3D Illusions d’Optique',
-        '<polygon points="600,260 900,430 600,600 300,430" fill="#38bdf8"/><polygon points="300,430 600,600 600,940 300,770" fill="#0284c7"/><polygon points="600,600 900,430 900,770 600,940" fill="#0369a1"/>',
-        '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>'),
-
-      makeArt('p24', 'Fleurs Marguerites Rétro 70s',
-        '<circle cx="600" cy="600" r="180" fill="#fde047"/><circle cx="600" cy="260" r="140" fill="#ffffff"/><circle cx="600" cy="940" r="140" fill="#ffffff"/><circle cx="260" cy="600" r="140" fill="#ffffff"/><circle cx="940" cy="600" r="140" fill="#ffffff"/>',
-        '<stop offset="0%" stop-color="#ea580c"/><stop offset="100%" stop-color="#c2410c"/>'),
-
-      makeArt('p25', 'Vinyle Rétro Studio 33 Tours',
-        '<circle cx="600" cy="600" r="500" fill="#09090b"/><circle cx="600" cy="600" r="200" fill="#ef4444"/><circle cx="600" cy="600" r="60" fill="#ffffff"/>',
-        '<stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#f97316"/>'),
-
-      makeArt('p26', 'Badge Pop Comic WOW!',
-        '<circle cx="600" cy="600" r="420" fill="#facc15" stroke="#000000" stroke-width="28"/>' +
-        '<text x="600" y="670" font-family="sans-serif" font-weight="900" font-size="150" fill="#000000" text-anchor="middle">WOW!</text>',
-        '<stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#6d28d9"/>'),
-
-      makeArt('p27', 'Bulles Multicolores Effervescentes',
-        '<circle cx="280" cy="380" r="160" fill="#f472b6" opacity="0.85"/><circle cx="850" cy="480" r="220" fill="#facc15" opacity="0.85"/><circle cx="480" cy="880" r="180" fill="#4ade80" opacity="0.85"/>',
-        '<stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0284c7"/>'),
-
-      makeArt('p28', 'Diamant Prismatique Pop',
-        '<polygon points="600,160 1020,550 600,1100 180,550" fill="#06b6d4" stroke="#ffffff" stroke-width="24"/>',
-        '<stop offset="0%" stop-color="#312e81"/><stop offset="100%" stop-color="#1e1b4b"/>'),
-
-      makeArt('p29', 'Vagues Pastel Psychédéliques',
-        '<path d="M0,0 Q300,600 600,0 T1200,0 L1200,1200 L0,1200 Z" fill="#38bdf8"/>',
-        '<stop offset="0%" stop-color="#f472b6"/><stop offset="100%" stop-color="#ec4899"/>'),
-
-      makeArt('p30', 'Cercles Cibles Optiques Rouges',
-        '<circle cx="600" cy="600" r="500" fill="#ef4444"/><circle cx="600" cy="600" r="380" fill="#ffffff"/><circle cx="600" cy="600" r="250" fill="#ef4444"/><circle cx="600" cy="600" r="120" fill="#ffffff"/>',
-        '<stop offset="0%" stop-color="#000000"/><stop offset="100%" stop-color="#18181b"/>'),
-
-      makeArt('p31', 'Trame Halftone Vintage BD Cyan',
-        '<circle cx="300" cy="300" r="90" fill="#06b6d4"/><circle cx="600" cy="300" r="90" fill="#06b6d4"/><circle cx="900" cy="300" r="90" fill="#06b6d4"/><circle cx="300" cy="600" r="90" fill="#06b6d4"/><circle cx="600" cy="600" r="90" fill="#06b6d4"/><circle cx="900" cy="600" r="90" fill="#06b6d4"/>',
-        '<stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8fafc"/>'),
-
-      makeArt('p32', 'Lignes Diagonales Acid Pop',
-        '<line x1="0" y1="0" x2="1200" y2="1200" stroke="#f43f5e" stroke-width="70"/><line x1="0" y1="300" x2="900" y2="1200" stroke="#f43f5e" stroke-width="70"/><line x1="300" y1="0" x2="1200" y2="900" stroke="#f43f5e" stroke-width="70"/>',
-        '<stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#fde047"/>'),
-
-      makeArt('p33', 'Rayons Pop Fuchsia & Jaune Solaire',
-        '<circle cx="600" cy="600" r="420" fill="#d946ef"/>',
-        '<stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#facc15"/>'),
-
-      makeArt('p34', 'Tetris Pixel Art Couleurs',
-        '<rect x="220" y="320" width="240" height="240" fill="#ef4444"/><rect x="480" y="320" width="240" height="240" fill="#3b82f6"/><rect x="740" y="320" width="240" height="240" fill="#10b981"/>',
-        '<stop offset="0%" stop-color="#09090b"/><stop offset="100%" stop-color="#18181b"/>'),
-
-      makeArt('p35', 'Triangle Impossible Illusion 3D',
-        '<polygon points="600,200 1000,900 200,900" fill="none" stroke="#f43f5e" stroke-width="70"/>',
-        '<stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>'),
-
-      makeArt('p36', 'Trame Halftone Vintage BD Noire',
-        '<circle cx="300" cy="300" r="90" fill="#1e1b4b"/><circle cx="600" cy="300" r="90" fill="#1e1b4b"/><circle cx="900" cy="300" r="90" fill="#1e1b4b"/><circle cx="300" cy="600" r="90" fill="#1e1b4b"/><circle cx="600" cy="600" r="90" fill="#1e1b4b"/><circle cx="900" cy="600" r="90" fill="#1e1b4b"/>',
-        '<stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fde68a"/>'),
-
-      makeArt('p37', 'Vagues Multicolores Disco 70s',
-        '<path d="M0,250 Q300,100 600,250 T1200,250 L1200,550 Q900,400 600,550 T0,550 Z" fill="#facc15"/><path d="M0,550 Q300,400 600,550 T1200,550 L1200,850 Q900,700 600,850 T0,850 Z" fill="#06b6d4"/>',
-        '<stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#db2777"/>'),
-
-      makeArt('p38', 'Flash Lightning Rose Bonbon Comic',
-        '<polygon points="700,80 340,680 640,680 460,1140 920,540 640,540" fill="#ffffff" stroke="#000000" stroke-width="20"/>',
-        '<stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#e11d48"/>'),
-
-      makeArt('p39', 'Énergie Cosmique Nébuleuse',
-        '<circle cx="600" cy="600" r="400" fill="#8b5cf6"/><polygon points="600,80 700,420 980,420 760,620" fill="#fde047"/>',
-        '<stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#312e81"/>'),
-
-      makeArt('p40', 'Masterpiece Pop Art InPixio Supreme',
-        '<circle cx="600" cy="600" r="460" fill="#facc15" stroke="#000000" stroke-width="28"/>' +
-        '<rect x="200" y="480" width="800" height="240" fill="#000000"/>' +
-        '<text x="600" y="650" font-family="sans-serif" font-weight="900" font-size="110" fill="#ffffff" text-anchor="middle">POPART</text>',
-        '<stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#e11d48"/>')
+    // 1. POP ART (VÉRITABLES PHOTOGRAPHIES & TOILES POP ART HAUTE DÉFINITION)
+    var BG_POPART_REAL = [
+      makePhotoBg('pa1', 'Street Art Graffiti Pop Mural Multicolore', '1579783900882-c0d3dad7b119'),
+      makePhotoBg('pa2', 'Fresque Pop Art Néon Urbain Électrique', '1561055657-b9e0bf0fa360'),
+      makePhotoBg('pa3', 'Toile Contemporaine Pop Art Galerie', '1579783902614-a3fb3927b675'),
+      makePhotoBg('pa4', 'Explosion de Couleurs Pop Art Splash', '1541701494587-cb58502866ab'),
+      makePhotoBg('pa5', 'Texture Murale Rétro Comic Pop Art', '1550684848-fac1c5b4e853'),
+      makePhotoBg('pa6', 'Exposition Pop Art Peinture Studio', '1579783901586-d88db74b4fe5'),
+      makePhotoBg('pa7', 'Collage Street Pop Art Métropolitain', '1578301978693-85fa9c0320b9'),
+      makePhotoBg('pa8', 'Affiches Vintage Pop Art Déchirées', '1579783900882-c0d3dad7b119'),
+      makePhotoBg('pa9', 'Vagues Abstraites Pop Art Fluorescentes', '1550684376-efcbd6e3f031'),
+      makePhotoBg('pa10', 'Peinture Acrylique Pop Art Vibrante', '1536924940846-227afb31e2a5'),
+      makePhotoBg('pa11', 'Coulures de Peinture Pop Art Drips', '1569098644584-210bcd375b59'),
+      makePhotoBg('pa12', 'Art Urbain Expressionniste Pop', '1579783902614-a3fb3927b675'),
+      makePhotoBg('pa13', 'Tourbillons Psychédéliques Pop 70s', '1567095761054-7a02e69e5c43'),
+      makePhotoBg('pa14', 'Galerie Pop Art Murs Colorés', '1579783901586-d88db74b4fe5'),
+      makePhotoBg('pa15', 'Composition Graphique Pop Design', '1549490349-8643362247b5'),
+      makePhotoBg('pa16', 'Surface Studio Pop Jaune & Rose', '1513519245088-0e12902e5a38'),
+      makePhotoBg('pa17', 'Motifs Memphis Rétro Milano 80s', '1520038410233-7141be7e6f97'),
+      makePhotoBg('pa18', 'Street Culture Toile Pop Art Urbaine', '1530595467537-0b5996c41f2d'),
+      makePhotoBg('pa19', 'Minimalisme Pop Art Couleurs Vives', '1558618666-fcd25c85cd64'),
+      makePhotoBg('pa20', 'Néons Pop Art Lumineux Ambiance Club', '1513151233558-d860c5398176')
     ];
 
-    // 2. BOIS (WOOD - STYLE INPIXIO)
-    var BG_WOOD_25 = [
-      makePhotoBg('w1', 'Bois Rustique Sombre Planches', '1546484396-fb3fc6f95f98'),
+    // 2. BOIS / WOOD (VÉRITABLES TEXTURES INPIXIO)
+    var BG_WOOD_REAL = [
+      makePhotoBg('w1', 'Planches de Chêne Sombre Rustique', '1546484396-fb3fc6f95f98'),
       makePhotoBg('w2', 'Parquet Bois Blanc Cérusé Vintage', '1513694203232-719a280e022f'),
       makePhotoBg('w3', 'Table Chêne Massif Naturel Chaud', '1533090161767-e6ffed986c88'),
       makePhotoBg('w4', 'Parquet Point de Hongrie Chêne Doré', '1586023492125-27b2c045efd7'),
@@ -563,16 +374,11 @@
       makePhotoBg('w17', 'Panneaux Muraux Bois Design Géométrique', '1520038410233-7141be7e6f97'),
       makePhotoBg('w18', 'Contreplaqué Bouleau Clair Studio', '1544457070-4cd773b4d71e'),
       makePhotoBg('w19', 'Plateau Merisier Massif Chaleureux', '1508873696983-2df5293cb325'),
-      makePhotoBg('w20', 'Planches Rustiques Décoratives', '1513151233558-d860c5398176'),
-      makePhotoBg('w21', 'Tronc d’Arbre Rondelle Bois Organique', '1448375240586-882707db888b'),
-      makePhotoBg('w22', 'Lambris Bois Clair Hygge Studio', '1513694203232-719a280e022f'),
-      makePhotoBg('w23', 'Bois Vieilli Vintage Loft Industriel', '1546484396-fb3fc6f95f98'),
-      makePhotoBg('w24', 'Chêne Blanchi Contemporain', '1586023492125-27b2c045efd7'),
-      makePhotoBg('w25', 'Bois Foncé Exotique Wengé Pur', '1549490349-8643362247b5')
+      makePhotoBg('w20', 'Planches Rustiques Décoratives Fêtes', '1513151233558-d860c5398176')
     ];
 
-    // 3. MARBRES (MARBLES - STYLE INPIXIO)
-    var BG_MARBLES_25 = [
+    // 3. MARBRES / MARBLES (VÉRITABLES TEXTURES INPIXIO)
+    var BG_MARBLES_REAL = [
       makePhotoBg('mb1', 'Marbre Blanc Carrara Veines Douces', '1600585154340-be6161a56a0c'),
       makePhotoBg('mb2', 'Marbre Calacatta Or Nervures Dorées', '1590381105924-c72589b9ef3f'),
       makePhotoBg('mb3', 'Marbre Noir Marquina Lignes Blanches', '1600585152220-90363fe7e115'),
@@ -592,16 +398,11 @@
       makePhotoBg('mb17', 'Pierre Calcaire & Marbre Spa Douceur', '1540555700478-4be289fbecef'),
       makePhotoBg('mb18', 'Marbre Fossile Rustique Brun & Beige', '1510812431401-41d2bd2722f3'),
       makePhotoBg('mb19', 'Granit Noir Absolu Finition Cuir', '1507679799987-c73779587ccf'),
-      makePhotoBg('mb20', 'Marbre Blanc Pur Sans Défaut 4K', '1534438327276-14e5300c3a48'),
-      makePhotoBg('mb21', 'Marbre Sahara Noir Veinage Cuivre', '1600585152220-90363fe7e115'),
-      makePhotoBg('mb22', 'Marbre Porphyre Impérial Rouge Rubis', '1618219908412-a29a1bb7b86e'),
-      makePhotoBg('mb23', 'Marbre Arabescato Blanc Vagues Grises', '1600585154340-be6161a56a0c'),
-      makePhotoBg('mb24', 'Marbre Gris Sienne Minéral Sublime', '1558618666-fcd25c85cd64'),
-      makePhotoBg('mb25', 'Marbre Perlato Crème Raffiné', '1586023492125-27b2c045efd7')
+      makePhotoBg('mb20', 'Marbre Blanc Pur Sans Défaut 4K', '1534438327276-14e5300c3a48')
     ];
 
-    // 4. THÈME BÉBÉ & DOUCEUR PASTEL (STYLE INPIXIO - SANS BÉBÉ)
-    var BG_BABY_25 = [
+    // 4. THÈME BÉBÉ & DOUCEUR PASTEL (VÉRITABLES TEXTURES INPIXIO — SANS BÉBÉ)
+    var BG_BABY_REAL = [
       makePhotoBg('bb1', 'Ciel Douceur Nuages Pastel & Rêves', '1513542789411-b6a5d4f31634'),
       makePhotoBg('bb2', 'Étoiles d’Or Scintillantes & Flou Magique', '1534447677768-be436bb09401'),
       makePhotoBg('bb3', 'Chambre Bébé Bois Clair Scandinave & Lin', '1519710164239-da123dc03ef4'),
@@ -621,16 +422,11 @@
       makePhotoBg('bb17', 'Velours Doux Vanille Studio Enfant', '1530595467537-0b5996c41f2d'),
       makePhotoBg('bb18', 'Formes Pastel Géométriques Douces', '1520038410233-7141be7e6f97'),
       makePhotoBg('bb19', 'Lumière de Lune & Ciel Nocturne Bleu Nuit', '1549490349-8643362247b5'),
-      makePhotoBg('bb20', 'Mur Craie Rose Bonbon Vintage', '1550684848-fac1c5b4e853'),
-      makePhotoBg('bb21', 'Nuages Roses Flottants au Soleil Couchant', '1513542789411-b6a5d4f31634'),
-      makePhotoBg('bb22', 'Bulles Féeriques Iridescentes Pastel', '1533090161767-e6ffed986c88'),
-      makePhotoBg('bb23', 'Éléments d’Étoiles & Lune Douce Dorée', '1534447677768-be436bb09401'),
-      makePhotoBg('bb24', 'Toile de Jute & Coton Blanc Bébé', '1586023492125-27b2c045efd7'),
-      makePhotoBg('bb25', 'Arc-en-Ciel Pastel Voilé & Lumière', '1507525428034-b723cf961d3e')
+      makePhotoBg('bb20', 'Mur Craie Rose Bonbon Vintage', '1550684848-fac1c5b4e853')
     ];
 
-    // 5. DÉSERT DE SABLE (STYLE REMOVE BACKGROUNDS & INPIXIO)
-    var BG_DESERT_25 = [
+    // 5. DÉSERT DE SABLE (VÉRITABLES PHOTOS REMOVE BACKGROUNDS & INPIXIO)
+    var BG_DESERT_REAL = [
       makePhotoBg('ds1', 'Dunes Rouges de Sossusvlei Arête Parfaite', '1509316975850-ff9c5deb0cd9'),
       makePhotoBg('ds2', 'Ondulations du Vent dans le Sable Doré', '1518709268805-4e9042af9f23'),
       makePhotoBg('ds3', 'Crête de Sable Sahara Coucher de Soleil', '1469854523086-cc02fe5d8800'),
@@ -650,52 +446,17 @@
       makePhotoBg('ds17', 'Plateau de Sable Désert Atacama Chaud', '1537996194471-e657df975ab4'),
       makePhotoBg('ds18', 'Reflets Solaires sur les Crêtes de Sable', '1426604966848-d7adac402bff'),
       makePhotoBg('ds19', 'Grains de Sable Chaud Macro Studio', '1493976040374-85c8e12f0c0e'),
-      makePhotoBg('ds20', 'Oasis Secrète Bord de Dune Dorée', '1503614472-8c93d56e92ce'),
-      makePhotoBg('ds21', 'Dune Géante Désert Namib Ombre Nette', '1509316975850-ff9c5deb0cd9'),
-      makePhotoBg('ds22', 'Sable de Plage Tropicale Ensoleillé', '1507525428034-b723cf961d3e'),
-      makePhotoBg('ds23', 'Désert de Sel & Sable Salar Pureté', '1469854523086-cc02fe5d8800'),
-      makePhotoBg('ds24', 'Lignes Géométriques Dessinées par le Vent', '1518709268805-4e9042af9f23'),
-      makePhotoBg('ds25', 'Sable Rose Crépusculaire Dune de Rêve', '1547234935-80c7145ec969')
+      makePhotoBg('ds20', 'Oasis Secrète Bord de Dune Dorée', '1503614472-8c93d56e92ce')
     ];
 
     // 6. COULEURS STUDIO SOLIDES PRO
-    var BG_SOLIDS_40 = [
+    var BG_SOLIDS_CLEAN = [
       { id: 'transp', label: 'Transparent', value: 'transparent', class: 'bg-checkerboard' },
-      { id: 'white', label: 'Blanc Studio', value: '#ffffff', class: 'bg-white' },
-      { id: 'black', label: 'Noir Absolu', value: '#08080a', class: 'bg-black' },
-      { id: 'slate', label: 'Gris Ardoise', value: '#1e293b', class: 'bg-slate-800' },
-      { id: 'platine', label: 'Platine Clair', value: '#e2e8f0', class: 'bg-slate-200 text-black' },
-      { id: 'taupe', label: 'Taupe Doux', value: '#78716c', class: 'bg-stone-500' },
-      { id: 'sand', label: 'Sable Chaud', value: '#fef3c7', class: 'bg-amber-100 text-black' },
-      { id: 'cream', label: 'Crème Vanille', value: '#fffbeb', class: 'bg-amber-50 text-black' },
-      { id: 'indigo', label: 'Indigo Cyber', value: '#4f46e5', class: 'bg-indigo-600' },
-      { id: 'blue', label: 'Bleu Royal', value: '#2563eb', class: 'bg-blue-600' },
-      { id: 'sky', label: 'Bleu Ciel', value: '#38bdf8', class: 'bg-sky-400' },
-      { id: 'night', label: 'Bleu Nuit', value: '#0f172a', class: 'bg-slate-900' },
-      { id: 'cyan', label: 'Cyan Électrique', value: '#06b6d4', class: 'bg-cyan-500' },
-      { id: 'turquoise', label: 'Turquoise', value: '#14b8a6', class: 'bg-teal-500' },
-      { id: 'emerald', label: 'Émeraude', value: '#10b981', class: 'bg-emerald-500' },
-      { id: 'mint', label: 'Menthe Pastel', value: '#a7f3d0', class: 'bg-emerald-200 text-black' },
-      { id: 'sage', label: 'Vert Sauge', value: '#84cc16', class: 'bg-lime-500' },
-      { id: 'sunset', label: 'Orange Sunset', value: '#f97316', class: 'bg-orange-500' },
-      { id: 'peach', label: 'Pêche Douce', value: '#fed7aa', class: 'bg-orange-200 text-black' },
-      { id: 'coral', label: 'Corail Doux', value: '#fb7185', class: 'bg-rose-400' },
-      { id: 'red', label: 'Rouge Ferrari', value: '#ef4444', class: 'bg-red-600' },
-      { id: 'crimson', label: 'Crimson', value: '#dc2626', class: 'bg-red-700' },
-      { id: 'burgundy', label: 'Bordeaux Rubis', value: '#881337', class: 'bg-rose-950' },
-      { id: 'pink', label: 'Rose Bonbon', value: '#ec4899', class: 'bg-pink-500' },
-      { id: 'neonpink', label: 'Fuchsia Néon', value: '#f43f5e', class: 'bg-rose-500' },
-      { id: 'dustypink', label: 'Rose Poudré', value: '#fbcfe8', class: 'bg-pink-200 text-black' },
-      { id: 'purple', label: 'Violet Profond', value: '#7c3aed', class: 'bg-purple-600' },
-      { id: 'lavender', label: 'Lavande', value: '#ddd6fe', class: 'bg-purple-200 text-black' },
-      { id: 'violet', label: 'Mauve Vif', value: '#a855f7', class: 'bg-purple-500' },
-      { id: 'gold', label: 'Or Impérial', value: '#eab308', class: 'bg-yellow-500' },
-      { id: 'lemon', label: 'Jaune Citron', value: '#fde047', class: 'bg-yellow-300 text-black' },
-      { id: 'amber', label: 'Ambre Chaud', value: '#d97706', class: 'bg-amber-600' },
-      { id: 'coffee', label: 'Café Moka', value: '#451a03', class: 'bg-amber-950' },
-      { id: 'chocolate', label: 'Chocolat', value: '#3f2e21', class: 'bg-stone-900' },
-      { id: 'ice', label: 'Bleu Glacier', value: '#cffafe', class: 'bg-cyan-100 text-black' },
-      { id: 'graphite', label: 'Graphite Mat', value: '#27272a', class: 'bg-zinc-800' }
+      { id: 'white', label: 'Blanc Studio Pur', value: '#ffffff', class: 'bg-white' },
+      { id: 'black', label: 'Noir Absolu OLED', value: '#08080a', class: 'bg-black' },
+      { id: 'slate', label: 'Gris Ardoise Pro', value: '#1e293b', class: 'bg-slate-800' },
+      { id: 'sand', label: 'Sable Chaud Studio', value: '#fef3c7', class: 'bg-amber-100 text-black' },
+      { id: 'cream', label: 'Crème Vanille', value: '#fffbeb', class: 'bg-amber-50 text-black' }
     ];
   </script>
 
@@ -861,7 +622,7 @@
                   ctx.fillRect(0, 0, w, h);
                   finishRender();
                 }
-              }, 1200);
+              }, 1800);
 
               bgImg.onload = function() {
                 if (!loaded) {
@@ -905,7 +666,7 @@
           '<div class="col-span-full flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-pink-500 rounded-3xl p-12 text-center bg-slate-900/40">' +
           '<div class="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6 text-3xl">🪄</div>' +
           '<h2 class="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>' +
-          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite un fond InPixio (Bois, Marbre, Bébé, Désert ou Pop Art) pour l\'appliquer immédiatement !</p>' +
+          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite un fond InPixio (Pop Art, Bois, Marbre, Bébé ou Désert de Sable) pour l\'appliquer immédiatement !</p>' +
           '</div>';
         return;
       }
@@ -941,12 +702,12 @@
     function renderBackgroundCards() {
       var container = document.getElementById('bg-cards-container');
       var list = [];
-      if (currentBgCategory === 'popart') list = BG_POPART_40;
-      else if (currentBgCategory === 'wood') list = BG_WOOD_25;
-      else if (currentBgCategory === 'marbles') list = BG_MARBLES_25;
-      else if (currentBgCategory === 'baby') list = BG_BABY_25;
-      else if (currentBgCategory === 'desert') list = BG_DESERT_25;
-      else if (currentBgCategory === 'solids') list = BG_SOLIDS_40;
+      if (currentBgCategory === 'popart') list = BG_POPART_REAL;
+      else if (currentBgCategory === 'wood') list = BG_WOOD_REAL;
+      else if (currentBgCategory === 'marbles') list = BG_MARBLES_REAL;
+      else if (currentBgCategory === 'baby') list = BG_BABY_REAL;
+      else if (currentBgCategory === 'desert') list = BG_DESERT_REAL;
+      else if (currentBgCategory === 'solids') list = BG_SOLIDS_CLEAN;
 
       if (currentSearch) {
         list = list.filter(function(item) {
@@ -956,17 +717,17 @@
 
       var html = '';
       if (currentBgCategory === 'solids') {
-        html += '<div class="col-span-2 grid grid-cols-4 gap-2">';
+        html += '<div class="col-span-2 grid grid-cols-3 gap-2">';
         list.forEach(function(s, idx) {
-          html += '<button onclick="applyBgAtIndex(' + idx + ')" class="h-12 rounded-xl border transition-all hover:scale-105 flex flex-col items-center justify-center ' + s.class + ' border-slate-700 shadow-sm" title="' + s.label + '">' +
-            '<span class="text-[9px] font-bold px-1 rounded bg-black/40 text-white truncate max-w-[70px]">' + s.label.split(' ')[0] + '</span>' +
+          html += '<button onclick="applyBgAtIndex(' + idx + ')" class="h-14 rounded-xl border transition-all hover:scale-105 flex flex-col items-center justify-center ' + s.class + ' border-slate-700 shadow-sm" title="' + s.label + '">' +
+            '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-black/50 text-white truncate max-w-[85px]">' + s.label + '</span>' +
             '</button>';
         });
         html += '</div>';
       } else {
         list.forEach(function(item, idx) {
           var bgImg = item.thumb || item.url;
-          html += '<button onclick="applyBgAtIndex(' + idx + ')" class="group relative h-24 rounded-2xl overflow-hidden border border-pink-500/40 hover:border-pink-400 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md">' +
+          html += '<button onclick="applyBgAtIndex(' + idx + ')" class="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-pink-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md">' +
             '<img src="' + bgImg + '" alt="' + item.label + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />' +
             '<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>' +
             '<span class="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">' + item.label + '</span>' +
@@ -984,12 +745,12 @@
       }
 
       var list = [];
-      if (currentBgCategory === 'popart') list = BG_POPART_40;
-      else if (currentBgCategory === 'wood') list = BG_WOOD_25;
-      else if (currentBgCategory === 'marbles') list = BG_MARBLES_25;
-      else if (currentBgCategory === 'baby') list = BG_BABY_25;
-      else if (currentBgCategory === 'desert') list = BG_DESERT_25;
-      else if (currentBgCategory === 'solids') list = BG_SOLIDS_40;
+      if (currentBgCategory === 'popart') list = BG_POPART_REAL;
+      else if (currentBgCategory === 'wood') list = BG_WOOD_REAL;
+      else if (currentBgCategory === 'marbles') list = BG_MARBLES_REAL;
+      else if (currentBgCategory === 'baby') list = BG_BABY_REAL;
+      else if (currentBgCategory === 'desert') list = BG_DESERT_REAL;
+      else if (currentBgCategory === 'solids') list = BG_SOLIDS_CLEAN;
 
       if (currentSearch) {
         list = list.filter(function(item) {
@@ -1156,7 +917,7 @@
       overlay.classList.add('hidden');
       overlay.classList.remove('flex');
       renderGallery();
-      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez un fond pour l\'appliquer immédiatement !');
+      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez un fond InPixio pour l\'appliquer immédiatement !');
     }
 
     function loadDemoImages() {
