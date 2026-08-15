@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Arrière-plans HD Professionnels</title>
-  <meta name="description" content="Studio professionnel de traitement d'images par lots. Détourage 100% automatique, rendu Ultra-HD 4K, 25 fonds d'écran haute définition garantis 100% visibles." />
+  <title>PixelBatch AI Studio — 25 Arrière-plans HD Statiques 100% Fonctionnels</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, sortie Ultra-HD 4K, 25 arrière-plans HD directs Unsplash (Wood, Marbles, Pop Art BD, Désert, Baby Theme)." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,10 +70,10 @@
           </span>
           <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-            25 FONDS HD VISIBLES
+            25 FONDS HD STATIQUES
           </span>
         </div>
-        <p class="text-[11px] text-slate-400">Wood • Marbles • Pop Art BD • Irisés • Botanique • Sortie 4K</p>
+        <p class="text-[11px] text-slate-400">Wood • Marbles • Pop Art BD • Désert • Baby Theme • Sortie Ultra-HD 4K</p>
       </div>
     </div>
 
@@ -184,7 +184,7 @@
             type="text"
             id="bg-search-input"
             oninput="handleSearch(event)"
-            placeholder="Rechercher (ex: parquet, carrare, pop art, holographic, leaves)..."
+            placeholder="Rechercher (ex: chevrons, carrare, halftone, dunes, pastel)..."
             class="w-full pl-3 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
           />
         </div>
@@ -194,14 +194,14 @@
           <button id="cat-btn-all" onclick="filterCategory('All')" class="py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate">🌟 Tous (25)</button>
           <button id="cat-btn-wood" onclick="filterCategory('Wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Wood (5)</button>
           <button id="cat-btn-marbles" onclick="filterCategory('Marbles')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marbles (5)</button>
-          <button id="cat-btn-popart" onclick="filterCategory('Pop Art BD')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">💥 Pop Art (5)</button>
-          <button id="cat-btn-iridescent" onclick="filterCategory('Irisés')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🌈 Irisés (5)</button>
-          <button id="cat-btn-botanic" onclick="filterCategory('Botanique')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🌿 Botanique (5)</button>
+          <button id="cat-btn-popart" onclick="filterCategory('Pop Art BD')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">💥 Pop Art BD (5)</button>
+          <button id="cat-btn-desert" onclick="filterCategory('Désert')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Désert (5)</button>
+          <button id="cat-btn-baby" onclick="filterCategory('Baby Theme')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🧸 Baby Theme (5)</button>
         </div>
 
         <!-- Background items container (Grid) -->
         <div id="bg-cards-container" class="grid grid-cols-2 gap-2.5 max-h-96 overflow-y-auto pr-1">
-          <!-- Populated dynamically with exact cards -->
+          <!-- Populated dynamically with the 25 exact HD images -->
         </div>
 
         <!-- Custom Background Uploader -->
@@ -321,24 +321,44 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- EXACT JAVASCRIPT CODE SUPPLIED BY USER -->
+  <!-- EXACT 25 DIRECT HD STATIC UNSPLASH BACKGROUNDS -->
   <script>
-    const categoriesData = [
-      { id: 'w', name: 'Wood', prompts: ['chevron parquet oak wood', 'stacked logs texture', 'dark walnut wood flatlay', 'polished mahogany surface', 'driftwood texture'] },
-      { id: 'm', name: 'Marbles', prompts: ['white carrara marble gold veins', 'deep blue exotic marble', 'emerald green marble texture', 'black onyx marble', '3d geometric marble tiles'] },
-      { id: 'p', name: 'Pop Art BD', prompts: ['vibrant pop art halftone background', 'comic book burst empty', 'retro comic dots background', 'superhero dynamic action lines', 'pop art speech bubble pattern'] },
-      { id: 'i', name: 'Irisés', prompts: ['holographic iridescent gradient foil', 'pastel pearlescent fluid background', 'neon holographic fluid wave', 'soft pastel gradient aesthetic', 'metallic iridescent texture'] },
-      { id: 'b', name: 'Botanique', prompts: ['macro green leaf veins texture', 'dark moody tropical leaves', 'close up fern unfurling', 'macro exotic flower petals', 'stylized floral dark botanical'] }
-    ];
+    const professionalBackgrounds = [
+      // 1. WOOD / BOIS
+      { id: 'w-1', category: 'Wood', title: 'Parquet Chevrons Chêne', url: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&w=800&q=80' },
+      { id: 'w-2', category: 'Wood', title: 'Rondins de Bois', url: 'https://images.unsplash.com/photo-1532153955177-f59af40d6472?auto=format&fit=crop&w=800&q=80' },
+      { id: 'w-3', category: 'Wood', title: 'Bois Flotté Texturé', url: 'https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=800&q=80' },
+      { id: 'w-4', category: 'Wood', title: 'Chêne Massif Sombre', url: 'https://images.unsplash.com/photo-1581428982868-e410dd047a90?auto=format&fit=crop&w=800&q=80' },
+      { id: 'w-5', category: 'Wood', title: 'Planches Rustiques', url: 'https://images.unsplash.com/photo-1606041011872-59659ceb755c?auto=format&fit=crop&w=800&q=80' },
 
-    const professionalBackgrounds = categoriesData.flatMap(cat => 
-      cat.prompts.map((prompt, index) => ({
-        id: `${cat.id}-${index}`,
-        category: cat.name,
-        title: prompt,
-        url: `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ' high resolution premium texture')}?width=800&height=800&nologo=true`
-      }))
-    );
+      // 2. MARBLES / MARBRES
+      { id: 'm-1', category: 'Marbles', title: 'Marbre Blanc Carrare', url: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?auto=format&fit=crop&w=800&q=80' },
+      { id: 'm-2', category: 'Marbles', title: 'Marbre Foncé Veines Or', url: 'https://images.unsplash.com/photo-1598444458316-200a7479beba?auto=format&fit=crop&w=800&q=80' },
+      { id: 'm-3', category: 'Marbles', title: 'Onyx Bleu Profond', url: 'https://images.unsplash.com/photo-1582236940866-22d7d8e23547?auto=format&fit=crop&w=800&q=80' },
+      { id: 'm-4', category: 'Marbles', title: 'Mosaïque Marbre 3D', url: 'https://images.unsplash.com/photo-1616428238612-4211fba82496?auto=format&fit=crop&w=800&q=80' },
+      { id: 'm-5', category: 'Marbles', title: 'Granit Émeraude Luxueux', url: 'https://images.unsplash.com/photo-1635327291079-05ea1259560f?auto=format&fit=crop&w=800&q=80' },
+
+      // 3. POP ART BD
+      { id: 'p-1', category: 'Pop Art BD', title: 'Comic Book Halftone', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80' },
+      { id: 'p-2', category: 'Pop Art BD', title: 'Sunburst Dynamique', url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=800&q=80' },
+      { id: 'p-3', category: 'Pop Art BD', title: 'Formes Rétro Couleurs', url: 'https://images.unsplash.com/photo-1608501078713-8e445a709b39?auto=format&fit=crop&w=800&q=80' },
+      { id: 'p-4', category: 'Pop Art BD', title: 'Vibrant Abstrait', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80' },
+      { id: 'p-5', category: 'Pop Art BD', title: 'Bulles Pop Art', url: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=800&q=80' },
+
+      // 4. DESERT / DÉSERT
+      { id: 'd-1', category: 'Désert', title: 'Dunes de Sable Lisses', url: 'https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?auto=format&fit=crop&w=800&q=80' },
+      { id: 'd-2', category: 'Désert', title: 'Sable Minimaliste', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=80' },
+      { id: 'd-3', category: 'Désert', title: 'Ombres sur les Dunes', url: 'https://images.unsplash.com/photo-1453873531674-2151bcd01707?auto=format&fit=crop&w=800&q=80' },
+      { id: 'd-4', category: 'Désert', title: 'Désert Doré Épuré', url: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80' },
+      { id: 'd-5', category: 'Désert', title: 'Textures de Sable', url: 'https://images.unsplash.com/photo-1610996841103-62529deff02e?auto=format&fit=crop&w=800&q=80' },
+
+      // 5. BABY THEME (Fonds Doux, Sans Bébé)
+      { id: 'b-1', category: 'Baby Theme', title: 'Couverture Pastel Douce', url: 'https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=800&q=80' },
+      { id: 'b-2', category: 'Baby Theme', title: 'Texture Tricot Beige', url: 'https://images.unsplash.com/photo-1616047242145-c1fc342ec197?auto=format&fit=crop&w=800&q=80' },
+      { id: 'b-3', category: 'Baby Theme', title: 'Nuages de Coton', url: 'https://images.unsplash.com/photo-1601662528567-526cd06f6582?auto=format&fit=crop&w=800&q=80' },
+      { id: 'b-4', category: 'Baby Theme', title: 'Tissu Coton Bleu Ciel', url: 'https://images.unsplash.com/photo-1585237887309-8d1ab808a901?auto=format&fit=crop&w=800&q=80' },
+      { id: 'b-5', category: 'Baby Theme', title: 'Dégradé Rose Poudré', url: 'https://images.unsplash.com/photo-1518116527503-49d63c5d762e?auto=format&fit=crop&w=800&q=80' }
+    ];
   </script>
 
   <!-- PURE NATIVE JAVASCRIPT APP LOGIC -->
@@ -543,7 +563,7 @@
           '<div class="col-span-full flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-pink-500 rounded-3xl p-12 text-center bg-slate-900/40">' +
           '<div class="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6 text-3xl">🪄</div>' +
           '<h2 class="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>' +
-          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite l\'un des 25 arrière-plans Ultra-HD pour l\'appliquer en 1 clic !</p>' +
+          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite l\'un des 25 arrière-plans HD pour l\'appliquer en 1 clic !</p>' +
           '</div>';
         return;
       }
@@ -602,11 +622,11 @@
 
       var html = '';
       list.forEach(function(bg) {
-        // EXACT CARD TEMPLATE REQUESTED BY USER
+        // EXACT CARD TEMPLATE WITH VISIBLE IMG AND SAFETY FALLBACK
         html += 
           '<div onclick="applySpecificBg(\'' + bg.id + '\')" class="relative overflow-hidden rounded-xl bg-gray-800 border border-gray-700 hover:border-pink-500 cursor-pointer h-40 flex flex-col justify-end p-3 group shadow-lg transition-all">' +
-            '<!-- L\'IMAGE VISIBLE EST ICI -->' +
-            '<img src="' + bg.url + '" alt="' + bg.title + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300 z-0" onerror="this.src=\'https://placehold.co/800x800/2a2a2a/ffffff?text=Erreur+Image\';" />' +
+            '<!-- L\'IMAGE DIRECTEMENT VISIBLE -->' +
+            '<img src="' + bg.url + '" alt="' + bg.title + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity duration-300 z-0" onerror="this.src=\'https://placehold.co/800x800/2a2a2a/ffffff?text=Erreur+Image\';" />' +
             '<!-- LE TEXTE PAR DESSUS -->' +
             '<div class="relative z-10 bg-black/60 p-2 rounded-lg backdrop-blur-sm pointer-events-none">' +
               '<h3 class="text-white text-xs font-bold line-clamp-2">' + bg.title + '</h3>' +
@@ -657,11 +677,11 @@
         'Wood': 'wood',
         'Marbles': 'marbles',
         'Pop Art BD': 'popart',
-        'Irisés': 'iridescent',
-        'Botanique': 'botanic'
+        'Désert': 'desert',
+        'Baby Theme': 'baby'
       };
 
-      ['All', 'Wood', 'Marbles', 'Pop Art BD', 'Irisés', 'Botanique'].forEach(function(c) {
+      ['All', 'Wood', 'Marbles', 'Pop Art BD', 'Désert', 'Baby Theme'].forEach(function(c) {
         var btn = document.getElementById('cat-btn-' + catKeys[c]);
         if (btn) {
           if (c === cat) {
