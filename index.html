@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Traitement par Lots & Arrière-plans Professionnels</title>
-  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, sortie Ultra-HD 4K, application d'arrière-plans HD professionnels (Pop Art, Wood, Marble, Baby Theme, Desert)." />
+  <title>PixelBatch AI Studio — 75 Arrière-plans HD Professionnels InPixio</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, sortie Ultra-HD 4K, 75 arrière-plans HD Pollinations (Pop Art, Wood, Marble, Baby Theme, Desert)." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,6 +53,16 @@
       background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
       background-color: #0f172a;
     }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .skeleton-loader {
+      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.8s infinite;
+    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased font-sans min-h-screen flex flex-col">
@@ -70,10 +80,10 @@
           </span>
           <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-            ARRIÈRE-PLANS HD PRO
+            75 FONDS HD INPIXIO
           </span>
         </div>
-        <p class="text-[11px] text-slate-400">Pop Art • Wood • Marble • Baby Theme • Desert • Sortie Ultra-HD 4K</p>
+        <p class="text-[11px] text-slate-400">75 Arrière-plans Déterministes HD (Pop Art, Wood, Marble, Baby Theme, Desert) • Sortie 4K</p>
       </div>
     </div>
 
@@ -119,7 +129,7 @@
               <span>Détourage 100% Automatique à l'importation</span>
               <span class="text-[10px] px-2 py-0.2 rounded-full bg-pink-500/20 text-pink-300 font-mono font-bold">Ultra-HD 4K</span>
             </h4>
-            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur l'un des arrière-plans HD pour l'appliquer instantanément !</p>
+            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur l'un des 75 arrière-plans HD pour l'appliquer instantanément !</p>
           </div>
         </div>
 
@@ -163,13 +173,13 @@
     <aside class="w-full lg:w-[480px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
       
       <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Arrière-plans Professionnels HD</h3>
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 75 Arrière-plans HD InPixio</h3>
         <span id="label-current-res" class="text-xs font-mono text-amber-400 font-bold">Rendu 4K (3840px)</span>
       </div>
 
       <!-- Tools Tabs -->
       <div class="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
-        <button id="tab-btn-bg" onclick="switchToolTab('bg')" class="py-2 px-1 rounded-lg text-xs font-bold bg-pink-600 text-white shadow-md shadow-pink-600/30">🎨 Fonds</button>
+        <button id="tab-btn-bg" onclick="switchToolTab('bg')" class="py-2 px-1 rounded-lg text-xs font-bold bg-pink-600 text-white shadow-md shadow-pink-600/30">🎨 Fonds (75)</button>
         <button id="tab-btn-crop" onclick="switchToolTab('crop')" class="py-2 px-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">✂️ Recadrer</button>
         <button id="tab-btn-resize" onclick="switchToolTab('resize')" class="py-2 px-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">📐 Taille</button>
         <button id="tab-btn-watermark" onclick="switchToolTab('watermark')" class="py-2 px-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">🛡️ Filigrane</button>
@@ -184,19 +194,19 @@
             type="text"
             id="bg-search-input"
             oninput="handleSearch(event)"
-            placeholder="Rechercher par mot-clé (ex: pop, wood, marble, baby, desert)..."
+            placeholder="Rechercher par mot-clé ou ID (ex: pop-art-1, wood-3, marble-5)..."
             class="w-full pl-3 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
           />
         </div>
 
-        <!-- Category Filters System -->
+        <!-- 6 Filter Buttons -->
         <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-bold">
-          <button id="cat-btn-all" onclick="filterCategory('All')" class="py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate">🌟 All</button>
-          <button id="cat-btn-popart" onclick="filterCategory('Pop Art')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">💥 Pop Art</button>
-          <button id="cat-btn-wood" onclick="filterCategory('Wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Wood</button>
-          <button id="cat-btn-marble" onclick="filterCategory('Marble')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marble</button>
-          <button id="cat-btn-baby" onclick="filterCategory('Baby Theme')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🧸 Baby</button>
-          <button id="cat-btn-desert" onclick="filterCategory('Desert')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Desert</button>
+          <button id="cat-btn-all" onclick="filterCategory('All')" class="py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate">🌟 Tous (75)</button>
+          <button id="cat-btn-popart" onclick="filterCategory('Pop Art')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">💥 Pop Art (15)</button>
+          <button id="cat-btn-wood" onclick="filterCategory('Wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Wood (15)</button>
+          <button id="cat-btn-marble" onclick="filterCategory('Marble')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marble (15)</button>
+          <button id="cat-btn-baby" onclick="filterCategory('Baby Theme')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🧸 Baby (15)</button>
+          <button id="cat-btn-desert" onclick="filterCategory('Desert')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Desert (15)</button>
         </div>
 
         <!-- Background items container (Grid) -->
@@ -321,29 +331,44 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- EXACT PROFESSIONAL BACKGROUNDS DATA STRUCTURE -->
+  <!-- EXACT JAVASCRIPT CODE GIVEN BY USER -->
   <script>
-    const professionalBackgrounds = [
-      // 1. POP ART (Couleurs vives, motifs dynamiques, comic book)
-      { id: 'pop-1', category: 'Pop Art', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1080' },
-      { id: 'pop-2', category: 'Pop Art', url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1080' },
-
-      // 2. WOOD / BOIS (Textures premium, flatlay, tables élégantes)
-      { id: 'wood-1', category: 'Wood', url: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?q=80&w=1080' },
-      { id: 'wood-2', category: 'Wood', url: 'https://images.unsplash.com/photo-1532153955177-f59af40d6472?q=80&w=1080' },
-
-      // 3. MARBLE / MARBRE (Luxueux, épuré, idéal pour produits)
-      { id: 'marble-1', category: 'Marble', url: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?q=80&w=1080' },
-      { id: 'marble-2', category: 'Marble', url: 'https://images.unsplash.com/photo-1598444458316-200a7479beba?q=80&w=1080' },
-
-      // 4. THÈME BABY (AUCUN BÉBÉ SUR LA PHOTO : juste des ambiances douces, pastel, nuages, tricot pour incruster un bébé)
-      { id: 'baby-1', category: 'Baby Theme', url: 'https://images.unsplash.com/photo-1555448248-2571daf6344b?q=80&w=1080' },
-      { id: 'baby-2', category: 'Baby Theme', url: 'https://images.unsplash.com/photo-1616047242145-c1fc342ec197?q=80&w=1080' },
-
-      // 5. DESERT SAND (Minimaliste, lisse, style Remove.bg)
-      { id: 'desert-1', category: 'Desert', url: 'https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?q=80&w=1080' },
-      { id: 'desert-2', category: 'Desert', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=1080' }
+    const backgroundCategories = [
+      { 
+        name: 'Pop Art', 
+        prompt: 'vibrant pop art background comic book style halftone pattern graphic design retro modern' 
+      },
+      { 
+        name: 'Wood', 
+        prompt: 'premium realistic oak wood texture flatlay high resolution clean wooden board surface' 
+      },
+      { 
+        name: 'Marble', 
+        prompt: 'luxurious white carrara marble texture clean elegant high definition gold veins' 
+      },
+      { 
+        name: 'Baby Theme', 
+        prompt: 'soft pastel nursery background cozy clouds stars empty baby blanket texture no people empty background' 
+      },
+      { 
+        name: 'Desert', 
+        prompt: 'minimalist smooth desert sand dunes clear blue sky aesthetic neutral colors remove bg style' 
+      }
     ];
+
+    // Ce tableau contiendra EXACTEMENT 75 images (15 par catégorie)
+    const professionalBackgrounds = [];
+
+    backgroundCategories.forEach(cat => {
+      for (let i = 1; i <= 15; i++) {
+        professionalBackgrounds.push({
+          id: `${cat.name.replace(/\s+/g, '-').toLowerCase()}-${i}`,
+          category: cat.name,
+          // Utilisation d'un seed unique de 1 à 15 pour garantir 15 images HD différentes par catégorie
+          url: `https://image.pollinations.ai/prompt/${encodeURIComponent(cat.prompt)}?width=1080&height=1080&nologo=true&seed=${i * 1337}`
+        });
+      }
+    });
   </script>
 
   <!-- PURE NATIVE JAVASCRIPT APP LOGIC -->
@@ -495,7 +520,7 @@
               finishRender();
             } else if (bgItem.url) {
               var bgImg = new Image();
-              if (bgItem.url.indexOf('http') === 0) bgImg.crossOrigin = 'anonymous';
+              bgImg.crossOrigin = 'anonymous';
               var loaded = false;
               var bgTimer = setTimeout(function() {
                 if (!loaded) {
@@ -504,7 +529,7 @@
                   ctx.fillRect(0, 0, w, h);
                   finishRender();
                 }
-              }, 3000);
+              }, 4000);
 
               bgImg.onload = function() {
                 if (!loaded) {
@@ -548,7 +573,7 @@
           '<div class="col-span-full flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-pink-500 rounded-3xl p-12 text-center bg-slate-900/40">' +
           '<div class="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6 text-3xl">🪄</div>' +
           '<h2 class="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>' +
-          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Cliquez ensuite sur un arrière-plan HD (Pop Art, Wood, Marble, Baby ou Desert) pour l\'appliquer en 1 clic !</p>' +
+          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite un des 75 arrière-plans HD pour l\'appliquer en 1 clic !</p>' +
           '</div>';
         return;
       }
@@ -609,11 +634,12 @@
       list.forEach(function(bg) {
         html += 
           '<button onclick="applySpecificBg(\'' + bg.id + '\')" class="group relative h-28 rounded-2xl overflow-hidden border border-slate-800 hover:border-pink-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2.5 bg-slate-900 shadow-lg">' +
-            '<img src="' + bg.url + '" alt="' + bg.category + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />' +
-            '<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>' +
-            '<div class="relative z-10 flex items-center justify-between w-full">' +
+            '<div class="skeleton-loader absolute inset-0 w-full h-full"></div>' +
+            '<img src="' + bg.url + '" alt="' + bg.category + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-300 opacity-0" onload="this.classList.remove(\'opacity-0\'); this.previousElementSibling?.remove();" onerror="this.classList.remove(\'opacity-0\');" />' +
+            '<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none"></div>' +
+            '<div class="relative z-10 flex items-center justify-between w-full pointer-events-none">' +
               '<span class="text-xs font-bold text-white drop-shadow truncate">' + bg.category + '</span>' +
-              '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/60 text-slate-300 border border-white/10">' + bg.id + '</span>' +
+              '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/60 text-pink-300 border border-pink-500/20">' + bg.id + '</span>' +
             '</div>' +
           '</button>';
       });
@@ -637,7 +663,7 @@
 
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
-      statusText.textContent = 'Application de l\'arrière-plan ' + bg.category + ' en ' + outputQuality.toUpperCase() + '...';
+      statusText.textContent = 'Application de l\'arrière-plan ' + bg.category + ' (' + bg.id + ') en ' + outputQuality.toUpperCase() + '...';
 
       for (var i = 0; i < images.length; i++) {
         if (applyToAll || selectedIds.has(images[i].id)) {
@@ -650,7 +676,7 @@
       overlay.classList.add('hidden');
       overlay.classList.remove('flex');
       renderGallery();
-      showToast('Arrière-plan Appliqué', bg.category + ' appliqué en qualité ' + outputQuality.toUpperCase() + ' sur ' + images.length + ' photo(s)');
+      showToast('Arrière-plan Appliqué', bg.category + ' (' + bg.id + ') appliqué en qualité ' + outputQuality.toUpperCase() + ' sur ' + images.length + ' photo(s)');
     }
 
     function filterCategory(cat) {
@@ -796,7 +822,7 @@
       overlay.classList.add('hidden');
       overlay.classList.remove('flex');
       renderGallery();
-      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez un arrière-plan HD pour l\'appliquer immédiatement !');
+      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez un des 75 arrière-plans HD pour l\'appliquer immédiatement !');
     }
 
     function loadDemoImages() {
@@ -830,7 +856,7 @@
       selectedIds.clear();
       images.forEach(function(img) { selectedIds.add(img.id); });
       renderGallery();
-      showToast('Démos Chargées', 'Photos prêtes pour tester les arrière-plans HD !');
+      showToast('Démos Chargées', 'Photos prêtes pour tester les 75 arrière-plans HD !');
     }
 
     function downloadSingleItem(id) {
