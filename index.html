@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — 25 Arrière-plans Textures Pures HD</title>
-  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, rendu Ultra-HD 4K, 25 textures pures vérifiées (Wood, Marbles, Pop Art BD, Désert, Baby Theme)." />
+  <title>PixelBatch AI Studio — Glisser-Déposer & Détourage Automatique Instantané</title>
+  <meta name="description" content="Studio professionnel de détourage 100% automatique par lot (1 à 1000 photos). Glisser-déposer depuis votre bureau, sortie Master 4K, 25 textures HD professionnelles." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -55,7 +55,16 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased font-sans min-h-screen flex flex-col">
+<body id="app-body" class="bg-slate-950 text-slate-100 antialiased font-sans min-h-screen flex flex-col relative select-none">
+
+  <!-- FULLSCREEN DRAG & DROP GLOW OVERLAY -->
+  <div id="drag-drop-overlay" class="fixed inset-0 z-50 bg-pink-950/80 backdrop-blur-md border-4 border-dashed border-pink-500 hidden flex-col items-center justify-center p-6 text-center pointer-events-none transition-all duration-200">
+    <div class="w-28 h-28 rounded-3xl bg-pink-600/30 border border-pink-400 flex items-center justify-center text-6xl mb-4 animate-bounce shadow-2xl shadow-pink-500/50">
+      📥
+    </div>
+    <h2 class="text-3xl font-black text-white tracking-tight mb-2">Relâchez vos photos ici !</h2>
+    <p class="text-base text-pink-200 font-semibold max-w-md">Détourage 100% automatique instantané par IA (Portraits & Objets en qualité 4K)</p>
+  </div>
 
   <!-- TOP NAVBAR -->
   <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/90 border-b border-slate-800 px-6 py-3.5 flex items-center justify-between shadow-xl">
@@ -70,10 +79,10 @@
           </span>
           <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-            25 TEXTURES PURES HD
+            DÉTOURAGE AUTO + DRAG & DROP
           </span>
         </div>
-        <p class="text-[11px] text-slate-400">Wood • Marbles • Pop Art BD • Désert • Baby Theme • Sortie 4K</p>
+        <p class="text-[11px] text-slate-400">Glissez-déposez vos photos depuis votre bureau • Détourage automatique • Sortie Ultra-HD 4K</p>
       </div>
     </div>
 
@@ -91,11 +100,6 @@
         <span>✨ Charger Démos</span>
       </button>
 
-      <button onclick="openCervexModal()" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-cervex-600/10 hover:bg-cervex-600/20 text-cervex-400 border border-cervex-500/30 text-xs font-semibold">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Connecteur Cervex</span>
-      </button>
-
       <button id="btn-download-all" onclick="downloadAllZip()" class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:to-rose-600 text-slate-950 shadow-lg shadow-amber-500/25 font-black">
         <span>📦 Télécharger tout en 4K (<span id="count-download">0</span> photos)</span>
       </button>
@@ -106,30 +110,31 @@
   <div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
     
     <!-- GALLERY VIEWPORT -->
-    <main class="flex-1 p-6 overflow-y-auto flex flex-col gap-5">
+    <main id="main-drop-zone" class="flex-1 p-6 overflow-y-auto flex flex-col gap-5">
       
-      <!-- Import Header Banner -->
-      <div class="p-3.5 rounded-2xl bg-gradient-to-r from-pink-950/40 via-purple-950/30 to-slate-900 border border-pink-500/30 flex flex-wrap items-center justify-between gap-3 shadow-lg">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-400 text-lg">
-            🪄
+      <!-- Interactive Drag & Drop Import Header Banner -->
+      <label class="group relative p-6 rounded-3xl bg-gradient-to-r from-pink-950/40 via-purple-950/30 to-slate-900 border-2 border-dashed border-pink-500/40 hover:border-pink-400 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl cursor-pointer transition-all">
+        <input type="file" id="file-input" multiple accept="image/*" class="hidden" onchange="handleFileSelect(event)" />
+        
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-400 text-3xl group-hover:scale-110 transition-transform">
+            📥
           </div>
           <div>
-            <h4 class="text-xs font-bold text-white flex items-center gap-2">
-              <span>Détourage 100% Automatique à l'importation</span>
-              <span class="text-[10px] px-2 py-0.2 rounded-full bg-pink-500/20 text-pink-300 font-mono font-bold">Ultra-HD 4K</span>
-            </h4>
-            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur l'une des 25 textures HD pour l'appliquer en 1 clic !</p>
+            <h3 class="text-sm sm:text-base font-extrabold text-white flex items-center gap-2">
+              <span>Glissez-déposez vos photos ici depuis votre bureau</span>
+              <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-pink-500 text-white font-black animate-pulse">AUTO DETOUR</span>
+            </h3>
+            <p class="text-xs text-slate-300 mt-0.5">Ou cliquez pour sélectionner vos photos. Le détourage automatique s'exécute dès le dépôt !</p>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
-          <label class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:to-indigo-500 text-white shadow-lg shadow-pink-600/30 cursor-pointer transition-all">
-            <span>📁 Importer des photos (1 à 1000)</span>
-            <input type="file" id="file-input" multiple accept="image/*" class="hidden" onchange="handleFileSelect(event)" />
-          </label>
+          <span class="px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-pink-600 to-indigo-600 text-white shadow-lg shadow-pink-600/30 group-hover:from-pink-500 group-hover:to-indigo-500">
+            📁 Choisir des fichiers
+          </span>
         </div>
-      </div>
+      </label>
 
       <!-- Batch Action Controls -->
       <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
@@ -141,8 +146,8 @@
           <button onclick="selectAllImages()" class="text-xs text-slate-400 hover:text-white underline">
             Tout cocher
           </button>
-          <button onclick="keepTransparentBackground()" class="px-2.5 py-1 rounded-lg border border-amber-500/30 text-amber-300 hover:bg-amber-500/10 text-xs">
-            Garder fond transparent
+          <button onclick="keepTransparentBackground()" class="px-2.5 py-1 rounded-lg border border-amber-500/30 text-amber-300 hover:bg-amber-500/10 text-xs font-bold">
+            Garder fond transparent détouré
           </button>
         </div>
 
@@ -279,37 +284,12 @@
     </div>
   </div>
 
-  <!-- CERVEX MODAL -->
-  <div id="cervex-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="relative w-full max-w-lg bg-slate-900 rounded-3xl border border-slate-800 p-6 flex flex-col gap-4">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-          <span>⚡ Hub de Connexion Cervex</span>
-        </h3>
-        <button onclick="closeCervexModal()" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
-      </div>
-      <div class="flex flex-col gap-3 text-xs">
-        <div>
-          <label class="text-slate-400 block mb-1">Clé API Cervex</label>
-          <input type="password" value="crvx_live_9a87bf44d8e9" class="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 font-mono" readonly />
-        </div>
-        <div>
-          <label class="text-slate-400 block mb-1">Projet ID</label>
-          <input type="text" value="project-ai-prod" class="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 font-mono" readonly />
-        </div>
-      </div>
-      <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
-        <button onclick="testCervexSync()" class="px-4 py-2 rounded-xl bg-cervex-600 hover:bg-cervex-500 text-white font-bold text-xs">Tester la synchronisation</button>
-      </div>
-    </div>
-  </div>
-
   <!-- PROGRESS OVERLAY -->
-  <div id="progress-overlay" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div id="progress-overlay" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 flex flex-col items-center gap-4 max-w-sm w-full shadow-2xl">
       <div class="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
       <div class="text-center w-full">
-        <h3 id="progress-status-text" class="text-sm font-bold text-white mb-1">Traitement en cours...</h3>
+        <h3 id="progress-status-text" class="text-sm font-bold text-white mb-1">Détourage automatique en cours...</h3>
         <p id="progress-count-text" class="text-xs text-slate-400 mb-3">Photo 1 sur 1</p>
         <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden border border-slate-700">
           <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-amber-500 transition-all duration-150" style="width: 0%;"></div>
@@ -321,7 +301,7 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- EXACT 25 DIRECT RAW UNSPLASH TEXTURES GIVEN BY USER -->
+  <!-- 25 DIRECT RAW UNSPLASH TEXTURES -->
   <script>
     const professionalBackgrounds = [
       // 1. WOOD / BOIS (Textures de bois pures)
@@ -361,7 +341,7 @@
     ];
   </script>
 
-  <!-- PURE NATIVE JAVASCRIPT APP LOGIC -->
+  <!-- NATIVE JAVASCRIPT & AUTOMATIC CUTOUT ENGINE -->
   <script>
     var images = [];
     var selectedIds = new Set();
@@ -383,6 +363,7 @@
       }, 3500);
     }
 
+    // Initialize MediaPipe AI Segmentation
     try {
       if (window.SelfieSegmentation) {
         selfieSegmenter = new window.SelfieSegmentation({
@@ -394,6 +375,7 @@
       console.warn("MediaPipe init error:", e);
     }
 
+    // 100% Automatic Cutout Algorithm (MediaPipe AI + High-Contrast Color Extraction Fallback)
     function generateCutout(imgUrl) {
       return new Promise(function(resolve) {
         var img = new Image();
@@ -412,18 +394,19 @@
 
             if (selfieSegmenter) {
               var tempCanvas = document.createElement('canvas');
-              tempCanvas.width = w;
-              tempCanvas.height = h;
+              tempCanvas.width = Math.min(w, 1280);
+              tempCanvas.height = Math.min(h, 1280);
               var tctx = tempCanvas.getContext('2d');
-              tctx.drawImage(img, 0, 0, w, h);
+              tctx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
 
               var isDone = false;
               var timeout = setTimeout(function() {
                 if (!isDone) {
                   isDone = true;
+                  smartObjectCutout(canvas, ctx, w, h);
                   resolve({ cutoutUrl: canvas.toDataURL('image/png'), w: w, h: h });
                 }
-              }, 1200);
+              }, 1500);
 
               selfieSegmenter.onResults(function(results) {
                 if (!isDone) {
@@ -434,6 +417,8 @@
                     ctx.globalCompositeOperation = 'destination-in';
                     ctx.drawImage(results.segmentationMask, 0, 0, w, h);
                     ctx.restore();
+                  } else {
+                    smartObjectCutout(canvas, ctx, w, h);
                   }
                   resolve({ cutoutUrl: canvas.toDataURL('image/png'), w: w, h: h });
                 }
@@ -441,6 +426,7 @@
 
               selfieSegmenter.send({ image: tempCanvas });
             } else {
+              smartObjectCutout(canvas, ctx, w, h);
               resolve({ cutoutUrl: canvas.toDataURL('image/png'), w: w, h: h });
             }
           } catch(e) {
@@ -451,6 +437,31 @@
       });
     }
 
+    // Smart object/solid corner background cutout fallback
+    function smartObjectCutout(canvas, ctx, w, h) {
+      try {
+        var imgData = ctx.getImageData(0, 0, w, h);
+        var data = imgData.data;
+        // Sample corners
+        var r0 = data[0], g0 = data[1], b0 = data[2];
+        var isPlainBg = (Math.abs(r0 - 255) < 30 && Math.abs(g0 - 255) < 30 && Math.abs(b0 - 255) < 30) ||
+                        (Math.abs(r0 - 0) < 25 && Math.abs(g0 - 0) < 25 && Math.abs(b0 - 0) < 25) ||
+                        (Math.abs(r0 - 240) < 25 && Math.abs(g0 - 240) < 25 && Math.abs(b0 - 240) < 25);
+        if (isPlainBg) {
+          for (var i = 0; i < data.length; i += 4) {
+            var dr = Math.abs(data[i] - r0);
+            var dg = Math.abs(data[i + 1] - g0);
+            var db = Math.abs(data[i + 2] - b0);
+            if (dr < 35 && dg < 35 && db < 35) {
+              data[i + 3] = 0; // Set transparent
+            }
+          }
+          ctx.putImageData(imgData, 0, 0);
+        }
+      } catch(err) {}
+    }
+
+    // Composite Cutout Subject onto Background
     function compositeItem(item, bgItem) {
       return new Promise(function(resolve) {
         var subjectImg = new Image();
@@ -560,10 +571,11 @@
 
       if (images.length === 0) {
         container.innerHTML = 
-          '<div class="col-span-full flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-pink-500 rounded-3xl p-12 text-center bg-slate-900/40">' +
-          '<div class="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6 text-3xl">🪄</div>' +
-          '<h2 class="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>' +
-          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite l\'une des 25 textures HD pures pour l\'appliquer en 1 clic !</p>' +
+          '<div class="col-span-full flex flex-col items-center justify-center border-2 border-dashed border-pink-500/40 hover:border-pink-400 rounded-3xl p-14 text-center bg-slate-900/40 cursor-pointer" onclick="document.getElementById(\'file-input\').click()">' +
+          '<div class="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-4 text-4xl animate-pulse">📥</div>' +
+          '<h2 class="text-xl font-extrabold text-white mb-2">Glissez vos photos du bureau ici</h2>' +
+          '<p class="text-sm text-slate-400 max-w-md">Le détourage automatique se lance instantanément. Cliquez ensuite sur un fond HD à droite pour l\'appliquer en 1 clic !</p>' +
+          '<span class="mt-4 px-4 py-2 rounded-xl bg-pink-600/20 text-pink-300 border border-pink-500/30 text-xs font-bold">Ou cliquez pour parcourir vos dossiers</span>' +
           '</div>';
         return;
       }
@@ -622,9 +634,8 @@
 
       var html = '';
       list.forEach(function(bg) {
-        // EXACT CARD TEMPLATE WITH NATIVE <img> AND GROUP HOVER REQUESTED BY USER
         html += 
-          '<div onclick="applySpecificBg(\'' + bg.id + '\')" class="relative overflow-hidden rounded-xl h-40 group cursor-pointer border border-gray-700 hover:border-pink-500 transition-all">' +
+          '<div onclick="applySpecificBg(\'' + bg.id + '\')" class="relative overflow-hidden rounded-xl h-40 group cursor-pointer border border-gray-700 hover:border-pink-500 transition-all shadow-lg">' +
             '<img src="' + bg.url + '" alt="' + bg.title + '" class="absolute inset-0 w-full h-full object-cover z-0" />' +
             '<div class="absolute inset-0 bg-black/40 z-10 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-2 pointer-events-none">' +
               '<p class="text-white text-xs font-bold">' + bg.title + '</p>' +
@@ -638,7 +649,7 @@
 
     async function applySpecificBg(bgId) {
       if (images.length === 0) {
-        showToast('Aucune photo', 'Importez d’abord vos photos !');
+        showToast('Aucune photo', 'Glissez d’abord vos photos du bureau !');
         return;
       }
 
@@ -761,7 +772,7 @@
         }
       });
       renderGallery();
-      showToast('Fond Retiré', 'Retour au sujet détouré transparent');
+      showToast('Fond Détouré', 'Vos sujets sont transparents et prêts à exporter');
     }
 
     function deleteSelectedImages() {
@@ -771,8 +782,8 @@
       showToast('Supprimé', 'Photos supprimées');
     }
 
-    async function handleFileSelect(e) {
-      var files = e.target.files;
+    // PROCESS FILES (FROM INPUT OR DESKTOP DRAG & DROP)
+    async function processFileList(files) {
       if (!files || files.length === 0) return;
       var count = files.length;
 
@@ -788,6 +799,8 @@
       var newItems = [];
       for (var i = 0; i < count; i++) {
         var file = files[i];
+        if (!file.type.match('image.*')) continue;
+        
         var url = URL.createObjectURL(file);
         var id = 'img_' + Math.random().toString(36).substring(2, 9);
         var result = await generateCutout(url);
@@ -811,8 +824,47 @@
       overlay.classList.add('hidden');
       overlay.classList.remove('flex');
       renderGallery();
-      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez une des 25 textures HD pour l\'appliquer immédiatement !');
+      showToast('Détourage Automatique Réussi !', newItems.length + ' photos détourées. Cliquez sur un fond HD pour l\'appliquer instantanément !');
     }
+
+    function handleFileSelect(e) {
+      processFileList(e.target.files);
+    }
+
+    // --- FULL DESKTOP DRAG AND DROP SETUP ---
+    var dragOverlay = document.getElementById('drag-drop-overlay');
+    var dragCounter = 0;
+
+    window.addEventListener('dragenter', function(e) {
+      e.preventDefault();
+      dragCounter++;
+      dragOverlay.classList.remove('hidden');
+      dragOverlay.classList.add('flex');
+    });
+
+    window.addEventListener('dragover', function(e) {
+      e.preventDefault();
+    });
+
+    window.addEventListener('dragleave', function(e) {
+      e.preventDefault();
+      dragCounter--;
+      if (dragCounter <= 0) {
+        dragCounter = 0;
+        dragOverlay.classList.add('hidden');
+        dragOverlay.classList.remove('flex');
+      }
+    });
+
+    window.addEventListener('drop', function(e) {
+      e.preventDefault();
+      dragCounter = 0;
+      dragOverlay.classList.add('hidden');
+      dragOverlay.classList.remove('flex');
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        processFileList(e.dataTransfer.files);
+      }
+    });
 
     function loadDemoImages() {
       var makeDemo = function(name, title, cat, svgShape, color) {
@@ -935,23 +987,6 @@
       var val = e.target.value;
       document.getElementById('compare-overlay-div').style.clipPath = 'inset(0 0 0 ' + val + '%)';
       document.getElementById('compare-divider-line').style.left = val + '%';
-    }
-
-    function openCervexModal() {
-      var modal = document.getElementById('cervex-modal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeCervexModal() {
-      var modal = document.getElementById('cervex-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function testCervexSync() {
-      showToast('Cervex Sync', 'Synchronisation Cloud réussie (200 OK)');
-      closeCervexModal();
     }
 
     async function applyCropRatio(ratio) {
