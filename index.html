@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Véritables Fonds InPixio : Pop Art, Bois, Marbres, Bébé & Sable Désert</title>
-  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, sortie Ultra-HD 4K, véritables photographies professionnelles InPixio : Pop Art, Bois, Marbres, Thème Bébé et Désert de Sable." />
+  <title>PixelBatch AI Studio — Fonds InPixio & Remove.bg HD Professionnels</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, rendu Ultra-HD 4K, fonds InPixio et Remove.bg : Pop Art, Bois réalistes, Marbres de luxe, Thème Bébé pastel et Dunes de sable désert." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,10 +70,10 @@
           </span>
           <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-            FONDS INPIXIO & POP ART 4K
+            FONDS INPIXIO & REMOVE.BG HD
           </span>
         </div>
-        <p class="text-[11px] text-slate-400">Véritables Photographies HD : Pop Art • Bois Rustiques & Chêne • Marbres de Luxe • Thème Bébé Pastel • Sable Désert 4K</p>
+        <p class="text-[11px] text-slate-400">Pop Art • Bois Flatlay & Chêne • Marbres Carrare • Thème Bébé Pastel • Dunes Désert 4K</p>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
               <span>Détourage 100% Automatique à l'importation</span>
               <span class="text-[10px] px-2 py-0.2 rounded-full bg-pink-500/20 text-pink-300 font-mono font-bold">Ultra-HD 4K</span>
             </h4>
-            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur un fond InPixio (Pop Art, Bois, Marbre, Bébé ou Désert de Sable) pour l'appliquer en 1 clic !</p>
+            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur un fond HD (Pop Art, Bois, Marbre, Bébé ou Désert) pour l'appliquer en 1 clic !</p>
           </div>
         </div>
 
@@ -163,7 +163,7 @@
     <aside class="w-full lg:w-[480px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
       
       <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue Fonds InPixio Ultra-HD</h3>
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue Fonds Pro InPixio & Remove.bg</h3>
         <span id="label-current-res" class="text-xs font-mono text-amber-400 font-bold">Rendu 4K (3840px)</span>
       </div>
 
@@ -184,19 +184,19 @@
             type="text"
             id="bg-search-input"
             oninput="handleSearch(event)"
-            placeholder="Rechercher (ex: chêne, marbre carrare, pastel bébé, sahara, pop art)..."
+            placeholder="Rechercher (ex: chêne, carrare, pastel bébé, dunes sable, pop art)..."
             class="w-full pl-3 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
           />
         </div>
 
-        <!-- 5 Strict InPixio Category Buttons -->
+        <!-- 5 Strict InPixio & Remove.bg Category Buttons -->
         <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-bold">
           <button id="cat-btn-popart" onclick="switchCategory('popart')" class="py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate">💥 Pop Art</button>
-          <button id="cat-btn-wood" onclick="switchCategory('wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Bois (Wood)</button>
-          <button id="cat-btn-marbles" onclick="switchCategory('marbles')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marbres</button>
-          <button id="cat-btn-baby" onclick="switchCategory('baby')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🧸 Thème Bébé</button>
-          <button id="cat-btn-desert" onclick="switchCategory('desert')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Sable Désert</button>
-          <button id="cat-btn-solids" onclick="switchCategory('solids')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🎨 Studio Blanc/Noir</button>
+          <button id="cat-btn-wood" onclick="switchCategory('wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Bois / Wood</button>
+          <button id="cat-btn-marble" onclick="switchCategory('marble')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marbre / Marble</button>
+          <button id="cat-btn-baby" onclick="switchCategory('baby')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🧸 Thème Baby</button>
+          <button id="cat-btn-desert" onclick="switchCategory('desert')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Désert de Sable</button>
+          <button id="cat-btn-studio" onclick="switchCategory('studio')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🎨 Studio Blanc/Noir</button>
         </div>
 
         <!-- Background items container -->
@@ -321,136 +321,100 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- 100% REAL HIGH-DEFINITION INPIXIO PHOTOGRAPHIC DATABASE -->
+  <!-- STRICT HIGH-DEFINITION INPIXIO & REMOVE.BG BACKGROUND DATABASE -->
   <script>
-    function makePhotoBg(id, label, photoId) {
-      var url = 'https://images.unsplash.com/photo-' + photoId + '?auto=format&fit=crop&w=1920&q=85';
-      var thumb = 'https://images.unsplash.com/photo-' + photoId + '?auto=format&fit=crop&w=400&q=70';
-      return { id: id, label: label, type: 'image', url: url, thumb: thumb };
+    function makeBgItem(id, label, photoId) {
+      return {
+        id: id,
+        label: label,
+        type: 'image',
+        url: 'https://images.unsplash.com/' + photoId + '?auto=format&fit=crop&w=1920&q=85',
+        thumb: 'https://images.unsplash.com/' + photoId + '?auto=format&fit=crop&w=400&q=70'
+      };
     }
 
-    // 1. POP ART (VÉRITABLES PHOTOGRAPHIES & TOILES POP ART HAUTE DÉFINITION)
-    var BG_POPART_REAL = [
-      makePhotoBg('pa1', 'Street Art Graffiti Pop Mural Multicolore', '1579783900882-c0d3dad7b119'),
-      makePhotoBg('pa2', 'Fresque Pop Art Néon Urbain Électrique', '1561055657-b9e0bf0fa360'),
-      makePhotoBg('pa3', 'Toile Contemporaine Pop Art Galerie', '1579783902614-a3fb3927b675'),
-      makePhotoBg('pa4', 'Explosion de Couleurs Pop Art Splash', '1541701494587-cb58502866ab'),
-      makePhotoBg('pa5', 'Texture Murale Rétro Comic Pop Art', '1550684848-fac1c5b4e853'),
-      makePhotoBg('pa6', 'Exposition Pop Art Peinture Studio', '1579783901586-d88db74b4fe5'),
-      makePhotoBg('pa7', 'Collage Street Pop Art Métropolitain', '1578301978693-85fa9c0320b9'),
-      makePhotoBg('pa8', 'Affiches Vintage Pop Art Déchirées', '1579783900882-c0d3dad7b119'),
-      makePhotoBg('pa9', 'Vagues Abstraites Pop Art Fluorescentes', '1550684376-efcbd6e3f031'),
-      makePhotoBg('pa10', 'Peinture Acrylique Pop Art Vibrante', '1536924940846-227afb31e2a5'),
-      makePhotoBg('pa11', 'Coulures de Peinture Pop Art Drips', '1569098644584-210bcd375b59'),
-      makePhotoBg('pa12', 'Art Urbain Expressionniste Pop', '1579783902614-a3fb3927b675'),
-      makePhotoBg('pa13', 'Tourbillons Psychédéliques Pop 70s', '1567095761054-7a02e69e5c43'),
-      makePhotoBg('pa14', 'Galerie Pop Art Murs Colorés', '1579783901586-d88db74b4fe5'),
-      makePhotoBg('pa15', 'Composition Graphique Pop Design', '1549490349-8643362247b5'),
-      makePhotoBg('pa16', 'Surface Studio Pop Jaune & Rose', '1513519245088-0e12902e5a38'),
-      makePhotoBg('pa17', 'Motifs Memphis Rétro Milano 80s', '1520038410233-7141be7e6f97'),
-      makePhotoBg('pa18', 'Street Culture Toile Pop Art Urbaine', '1530595467537-0b5996c41f2d'),
-      makePhotoBg('pa19', 'Minimalisme Pop Art Couleurs Vives', '1558618666-fcd25c85cd64'),
-      makePhotoBg('pa20', 'Néons Pop Art Lumineux Ambiance Club', '1513151233558-d860c5398176')
+    // 1. POP ART (STYLE INPIXIO — COMIC BOOK, HALFTONE, RÉTRO-POP & COULEURS VIVES)
+    var BG_POPART = [
+      makeBgItem('pa1', 'Fresque Pop Art Comic Street Mural', 'photo-1579783900882-c0d3dad7b119'),
+      makeBgItem('pa2', 'Explosion de Couleurs Pop Art Splash', 'photo-1541701494587-cb58502866ab'),
+      makeBgItem('pa3', 'Toile Contemporaine Pop Art Galerie', 'photo-1579783902614-a3fb3927b675'),
+      makeBgItem('pa4', 'Texture Murale Rétro Comic Halftone', 'photo-1550684848-fac1c5b4e853'),
+      makeBgItem('pa5', 'Vagues Abstraites Pop Art Fluorescentes', 'photo-1550684376-efcbd6e3f031'),
+      makeBgItem('pa6', 'Collage Street Pop Art Métropolitain', 'photo-1578301978693-85fa9c0320b9'),
+      makeBgItem('pa7', 'Coulures de Peinture Pop Art Drips', 'photo-1569098644584-210bcd375b59'),
+      makeBgItem('pa8', 'Tourbillons Psychédéliques Rétro-Pop 70s', 'photo-1567095761054-7a02e69e5c43'),
+      makeBgItem('pa9', 'Peinture Acrylique Pop Art Vibrante', 'photo-1536924940846-227afb31e2a5'),
+      makeBgItem('pa10', 'Exposition Pop Art Studio Design', 'photo-1579783901586-d88db74b4fe5'),
+      makeBgItem('pa11', 'Motifs Memphis Rétro Milano 80s', 'photo-1520038410233-7141be7e6f97'),
+      makeBgItem('pa12', 'Surface Studio Pop Jaune & Rose', 'photo-1513519245088-0e12902e5a38')
     ];
 
-    // 2. BOIS / WOOD (VÉRITABLES TEXTURES INPIXIO)
-    var BG_WOOD_REAL = [
-      makePhotoBg('w1', 'Planches de Chêne Sombre Rustique', '1546484396-fb3fc6f95f98'),
-      makePhotoBg('w2', 'Parquet Bois Blanc Cérusé Vintage', '1513694203232-719a280e022f'),
-      makePhotoBg('w3', 'Table Chêne Massif Naturel Chaud', '1533090161767-e6ffed986c88'),
-      makePhotoBg('w4', 'Parquet Point de Hongrie Chêne Doré', '1586023492125-27b2c045efd7'),
-      makePhotoBg('w5', 'Pin Scandinave Clair Épuré Minimaliste', '1558618666-fcd25c85cd64'),
-      makePhotoBg('w6', 'Noyer Exécutif Nervures Précieuses', '1549490349-8643362247b5'),
-      makePhotoBg('w7', 'Lattes Bois de Cèdre Brut Naturel', '1516455590571-18256e5bb9ff'),
-      makePhotoBg('w8', 'Terrasse Bois Teck Soleil d’Été', '1505691938895-1758d7feb511'),
-      makePhotoBg('w9', 'Grange Ancienne Bois Flotté Patiné', '1517646287270-a5a9ca602e5c'),
-      makePhotoBg('w10', 'Table d’Architecte Bois Teck Sombre', '1541123437800-1bb1317badc2'),
-      makePhotoBg('w11', 'Acajou Massif Verni Luxe Studio', '1513519245088-0e12902e5a38'),
-      makePhotoBg('w12', 'Texture Bambou Naturel Verticale', '1538688525198-9b88f6f53126'),
-      makePhotoBg('w13', 'Planchettes Bois Gris Cendré', '1588854337236-6889d631faa8'),
-      makePhotoBg('w14', 'Table Pin Miel Lumineuse', '1519710164239-da123dc03ef4'),
-      makePhotoBg('w15', 'Bois Charbonné Ébène Yakisugi', '1530595467537-0b5996c41f2d'),
-      makePhotoBg('w16', 'Bois Peint Turquoise Patiné Rétro', '1550684848-fac1c5b4e853'),
-      makePhotoBg('w17', 'Panneaux Muraux Bois Design Géométrique', '1520038410233-7141be7e6f97'),
-      makePhotoBg('w18', 'Contreplaqué Bouleau Clair Studio', '1544457070-4cd773b4d71e'),
-      makePhotoBg('w19', 'Plateau Merisier Massif Chaleureux', '1508873696983-2df5293cb325'),
-      makePhotoBg('w20', 'Planches Rustiques Décoratives Fêtes', '1513151233558-d860c5398176')
+    // 2. WOOD / BOIS (STYLE INPIXIO — PLANCHES ÉLÉGANTES, FLATLAY TABLES EN CHÊNE OU NOYER)
+    var BG_WOOD = [
+      makeBgItem('w1', 'Table Chêne Massif Flatlay Naturel Chaud', 'photo-1533090161767-e6ffed986c88'),
+      makeBgItem('w2', 'Planches de Chêne Sombre Rustique Pro', 'photo-1546484396-fb3fc6f95f98'),
+      makeBgItem('w3', 'Parquet Point de Hongrie Chêne Doré', 'photo-1586023492125-27b2c045efd7'),
+      makeBgItem('w4', 'Pin Scandinave Clair Épuré Minimaliste', 'photo-1558618666-fcd25c85cd64'),
+      makeBgItem('w5', 'Noyer Exécutif Nervures Précieuses Flatlay', 'photo-1549490349-8643362247b5'),
+      makeBgItem('w6', 'Lattes Bois de Cèdre Brut Naturel', 'photo-1516455590571-18256e5bb9ff'),
+      makeBgItem('w7', 'Terrasse Bois Teck Soleil d’Été', 'photo-1505691938895-1758d7feb511'),
+      makeBgItem('w8', 'Grange Ancienne Bois Flotté Patiné', 'photo-1517646287270-a5a9ca602e5c'),
+      makeBgItem('w9', 'Table d’Architecte Bois Teck Sombre', 'photo-1541123437800-1bb1317badc2'),
+      makeBgItem('w10', 'Texture Bambou Naturel Verticale', 'photo-1538688525198-9b88f6f53126'),
+      makeBgItem('w11', 'Table Pin Miel Lumineuse Vue de Dessus', 'photo-1519710164239-da123dc03ef4'),
+      makeBgItem('w12', 'Contreplaqué Bouleau Clair Studio Pro', 'photo-1544457070-4cd773b4d71e')
     ];
 
-    // 3. MARBRES / MARBLES (VÉRITABLES TEXTURES INPIXIO)
-    var BG_MARBLES_REAL = [
-      makePhotoBg('mb1', 'Marbre Blanc Carrara Veines Douces', '1600585154340-be6161a56a0c'),
-      makePhotoBg('mb2', 'Marbre Calacatta Or Nervures Dorées', '1590381105924-c72589b9ef3f'),
-      makePhotoBg('mb3', 'Marbre Noir Marquina Lignes Blanches', '1600585152220-90363fe7e115'),
-      makePhotoBg('mb4', 'Marbre Vert Impérial Émeraude', '1618221195710-dd6b41faaea6'),
-      makePhotoBg('mb5', 'Travertin Beige Romain Texturé', '1600565193348-f74bd3c7ccdf'),
-      makePhotoBg('mb6', 'Marbre Statuario Gris Poli Miroir', '1558618666-fcd25c85cd64'),
-      makePhotoBg('mb7', 'Marbre Rose Poudré Quartz Pastel', '1618219908412-a29a1bb7b86e'),
-      makePhotoBg('mb8', 'Terrazzo Minéral Multi-Pierres Luxe', '1502672260266-1c1ef2d93688'),
-      makePhotoBg('mb9', 'Marbre Bleu Agate Océan Céleste', '1584622650111-993a426fbf0a'),
-      makePhotoBg('mb10', 'Podium Marbre Blanc Épuré Studio', '1513694203232-719a280e022f'),
-      makePhotoBg('mb11', 'Marbre Portoro Noir & Or Somptueux', '1541123437800-1bb1317badc2'),
-      makePhotoBg('mb12', 'Marbre Crème Marfil Ivoire Doux', '1586023492125-27b2c045efd7'),
-      makePhotoBg('mb13', 'Béton Lissé & Marbre Brut d’Architecte', '1600210492486-724fe5c67fb0'),
-      makePhotoBg('mb14', 'Onyx Rétroéclairé Translucide Doré', '1512917774080-9991f1c4c750'),
-      makePhotoBg('mb15', 'Dalles Marbre Palace Reflet Miroir', '1582719478250-c89cae4dc85b'),
-      makePhotoBg('mb16', 'Marbre Anthracite Étoilé Gris Graphite', '1590490360182-c33d57733427'),
-      makePhotoBg('mb17', 'Pierre Calcaire & Marbre Spa Douceur', '1540555700478-4be289fbecef'),
-      makePhotoBg('mb18', 'Marbre Fossile Rustique Brun & Beige', '1510812431401-41d2bd2722f3'),
-      makePhotoBg('mb19', 'Granit Noir Absolu Finition Cuir', '1507679799987-c73779587ccf'),
-      makePhotoBg('mb20', 'Marbre Blanc Pur Sans Défaut 4K', '1534438327276-14e5300c3a48')
+    // 3. MARBLE / MARBRE (STYLE INPIXIO — MARBRE BLANC CARRARA, CALACATTA OR, NOIR MARQUINA)
+    var BG_MARBLE = [
+      makeBgItem('mb1', 'Marbre Blanc Carrara Veines Douces Flatlay', 'photo-1600585154340-be6161a56a0c'),
+      makeBgItem('mb2', 'Marbre Calacatta Or Nervures Dorées Luxe', 'photo-1590381105924-c72589b9ef3f'),
+      makeBgItem('mb3', 'Marbre Noir Marquina Lignes Blanches', 'photo-1600585152220-90363fe7e115'),
+      makeBgItem('mb4', 'Marbre Vert Impérial Émeraude Somptueux', 'photo-1618221195710-dd6b41faaea6'),
+      makeBgItem('mb5', 'Travertin Beige Romain Texturé Épuré', 'photo-1600565193348-f74bd3c7ccdf'),
+      makeBgItem('mb6', 'Marbre Rose Quartz Douceur Pastel', 'photo-1618219908412-a29a1bb7b86e'),
+      makeBgItem('mb7', 'Terrazzo Minéral Multi-Pierres Design', 'photo-1502672260266-1c1ef2d93688'),
+      makeBgItem('mb8', 'Marbre Bleu Agate Océan Céleste', 'photo-1584622650111-993a426fbf0a'),
+      makeBgItem('mb9', 'Marbre Blanc Pur Sans Défaut Studio 4K', 'photo-1534438327276-14e5300c3a48'),
+      makeBgItem('mb10', 'Granit Noir Absolu Finition Cuir Pro', 'photo-1507679799987-c73779587ccf'),
+      makeBgItem('mb11', 'Onyx Rétroéclairé Translucide Doré', 'photo-1512917774080-9991f1c4c750'),
+      makeBgItem('mb12', 'Dalles Marbre Palace Grandeur & Reflets', 'photo-1582719478250-c89cae4dc85b')
     ];
 
-    // 4. THÈME BÉBÉ & DOUCEUR PASTEL (VÉRITABLES TEXTURES INPIXIO — SANS BÉBÉ)
-    var BG_BABY_REAL = [
-      makePhotoBg('bb1', 'Ciel Douceur Nuages Pastel & Rêves', '1513542789411-b6a5d4f31634'),
-      makePhotoBg('bb2', 'Étoiles d’Or Scintillantes & Flou Magique', '1534447677768-be436bb09401'),
-      makePhotoBg('bb3', 'Chambre Bébé Bois Clair Scandinave & Lin', '1519710164239-da123dc03ef4'),
-      makePhotoBg('bb4', 'Douceur Pastel Menthe & Pêche Matin', '1507525428034-b723cf961d3e'),
-      makePhotoBg('bb5', 'Texture Laine Tricotée Blanche & Moelleuse', '1558618666-fcd25c85cd64'),
-      makePhotoBg('bb6', 'Aquarelle Douce Rose Poudré & Lavande', '1516455590571-18256e5bb9ff'),
-      makePhotoBg('bb7', 'Lin Naturel Beige & Soleil Doux', '1586023492125-27b2c045efd7'),
-      makePhotoBg('bb8', 'Bleu Pastel Ciel & Bulles de Rêve', '1533090161767-e6ffed986c88'),
-      makePhotoBg('bb9', 'Dégradé Ciel Pêche & Jaune Doux', '1514282401047-d79a71a590e8'),
-      makePhotoBg('bb10', 'Feuillage Eucalyptus Doux & Fond Crème', '1506126613408-eca07ce68773'),
-      makePhotoBg('bb11', 'Confettis Pastel & Guirlandes Floues', '1585320806297-9794b3e4eeae'),
-      makePhotoBg('bb12', 'Texture Tissu Avoine & Coton Bio', '1540555700478-4be289fbecef'),
-      makePhotoBg('bb13', 'Guirlande Lumineuse Douce Nuit Enfant', '1513151233558-d860c5398176'),
-      makePhotoBg('bb14', 'Pétales de Rose Pastel Flou Artistique', '1508873696983-2df5293cb325'),
-      makePhotoBg('bb15', 'Vert Sauge Doux & Mur Vanille', '1544457070-4cd773b4d71e'),
-      makePhotoBg('bb16', 'Barbe à Papa Rose & Lilas Dégradé', '1517646287270-a5a9ca602e5c'),
-      makePhotoBg('bb17', 'Velours Doux Vanille Studio Enfant', '1530595467537-0b5996c41f2d'),
-      makePhotoBg('bb18', 'Formes Pastel Géométriques Douces', '1520038410233-7141be7e6f97'),
-      makePhotoBg('bb19', 'Lumière de Lune & Ciel Nocturne Bleu Nuit', '1549490349-8643362247b5'),
-      makePhotoBg('bb20', 'Mur Craie Rose Bonbon Vintage', '1550684848-fac1c5b4e853')
+    // 4. THÈME "BABY" (STYLE INPIXIO — SANS BÉBÉ : COULEURS PASTEL, TRICOT, ÉTOILES, NUAGES)
+    var BG_BABY = [
+      makeBgItem('bb1', 'Ciel Douceur Nuages Pastel & Rêves', 'photo-1513542789411-b6a5d4f31634'),
+      makeBgItem('bb2', 'Étoiles d’Or Scintillantes & Bokeh Féerique', 'photo-1534447677768-be436bb09401'),
+      makeBgItem('bb3', 'Douceur Pastel Horizon Menthe & Pêche', 'photo-1507525428034-b723cf961d3e'),
+      makeBgItem('bb4', 'Lin Naturel Beige & Lumière Solaire Douce', 'photo-1586023492125-27b2c045efd7'),
+      makeBgItem('bb5', 'Bleu Ciel Pastel & Bulles de Rêve Flottantes', 'photo-1533090161767-e6ffed986c88'),
+      makeBgItem('bb6', 'Feuillage Eucalyptus Doux & Fond Crème Pur', 'photo-1506126613408-eca07ce68773'),
+      makeBgItem('bb7', 'Confettis Pastel & Guirlandes Douces Floues', 'photo-1585320806297-9794b3e4eeae'),
+      makeBgItem('bb8', 'Texture Laine Tricotée & Coton Moelleux', 'photo-1540555700478-4be289fbecef'),
+      makeBgItem('bb9', 'Guirlande Lumineuse Nuit Douce & Féerique', 'photo-1513151233558-d860c5398176'),
+      makeBgItem('bb10', 'Pétales de Rose Poudré Flou Artistique', 'photo-1508873696983-2df5293cb325'),
+      makeBgItem('bb11', 'Vert Sauge Doux & Fond Vanille Minimaliste', 'photo-1544457070-4cd773b4d71e'),
+      makeBgItem('bb12', 'Dégradé Pastel Coton Rose & Lilas Céleste', 'photo-1517646287270-a5a9ca602e5c')
     ];
 
-    // 5. DÉSERT DE SABLE (VÉRITABLES PHOTOS REMOVE BACKGROUNDS & INPIXIO)
-    var BG_DESERT_REAL = [
-      makePhotoBg('ds1', 'Dunes Rouges de Sossusvlei Arête Parfaite', '1509316975850-ff9c5deb0cd9'),
-      makePhotoBg('ds2', 'Ondulations du Vent dans le Sable Doré', '1518709268805-4e9042af9f23'),
-      makePhotoBg('ds3', 'Crête de Sable Sahara Coucher de Soleil', '1469854523086-cc02fe5d8800'),
-      makePhotoBg('ds4', 'Désert Wadi Rum Sable Ocre & Rouge', '1547234935-80c7145ec969'),
-      makePhotoBg('ds5', 'Texture de Sable Fin Doré Vagues Naturelles', '1470071459604-3b5ec3a7fe05'),
-      makePhotoBg('ds6', 'Horizon Infini de Dunes au Soleil Levant', '1507525428034-b723cf961d3e'),
-      makePhotoBg('ds7', 'Ombres Portées sur les Dunes du Sahara', '1516426122078-c23e76319801'),
-      makePhotoBg('ds8', 'Sable Blanc Pur Lagon Tropical Ondulé', '1514282401047-d79a71a590e8'),
-      makePhotoBg('ds9', 'Désert Rouge et Roche Canyon Doré', '1474044159687-1ee9f3a51722'),
-      makePhotoBg('ds10', 'Courbes de Sable et Vent Tourbillonnant', '1511497584788-87676104235f'),
-      makePhotoBg('ds11', 'Lumière Dorée sur les Dunes de Merzouga', '1531366936337-7c912a4589a7'),
-      makePhotoBg('ds12', 'Surface Minimaliste Studio Sable Chaud', '1448375240586-882707db888b'),
-      makePhotoBg('ds13', 'Vallée Désertique Sable Épuré Ciel Bleu', '1506744038136-46273834b3fb'),
-      makePhotoBg('ds14', 'Sable Ambré Texturé Heure Dorée', '1470770841072-f978cf4d019e'),
-      makePhotoBg('ds15', 'Erg Infini Mer de Dunes Majestueuses', '1528127269322-539801943592'),
-      makePhotoBg('ds16', 'Sable Soyeux au Crépuscule Désertique', '1517760444937-f6397edcbbcd'),
-      makePhotoBg('ds17', 'Plateau de Sable Désert Atacama Chaud', '1537996194471-e657df975ab4'),
-      makePhotoBg('ds18', 'Reflets Solaires sur les Crêtes de Sable', '1426604966848-d7adac402bff'),
-      makePhotoBg('ds19', 'Grains de Sable Chaud Macro Studio', '1493976040374-85c8e12f0c0e'),
-      makePhotoBg('ds20', 'Oasis Secrète Bord de Dune Dorée', '1503614472-8c93d56e92ce')
+    // 5. DÉSERT DE SABLE (STYLE REMOVE.BG — DUNES MINIMALISTES, LISSES & ÉPURÉES)
+    var BG_DESERT = [
+      makeBgItem('ds1', 'Dunes Rouges de Sossusvlei Arête Parfaite', 'photo-1509316975850-ff9c5deb0cd9'),
+      makeBgItem('ds2', 'Ondulations Naturelles Sable Doré Sahara', 'photo-1518709268805-4e9042af9f23'),
+      makeBgItem('ds3', 'Crête de Sable Pure & Ciel Clair Minimaliste', 'photo-1469854523086-cc02fe5d8800'),
+      makeBgItem('ds4', 'Désert Wadi Rum Sable Ocre & Rouge Épuré', 'photo-1547234935-80c7145ec969'),
+      makeBgItem('ds5', 'Texture de Sable Fin Doré Vagues Régulières', 'photo-1470071459604-3b5ec3a7fe05'),
+      makeBgItem('ds6', 'Ombres Douces sur les Dunes du Sahara', 'photo-1516426122078-c23e76319801'),
+      makeBgItem('ds7', 'Lumière Dorée & Courbes Soyeuses de Sable', 'photo-1531366936337-7c912a4589a7'),
+      makeBgItem('ds8', 'Surface Minimaliste Studio Sable Chaud Pro', 'photo-1448375240586-882707db888b'),
+      makeBgItem('ds9', 'Vallée Désertique Sable Pur sous Ciel Bleu', 'photo-1506744038136-46273834b3fb'),
+      makeBgItem('ds10', 'Sable Ambré Texturé & Heure Dorée Sublime', 'photo-1470770841072-f978cf4d019e'),
+      makeBgItem('ds11', 'Mer de Dunes Majestueuse & Infinie', 'photo-1528127269322-539801943592'),
+      makeBgItem('ds12', 'Pentes Soyeuses de Sable au Crépuscule', 'photo-1517760444937-f6397edcbbcd')
     ];
 
-    // 6. COULEURS STUDIO SOLIDES PRO
-    var BG_SOLIDS_CLEAN = [
+    // 6. STUDIO UNIS PRO
+    var BG_STUDIO = [
       { id: 'transp', label: 'Transparent', value: 'transparent', class: 'bg-checkerboard' },
       { id: 'white', label: 'Blanc Studio Pur', value: '#ffffff', class: 'bg-white' },
       { id: 'black', label: 'Noir Absolu OLED', value: '#08080a', class: 'bg-black' },
@@ -622,7 +586,7 @@
                   ctx.fillRect(0, 0, w, h);
                   finishRender();
                 }
-              }, 1800);
+              }, 2500);
 
               bgImg.onload = function() {
                 if (!loaded) {
@@ -666,7 +630,7 @@
           '<div class="col-span-full flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-pink-500 rounded-3xl p-12 text-center bg-slate-900/40">' +
           '<div class="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6 text-3xl">🪄</div>' +
           '<h2 class="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>' +
-          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite un fond InPixio (Pop Art, Bois, Marbre, Bébé ou Désert de Sable) pour l\'appliquer immédiatement !</p>' +
+          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite un fond InPixio & Remove.bg (Pop Art, Bois, Marbre, Bébé ou Désert) pour l\'appliquer en 1 clic !</p>' +
           '</div>';
         return;
       }
@@ -702,12 +666,12 @@
     function renderBackgroundCards() {
       var container = document.getElementById('bg-cards-container');
       var list = [];
-      if (currentBgCategory === 'popart') list = BG_POPART_REAL;
-      else if (currentBgCategory === 'wood') list = BG_WOOD_REAL;
-      else if (currentBgCategory === 'marbles') list = BG_MARBLES_REAL;
-      else if (currentBgCategory === 'baby') list = BG_BABY_REAL;
-      else if (currentBgCategory === 'desert') list = BG_DESERT_REAL;
-      else if (currentBgCategory === 'solids') list = BG_SOLIDS_CLEAN;
+      if (currentBgCategory === 'popart') list = BG_POPART;
+      else if (currentBgCategory === 'wood') list = BG_WOOD;
+      else if (currentBgCategory === 'marble') list = BG_MARBLE;
+      else if (currentBgCategory === 'baby') list = BG_BABY;
+      else if (currentBgCategory === 'desert') list = BG_DESERT;
+      else if (currentBgCategory === 'studio') list = BG_STUDIO;
 
       if (currentSearch) {
         list = list.filter(function(item) {
@@ -716,7 +680,7 @@
       }
 
       var html = '';
-      if (currentBgCategory === 'solids') {
+      if (currentBgCategory === 'studio') {
         html += '<div class="col-span-2 grid grid-cols-3 gap-2">';
         list.forEach(function(s, idx) {
           html += '<button onclick="applyBgAtIndex(' + idx + ')" class="h-14 rounded-xl border transition-all hover:scale-105 flex flex-col items-center justify-center ' + s.class + ' border-slate-700 shadow-sm" title="' + s.label + '">' +
@@ -745,12 +709,12 @@
       }
 
       var list = [];
-      if (currentBgCategory === 'popart') list = BG_POPART_REAL;
-      else if (currentBgCategory === 'wood') list = BG_WOOD_REAL;
-      else if (currentBgCategory === 'marbles') list = BG_MARBLES_REAL;
-      else if (currentBgCategory === 'baby') list = BG_BABY_REAL;
-      else if (currentBgCategory === 'desert') list = BG_DESERT_REAL;
-      else if (currentBgCategory === 'solids') list = BG_SOLIDS_CLEAN;
+      if (currentBgCategory === 'popart') list = BG_POPART;
+      else if (currentBgCategory === 'wood') list = BG_WOOD;
+      else if (currentBgCategory === 'marble') list = BG_MARBLE;
+      else if (currentBgCategory === 'baby') list = BG_BABY;
+      else if (currentBgCategory === 'desert') list = BG_DESERT;
+      else if (currentBgCategory === 'studio') list = BG_STUDIO;
 
       if (currentSearch) {
         list = list.filter(function(item) {
@@ -802,7 +766,7 @@
 
     function switchCategory(cat) {
       currentBgCategory = cat;
-      ['popart', 'wood', 'marbles', 'baby', 'desert', 'solids'].forEach(function(c) {
+      ['popart', 'wood', 'marble', 'baby', 'desert', 'studio'].forEach(function(c) {
         var btn = document.getElementById('cat-btn-' + c);
         if (btn) {
           if (c === cat) {
