@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — 25 Arrière-plans HD Statiques 100% Fonctionnels</title>
-  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, sortie Ultra-HD 4K, 25 arrière-plans HD directs Unsplash (Wood, Marbles, Pop Art BD, Désert, Baby Theme)." />
+  <title>PixelBatch AI Studio — 25 Arrière-plans Textures Pures HD</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, rendu Ultra-HD 4K, 25 textures pures vérifiées (Wood, Marbles, Pop Art BD, Désert, Baby Theme)." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,10 +70,10 @@
           </span>
           <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-            25 FONDS HD STATIQUES
+            25 TEXTURES PURES HD
           </span>
         </div>
-        <p class="text-[11px] text-slate-400">Wood • Marbles • Pop Art BD • Désert • Baby Theme • Sortie Ultra-HD 4K</p>
+        <p class="text-[11px] text-slate-400">Wood • Marbles • Pop Art BD • Désert • Baby Theme • Sortie 4K</p>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
               <span>Détourage 100% Automatique à l'importation</span>
               <span class="text-[10px] px-2 py-0.2 rounded-full bg-pink-500/20 text-pink-300 font-mono font-bold">Ultra-HD 4K</span>
             </h4>
-            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur l'un des 25 arrière-plans HD pour l'appliquer en 1 clic !</p>
+            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur l'une des 25 textures HD pour l'appliquer en 1 clic !</p>
           </div>
         </div>
 
@@ -163,7 +163,7 @@
     <aside class="w-full lg:w-[480px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
       
       <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 25 Arrière-plans Ultra-HD</h3>
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue 25 Textures Pures HD</h3>
         <span id="label-current-res" class="text-xs font-mono text-amber-400 font-bold">Rendu 4K (3840px)</span>
       </div>
 
@@ -184,7 +184,7 @@
             type="text"
             id="bg-search-input"
             oninput="handleSearch(event)"
-            placeholder="Rechercher (ex: chevrons, carrare, halftone, dunes, pastel)..."
+            placeholder="Rechercher par mot-clé (ex: chêne, carrare, halftone, sable, pastel)..."
             class="w-full pl-3 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
           />
         </div>
@@ -201,7 +201,7 @@
 
         <!-- Background items container (Grid) -->
         <div id="bg-cards-container" class="grid grid-cols-2 gap-2.5 max-h-96 overflow-y-auto pr-1">
-          <!-- Populated dynamically with the 25 exact HD images -->
+          <!-- Populated dynamically with the 25 exact raw Unsplash cards -->
         </div>
 
         <!-- Custom Background Uploader -->
@@ -321,43 +321,43 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- EXACT 25 DIRECT HD STATIC UNSPLASH BACKGROUNDS -->
+  <!-- EXACT 25 DIRECT RAW UNSPLASH TEXTURES GIVEN BY USER -->
   <script>
     const professionalBackgrounds = [
-      // 1. WOOD / BOIS
-      { id: 'w-1', category: 'Wood', title: 'Parquet Chevrons Chêne', url: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&w=800&q=80' },
-      { id: 'w-2', category: 'Wood', title: 'Rondins de Bois', url: 'https://images.unsplash.com/photo-1532153955177-f59af40d6472?auto=format&fit=crop&w=800&q=80' },
-      { id: 'w-3', category: 'Wood', title: 'Bois Flotté Texturé', url: 'https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=800&q=80' },
-      { id: 'w-4', category: 'Wood', title: 'Chêne Massif Sombre', url: 'https://images.unsplash.com/photo-1581428982868-e410dd047a90?auto=format&fit=crop&w=800&q=80' },
-      { id: 'w-5', category: 'Wood', title: 'Planches Rustiques', url: 'https://images.unsplash.com/photo-1606041011872-59659ceb755c?auto=format&fit=crop&w=800&q=80' },
+      // 1. WOOD / BOIS (Textures de bois pures)
+      { id: 'w-1', category: 'Wood', title: 'Bois Chêne Clair', url: 'https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c' },
+      { id: 'w-2', category: 'Wood', title: 'Bois Flotté Gris', url: 'https://images.unsplash.com/photo-1546484396-fb3fc6f95f98' },
+      { id: 'w-3', category: 'Wood', title: 'Planches Sombres', url: 'https://images.unsplash.com/photo-1520188740392-67fe83a152d5' },
+      { id: 'w-4', category: 'Wood', title: 'Bois Lisse Noyer', url: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d' },
+      { id: 'w-5', category: 'Wood', title: 'Parquet Texturé', url: 'https://images.unsplash.com/photo-1510172600216-724bc46c8200' },
 
-      // 2. MARBLES / MARBRES
-      { id: 'm-1', category: 'Marbles', title: 'Marbre Blanc Carrare', url: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?auto=format&fit=crop&w=800&q=80' },
-      { id: 'm-2', category: 'Marbles', title: 'Marbre Foncé Veines Or', url: 'https://images.unsplash.com/photo-1598444458316-200a7479beba?auto=format&fit=crop&w=800&q=80' },
-      { id: 'm-3', category: 'Marbles', title: 'Onyx Bleu Profond', url: 'https://images.unsplash.com/photo-1582236940866-22d7d8e23547?auto=format&fit=crop&w=800&q=80' },
-      { id: 'm-4', category: 'Marbles', title: 'Mosaïque Marbre 3D', url: 'https://images.unsplash.com/photo-1616428238612-4211fba82496?auto=format&fit=crop&w=800&q=80' },
-      { id: 'm-5', category: 'Marbles', title: 'Granit Émeraude Luxueux', url: 'https://images.unsplash.com/photo-1635327291079-05ea1259560f?auto=format&fit=crop&w=800&q=80' },
+      // 2. MARBLES / MARBRES (Textures de marbre pures)
+      { id: 'm-1', category: 'Marbles', title: 'Marbre Blanc Carrare', url: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b' },
+      { id: 'm-2', category: 'Marbles', title: 'Marbre Noir Veines Or', url: 'https://images.unsplash.com/photo-1598444458316-200a7479beba' },
+      { id: 'm-3', category: 'Marbles', title: 'Onyx Bleu Profond', url: 'https://images.unsplash.com/photo-1582236940866-22d7d8e23547' },
+      { id: 'm-4', category: 'Marbles', title: 'Granit Gris Lisse', url: 'https://images.unsplash.com/photo-1620202868200-a61685121e7d' },
+      { id: 'm-5', category: 'Marbles', title: 'Marbre Rose Doux', url: 'https://images.unsplash.com/photo-1505820921221-a537f7112ce5' },
 
-      // 3. POP ART BD
-      { id: 'p-1', category: 'Pop Art BD', title: 'Comic Book Halftone', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80' },
-      { id: 'p-2', category: 'Pop Art BD', title: 'Sunburst Dynamique', url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=800&q=80' },
-      { id: 'p-3', category: 'Pop Art BD', title: 'Formes Rétro Couleurs', url: 'https://images.unsplash.com/photo-1608501078713-8e445a709b39?auto=format&fit=crop&w=800&q=80' },
-      { id: 'p-4', category: 'Pop Art BD', title: 'Vibrant Abstrait', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80' },
-      { id: 'p-5', category: 'Pop Art BD', title: 'Bulles Pop Art', url: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=800&q=80' },
+      // 3. POP ART BD (Motifs abstraits et halftone)
+      { id: 'p-1', category: 'Pop Art BD', title: 'Halftone Comic', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe' },
+      { id: 'p-2', category: 'Pop Art BD', title: 'Rayons Dynamiques', url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1' },
+      { id: 'p-3', category: 'Pop Art BD', title: 'Formes Rétro', url: 'https://images.unsplash.com/photo-1608501078713-8e445a709b39' },
+      { id: 'p-4', category: 'Pop Art BD', title: 'Texture Pointillée', url: 'https://images.unsplash.com/photo-1501696461415-6bd6660c6742' },
+      { id: 'p-5', category: 'Pop Art BD', title: 'Fond Vibrant', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853' },
 
-      // 4. DESERT / DÉSERT
-      { id: 'd-1', category: 'Désert', title: 'Dunes de Sable Lisses', url: 'https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?auto=format&fit=crop&w=800&q=80' },
-      { id: 'd-2', category: 'Désert', title: 'Sable Minimaliste', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=80' },
-      { id: 'd-3', category: 'Désert', title: 'Ombres sur les Dunes', url: 'https://images.unsplash.com/photo-1453873531674-2151bcd01707?auto=format&fit=crop&w=800&q=80' },
-      { id: 'd-4', category: 'Désert', title: 'Désert Doré Épuré', url: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80' },
-      { id: 'd-5', category: 'Désert', title: 'Textures de Sable', url: 'https://images.unsplash.com/photo-1610996841103-62529deff02e?auto=format&fit=crop&w=800&q=80' },
+      // 4. DESERT (Dunes de sable pures, sans ciel, pour incrustation)
+      { id: 'd-1', category: 'Désert', title: 'Sable Fin', url: 'https://images.unsplash.com/photo-1473580044384-7ba9967e16a0' },
+      { id: 'd-2', category: 'Désert', title: 'Ondulations Désert', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35' },
+      { id: 'd-3', category: 'Désert', title: 'Dune Minimaliste', url: 'https://images.unsplash.com/photo-1453873531674-2151bcd01707' },
+      { id: 'd-4', category: 'Désert', title: 'Sable Doré', url: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09' },
+      { id: 'd-5', category: 'Désert', title: 'Texture Saharienne', url: 'https://images.unsplash.com/photo-1510006766348-8a9d15024467' },
 
-      // 5. BABY THEME (Fonds Doux, Sans Bébé)
-      { id: 'b-1', category: 'Baby Theme', title: 'Couverture Pastel Douce', url: 'https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=800&q=80' },
-      { id: 'b-2', category: 'Baby Theme', title: 'Texture Tricot Beige', url: 'https://images.unsplash.com/photo-1616047242145-c1fc342ec197?auto=format&fit=crop&w=800&q=80' },
-      { id: 'b-3', category: 'Baby Theme', title: 'Nuages de Coton', url: 'https://images.unsplash.com/photo-1601662528567-526cd06f6582?auto=format&fit=crop&w=800&q=80' },
-      { id: 'b-4', category: 'Baby Theme', title: 'Tissu Coton Bleu Ciel', url: 'https://images.unsplash.com/photo-1585237887309-8d1ab808a901?auto=format&fit=crop&w=800&q=80' },
-      { id: 'b-5', category: 'Baby Theme', title: 'Dégradé Rose Poudré', url: 'https://images.unsplash.com/photo-1518116527503-49d63c5d762e?auto=format&fit=crop&w=800&q=80' }
+      // 5. BABY THEME (Textures douces, pastel, peluche - AUCUN BEBE)
+      { id: 'b-1', category: 'Baby Theme', title: 'Couverture Pastel', url: 'https://images.unsplash.com/photo-1555448248-2571daf6344b' },
+      { id: 'b-2', category: 'Baby Theme', title: 'Dégradé Rose', url: 'https://images.unsplash.com/photo-1518116527503-49d63c5d762e' },
+      { id: 'b-3', category: 'Baby Theme', title: 'Tricot Doux', url: 'https://images.unsplash.com/photo-1616047242145-c1fc342ec197' },
+      { id: 'b-4', category: 'Baby Theme', title: 'Coton Nuage', url: 'https://images.unsplash.com/photo-1601662528567-526cd06f6582' },
+      { id: 'b-5', category: 'Baby Theme', title: 'Bleu Ciel Texture', url: 'https://images.unsplash.com/photo-1520607162514-419b486d9d1c' }
     ];
   </script>
 
@@ -563,7 +563,7 @@
           '<div class="col-span-full flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-pink-500 rounded-3xl p-12 text-center bg-slate-900/40">' +
           '<div class="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6 text-3xl">🪄</div>' +
           '<h2 class="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>' +
-          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite l\'un des 25 arrière-plans HD pour l\'appliquer en 1 clic !</p>' +
+          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite l\'une des 25 textures HD pures pour l\'appliquer en 1 clic !</p>' +
           '</div>';
         return;
       }
@@ -622,15 +622,13 @@
 
       var html = '';
       list.forEach(function(bg) {
-        // EXACT CARD TEMPLATE WITH VISIBLE IMG AND SAFETY FALLBACK
+        // EXACT CARD TEMPLATE WITH NATIVE <img> AND GROUP HOVER REQUESTED BY USER
         html += 
-          '<div onclick="applySpecificBg(\'' + bg.id + '\')" class="relative overflow-hidden rounded-xl bg-gray-800 border border-gray-700 hover:border-pink-500 cursor-pointer h-40 flex flex-col justify-end p-3 group shadow-lg transition-all">' +
-            '<!-- L\'IMAGE DIRECTEMENT VISIBLE -->' +
-            '<img src="' + bg.url + '" alt="' + bg.title + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity duration-300 z-0" onerror="this.src=\'https://placehold.co/800x800/2a2a2a/ffffff?text=Erreur+Image\';" />' +
-            '<!-- LE TEXTE PAR DESSUS -->' +
-            '<div class="relative z-10 bg-black/60 p-2 rounded-lg backdrop-blur-sm pointer-events-none">' +
-              '<h3 class="text-white text-xs font-bold line-clamp-2">' + bg.title + '</h3>' +
-              '<p class="text-[10px] text-pink-400 mt-1">' + bg.category + '</p>' +
+          '<div onclick="applySpecificBg(\'' + bg.id + '\')" class="relative overflow-hidden rounded-xl h-40 group cursor-pointer border border-gray-700 hover:border-pink-500 transition-all">' +
+            '<img src="' + bg.url + '" alt="' + bg.title + '" class="absolute inset-0 w-full h-full object-cover z-0" />' +
+            '<div class="absolute inset-0 bg-black/40 z-10 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-2 pointer-events-none">' +
+              '<p class="text-white text-xs font-bold">' + bg.title + '</p>' +
+              '<p class="text-[10px] text-pink-400">' + bg.category + '</p>' +
             '</div>' +
           '</div>';
       });
@@ -813,7 +811,7 @@
       overlay.classList.add('hidden');
       overlay.classList.remove('flex');
       renderGallery();
-      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez un des 25 arrière-plans HD pour l\'appliquer immédiatement !');
+      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez une des 25 textures HD pour l\'appliquer immédiatement !');
     }
 
     function loadDemoImages() {
@@ -847,7 +845,7 @@
       selectedIds.clear();
       images.forEach(function(img) { selectedIds.add(img.id); });
       renderGallery();
-      showToast('Démos Chargées', 'Photos prêtes pour tester les 25 arrière-plans HD !');
+      showToast('Démos Chargées', 'Photos prêtes pour tester les 25 textures HD !');
     }
 
     function downloadSingleItem(id) {
