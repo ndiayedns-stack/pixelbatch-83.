@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — Fonds InPixio & Remove.bg HD Professionnels</title>
-  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, rendu Ultra-HD 4K, fonds InPixio et Remove.bg : Pop Art, Bois réalistes, Marbres de luxe, Thème Bébé pastel et Dunes de sable désert." />
+  <title>PixelBatch AI Studio — Traitement par Lots & Arrière-plans Professionnels</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, sortie Ultra-HD 4K, application d'arrière-plans HD professionnels (Pop Art, Wood, Marble, Baby Theme, Desert)." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,10 +70,10 @@
           </span>
           <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-            FONDS INPIXIO & REMOVE.BG HD
+            ARRIÈRE-PLANS HD PRO
           </span>
         </div>
-        <p class="text-[11px] text-slate-400">Pop Art • Bois Flatlay & Chêne • Marbres Carrare • Thème Bébé Pastel • Dunes Désert 4K</p>
+        <p class="text-[11px] text-slate-400">Pop Art • Wood • Marble • Baby Theme • Desert • Sortie Ultra-HD 4K</p>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
               <span>Détourage 100% Automatique à l'importation</span>
               <span class="text-[10px] px-2 py-0.2 rounded-full bg-pink-500/20 text-pink-300 font-mono font-bold">Ultra-HD 4K</span>
             </h4>
-            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur un fond HD (Pop Art, Bois, Marbre, Bébé ou Désert) pour l'appliquer en 1 clic !</p>
+            <p class="text-[11px] text-slate-300">Vos photos sont détourées dès l'ajout. Cliquez ensuite sur l'un des arrière-plans HD pour l'appliquer instantanément !</p>
           </div>
         </div>
 
@@ -163,7 +163,7 @@
     <aside class="w-full lg:w-[480px] bg-slate-900/95 border-t lg:border-t-0 lg:border-l border-slate-800 p-5 flex flex-col gap-4 shrink-0 shadow-2xl overflow-y-auto">
       
       <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Catalogue Fonds Pro InPixio & Remove.bg</h3>
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Arrière-plans Professionnels HD</h3>
         <span id="label-current-res" class="text-xs font-mono text-amber-400 font-bold">Rendu 4K (3840px)</span>
       </div>
 
@@ -184,24 +184,24 @@
             type="text"
             id="bg-search-input"
             oninput="handleSearch(event)"
-            placeholder="Rechercher (ex: chêne, carrare, pastel bébé, dunes sable, pop art)..."
+            placeholder="Rechercher par mot-clé (ex: pop, wood, marble, baby, desert)..."
             class="w-full pl-3 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
           />
         </div>
 
-        <!-- 5 Strict InPixio & Remove.bg Category Buttons -->
+        <!-- Category Filters System -->
         <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-bold">
-          <button id="cat-btn-popart" onclick="switchCategory('popart')" class="py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate">💥 Pop Art</button>
-          <button id="cat-btn-wood" onclick="switchCategory('wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Bois / Wood</button>
-          <button id="cat-btn-marble" onclick="switchCategory('marble')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marbre / Marble</button>
-          <button id="cat-btn-baby" onclick="switchCategory('baby')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🧸 Thème Baby</button>
-          <button id="cat-btn-desert" onclick="switchCategory('desert')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Désert de Sable</button>
-          <button id="cat-btn-studio" onclick="switchCategory('studio')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🎨 Studio Blanc/Noir</button>
+          <button id="cat-btn-all" onclick="filterCategory('All')" class="py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate">🌟 All</button>
+          <button id="cat-btn-popart" onclick="filterCategory('Pop Art')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">💥 Pop Art</button>
+          <button id="cat-btn-wood" onclick="filterCategory('Wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Wood</button>
+          <button id="cat-btn-marble" onclick="filterCategory('Marble')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marble</button>
+          <button id="cat-btn-baby" onclick="filterCategory('Baby Theme')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🧸 Baby</button>
+          <button id="cat-btn-desert" onclick="filterCategory('Desert')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏜️ Desert</button>
         </div>
 
-        <!-- Background items container -->
-        <div id="bg-cards-container" class="grid grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
-          <!-- Populated dynamically -->
+        <!-- Background items container (Grid) -->
+        <div id="bg-cards-container" class="grid grid-cols-2 gap-2.5 max-h-96 overflow-y-auto pr-1">
+          <!-- Populated dynamically from professionalBackgrounds array -->
         </div>
 
         <!-- Custom Background Uploader -->
@@ -321,106 +321,28 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- STRICT HIGH-DEFINITION INPIXIO & REMOVE.BG BACKGROUND DATABASE -->
+  <!-- EXACT PROFESSIONAL BACKGROUNDS DATA STRUCTURE -->
   <script>
-    function makeBgItem(id, label, photoId) {
-      return {
-        id: id,
-        label: label,
-        type: 'image',
-        url: 'https://images.unsplash.com/' + photoId + '?auto=format&fit=crop&w=1920&q=85',
-        thumb: 'https://images.unsplash.com/' + photoId + '?auto=format&fit=crop&w=400&q=70'
-      };
-    }
+    const professionalBackgrounds = [
+      // 1. POP ART (Couleurs vives, motifs dynamiques, comic book)
+      { id: 'pop-1', category: 'Pop Art', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1080' },
+      { id: 'pop-2', category: 'Pop Art', url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1080' },
 
-    // 1. POP ART (STYLE INPIXIO — COMIC BOOK, HALFTONE, RÉTRO-POP & COULEURS VIVES)
-    var BG_POPART = [
-      makeBgItem('pa1', 'Fresque Pop Art Comic Street Mural', 'photo-1579783900882-c0d3dad7b119'),
-      makeBgItem('pa2', 'Explosion de Couleurs Pop Art Splash', 'photo-1541701494587-cb58502866ab'),
-      makeBgItem('pa3', 'Toile Contemporaine Pop Art Galerie', 'photo-1579783902614-a3fb3927b675'),
-      makeBgItem('pa4', 'Texture Murale Rétro Comic Halftone', 'photo-1550684848-fac1c5b4e853'),
-      makeBgItem('pa5', 'Vagues Abstraites Pop Art Fluorescentes', 'photo-1550684376-efcbd6e3f031'),
-      makeBgItem('pa6', 'Collage Street Pop Art Métropolitain', 'photo-1578301978693-85fa9c0320b9'),
-      makeBgItem('pa7', 'Coulures de Peinture Pop Art Drips', 'photo-1569098644584-210bcd375b59'),
-      makeBgItem('pa8', 'Tourbillons Psychédéliques Rétro-Pop 70s', 'photo-1567095761054-7a02e69e5c43'),
-      makeBgItem('pa9', 'Peinture Acrylique Pop Art Vibrante', 'photo-1536924940846-227afb31e2a5'),
-      makeBgItem('pa10', 'Exposition Pop Art Studio Design', 'photo-1579783901586-d88db74b4fe5'),
-      makeBgItem('pa11', 'Motifs Memphis Rétro Milano 80s', 'photo-1520038410233-7141be7e6f97'),
-      makeBgItem('pa12', 'Surface Studio Pop Jaune & Rose', 'photo-1513519245088-0e12902e5a38')
-    ];
+      // 2. WOOD / BOIS (Textures premium, flatlay, tables élégantes)
+      { id: 'wood-1', category: 'Wood', url: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?q=80&w=1080' },
+      { id: 'wood-2', category: 'Wood', url: 'https://images.unsplash.com/photo-1532153955177-f59af40d6472?q=80&w=1080' },
 
-    // 2. WOOD / BOIS (STYLE INPIXIO — PLANCHES ÉLÉGANTES, FLATLAY TABLES EN CHÊNE OU NOYER)
-    var BG_WOOD = [
-      makeBgItem('w1', 'Table Chêne Massif Flatlay Naturel Chaud', 'photo-1533090161767-e6ffed986c88'),
-      makeBgItem('w2', 'Planches de Chêne Sombre Rustique Pro', 'photo-1546484396-fb3fc6f95f98'),
-      makeBgItem('w3', 'Parquet Point de Hongrie Chêne Doré', 'photo-1586023492125-27b2c045efd7'),
-      makeBgItem('w4', 'Pin Scandinave Clair Épuré Minimaliste', 'photo-1558618666-fcd25c85cd64'),
-      makeBgItem('w5', 'Noyer Exécutif Nervures Précieuses Flatlay', 'photo-1549490349-8643362247b5'),
-      makeBgItem('w6', 'Lattes Bois de Cèdre Brut Naturel', 'photo-1516455590571-18256e5bb9ff'),
-      makeBgItem('w7', 'Terrasse Bois Teck Soleil d’Été', 'photo-1505691938895-1758d7feb511'),
-      makeBgItem('w8', 'Grange Ancienne Bois Flotté Patiné', 'photo-1517646287270-a5a9ca602e5c'),
-      makeBgItem('w9', 'Table d’Architecte Bois Teck Sombre', 'photo-1541123437800-1bb1317badc2'),
-      makeBgItem('w10', 'Texture Bambou Naturel Verticale', 'photo-1538688525198-9b88f6f53126'),
-      makeBgItem('w11', 'Table Pin Miel Lumineuse Vue de Dessus', 'photo-1519710164239-da123dc03ef4'),
-      makeBgItem('w12', 'Contreplaqué Bouleau Clair Studio Pro', 'photo-1544457070-4cd773b4d71e')
-    ];
+      // 3. MARBLE / MARBRE (Luxueux, épuré, idéal pour produits)
+      { id: 'marble-1', category: 'Marble', url: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?q=80&w=1080' },
+      { id: 'marble-2', category: 'Marble', url: 'https://images.unsplash.com/photo-1598444458316-200a7479beba?q=80&w=1080' },
 
-    // 3. MARBLE / MARBRE (STYLE INPIXIO — MARBRE BLANC CARRARA, CALACATTA OR, NOIR MARQUINA)
-    var BG_MARBLE = [
-      makeBgItem('mb1', 'Marbre Blanc Carrara Veines Douces Flatlay', 'photo-1600585154340-be6161a56a0c'),
-      makeBgItem('mb2', 'Marbre Calacatta Or Nervures Dorées Luxe', 'photo-1590381105924-c72589b9ef3f'),
-      makeBgItem('mb3', 'Marbre Noir Marquina Lignes Blanches', 'photo-1600585152220-90363fe7e115'),
-      makeBgItem('mb4', 'Marbre Vert Impérial Émeraude Somptueux', 'photo-1618221195710-dd6b41faaea6'),
-      makeBgItem('mb5', 'Travertin Beige Romain Texturé Épuré', 'photo-1600565193348-f74bd3c7ccdf'),
-      makeBgItem('mb6', 'Marbre Rose Quartz Douceur Pastel', 'photo-1618219908412-a29a1bb7b86e'),
-      makeBgItem('mb7', 'Terrazzo Minéral Multi-Pierres Design', 'photo-1502672260266-1c1ef2d93688'),
-      makeBgItem('mb8', 'Marbre Bleu Agate Océan Céleste', 'photo-1584622650111-993a426fbf0a'),
-      makeBgItem('mb9', 'Marbre Blanc Pur Sans Défaut Studio 4K', 'photo-1534438327276-14e5300c3a48'),
-      makeBgItem('mb10', 'Granit Noir Absolu Finition Cuir Pro', 'photo-1507679799987-c73779587ccf'),
-      makeBgItem('mb11', 'Onyx Rétroéclairé Translucide Doré', 'photo-1512917774080-9991f1c4c750'),
-      makeBgItem('mb12', 'Dalles Marbre Palace Grandeur & Reflets', 'photo-1582719478250-c89cae4dc85b')
-    ];
+      // 4. THÈME BABY (AUCUN BÉBÉ SUR LA PHOTO : juste des ambiances douces, pastel, nuages, tricot pour incruster un bébé)
+      { id: 'baby-1', category: 'Baby Theme', url: 'https://images.unsplash.com/photo-1555448248-2571daf6344b?q=80&w=1080' },
+      { id: 'baby-2', category: 'Baby Theme', url: 'https://images.unsplash.com/photo-1616047242145-c1fc342ec197?q=80&w=1080' },
 
-    // 4. THÈME "BABY" (STYLE INPIXIO — SANS BÉBÉ : COULEURS PASTEL, TRICOT, ÉTOILES, NUAGES)
-    var BG_BABY = [
-      makeBgItem('bb1', 'Ciel Douceur Nuages Pastel & Rêves', 'photo-1513542789411-b6a5d4f31634'),
-      makeBgItem('bb2', 'Étoiles d’Or Scintillantes & Bokeh Féerique', 'photo-1534447677768-be436bb09401'),
-      makeBgItem('bb3', 'Douceur Pastel Horizon Menthe & Pêche', 'photo-1507525428034-b723cf961d3e'),
-      makeBgItem('bb4', 'Lin Naturel Beige & Lumière Solaire Douce', 'photo-1586023492125-27b2c045efd7'),
-      makeBgItem('bb5', 'Bleu Ciel Pastel & Bulles de Rêve Flottantes', 'photo-1533090161767-e6ffed986c88'),
-      makeBgItem('bb6', 'Feuillage Eucalyptus Doux & Fond Crème Pur', 'photo-1506126613408-eca07ce68773'),
-      makeBgItem('bb7', 'Confettis Pastel & Guirlandes Douces Floues', 'photo-1585320806297-9794b3e4eeae'),
-      makeBgItem('bb8', 'Texture Laine Tricotée & Coton Moelleux', 'photo-1540555700478-4be289fbecef'),
-      makeBgItem('bb9', 'Guirlande Lumineuse Nuit Douce & Féerique', 'photo-1513151233558-d860c5398176'),
-      makeBgItem('bb10', 'Pétales de Rose Poudré Flou Artistique', 'photo-1508873696983-2df5293cb325'),
-      makeBgItem('bb11', 'Vert Sauge Doux & Fond Vanille Minimaliste', 'photo-1544457070-4cd773b4d71e'),
-      makeBgItem('bb12', 'Dégradé Pastel Coton Rose & Lilas Céleste', 'photo-1517646287270-a5a9ca602e5c')
-    ];
-
-    // 5. DÉSERT DE SABLE (STYLE REMOVE.BG — DUNES MINIMALISTES, LISSES & ÉPURÉES)
-    var BG_DESERT = [
-      makeBgItem('ds1', 'Dunes Rouges de Sossusvlei Arête Parfaite', 'photo-1509316975850-ff9c5deb0cd9'),
-      makeBgItem('ds2', 'Ondulations Naturelles Sable Doré Sahara', 'photo-1518709268805-4e9042af9f23'),
-      makeBgItem('ds3', 'Crête de Sable Pure & Ciel Clair Minimaliste', 'photo-1469854523086-cc02fe5d8800'),
-      makeBgItem('ds4', 'Désert Wadi Rum Sable Ocre & Rouge Épuré', 'photo-1547234935-80c7145ec969'),
-      makeBgItem('ds5', 'Texture de Sable Fin Doré Vagues Régulières', 'photo-1470071459604-3b5ec3a7fe05'),
-      makeBgItem('ds6', 'Ombres Douces sur les Dunes du Sahara', 'photo-1516426122078-c23e76319801'),
-      makeBgItem('ds7', 'Lumière Dorée & Courbes Soyeuses de Sable', 'photo-1531366936337-7c912a4589a7'),
-      makeBgItem('ds8', 'Surface Minimaliste Studio Sable Chaud Pro', 'photo-1448375240586-882707db888b'),
-      makeBgItem('ds9', 'Vallée Désertique Sable Pur sous Ciel Bleu', 'photo-1506744038136-46273834b3fb'),
-      makeBgItem('ds10', 'Sable Ambré Texturé & Heure Dorée Sublime', 'photo-1470770841072-f978cf4d019e'),
-      makeBgItem('ds11', 'Mer de Dunes Majestueuse & Infinie', 'photo-1528127269322-539801943592'),
-      makeBgItem('ds12', 'Pentes Soyeuses de Sable au Crépuscule', 'photo-1517760444937-f6397edcbbcd')
-    ];
-
-    // 6. STUDIO UNIS PRO
-    var BG_STUDIO = [
-      { id: 'transp', label: 'Transparent', value: 'transparent', class: 'bg-checkerboard' },
-      { id: 'white', label: 'Blanc Studio Pur', value: '#ffffff', class: 'bg-white' },
-      { id: 'black', label: 'Noir Absolu OLED', value: '#08080a', class: 'bg-black' },
-      { id: 'slate', label: 'Gris Ardoise Pro', value: '#1e293b', class: 'bg-slate-800' },
-      { id: 'sand', label: 'Sable Chaud Studio', value: '#fef3c7', class: 'bg-amber-100 text-black' },
-      { id: 'cream', label: 'Crème Vanille', value: '#fffbeb', class: 'bg-amber-50 text-black' }
+      // 5. DESERT SAND (Minimaliste, lisse, style Remove.bg)
+      { id: 'desert-1', category: 'Desert', url: 'https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?q=80&w=1080' },
+      { id: 'desert-2', category: 'Desert', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=1080' }
     ];
   </script>
 
@@ -429,7 +351,7 @@
     var images = [];
     var selectedIds = new Set();
     var applyToAll = true;
-    var currentBgCategory = 'popart';
+    var currentFilterCategory = 'All';
     var outputQuality = '4k';
     var currentSearch = '';
     var watermarkConfig = { enabled: false, text: '© PIXELBATCH AI', color: '#ffffff', opacity: 85 };
@@ -514,7 +436,7 @@
       });
     }
 
-    function compositeItem(item, bgConfig) {
+    function compositeItem(item, bgItem) {
       return new Promise(function(resolve) {
         var subjectImg = new Image();
         if (item.cutoutUrl.indexOf('http') === 0) subjectImg.crossOrigin = 'anonymous';
@@ -569,15 +491,11 @@
               resolve(item);
             }
 
-            if (bgConfig.value === 'transparent') {
+            if (!bgItem || bgItem.value === 'transparent') {
               finishRender();
-            } else if (bgConfig.type === 'solid') {
-              ctx.fillStyle = bgConfig.value;
-              ctx.fillRect(0, 0, w, h);
-              finishRender();
-            } else if (bgConfig.url) {
+            } else if (bgItem.url) {
               var bgImg = new Image();
-              if (bgConfig.url.indexOf('http') === 0) bgImg.crossOrigin = 'anonymous';
+              if (bgItem.url.indexOf('http') === 0) bgImg.crossOrigin = 'anonymous';
               var loaded = false;
               var bgTimer = setTimeout(function() {
                 if (!loaded) {
@@ -586,7 +504,7 @@
                   ctx.fillRect(0, 0, w, h);
                   finishRender();
                 }
-              }, 2500);
+              }, 3000);
 
               bgImg.onload = function() {
                 if (!loaded) {
@@ -605,7 +523,7 @@
                   finishRender();
                 }
               };
-              bgImg.src = bgConfig.url;
+              bgImg.src = bgItem.url;
               if (bgImg.complete) {
                 bgImg.onload();
               }
@@ -630,7 +548,7 @@
           '<div class="col-span-full flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-pink-500 rounded-3xl p-12 text-center bg-slate-900/40">' +
           '<div class="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6 text-3xl">🪄</div>' +
           '<h2 class="text-xl font-bold text-white mb-2">Glissez vos photos ici pour un Détourage Automatique</h2>' +
-          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Choisissez ensuite un fond InPixio & Remove.bg (Pop Art, Bois, Marbre, Bébé ou Désert) pour l\'appliquer en 1 clic !</p>' +
+          '<p class="text-sm text-slate-400 max-w-md">Le fond est retiré dès l\'import. Cliquez ensuite sur un arrière-plan HD (Pop Art, Wood, Marble, Baby ou Desert) pour l\'appliquer en 1 clic !</p>' +
           '</div>';
         return;
       }
@@ -665,64 +583,51 @@
 
     function renderBackgroundCards() {
       var container = document.getElementById('bg-cards-container');
-      var list = [];
-      if (currentBgCategory === 'popart') list = BG_POPART;
-      else if (currentBgCategory === 'wood') list = BG_WOOD;
-      else if (currentBgCategory === 'marble') list = BG_MARBLE;
-      else if (currentBgCategory === 'baby') list = BG_BABY;
-      else if (currentBgCategory === 'desert') list = BG_DESERT;
-      else if (currentBgCategory === 'studio') list = BG_STUDIO;
+      var list = professionalBackgrounds;
 
-      if (currentSearch) {
-        list = list.filter(function(item) {
-          return item.label.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1;
+      // Filter by category
+      if (currentFilterCategory !== 'All') {
+        list = list.filter(function(bg) {
+          return bg.category === currentFilterCategory;
         });
+      }
+
+      // Filter by search query
+      if (currentSearch) {
+        var query = currentSearch.toLowerCase();
+        list = list.filter(function(bg) {
+          return bg.category.toLowerCase().indexOf(query) !== -1 || bg.id.toLowerCase().indexOf(query) !== -1;
+        });
+      }
+
+      if (list.length === 0) {
+        container.innerHTML = '<div class="col-span-2 py-8 text-center text-xs text-slate-500">Aucun arrière-plan trouvé</div>';
+        return;
       }
 
       var html = '';
-      if (currentBgCategory === 'studio') {
-        html += '<div class="col-span-2 grid grid-cols-3 gap-2">';
-        list.forEach(function(s, idx) {
-          html += '<button onclick="applyBgAtIndex(' + idx + ')" class="h-14 rounded-xl border transition-all hover:scale-105 flex flex-col items-center justify-center ' + s.class + ' border-slate-700 shadow-sm" title="' + s.label + '">' +
-            '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-black/50 text-white truncate max-w-[85px]">' + s.label + '</span>' +
-            '</button>';
-        });
-        html += '</div>';
-      } else {
-        list.forEach(function(item, idx) {
-          var bgImg = item.thumb || item.url;
-          html += '<button onclick="applyBgAtIndex(' + idx + ')" class="group relative h-24 rounded-2xl overflow-hidden border border-slate-700 hover:border-pink-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2 bg-slate-900 shadow-md">' +
-            '<img src="' + bgImg + '" alt="' + item.label + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />' +
+      list.forEach(function(bg) {
+        html += 
+          '<button onclick="applySpecificBg(\'' + bg.id + '\')" class="group relative h-28 rounded-2xl overflow-hidden border border-slate-800 hover:border-pink-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2.5 bg-slate-900 shadow-lg">' +
+            '<img src="' + bg.url + '" alt="' + bg.category + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />' +
             '<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>' +
-            '<span class="relative z-10 text-[11px] font-bold text-white drop-shadow truncate">' + item.label + '</span>' +
-            '</button>';
-        });
-      }
+            '<div class="relative z-10 flex items-center justify-between w-full">' +
+              '<span class="text-xs font-bold text-white drop-shadow truncate">' + bg.category + '</span>' +
+              '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/60 text-slate-300 border border-white/10">' + bg.id + '</span>' +
+            '</div>' +
+          '</button>';
+      });
 
       container.innerHTML = html;
     }
 
-    async function applyBgAtIndex(idx) {
+    async function applySpecificBg(bgId) {
       if (images.length === 0) {
-        showToast('Aucune photo', 'Importez vos photos d’abord !');
+        showToast('Aucune photo', 'Importez d’abord vos photos !');
         return;
       }
 
-      var list = [];
-      if (currentBgCategory === 'popart') list = BG_POPART;
-      else if (currentBgCategory === 'wood') list = BG_WOOD;
-      else if (currentBgCategory === 'marble') list = BG_MARBLE;
-      else if (currentBgCategory === 'baby') list = BG_BABY;
-      else if (currentBgCategory === 'desert') list = BG_DESERT;
-      else if (currentBgCategory === 'studio') list = BG_STUDIO;
-
-      if (currentSearch) {
-        list = list.filter(function(item) {
-          return item.label.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1;
-        });
-      }
-
-      var bg = list[idx];
+      var bg = professionalBackgrounds.find(function(item) { return item.id === bgId; });
       if (!bg) return;
 
       var overlay = document.getElementById('progress-overlay');
@@ -732,7 +637,7 @@
 
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
-      statusText.textContent = 'Application du fond en ' + outputQuality.toUpperCase() + '...';
+      statusText.textContent = 'Application de l\'arrière-plan ' + bg.category + ' en ' + outputQuality.toUpperCase() + '...';
 
       for (var i = 0; i < images.length; i++) {
         if (applyToAll || selectedIds.has(images[i].id)) {
@@ -745,7 +650,32 @@
       overlay.classList.add('hidden');
       overlay.classList.remove('flex');
       renderGallery();
-      showToast('Rendu Ultra-HD Prêt !', 'Fond appliqué en qualité ' + outputQuality.toUpperCase() + ' sur ' + images.length + ' photos');
+      showToast('Arrière-plan Appliqué', bg.category + ' appliqué en qualité ' + outputQuality.toUpperCase() + ' sur ' + images.length + ' photo(s)');
+    }
+
+    function filterCategory(cat) {
+      currentFilterCategory = cat;
+      var catKeys = {
+        'All': 'all',
+        'Pop Art': 'popart',
+        'Wood': 'wood',
+        'Marble': 'marble',
+        'Baby Theme': 'baby',
+        'Desert': 'desert'
+      };
+
+      ['All', 'Pop Art', 'Wood', 'Marble', 'Baby Theme', 'Desert'].forEach(function(c) {
+        var btn = document.getElementById('cat-btn-' + catKeys[c]);
+        if (btn) {
+          if (c === cat) {
+            btn.className = 'py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate';
+          } else {
+            btn.className = 'py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate';
+          }
+        }
+      });
+
+      renderBackgroundCards();
     }
 
     function setOutputQuality(q) {
@@ -762,21 +692,6 @@
         }
       });
       showToast('Résolution', 'Qualité de sortie réglée en ' + q.toUpperCase());
-    }
-
-    function switchCategory(cat) {
-      currentBgCategory = cat;
-      ['popart', 'wood', 'marble', 'baby', 'desert', 'studio'].forEach(function(c) {
-        var btn = document.getElementById('cat-btn-' + c);
-        if (btn) {
-          if (c === cat) {
-            btn.className = 'py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate';
-          } else {
-            btn.className = 'py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate';
-          }
-        }
-      });
-      renderBackgroundCards();
     }
 
     function switchToolTab(tab) {
@@ -881,7 +796,7 @@
       overlay.classList.add('hidden');
       overlay.classList.remove('flex');
       renderGallery();
-      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez un fond InPixio pour l\'appliquer immédiatement !');
+      showToast('Détourage 100% Réussi !', 'Vos ' + count + ' photos sont détourées. Choisissez un arrière-plan HD pour l\'appliquer immédiatement !');
     }
 
     function loadDemoImages() {
@@ -915,7 +830,7 @@
       selectedIds.clear();
       images.forEach(function(img) { selectedIds.add(img.id); });
       renderGallery();
-      showToast('Démos Chargées', 'Photos prêtes pour tester les fonds InPixio et le Pop Art !');
+      showToast('Démos Chargées', 'Photos prêtes pour tester les arrière-plans HD !');
     }
 
     function downloadSingleItem(id) {
@@ -964,7 +879,7 @@
       if (!file) return;
       var reader = new FileReader();
       reader.onload = function(event) {
-        var customBg = { type: 'image', url: event.target.result };
+        var customBg = { id: 'custom-bg', category: 'Custom', url: event.target.result };
         applyCustomBgDirect(customBg);
       };
       reader.readAsDataURL(file);
