@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBatch AI Studio — 25 Arrière-plans Ultra-HD Professionnels</title>
-  <meta name="description" content="Studio professionnel de traitement d'images par lots (1 à 1000 photos). Détourage 100% automatique, rendu Ultra-HD 4K, 25 fonds d'écran haute définition : Wood, Marbles, Pop Art BD, Dégradés Irisés et Macro Botanique." />
+  <title>PixelBatch AI Studio — Arrière-plans HD Professionnels</title>
+  <meta name="description" content="Studio professionnel de traitement d'images par lots. Détourage 100% automatique, rendu Ultra-HD 4K, 25 fonds d'écran haute définition garantis 100% visibles." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,16 +53,6 @@
       background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
       background-color: #0f172a;
     }
-
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-    .skeleton-loader {
-      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.8s infinite;
-    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased font-sans min-h-screen flex flex-col">
@@ -80,10 +70,10 @@
           </span>
           <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
-            25 FONDS HD PRO
+            25 FONDS HD VISIBLES
           </span>
         </div>
-        <p class="text-[11px] text-slate-400">Wood • Marbles • Pop Art BD • Dégradés Irisés • Macro Botanique • Sortie 4K</p>
+        <p class="text-[11px] text-slate-400">Wood • Marbles • Pop Art BD • Irisés • Botanique • Sortie 4K</p>
       </div>
     </div>
 
@@ -194,7 +184,7 @@
             type="text"
             id="bg-search-input"
             oninput="handleSearch(event)"
-            placeholder="Rechercher (ex: chevrons, carrare, bulles bd, irisé, monstera)..."
+            placeholder="Rechercher (ex: parquet, carrare, pop art, holographic, leaves)..."
             class="w-full pl-3 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
           />
         </div>
@@ -204,14 +194,14 @@
           <button id="cat-btn-all" onclick="filterCategory('All')" class="py-2 px-1 rounded-lg bg-pink-600 text-white font-black truncate">🌟 Tous (25)</button>
           <button id="cat-btn-wood" onclick="filterCategory('Wood')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🪵 Wood (5)</button>
           <button id="cat-btn-marbles" onclick="filterCategory('Marbles')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🏛️ Marbles (5)</button>
-          <button id="cat-btn-popart" onclick="filterCategory('Pop Art')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">💥 Pop Art BD (5)</button>
-          <button id="cat-btn-iridescent" onclick="filterCategory('Iridescent Gradients')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🌈 Irisés (5)</button>
-          <button id="cat-btn-botanic" onclick="filterCategory('Macro Botanique')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🌿 Botanique (5)</button>
+          <button id="cat-btn-popart" onclick="filterCategory('Pop Art BD')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">💥 Pop Art (5)</button>
+          <button id="cat-btn-iridescent" onclick="filterCategory('Irisés')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🌈 Irisés (5)</button>
+          <button id="cat-btn-botanic" onclick="filterCategory('Botanique')" class="py-2 px-1 rounded-lg text-slate-400 hover:text-white truncate">🌿 Botanique (5)</button>
         </div>
 
         <!-- Background items container (Grid) -->
         <div id="bg-cards-container" class="grid grid-cols-2 gap-2.5 max-h-96 overflow-y-auto pr-1">
-          <!-- Populated dynamically with the 25 HD images -->
+          <!-- Populated dynamically with exact cards -->
         </div>
 
         <!-- Custom Background Uploader -->
@@ -331,169 +321,24 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- 25 HIGH-DEFINITION MASTERPIECE BACKGROUNDS (5 PER THEME) -->
+  <!-- EXACT JAVASCRIPT CODE SUPPLIED BY USER -->
   <script>
-    const professionalBackgrounds = [
-      // 1. WOOD (BOIS) — 5 IMAGES HD RICHES & TEXTURÉES
-      {
-        id: 'wood-1',
-        title: 'Parquet Chevrons Chêne Doré',
-        category: 'Wood',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('premium herringbone chevron oak wood parquet floor texture luxury architectural geometric wooden pattern flatlay 8k highly detailed') + '?width=1080&height=1080&nologo=true&seed=101'
-      },
-      {
-        id: 'wood-2',
-        title: 'Marqueterie Géométrique Noyer & Chêne',
-        category: 'Wood',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('intricate geometric inlaid wood marquetry luxury parquet table top rich walnut and golden oak woodcraft texture 8k') + '?width=1080&height=1080&nologo=true&seed=102'
-      },
-      {
-        id: 'wood-3',
-        title: 'Bûches Empilées & Rondins Coupés',
-        category: 'Wood',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('macro closeup of stacked rustic firewood logs and cut tree rings detailed natural timber texture warm lighting 8k') + '?width=1080&height=1080&nologo=true&seed=103'
-      },
-      {
-        id: 'wood-4',
-        title: 'Bois Flotté Côtier Texturé',
-        category: 'Wood',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('weathered textured coastal driftwood surface with rich organic wood grain and natural cracks studio flatlay 8k') + '?width=1080&height=1080&nologo=true&seed=104'
-      },
-      {
-        id: 'wood-5',
-        title: 'Lattes Teck & Acajou Massif Studio',
-        category: 'Wood',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('polished dark teak and mahogany wood slatted wall texture with subtle warm luxury ambient lighting 8k') + '?width=1080&height=1080&nologo=true&seed=105'
-      },
-
-      // 2. MARBLES (MARBRE) — 5 IMAGES DE LUXE, COLORÉS EXOTIQUES & PODIUMS
-      {
-        id: 'marble-1',
-        title: 'Marbre Bleu Lapis-Lazuli & Veines d’Or',
-        category: 'Marbles',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('exotic deep blue lapis lazuli and celestial blue marble texture with shimmering gold and white mineral veins luxury flatlay 8k') + '?width=1080&height=1080&nologo=true&seed=201'
-      },
-      {
-        id: 'marble-2',
-        title: 'Marbre Vert Impérial Émeraude & Or',
-        category: 'Marbles',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('luxurious imperial emerald green marble texture with bold golden calcite veins and polished mirror stone surface 8k') + '?width=1080&height=1080&nologo=true&seed=202'
-      },
-      {
-        id: 'marble-3',
-        title: 'Marbre Noir Onyx & Veinures Cuivrées',
-        category: 'Marbles',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('black onyx marble stone with dramatic electric gold and copper veins luxury product backdrop 8k') + '?width=1080&height=1080&nologo=true&seed=203'
-      },
-      {
-        id: 'marble-4',
-        title: 'Mosaïque 3D Marbre Carrare & Laiton Doré',
-        category: 'Marbles',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('3D isometric mosaic geometric marble tiles composition combining white carrara marble and gold brass inlays 8k') + '?width=1080&height=1080&nologo=true&seed=204'
-      },
-      {
-        id: 'marble-5',
-        title: 'Podium Carrare, Or Brossé & Cuir Fin',
-        category: 'Marbles',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('luxury product display podium made of white carrara marble cylinder with brushed gold trim and cream leather texture background 8k') + '?width=1080&height=1080&nologo=true&seed=205'
-      },
-
-      // 3. POP ART (STYLE BANDE DESSINÉE) — 5 IMAGES GRAPHIQUES AUDACIEUSES & HALPTONE
-      {
-        id: 'pop-1',
-        title: 'Bulle de Dialogue & Trame Halftone BD',
-        category: 'Pop Art',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('bold pop art comic book background with large blank dialogue speech bubble, detailed halftone ben-day dots, vivid cyan and bright yellow 8k') + '?width=1080&height=1080&nologo=true&seed=301'
-      },
-      {
-        id: 'pop-2',
-        title: 'Explosion Étoilée Pop Art Surchargée',
-        category: 'Pop Art',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('dramatic retro pop art comic explosion starburst with halftone pattern vibrant saturated red magenta and yellow speedlines 8k') + '?width=1080&height=1080&nologo=true&seed=302'
-      },
-      {
-        id: 'pop-3',
-        title: 'Composition Multi-Panneaux BD Comic',
-        category: 'Pop Art',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('multi-panel comic book grid layout empty pop art panels with colorful retro dot textures and bold black borders 8k') + '?width=1080&height=1080&nologo=true&seed=303'
-      },
-      {
-        id: 'pop-4',
-        title: 'Ondes d’Impact & Rayons Pop Dynamiques',
-        category: 'Pop Art',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('dynamic pop art comic sound wave impact rays with vibrant turquoise, orange and hot pink halftone gradient dots 8k') + '?width=1080&height=1080&nologo=true&seed=304'
-      },
-      {
-        id: 'pop-5',
-        title: 'Collage Graphique Comic Néon Surchargé',
-        category: 'Pop Art',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('modern pop art graphic collage with geometric comic explosions, abstract halftone textures and neon saturated colors 8k') + '?width=1080&height=1080&nologo=true&seed=305'
-      },
-
-      // 4. IRIDESCENT GRADIENTS (DÉGRADÉS IRISÉS) — 5 IMAGES LUMINEUSES & NACRÉES
-      {
-        id: 'iridescent-1',
-        title: 'Satin Nacré Pastel & Or Rose Liquide',
-        category: 'Iridescent Gradients',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('luminous pearlescent iridescent liquid gradient transition from soft pastel teal to rose gold silk waves ethereal bright 8k') + '?width=1080&height=1080&nologo=true&seed=401'
-      },
-      {
-        id: 'iridescent-2',
-        title: 'Hologramme Chromatique Arc-en-Ciel',
-        category: 'Iridescent Gradients',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('holographic iridescent foil texture with bright chromatic rainbow reflection and smooth mother-of-pearl sheen 8k') + '?width=1080&height=1080&nologo=true&seed=402'
-      },
-      {
-        id: 'iridescent-3',
-        title: 'Dégradé Émeraude, Violet & Or Fondu',
-        category: 'Iridescent Gradients',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('vibrant jewel-toned iridescent mesh gradient deep emerald cyan violet and liquid molten gold luminous glow 8k') + '?width=1080&height=1080&nologo=true&seed=403'
-      },
-      {
-        id: 'iridescent-4',
-        title: 'Prisme Opalescent & Reflets Perle',
-        category: 'Iridescent Gradients',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('opalescent prism gradient waves with pearly satin reflections pastel pink sky blue and shimmering gold 8k') + '?width=1080&height=1080&nologo=true&seed=404'
-      },
-      {
-        id: 'iridescent-5',
-        title: 'Cristal Liquide Magenta & Turquoise',
-        category: 'Iridescent Gradients',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('futuristic liquid crystal iridescent surface with rich magenta violet and turquoise flowing gradient light 8k') + '?width=1080&height=1080&nologo=true&seed=405'
-      },
-
-      // 5. MACRO BOTANIQUE STYLISÉE — 5 IMAGES MACRO PRÉCISES & RICHES
-      {
-        id: 'botanic-1',
-        title: 'Nervures Dorées Feuille de Monstera',
-        category: 'Macro Botanique',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('extreme macro closeup of lush monstera leaf showing intricate glowing backlit golden-green veins, shallow depth of field 8k') + '?width=1080&height=1080&nologo=true&seed=501'
-      },
-      {
-        id: 'botanic-2',
-        title: 'Spirale Sacrée Fougère & Gouttes de Rosée',
-        category: 'Macro Botanique',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('macro photography of spiral fern frond fiddlehead with sacred geometry details, deep emerald green and dew drops bokeh 8k') + '?width=1080&height=1080&nologo=true&seed=502'
-      },
-      {
-        id: 'botanic-3',
-        title: 'Velours Pétale Exotique Magenta & Violet',
-        category: 'Macro Botanique',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('close up abstract macro of vibrant velvety exotic flower petal textures with rich magenta and deep violet gradients 8k') + '?width=1080&height=1080&nologo=true&seed=503'
-      },
-      {
-        id: 'botanic-4',
-        title: 'Plissé Géométrique Feuille de Palmier',
-        category: 'Macro Botanique',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('macro detail of exotic palm leaf accordion pleated texture with sharp geometric ridges and saturated warm green tones 8k') + '?width=1080&height=1080&nologo=true&seed=504'
-      },
-      {
-        id: 'botanic-5',
-        title: 'Rosette Succulente Menthe & Pointes Corail',
-        category: 'Macro Botanique',
-        url: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('stylized macro photography of succulent plant rosette geometry with pastel mint and coral tipped leaves shallow focus 8k') + '?width=1080&height=1080&nologo=true&seed=505'
-      }
+    const categoriesData = [
+      { id: 'w', name: 'Wood', prompts: ['chevron parquet oak wood', 'stacked logs texture', 'dark walnut wood flatlay', 'polished mahogany surface', 'driftwood texture'] },
+      { id: 'm', name: 'Marbles', prompts: ['white carrara marble gold veins', 'deep blue exotic marble', 'emerald green marble texture', 'black onyx marble', '3d geometric marble tiles'] },
+      { id: 'p', name: 'Pop Art BD', prompts: ['vibrant pop art halftone background', 'comic book burst empty', 'retro comic dots background', 'superhero dynamic action lines', 'pop art speech bubble pattern'] },
+      { id: 'i', name: 'Irisés', prompts: ['holographic iridescent gradient foil', 'pastel pearlescent fluid background', 'neon holographic fluid wave', 'soft pastel gradient aesthetic', 'metallic iridescent texture'] },
+      { id: 'b', name: 'Botanique', prompts: ['macro green leaf veins texture', 'dark moody tropical leaves', 'close up fern unfurling', 'macro exotic flower petals', 'stylized floral dark botanical'] }
     ];
+
+    const professionalBackgrounds = categoriesData.flatMap(cat => 
+      cat.prompts.map((prompt, index) => ({
+        id: `${cat.id}-${index}`,
+        category: cat.name,
+        title: prompt,
+        url: `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ' high resolution premium texture')}?width=800&height=800&nologo=true`
+      }))
+    );
   </script>
 
   <!-- PURE NATIVE JAVASCRIPT APP LOGIC -->
@@ -757,16 +602,17 @@
 
       var html = '';
       list.forEach(function(bg) {
+        // EXACT CARD TEMPLATE REQUESTED BY USER
         html += 
-          '<button onclick="applySpecificBg(\'' + bg.id + '\')" class="group relative h-28 rounded-2xl overflow-hidden border border-slate-800 hover:border-pink-500 hover:scale-[1.02] transition-all text-left flex flex-col justify-end p-2.5 bg-slate-900 shadow-lg">' +
-            '<div class="skeleton-loader absolute inset-0 w-full h-full"></div>' +
-            '<img src="' + bg.url + '" alt="' + bg.title + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-300 opacity-0" onload="this.classList.remove(\'opacity-0\'); this.previousElementSibling?.remove();" onerror="this.classList.remove(\'opacity-0\');" />' +
-            '<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none"></div>' +
-            '<div class="relative z-10 flex flex-col w-full pointer-events-none">' +
-              '<span class="text-xs font-bold text-white drop-shadow truncate">' + bg.title + '</span>' +
-              '<span class="text-[9px] font-mono text-pink-300">' + bg.category + '</span>' +
+          '<div onclick="applySpecificBg(\'' + bg.id + '\')" class="relative overflow-hidden rounded-xl bg-gray-800 border border-gray-700 hover:border-pink-500 cursor-pointer h-40 flex flex-col justify-end p-3 group shadow-lg transition-all">' +
+            '<!-- L\'IMAGE VISIBLE EST ICI -->' +
+            '<img src="' + bg.url + '" alt="' + bg.title + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300 z-0" onerror="this.src=\'https://placehold.co/800x800/2a2a2a/ffffff?text=Erreur+Image\';" />' +
+            '<!-- LE TEXTE PAR DESSUS -->' +
+            '<div class="relative z-10 bg-black/60 p-2 rounded-lg backdrop-blur-sm pointer-events-none">' +
+              '<h3 class="text-white text-xs font-bold line-clamp-2">' + bg.title + '</h3>' +
+              '<p class="text-[10px] text-pink-400 mt-1">' + bg.category + '</p>' +
             '</div>' +
-          '</button>';
+          '</div>';
       });
 
       container.innerHTML = html;
@@ -810,12 +656,12 @@
         'All': 'all',
         'Wood': 'wood',
         'Marbles': 'marbles',
-        'Pop Art': 'popart',
-        'Iridescent Gradients': 'iridescent',
-        'Macro Botanique': 'botanic'
+        'Pop Art BD': 'popart',
+        'Irisés': 'iridescent',
+        'Botanique': 'botanic'
       };
 
-      ['All', 'Wood', 'Marbles', 'Pop Art', 'Iridescent Gradients', 'Macro Botanique'].forEach(function(c) {
+      ['All', 'Wood', 'Marbles', 'Pop Art BD', 'Irisés', 'Botanique'].forEach(function(c) {
         var btn = document.getElementById('cat-btn-' + catKeys[c]);
         if (btn) {
           if (c === cat) {
@@ -981,7 +827,7 @@
       selectedIds.clear();
       images.forEach(function(img) { selectedIds.add(img.id); });
       renderGallery();
-      showToast('Démos Chargées', 'Photos prêtes pour tester les 25 arrière-plans Ultra-HD !');
+      showToast('Démos Chargées', 'Photos prêtes pour tester les 25 arrière-plans HD !');
     }
 
     function downloadSingleItem(id) {
